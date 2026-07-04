@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benny Labs Foundation — Turning ideas into things that help people</title>
+<meta name="description" content="Benny Labs Foundation is a 501(c)(3) nonprofit public charity that champions invention, creativity, and hands-on learning — helping everyday inventors turn ideas into real things that improve lives.">
+<meta property="og:title" content="Benny Labs Foundation">
+<meta property="og:description" content="A 501(c)(3) nonprofit championing invention, creativity, and hands-on learning.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#4f46e5">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%234f46e5'/%3E%3Cpath d='M40 20h20v22l16 30a8 8 0 0 1-7 12H31a8 8 0 0 1-7-12l16-30z' fill='none' stroke='%23fbbf24' stroke-width='6' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='60' r='5' fill='%23fbbf24'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --indigo:#4f46e5;
+    --indigo-deep:#3730a3;
+    --ink:#0f172a;
+    --slate:#475569;
+    --slate-light:#64748b;
+    --amber:#f59e0b;
+    --amber-soft:#fbbf24;
+    --paper:#ffffff;
+    --wash:#f8fafc;
+    --line:#e2e8f0;
+    --radius:18px;
+    --shadow:0 10px 40px -12px rgba(15,23,42,.18);
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    font-weight:650;font-size:1rem;text-decoration:none;
+    padding:13px 24px;border-radius:999px;border:2px solid transparent;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    cursor:pointer;white-space:nowrap;
+  }
+  .btn-primary{background:var(--amber);color:#3b2600;box-shadow:0 8px 22px -8px rgba(245,158,11,.7)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 26px -8px rgba(245,158,11,.85)}
+  .btn-ghost{border-color:rgba(255,255,255,.5);color:#fff}
+  .btn-ghost:hover{background:rgba(255,255,255,.12)}
+  .btn-outline{border-color:var(--indigo);color:var(--indigo)}
+  .btn-outline:hover{background:var(--indigo);color:#fff;transform:translateY(-2px)}
+
+  /* ---------- Header ---------- */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:750;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+  .brand .mark{width:36px;height:36px;flex:none}
+  .brand small{display:block;font-weight:500;font-size:.72rem;color:var(--slate-light);letter-spacing:.02em;margin-top:-2px}
+  .nav-links{display:flex;align-items:center;gap:28px}
+  .nav-links a{text-decoration:none;color:var(--slate);font-weight:550;font-size:.95rem}
+  .nav-links a:hover{color:var(--indigo)}
+  .nav-links .btn{padding:9px 18px;font-size:.9rem}
+  @media(max-width:760px){.nav-links a.navlink{display:none}}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;overflow:hidden;color:#fff;background:linear-gradient(135deg,var(--indigo-deep) 0%,var(--indigo) 55%,#6366f1 100%)}
+  .hero::before{content:"";position:absolute;inset:0;background:
+     radial-gradient(600px 300px at 85% 10%,rgba(251,191,36,.28),transparent 60%),
+     radial-gradient(500px 300px at 10% 90%,rgba(129,140,248,.35),transparent 60%);pointer-events:none}
+  .hero-inner{position:relative;padding:88px 0 96px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:7px 15px;border-radius:999px;font-size:.82rem;font-weight:600;letter-spacing:.03em;margin-bottom:22px}
+  .hero h1{font-size:clamp(2.3rem,5.4vw,3.7rem);line-height:1.08;letter-spacing:-.02em;margin:0 0 18px;font-weight:800}
+  .hero h1 .accent{color:var(--amber-soft)}
+  .hero p.lede{font-size:clamp(1.05rem,2.2vw,1.28rem);max-width:640px;color:rgba(255,255,255,.92);margin:0 0 34px}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px}
+  .hero-badges{display:flex;flex-wrap:wrap;gap:22px;margin-top:46px;padding-top:26px;border-top:1px solid rgba(255,255,255,.18)}
+  .hero-badge{display:flex;align-items:center;gap:10px;font-size:.92rem;color:rgba(255,255,255,.9)}
+  .hero-badge svg{flex:none;color:var(--amber-soft)}
+
+  /* ---------- Sections ---------- */
+  section{padding:82px 0}
+  .section-head{max-width:680px;margin:0 auto 52px;text-align:center}
+  .kicker{color:var(--indigo);font-weight:700;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+  h2{font-size:clamp(1.8rem,3.6vw,2.5rem);line-height:1.15;letter-spacing:-.02em;margin:0 0 16px;font-weight:800}
+  .section-head p{font-size:1.12rem;color:var(--slate);margin:0}
+
+  /* Mission pillars */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  @media(max-width:820px){.pillars{grid-template-columns:1fr}}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:32px 28px;transition:transform .18s ease, box-shadow .18s ease}
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .card .ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#eef2ff,#e0e7ff);color:var(--indigo);margin-bottom:18px}
+  .card h3{font-size:1.22rem;margin:0 0 10px;letter-spacing:-.01em}
+  .card p{color:var(--slate);margin:0;font-size:1rem}
+
+  /* Mission statement band */
+  .mission{background:var(--wash);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .mission .wrap{max-width:820px;text-align:center}
+  .mission .quote{font-size:clamp(1.35rem,3vw,1.9rem);line-height:1.4;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+  .mission .quote span{background:linear-gradient(180deg,transparent 62%,rgba(251,191,36,.45) 62%)}
+
+  /* Trust / legitimacy */
+  .trust .wrap{max-width:var(--maxw)}
+  .trust-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+  @media(max-width:820px){.trust-grid{grid-template-columns:1fr;gap:28px}}
+  .trust-card{background:linear-gradient(135deg,var(--indigo-deep),var(--indigo));color:#fff;border-radius:22px;padding:38px 34px;box-shadow:var(--shadow)}
+  .trust-card h3{font-size:1.5rem;margin:0 0 8px}
+  .trust-card p{color:rgba(255,255,255,.85);margin:0 0 24px}
+  .facts{display:grid;gap:14px}
+  .fact{display:flex;gap:13px;align-items:flex-start;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:14px 16px}
+  .fact svg{flex:none;color:var(--amber-soft);margin-top:2px}
+  .fact b{display:block;font-size:.97rem}
+  .fact span{font-size:.86rem;color:rgba(255,255,255,.78)}
+  .trust-copy h2{margin-bottom:14px}
+  .trust-copy p{color:var(--slate);font-size:1.06rem}
+  .trust-copy ul{list-style:none;padding:0;margin:22px 0 0}
+  .trust-copy li{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:var(--ink);font-weight:500}
+  .trust-copy li svg{flex:none;color:var(--indigo);margin-top:3px}
+
+  /* Get involved */
+  .involve{background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff}
+  .involve .section-head p{color:rgba(255,255,255,.8)}
+  .involve h2{color:#fff}
+  .involve-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:44px}
+  @media(max-width:820px){.involve-grid{grid-template-columns:1fr}}
+  .icard{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:28px 26px}
+  .icard h3{margin:0 0 8px;font-size:1.15rem;color:var(--amber-soft)}
+  .icard p{margin:0;color:rgba(255,255,255,.8);font-size:.98rem}
+  .involve-cta{text-align:center}
+  .involve-cta .note{margin-top:14px;font-size:.88rem;color:rgba(255,255,255,.6)}
+
+  /* Footer */
+  footer{background:#0b1120;color:rgba(255,255,255,.72);padding:54px 0 40px;font-size:.92rem}
+  .foot-top{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-start;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .foot-brand{display:flex;align-items:center;gap:11px;color:#fff;font-weight:700}
+  .foot-brand .mark{width:34px;height:34px}
+  .foot-links{display:flex;gap:26px;flex-wrap:wrap}
+  .foot-links a{color:rgba(255,255,255,.72);text-decoration:none}
+  .foot-links a:hover{color:#fff}
+  .foot-legal{padding-top:24px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;color:rgba(255,255,255,.5);font-size:.83rem}
+  .foot-legal .ein{font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="22" fill="#4f46e5"/><path d="M40 20h20v22l16 30a8 8 0 0 1-7 12H31a8 8 0 0 1-7-12l16-30z" fill="none" stroke="#fbbf24" stroke-width="6" stroke-linejoin="round"/><circle cx="50" cy="60" r="5" fill="#fbbf24"/></svg>
+      <span>Benny Labs Foundation<small>501(c)(3) nonprofit</small></span>
+    </a>
+    <nav class="nav-links">
+      <a class="navlink" href="#mission">Mission</a>
+      <a class="navlink" href="#what">What we do</a>
+      <a class="navlink" href="#trust">Legitimacy</a>
+      <a class="btn btn-outline" href="#involve">Get involved</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap hero-inner">
+    <span class="eyebrow">✦ A nonprofit for inventors, makers &amp; curious minds</span>
+    <h1>Turning ideas into <span class="accent">things that help people.</span></h1>
+    <p class="lede">Benny Labs Foundation champions invention, creativity, and hands-on learning — giving everyday inventors and young makers the encouragement, knowledge, and support to build real things that improve lives.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#involve">Support the mission →</a>
+      <a class="btn btn-ghost" href="#mission">Learn more</a>
+    </div>
+    <div class="hero-badges">
+      <div class="hero-badge">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>
+        IRS-recognized 501(c)(3) public charity
+      </div>
+      <div class="hero-badge">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>
+        Donations are tax-deductible
+      </div>
+      <div class="hero-badge">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>
+        Registered in NY &amp; FL
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION QUOTE -->
+<section class="mission" id="mission">
+  <div class="wrap">
+    <div class="kicker">Our mission</div>
+    <p class="quote">We believe a good idea shouldn't die on a napkin. Benny Labs Foundation exists to help <span>ordinary people turn creativity into invention</span> — and invention into a better everyday life for their families and communities.</p>
+  </div>
+</section>
+
+<!-- WHAT WE DO -->
+<section id="what">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">What we do</div>
+      <h2>Three ways we move ideas forward</h2>
+      <p>Every breakthrough starts with someone who refused to accept "that's just how it is." We help those people take the next step.</p>
+    </div>
+    <div class="pillars">
+      <div class="card">
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2h6c0-.8.4-1.5 1-2A7 7 0 0 0 12 2Z"/></svg></div>
+        <h3>Spark invention</h3>
+        <p>We encourage and mentor first-time inventors and makers — helping them shape a raw idea into something real, useful, and worth sharing.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></div>
+        <h3>Teach the skills</h3>
+        <p>We support hands-on learning in creative problem-solving, design, and building — so more kids and adults gain the confidence to make things themselves.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6M12 22v-4M4.9 4.9l3 3M19.1 4.9l-3 3M2 12h4M18 12h4"/><circle cx="12" cy="14" r="4"/></svg></div>
+        <h3>Share what works</h3>
+        <p>We help promising ideas reach the people they can help — putting practical inventions and knowledge into more hands, not fewer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST / LEGITIMACY -->
+<section class="trust" id="trust" style="background:var(--wash);border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="trust-grid">
+      <div class="trust-copy">
+        <div class="kicker">Real &amp; accountable</div>
+        <h2>A registered public charity you can trust</h2>
+        <p>Benny Labs Foundation Inc. is a nonprofit organization recognized by the Internal Revenue Service as a tax-exempt <b>501(c)(3) public charity</b>. Your gifts are tax-deductible to the fullest extent allowed by law.</p>
+        <ul>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> IRS 501(c)(3) determination — public charity status</li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> Contributions are tax-deductible (IRC §170)</li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> Sales-tax exempt in New York and Florida</li>
+        </ul>
+      </div>
+      <div class="trust-card">
+        <h3>Official record</h3>
+        <p>Verify us anytime through the IRS Tax Exempt Organization Search.</p>
+        <div class="facts">
+          <div class="fact">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M15 9h.01M9 13h.01M15 13h.01M10 21v-4h4v4"/></svg>
+            <div><b>Benny Labs Foundation Inc.</b><span>Nonprofit public charity</span></div>
+          </div>
+          <div class="fact">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity=".0"/><path d="M2 8h20M2 8v8a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8M2 8l2-4h16l2 4"/></svg>
+            <div><b>EIN 41&#8209;5363285</b><span>Federal tax ID</span></div>
+          </div>
+          <div class="fact">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z"/><path d="M12 6v6l4 2"/></svg>
+            <div><b>Tax-exempt since 2026</b><span>501(c)(3) status effective April 2026</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GET INVOLVED -->
+<section class="involve" id="involve">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" style="color:var(--amber-soft)">Get involved</div>
+      <h2>Help us build what's next</h2>
+      <p>Whether you give, share an idea, or lend your time — you help a good idea become something real.</p>
+    </div>
+    <div class="involve-grid">
+      <div class="icard">
+        <h3>Give</h3>
+        <p>Fuel the mission with a tax-deductible donation. Every dollar helps another inventor take the next step.</p>
+      </div>
+      <div class="icard">
+        <h3>Bring an idea</h3>
+        <p>Have an invention or a problem worth solving? Tell us about it — we love meeting people who make things.</p>
+      </div>
+      <div class="icard">
+        <h3>Partner &amp; volunteer</h3>
+        <p>Mentors, makers, and organizations: join us in getting more good ideas into the world.</p>
+      </div>
+    </div>
+    <div class="involve-cta">
+      <a class="btn btn-primary" href="mailto:bennygoldstein@msn.com">Get in touch →</a>
+      <div class="note">Prefer email? Reach us at bennygoldstein@msn.com</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="22" fill="#4f46e5"/><path d="M40 20h20v22l16 30a8 8 0 0 1-7 12H31a8 8 0 0 1-7-12l16-30z" fill="none" stroke="#fbbf24" stroke-width="6" stroke-linejoin="round"/><circle cx="50" cy="60" r="5" fill="#fbbf24"/></svg>
+        <span>Benny Labs Foundation</span>
+      </div>
+      <div class="foot-links">
+        <a href="#mission">Mission</a>
+        <a href="#what">What we do</a>
+        <a href="#trust">Legitimacy</a>
+        <a href="#involve">Get involved</a>
+        <a href="mailto:bennygoldstein@msn.com">Contact</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Benny Labs Foundation Inc. A 501(c)(3) nonprofit public charity. All rights reserved.</span>
+      <span class="ein">EIN 41&#8209;5363285</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
