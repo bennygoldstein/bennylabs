@@ -46,6 +46,8 @@ FAVORITES_PER_SERIES = 1          # avoid 10 near-identical picks from one serie
 MOVER_MIN_DELTA = 0.08            # 24h price change (in dollars) to qualify
 MOVER_MIN_VOL24 = 500
 MOVER_MIN_DAYS = 1.5              # skip markets already resolving today
+MOVER_MAX_SPREAD = 0.10           # a "move" in a thin, wide book is just one
+                                  # trade printing, not a real repricing
 MOVER_TOP_N = 10
 
 ARB_MIN_EDGE = 0.03               # dollars of edge (post-fee) before we flag it
@@ -233,6 +235,8 @@ def find_movers(records):
         if not (0.05 <= r["last"] <= 0.95):
             continue
         if r["days_left"] is None or r["days_left"] < MOVER_MIN_DAYS:
+            continue
+        if r["spread"] > MOVER_MAX_SPREAD:
             continue
         movers.append({
             **{k: r[k] for k in ("ticker", "title", "category", "url", "vol24", "days_left")},
