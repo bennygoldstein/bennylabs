@@ -129,6 +129,35 @@
   .step h4{margin:0 0 5px;font-size:1rem;color:var(--lime-soft)}
   .step p{margin:0;font-size:.85rem;color:rgba(255,255,255,.8)}
 
+  /* Funding model */
+  .funding{background:var(--paper)}
+  .fund-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:34px}
+  @media(max-width:860px){.fund-grid{grid-template-columns:1fr}}
+  .fund-card{background:var(--wash);border:1px solid var(--line);border-radius:var(--radius);padding:28px 24px}
+  .fund-card h3{font-size:1.12rem;margin:0 0 9px;color:var(--green-deep)}
+  .fund-card p{color:var(--slate);margin:0;font-size:.98rem}
+  .fund-quote{max-width:820px;margin:0 auto;text-align:center;background:linear-gradient(135deg,#eaf7dd,#d7f0c0);border:1px solid #c8e8a8;border-radius:18px;padding:26px 30px}
+  .fund-quote p{margin:0;font-size:1.12rem;font-weight:600;color:#2b4312;line-height:1.55}
+
+  /* Projects */
+  .projects{background:var(--wash);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;max-width:960px;margin:0 auto}
+  @media(max-width:820px){.proj-grid{grid-template-columns:1fr}}
+  .proj-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform .18s ease, box-shadow .18s ease}
+  .proj-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+  .proj-thumb{position:relative;aspect-ratio:1.91/1;overflow:hidden;background:#0b1120}
+  .proj-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .proj-thumb.coming{display:grid;place-items:center;background:linear-gradient(135deg,#123020,#1d4a30)}
+  .proj-thumb.coming .soon{color:var(--lime-soft);font-weight:750;font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;border:2px dashed rgba(190,242,100,.5);border-radius:999px;padding:10px 22px}
+  .proj-body{padding:24px 24px 26px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .proj-tag{align-self:flex-start;background:#eaf7dd;border:1px solid #d3edb6;color:#3f6212;font-weight:650;font-size:.76rem;letter-spacing:.05em;text-transform:uppercase;padding:5px 12px;border-radius:999px}
+  .proj-body h3{margin:0;font-size:1.3rem;letter-spacing:-.01em}
+  .proj-body p{margin:0;color:var(--slate);font-size:.98rem;flex:1}
+  .proj-link{align-self:flex-start;margin-top:6px;font-weight:650;color:var(--green-deep);text-decoration:none;font-size:.97rem}
+  .proj-link:hover{text-decoration:underline}
+  .proj-link.muted{color:var(--slate-light);cursor:default}
+  .proj-note{max-width:760px;margin:30px auto 0;text-align:center;font-size:.9rem;color:var(--slate-light)}
+
   /* Team */
   .team .wrap{max-width:var(--maxw)}
   .team-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center}
@@ -197,7 +226,8 @@
     <nav class="nav-links">
       <a class="navlink" href="#mission">Mission</a>
       <a class="navlink" href="#what">What we do</a>
-      <a class="navlink" href="#how">How it works</a>
+      <a class="navlink" href="#funding">How we fund</a>
+      <a class="navlink" href="#projects">Projects</a>
       <a class="navlink" href="#team">Team</a>
       <a class="btn btn-outline" href="#involve">Get involved</a>
     </nav>
@@ -284,6 +314,70 @@
       <div class="step"><div class="num">5</div><h4>License</h4><p>Partners bring it to market</p></div>
       <div class="step"><div class="num">6</div><h4>Public benefit</h4><p>Knowledge &amp; impact shared</p></div>
     </div>
+  </div>
+</section>
+
+<!-- HOW WE FUND INNOVATION -->
+<section class="funding" id="funding">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">How we fund innovation</div>
+      <h2>We fund projects — we don't own them</h2>
+      <p>We fund the risky first step — the prototype, the demonstration, the patent filing — so promising inventions get their chance to exist.</p>
+    </div>
+    <div class="fund-grid">
+      <div class="fund-card">
+        <h3>Inventors keep ownership</h3>
+        <p>Every inventor we back keeps full ownership of their idea, their patent, and their product. We provide sponsored research awards — not investment, not control.</p>
+      </div>
+      <div class="fund-card">
+        <h3>We de&#8209;risk the first step</h3>
+        <p>We pay for what traditional investors overlook: building the first working prototype, validating it through public demonstration, and sharing what's learned.</p>
+      </div>
+      <div class="fund-card">
+        <h3>Returns recycle into the mission</h3>
+        <p>When a project we've backed succeeds, a small, capped share of its sales flows back to the Foundation — and every dollar returned funds the next inventor.</p>
+      </div>
+    </div>
+    <div class="fund-quote">
+      <p>"Your donation doesn't get spent once — it keeps working. Each success helps fund the next idea, the next prototype, the next inventor."</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Projects we're backing</div>
+      <h2>The Benny Labs innovation portfolio</h2>
+      <p>Inventions we're currently sponsoring on their journey from idea to proof of concept.</p>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <div class="proj-thumb">
+          <img src="assets/thermalcore.jpg" alt="ThermalCore module — a sealed computing core that heats water while it computes" loading="lazy">
+        </div>
+        <div class="proj-body">
+          <span class="proj-tag">Sponsored project</span>
+          <h3>ThermalCore</h3>
+          <p>One kilowatt-hour, two jobs. A sealed computing core that replaces a water heater's heating element — turning electricity into both computing power and hot water, so no energy is wasted.</p>
+          <a class="proj-link" href="https://thermalcore.energy" target="_blank" rel="noopener">Visit thermalcore.energy →</a>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-thumb coming">
+          <span class="soon">Website coming soon</span>
+        </div>
+        <div class="proj-body">
+          <span class="proj-tag">Sponsored project</span>
+          <h3>StrongArm</h3>
+          <p>A direction-dependent resistance mechanism for exercise and rehabilitation — smart mechanical resistance that adapts to the direction of movement, for safer training and recovery.</p>
+          <span class="proj-link muted">Website coming soon</span>
+        </div>
+      </div>
+    </div>
+    <p class="proj-note">Projects are advanced through sponsored research awards from Benny Labs Foundation. Inventors retain full ownership; any returns to the Foundation are recycled into its charitable mission.</p>
   </div>
 </section>
 
@@ -394,7 +488,8 @@
       <div class="foot-links">
         <a href="#mission">Mission</a>
         <a href="#what">What we do</a>
-        <a href="#how">How it works</a>
+        <a href="#funding">How we fund</a>
+        <a href="#projects">Projects</a>
         <a href="#team">Team</a>
         <a href="#involve">Get involved</a>
         <a href="mailto:bennygoldstein@msn.com">Contact</a>
