@@ -141,8 +141,9 @@
 
   /* Projects */
   .projects{background:var(--wash);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;max-width:960px;margin:0 auto}
-  @media(max-width:820px){.proj-grid{grid-template-columns:1fr}}
+  .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1140px;margin:0 auto}
+  @media(max-width:1000px){.proj-grid{grid-template-columns:repeat(2,1fr);max-width:960px}}
+  @media(max-width:660px){.proj-grid{grid-template-columns:1fr}}
   .proj-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform .18s ease, box-shadow .18s ease}
   .proj-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
   .proj-thumb{position:relative;aspect-ratio:1.91/1;overflow:hidden;background:#0b1120}
@@ -363,6 +364,17 @@
           <h3>ThermalCore</h3>
           <p>One kilowatt-hour, two jobs. A sealed computing core that replaces a water heater's heating element — turning electricity into both computing power and hot water, so no energy is wasted.</p>
           <a class="proj-link" href="https://thermalcore.energy" target="_blank" rel="noopener">Visit thermalcore.energy →</a>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-thumb">
+          <img src="assets/newhab.jpg" alt="The Newhab mechanism — an adjustable-resistance dial joining two links to padded limb cuffs" loading="lazy">
+        </div>
+        <div class="proj-body">
+          <span class="proj-tag">Sponsored project</span>
+          <h3>Newhab</h3>
+          <p>Not a brace that limits movement — a wearable exercise device that helps rebuild it. It works a recovering joint with adjustable tension instead of heavy weights, dialled to the exact load a therapist prescribes, and holds wherever the patient stops.</p>
+          <a class="proj-link" href="https://newhab.life" target="_blank" rel="noopener">Visit newhab.life →</a>
         </div>
       </div>
       <div class="proj-card">
