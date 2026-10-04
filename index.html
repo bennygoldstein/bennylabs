@@ -148,6 +148,8 @@
   .proj-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
   .proj-thumb{position:relative;aspect-ratio:1.91/1;overflow:hidden;background:#0b1120}
   .proj-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .proj-thumb.pennyowl{background:linear-gradient(135deg,#f8eadd,#d29a70)}
+  .proj-thumb.pennyowl img{object-fit:contain;padding:12px}
   .proj-thumb.coming{display:grid;place-items:center;background:linear-gradient(135deg,#123020,#1d4a30)}
   .proj-thumb.coming .soon{color:var(--lime-soft);font-weight:750;font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;border:2px dashed rgba(190,242,100,.5);border-radius:999px;padding:10px 22px}
   .proj-body{padding:24px 24px 26px;display:flex;flex-direction:column;gap:10px;flex:1}
@@ -263,7 +265,7 @@
     <div class="section-head">
       <div class="kicker">Projects we're backing</div>
       <h2>The Benny Labs innovation portfolio</h2>
-      <p>Inventions we're currently sponsoring on their journey from idea to proof of concept.</p>
+      <p>Inventions and free community initiatives we're helping bring to life.</p>
     </div>
     <div class="proj-grid">
       <div class="proj-card">
@@ -299,8 +301,19 @@
           <a class="proj-link" href="https://voco.talk" target="_blank" rel="noopener">Visit voco.talk →</a>
         </div>
       </div>
+      <div class="proj-card">
+        <div class="proj-thumb pennyowl">
+          <img src="assets/pennyowl.png" alt="Penny Owl copper coin — AI savings for everyone" loading="lazy">
+        </div>
+        <div class="proj-body">
+          <span class="proj-tag">Free community initiative</span>
+          <h3>Penny Owl</h3>
+          <p>A free AI savings guide from Benny Labs Foundation. Compare AI brain, image and video models, see combined leaderboard rankings, and find the lowest available API prices across multiple aggregators. We help creators, developers and curious people save money and spend less time searching.</p>
+          <a class="proj-link" href="https://pennyowl.org/" target="_blank" rel="noopener">Visit pennyowl.org →</a>
+        </div>
+      </div>
     </div>
-    <p class="proj-note">Projects are advanced through sponsored research awards from Benny Labs Foundation. Inventors retain full ownership; any returns to the Foundation are recycled into its charitable mission.</p>
+    <p class="proj-note">Our portfolio includes sponsored inventions and Foundation-led community initiatives. Inventors retain full ownership of sponsored inventions; any returns to the Foundation are recycled into its charitable mission.</p>
   </div>
 </section>
 
