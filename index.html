@@ -28,7 +28,28 @@
   "url": "https://bennylabs.org/",
   "logo": "https://bennylabs.org/assets/logo.jpg",
   "description": "A nonprofit research, development, and education hub advancing invention and innovation for the public good.",
-  "keywords": ["nonprofit research and development", "invention lab", "patent-pending technology", "science education", "public benefit innovation"]
+  "keywords": [
+    "nonprofit research and development",
+    "invention lab",
+    "patent-pending technology",
+    "science education",
+    "public benefit innovation"
+  ],
+  "legalName": "Benny Labs Foundation Inc.",
+  "email": "b@bennylabs.org",
+  "taxID": "41-5363285",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "6772 Palmetto Cir S 201",
+    "addressLocality": "Boca Raton",
+    "addressRegion": "FL",
+    "postalCode": "33433",
+    "addressCountry": "US"
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "Benny Goldstein"
+  }
 }
 </script>
 <style>
@@ -238,9 +259,45 @@
   .foot-links a:hover{color:#fff}
   .foot-legal{padding-top:22px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;color:rgba(255,255,255,.5);font-size:.83rem}
   .foot-legal .ein{font-variant-numeric:tabular-nums}
+
+  a:focus-visible, summary:focus-visible{outline:3px solid var(--green-dark);outline-offset:4px}
+  .skip-link{position:absolute;left:12px;top:-80px;z-index:100;background:white;padding:12px 18px;border:2px solid var(--green-dark)}
+  .skip-link:focus{top:8px}
+  section[id]{scroll-margin-top:90px}
+  .btn-primary{background:var(--green-deep)}
+  .mobile-menu{display:none;position:relative}
+  .mobile-menu summary{cursor:pointer;color:var(--green-dark);font-weight:650;border:1px solid var(--line);border-radius:12px;padding:9px 12px}
+  .mobile-menu nav{position:absolute;right:0;top:100%;width:230px;padding:12px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);z-index:60}
+  .mobile-menu nav a{display:block;padding:10px 12px;text-decoration:none;color:var(--green-dark)}
+  .page-main{padding:64px 0 72px;min-height:60vh}
+  .page-main .wrap{max-width:1040px}
+  .page-main h1{font-size:clamp(2.1rem,5vw,3.1rem);line-height:1.13;letter-spacing:-.02em;margin:10px 0 22px}
+  .page-intro{font-size:1.15rem;color:var(--slate);max-width:820px;margin-bottom:34px}
+  .page-main section{padding:30px 0;border-top:1px solid var(--line)}
+  .page-main section.card{padding:28px 24px;border:1px solid var(--line)}
+  .page-main h2{font-size:1.7rem;margin:12px 0 18px}
+  .page-main h3{font-size:1.14rem;margin:20px 0 8px}
+  .page-main p,.page-main li{color:var(--slate)}
+  .page-main a:not(.btn){color:var(--green-dark);text-underline-offset:3px}
+  .page-main ul{padding-left:24px}
+  .status{display:inline-block;background:#eaf7dd;color:#365314;padding:5px 12px;border-radius:999px;font-size:.85rem;font-weight:650}
+  .status.development{background:#fff5d9;color:#765400}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  address{font-style:normal;line-height:1.8;overflow-wrap:anywhere}
+  .contact-summary{padding-top:24px;color:rgba(255,255,255,.85)}
+  .contact-summary a{color:inherit}
+  .inline-links{display:flex;flex-wrap:wrap;gap:16px;margin-top:22px}
+  .program-summary{background:white}
+  .program-summary .pillars{grid-template-columns:repeat(3,1fr)}
+  .involve-grid{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:880px){.nav-inner{height:auto;min-height:74px;padding-top:10px;padding-bottom:10px}.nav-links{display:none}.mobile-menu{display:block}.brand{min-width:0}.brand span{font-size:.94rem}.brand small{font-size:.65rem}.brand img{width:36px;height:36px}}
+  @media(max-width:700px){.contact-grid,.program-summary .pillars,.involve-grid{grid-template-columns:1fr}.page-main{padding:38px 0 50px}.wrap{padding-left:20px;padding-right:20px}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
 </style>
 </head>
 <body>
+<a class="skip-link" href="#top">Skip to main content</a>
 
 <!-- NAV -->
 <header class="nav">
@@ -249,14 +306,7 @@
       <img src="assets/logo.jpg" alt="Benny Labs Foundation logo" width="42" height="42">
       <span>Benny Labs Foundation<small>501(c)(3) nonprofit · R&amp;D &amp; education</small></span>
     </a>
-    <nav class="nav-links">
-      <a class="navlink" href="#projects">Projects</a>
-      <a class="navlink" href="#mission">Mission</a>
-      <a class="navlink" href="#what">What we do</a>
-      <a class="navlink" href="#funding">How we fund</a>
-      <a class="navlink" href="#team">Team</a>
-      <a class="btn btn-outline" href="#involve">Get involved</a>
-    </nav>
+    <nav class="nav-links" aria-label="Main navigation"><a class="navlink" href="programs/">Programs</a><a class="navlink" href="#projects">Projects</a><a class="navlink" href="#mission">Mission</a><a class="navlink" href="about/">About</a><a class="btn btn-outline" href="contact/">Contact</a></nav><details class="mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation"><a href="./">Home</a><a href="programs/">Programs</a><a href="#projects">Research projects</a><a href="about/">About the Foundation</a><a href="contact/">Contact</a></nav></details>
   </div>
 </header>
 
@@ -268,12 +318,12 @@
       <h1>Turning bold ideas into <span class="accent">real‑world innovation.</span></h1>
       <p class="lede">Benny Labs Foundation is a 501(c)(3) nonprofit dedicated to advancing the public good through research &amp; development, invention, and education — across science, technology, and the creative fields.</p>
       <div class="hero-cta">
-        <a class="btn btn-primary" href="#involve">Support the mission →</a>
+        <a class="btn btn-primary" href="programs/">Explore our programs →</a>
         <a class="btn btn-outline" href="#what">See what we do</a>
       </div>
       <div class="hero-badges">
         <div class="hero-badge"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> IRS‑recognized 501(c)(3) public charity</div>
-        <div class="hero-badge"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> Donations are tax‑deductible</div>
+        <div class="hero-badge"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> Public tools and learning resources</div>
       </div>
     </div>
     <div class="hero-logo-wrap">
@@ -281,6 +331,16 @@
     </div>
   </div>
 </section>
+
+<!-- CURRENT PUBLIC ACTIVITIES -->
+<section class="program-summary" id="programs"><div class="wrap">
+  <div class="section-head"><div class="kicker">Programs and public resources</div><h2>Useful tools and learning, available now</h2><p>Our public activities help people understand technology, access information and explore invention. Research concepts are identified separately from resources you can use today.</p></div>
+  <div class="pillars">
+    <article class="card"><h3>AI cost education</h3><p>Penny Owl is a free comparison and learning resource for people choosing AI tools. Learn about pricing units and compare published offers before deciding where to generate.</p><a class="proj-link" href="programs/#ai-education">How to use this resource →</a></article>
+    <article class="card"><h3>Accessible reading</h3><p>Voco offers free desktop text-to-speech for Mac and Windows. It lets people listen to selected text, with on-device voices available for local reading.</p><a class="proj-link" href="programs/#reading">Explore the reading tool →</a></article>
+    <article class="card"><h3>Learning through invention</h3><p>Our public project pages explain proposed systems, design choices and intended uses. Anyone can read them; a patent-pending concept is clearly identified as research in development.</p><a class="proj-link" href="programs/#invention-learning">Read the project explanations →</a></article>
+  </div><p class="proj-note"><a href="programs/">View all programs, current status and ways to participate</a></p>
+</div></section>
 
 <!-- PROJECTS -->
 <section class="projects" id="projects">
@@ -296,9 +356,9 @@
           <a class="proj-thumb-link" href="https://thermalcore.energy" target="_blank" rel="noopener" aria-label="Visit thermalcore.energy"><img src="assets/thermalcore.jpg" alt="ThermalCore module — a sealed computing core that heats water while it computes" loading="lazy"></a>
         </div>
         <div class="proj-body">
-          <span class="proj-tag">Sponsored project</span>
+          <span class="proj-tag">Research in development</span>
           <h3>ThermalCore</h3>
-          <p>One kilowatt-hour, two jobs. A sealed computing core that replaces a water heater's heating element — turning electricity into both computing power and hot water, so no energy is wasted.</p>
+          <p>A research concept for a sealed computing core designed to recover heat for water heating. The project explores combining useful computation with heat recovery; measured prototype performance remains part of development.</p>
           <a class="proj-link" href="https://thermalcore.energy" target="_blank" rel="noopener">Visit thermalcore.energy →</a>
         </div>
       </div>
@@ -307,9 +367,9 @@
           <a class="proj-thumb-link" href="https://newhab.life" target="_blank" rel="noopener" aria-label="Visit newhab.life"><img src="assets/newhab.jpg" alt="Newhab — adjustable strength from 0 to 5 lb: resists one way as you work the joint, unresisted on the return, and holds anywhere you stop" loading="lazy"></a>
         </div>
         <div class="proj-body">
-          <span class="proj-tag">Sponsored project</span>
+          <span class="proj-tag">Research in development</span>
           <h3>Newhab</h3>
-          <p>Not a brace that limits movement — a wearable exercise device that helps rebuild it. It works a recovering joint with adjustable tension instead of heavy weights, dialled to the exact load a therapist prescribes, and holds wherever the patient stops.</p>
+          <p>An investigational wearable exercise device intended to provide gentle, adjustable resistance for rehabilitation. In development, not available for sale and not FDA-cleared; treatment benefits have not been established.</p>
           <a class="proj-link" href="https://newhab.life" target="_blank" rel="noopener">Visit newhab.life →</a>
         </div>
       </div>
@@ -318,9 +378,9 @@
           <a class="proj-thumb-link" href="https://voco.talk" target="_blank" rel="noopener" aria-label="Visit voco.talk"><img src="assets/voco.jpg" alt="Voco — highlight text in any app and a human-sounding voice reads it aloud, generated on your own computer" loading="lazy"></a>
         </div>
         <div class="proj-body">
-          <span class="proj-tag">Sponsored project</span>
+          <span class="proj-tag">Free public reading tool</span>
           <h3>Voco</h3>
-          <p>Anything on your screen, read aloud. Highlight text in any app — a browser, a PDF, an email — press one shortcut, and a human-sounding voice reads it back. The speech is generated on your own computer, which is why it is free and unlimited, and why nothing you read is ever sent anywhere.</p>
+          <p>A free desktop reading tool for Mac and Windows. Select text and listen instead of reading it on screen. Default on-device voices keep the selected text local; optional cloud voices send that reading to the speech provider.</p>
           <a class="proj-link" href="https://voco.talk" target="_blank" rel="noopener">Visit voco.talk →</a>
         </div>
       </div>
@@ -373,14 +433,14 @@
           <a class="proj-thumb-link" href="https://lionbrain.org" target="_blank" rel="noopener" aria-label="Visit lionbrain.org"><img src="assets/lionbrain-card.png" alt="Lion Brain — one private memory for all your AIs. Own your memory, rent the models." loading="lazy"></a>
         </div>
         <div class="proj-body">
-          <span class="proj-tag">Sponsored project</span>
+          <span class="proj-tag">Memory service in development</span>
           <h3>Lion Brain</h3>
-          <p>One private memory for all your AIs. Lion Brain keeps your conversations, ideas and projects together in one place you own, so Claude, ChatGPT and your other AI assistants can pick up right where you left off — no more explaining yourself again in every new chat. You own your memory; the AI models are just rented.</p>
+          <p>A private memory service being developed to help people retain context across supported AI tools. Its public website explains access and limits. Connected assistants must actually read and save authorized information; complete capture is not automatic.</p>
           <a class="proj-link" href="https://lionbrain.org" target="_blank" rel="noopener">Visit lionbrain.org →</a>
         </div>
       </div>
     </div>
-    <p class="proj-note">Our portfolio includes sponsored inventions and Foundation-led community initiatives. Inventors retain full ownership of sponsored inventions; any returns to the Foundation are recycled into its charitable mission.</p>
+    <p class="proj-note">Our activities include public digital tools, educational project explanations and research in development. Concept images illustrate proposed designs; they are not evidence of a working prototype or completed clinical testing. Read our <a href="programs/">program descriptions and current status</a>.</p>
   </div>
 </section>
 
@@ -410,17 +470,17 @@
       <div class="card">
         <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg></div>
         <h3>Patent &amp; protect</h3>
-        <p>We conduct R&amp;D and file patents to secure the intellectual property behind our work, so good ideas are protected, credited, and built to last.</p>
+        <p>We document invention concepts and pursue intellectual-property protection while sharing public explanations of the ideas and their intended uses.</p>
       </div>
       <div class="card">
         <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9h18M3 15h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/><circle cx="12" cy="12" r="9"/></svg></div>
         <h3>License &amp; scale</h3>
-        <p>To reach the real world, we license or transfer proven technologies to partners positioned to manufacture, distribute, and bring innovations to people at scale.</p>
+        <p>We seek technical and research collaboration to investigate how proposed technologies could reach people. A concept or patent application is not a completed product or a guarantee of performance.</p>
       </div>
       <div class="card">
         <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></div>
         <h3>Educate &amp; inspire</h3>
-        <p>We promote creativity for adults and youth — with educational materials, workshops, and grants and prizes that reward the next generation of inventors.</p>
+        <p>We share public project explanations and digital tools for self-directed learning. Workshops, grants and prizes are future educational aims; this website does not currently announce dates or an open application round.</p>
       </div>
     </div>
   </div>
@@ -432,7 +492,7 @@
     <div class="section-head">
       <div class="kicker" style="color:var(--lime-soft)">How it works</div>
       <h2>From a spark of an idea to real‑world impact</h2>
-      <p>Every innovation we back travels the same path — invented in‑house, proven, protected, then released to benefit society.</p>
+      <p>Our research pathway moves from a proposed idea toward testing and public benefit. Each project has its own stage of development; the pathway below is a goal, not a claim that every project has completed every step.</p>
     </div>
     <div class="steps">
       <div class="step"><div class="num">1</div><h4>Idea</h4><p>A problem worth solving</p></div>
@@ -450,25 +510,25 @@
   <div class="wrap">
     <div class="section-head">
       <div class="kicker">How we fund innovation</div>
-      <h2>We fund projects — we don't own them</h2>
-      <p>We fund the risky first step — the prototype, the demonstration, the patent filing — so promising inventions get their chance to exist.</p>
+      <h2>Supporting research and public learning</h2>
+      <p>Our mission includes supporting early research, prototype development and public learning. Project-specific arrangements determine how work is supported and how it can benefit the community.</p>
     </div>
     <div class="fund-grid">
       <div class="fund-card">
         <h3>Inventors keep ownership</h3>
-        <p>Every inventor we back keeps full ownership of their idea, their patent, and their product. We provide sponsored research awards — not investment, not control.</p>
+        <p>Our stated research-support model lets inventors retain ownership of their inventions. Funding and collaboration terms are project-specific; no public research-award application round is currently announced here.</p>
       </div>
       <div class="fund-card">
         <h3>We de&#8209;risk the first step</h3>
-        <p>We pay for what traditional investors overlook: building the first working prototype, validating it through public demonstration, and sharing what's learned.</p>
+        <p>The aim is to help investigate an idea, build and test a prototype, and share what is learned. Research concepts remain in development until their proposed performance has been demonstrated.</p>
       </div>
       <div class="fund-card">
         <h3>Returns recycle into the mission</h3>
-        <p>When a project we've backed succeeds, a small, capped share of its sales flows back to the Foundation — and every dollar returned funds the next inventor.</p>
+        <p>Our research-support model allows a project-specific, capped share of successful sales to return to the Foundation. Any such Foundation proceeds support its charitable research and education mission.</p>
       </div>
     </div>
     <div class="fund-quote">
-      <p>"Your donation doesn't get spent once — it keeps working. Each success helps fund the next idea, the next prototype, the next inventor."</p>
+      <p>Our public purpose is to make useful tools, knowledge and research accessible. Explore the resources available now, and the research questions we are working to investigate.</p>
     </div>
   </div>
 </section>
@@ -478,12 +538,13 @@
   <div class="wrap">
     <div class="team-grid">
       <div class="team-photo">
-        <a href="#involve" aria-label="Get involved with Benny Labs"><img src="assets/team.jpg" alt="The Benny Labs team giving a thumbs up in front of the Benny Labs mascot" width="1400" height="859" loading="lazy"></a>
+        <a href="#involve" aria-label="Get involved with Benny Labs"><img src="assets/team.jpg" alt="Illustration of the Benny Labs creative mission" width="1400" height="859" loading="lazy"></a>
+        <p style="margin:0;padding:10px 16px;font-size:.85rem;color:var(--slate)">Creative illustration of the Foundation’s mission.</p>
       </div>
       <div class="team-copy">
         <div class="kicker">The team</div>
         <h2>The people behind Benny Labs</h2>
-        <p>We're a hands‑on team of inventors, builders, and educators who love turning "what if?" into something you can hold. Curiosity is the job description.</p>
+        <p>Benny Labs Foundation was founded and is led by Benny Goldstein. The Foundation brings together an interest in invention, public learning and practical research.</p>
         <p>Founded on a simple belief: a good idea shouldn't die on a napkin — it deserves the chance to become real and help people.</p>
         <div class="founder">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
@@ -501,11 +562,9 @@
       <div class="trust-copy">
         <div class="kicker">Real &amp; accountable</div>
         <h2>A registered public charity you can trust</h2>
-        <p>Benny Labs Foundation Inc. is a nonprofit recognized by the IRS as a tax‑exempt <b>501(c)(3) public charity</b>. Your gifts are tax‑deductible to the fullest extent allowed by law, and every dollar goes toward research, education, and proof‑of‑concept work.</p>
+        <p>Benny Labs Foundation Inc. is a nonprofit recognized by the IRS as a tax‑exempt <b>501(c)(3) public charity</b>. Our mission combines public digital resources, research and education. Current activities and development-stage projects are described on our <a href="programs/">Programs page</a>.</p>
         <ul>
           <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> IRS 501(c)(3) determination — public charity status</li>
-          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> Contributions are tax‑deductible (IRC §170)</li>
-          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> Sales‑tax exempt in New York and Florida</li>
         </ul>
         <div class="values">
           <span>Mission‑first governance</span>
@@ -516,7 +575,7 @@
       </div>
       <div class="trust-card">
         <h3>Official record</h3>
-        <p>Verify us anytime through the IRS Tax Exempt Organization Search.</p>
+        <p>Verify nonprofit records through the <a href="https://apps.irs.gov/app/eos/" target="_blank" rel="noopener">IRS Tax Exempt Organization Search</a>. Read <a href="about/" style="color:inherit">about the Foundation</a> or <a href="contact/" style="color:inherit">contact us</a>.</p>
         <div class="facts">
           <div class="fact">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M15 9h.01M9 13h.01M15 13h.01M10 21v-4h4v4"/></svg>
@@ -542,29 +601,25 @@
     <div class="section-head">
       <div class="kicker" style="color:var(--lime-soft)">Get involved</div>
       <h2>Help us build what's next</h2>
-      <p>Whether you give, share an idea, or partner with us — you help turn invention into real‑world good.</p>
+      <p>Explore our public resources, share a research question, or discuss technical and educational collaboration.</p>
     </div>
     <div class="involve-grid">
-      <div class="icard">
-        <h3>Give</h3>
-        <p>Fuel R&amp;D, education, and prototypes with a tax‑deductible donation. Every gift moves an idea closer to reality.</p>
-      </div>
       <div class="icard">
         <h3>Bring an idea</h3>
         <p>Have an invention or a problem worth solving? Tell us — collaborating with inventors is what we live for.</p>
       </div>
       <div class="icard">
         <h3>Partner &amp; license</h3>
-        <p>Manufacturers and organizations: license our proven technologies and help bring innovations to market.</p>
+        <p>Researchers, engineers, educators and organizations: discuss a project, its development stage and possible collaboration.</p>
       </div>
       <div class="icard">
-        <h3>Learn &amp; compete</h3>
-        <p>Students and young makers: watch for our workshops, grants, and prizes that reward creative achievement.</p>
+        <h3>Explore &amp; learn</h3>
+        <p>Read our public invention explanations and use the digital resources listed on the Programs page. Future workshops or awards will be described only when participation details are announced.</p>
       </div>
     </div>
     <div class="involve-cta">
-      <a class="btn btn-lime" href="mailto:bennygoldstein@msn.com">Get in touch →</a>
-      <div class="note">Prefer email? Reach us at bennygoldstein@msn.com</div>
+      <a class="btn btn-lime" href="mailto:b@bennylabs.org">Get in touch →</a>
+      <div class="note">Program and collaboration inquiries: <a href="mailto:b@bennylabs.org">b@bennylabs.org</a></div><div class="inline-links" style="justify-content:center"><a href="programs/">Program details</a><a href="contact/">Address and contact information</a></div>
     </div>
   </div>
 </section>
@@ -577,16 +632,9 @@
         <img src="assets/logo.jpg" alt="Benny Labs Foundation logo" width="38" height="38">
         <span>Benny Labs Foundation</span>
       </div>
-      <div class="foot-links">
-        <a href="#projects">Projects</a>
-        <a href="#mission">Mission</a>
-        <a href="#what">What we do</a>
-        <a href="#funding">How we fund</a>
-        <a href="#team">Team</a>
-        <a href="#involve">Get involved</a>
-        <a href="mailto:bennygoldstein@msn.com">Contact</a>
-      </div>
+      <nav class="foot-links" aria-label="Footer navigation"><a href="programs/">Programs</a><a href="#projects">Projects</a><a href="about/">About</a><a href="contact/">Contact</a></nav>
     </div>
+    <address class="contact-summary"><strong>Benny Labs Foundation Inc.</strong><br>6772 Palmetto Cir S 201<br>Boca Raton, FL 33433<br><a href="mailto:b@bennylabs.org">b@bennylabs.org</a></address>
     <div class="foot-legal">
       <span>© 2026 Benny Labs Foundation Inc. A 501(c)(3) nonprofit public charity. All rights reserved.</span>
       <span class="ein">EIN 41&#8209;5363285</span>
