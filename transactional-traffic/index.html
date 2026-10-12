@@ -3,16 +3,43 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Transactional Traffic Mediator | Benny Labs Foundation</title>
-<meta name="description" content="A patent-pending system for coordinating, verifying, and rewarding safe lane-level micro-maneuvers that help create temporary travel corridors.">
+<title>Patent-Pending Traffic Coordination System | Benny Labs Foundation</title>
+<meta name="description" content="Explore Benny Labs' patent-pending Transactional Traffic Mediator: a verified marketplace for coordinated, lane-level traffic cooperation.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Benny Labs Foundation">
 <meta property="og:title" content="Transactional Traffic Mediator | Benny Labs Foundation">
 <meta property="og:description" content="A patent-pending marketplace and coordination layer for safer, more cooperative traffic movement.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://bennylabs.org/transactional-traffic/">
 <meta property="og:image" content="https://bennylabs.org/assets/transactional-traffic-hero.webp">
+<meta property="og:image:alt" content="Connected vehicles coordinating a safe temporary traffic corridor">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Transactional Traffic Mediator | Patent Pending">
+<meta name="twitter:description" content="A verified marketplace for coordinated, lane-level traffic cooperation.">
+<meta name="twitter:image" content="https://bennylabs.org/assets/transactional-traffic-hero.webp">
 <meta name="theme-color" content="#071b13">
 <link rel="canonical" href="https://bennylabs.org/transactional-traffic/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2316a34a'/%3E%3Cpath d='M41 20h18v20l15 28a7 7 0 0 1-6 11H32a7 7 0 0 1-6-11l15-28z' fill='none' stroke='%23bef264' stroke-width='6' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='58' r='6' fill='%23bef264'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Transactional Traffic Mediator",
+  "description": "A patent-pending system for coordinating, pricing, verifying, and rewarding safe lane-level traffic cooperation.",
+  "url": "https://bennylabs.org/transactional-traffic/",
+  "image": "https://bennylabs.org/assets/transactional-traffic-hero.webp",
+  "author": {"@type": "Person", "name": "Benny Goldstein"},
+  "publisher": {
+    "@type": "Organization",
+    "name": "Benny Labs Foundation",
+    "url": "https://bennylabs.org/",
+    "logo": {"@type": "ImageObject", "url": "https://bennylabs.org/assets/logo.jpg"}
+  },
+  "about": ["connected vehicles", "traffic coordination", "lane-change incentives", "vehicle-to-vehicle communication"],
+  "creativeWorkStatus": "Patent Pending",
+  "dateModified": "2026-10-11"
+}
+</script>
 <style>
   :root{
     --green:#22c55e;
@@ -64,9 +91,8 @@
   .hero .btn-outline{color:#fff;border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.06)}
   .hero .btn-outline:hover{background:rgba(255,255,255,.13)}
   .patent-strip{position:relative;z-index:3;margin-top:-62px}
-  .patent-card{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);background:rgba(255,255,255,.97);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
-  .patent-fact{padding:25px 28px}
-  .patent-fact+.patent-fact{border-left:1px solid var(--line)}
+  .patent-card{display:flex;align-items:center;justify-content:center;border:1px solid var(--line);background:rgba(255,255,255,.97);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;text-align:center}
+  .patent-fact{padding:25px 34px}
   .patent-fact small{display:block;color:var(--muted);font-size:.76rem;text-transform:uppercase;letter-spacing:.09em;font-weight:740;margin-bottom:5px}
   .patent-fact strong{display:block;font-size:1.04rem;letter-spacing:-.01em}
 
@@ -84,10 +110,14 @@
 
   .mechanism{background:var(--wash);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:15px}
-  .step{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;padding:25px 20px;min-height:250px;box-shadow:0 12px 35px -30px rgba(5,46,25,.6)}
-  .step-num{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:var(--ink);color:var(--lime);font-weight:830;margin-bottom:21px}
+  .step{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:20px;min-height:420px;box-shadow:0 18px 42px -32px rgba(5,46,25,.64);overflow:hidden}
+  .step-copy{padding:24px 20px 20px}
+  .step-num{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:var(--ink);color:var(--lime);font-weight:830;margin-bottom:18px}
   .step h3{font-size:1.11rem;margin:0 0 9px;letter-spacing:-.01em}
   .step p{font-size:.92rem;color:var(--slate);margin:0}
+  .step-scene{margin:auto 0 0;background:var(--ink);border-top:1px solid var(--line);aspect-ratio:4/3;overflow:hidden}
+  .step-scene img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+  .step:hover .step-scene img{transform:scale(1.035)}
   .step:not(:last-child)::after{content:"";position:absolute;z-index:2;right:-12px;top:42px;width:22px;height:2px;background:var(--green)}
 
   .difference{background:var(--ink);color:#fff;overflow:hidden;position:relative}
@@ -97,10 +127,22 @@
   .difference h2{color:#fff}
   .difference .section-head p{color:rgba(255,255,255,.68)}
   .pillars{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-  .pillar{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.055);border-radius:18px;padding:27px 24px}
-  .pillar-icon{width:48px;height:48px;border-radius:14px;background:rgba(190,242,100,.12);color:var(--lime);display:grid;place-items:center;margin-bottom:18px}
-  .pillar h3{font-size:1.15rem;margin:0 0 8px;color:#fff}
-  .pillar p{margin:0;color:rgba(255,255,255,.67);font-size:.95rem}
+  .pillar{display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.055);border-radius:22px;overflow:hidden;min-height:440px}
+  .pillar-art{height:220px;display:grid;place-items:center;padding:10px;background:radial-gradient(circle at 50% 55%,rgba(34,197,94,.18),rgba(4,28,18,.06) 52%,rgba(0,0,0,.12));border-bottom:1px solid rgba(255,255,255,.1)}
+  .pillar-art img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 26px 22px rgba(0,0,0,.28))}
+  .pillar-copy{padding:24px 24px 27px}
+  .pillar h3{font-size:1.17rem;margin:0 0 9px;color:#fff}
+  .pillar p{margin:0;color:rgba(255,255,255,.69);font-size:.95rem}
+  .distinction{position:relative;margin-top:48px;border:1px solid rgba(190,242,100,.24);border-radius:26px;padding:34px;background:linear-gradient(145deg,rgba(190,242,100,.08),rgba(255,255,255,.035))}
+  .distinction-head{max-width:760px;margin-bottom:28px}
+  .distinction-head .kicker{color:var(--lime)}
+  .distinction h3{font-size:clamp(1.7rem,3vw,2.35rem);line-height:1.1;margin:0 0 10px;color:#fff;letter-spacing:-.025em}
+  .distinction-head p{margin:0;color:rgba(255,255,255,.7)}
+  .compare-row{display:grid;grid-template-columns:1fr 44px 1fr;align-items:center;gap:18px;padding:18px 0;border-top:1px solid rgba(255,255,255,.1)}
+  .compare-row strong{display:block;color:#fff;margin-bottom:4px}
+  .compare-row p{margin:0;color:rgba(255,255,255,.66);font-size:.94rem}
+  .compare-arrow{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--lime);color:var(--ink);font-weight:900}
+  .compare-new{background:rgba(34,197,94,.09);border-radius:14px;padding:14px 16px}
 
   .scope-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
   .scope-card{border:1px solid var(--line);border-radius:20px;padding:30px;background:#fff}
@@ -110,6 +152,16 @@
   .scope-card li::before{content:"✓";color:var(--green-deep);font-weight:900}
   .scope-card.safety{background:linear-gradient(145deg,#eaf8ed,#f8fcf9)}
   .scope-card.safety strong{color:var(--green-deep)}
+
+  .participate{background:#fff}
+  .participate-panel{position:relative;overflow:hidden;border-radius:28px;background:linear-gradient(135deg,#071b13 0%,#0c3e25 64%,#15803d 100%);color:#fff;padding:54px;box-shadow:var(--shadow)}
+  .participate-panel::after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;right:-160px;bottom:-250px;background:rgba(190,242,100,.14)}
+  .participate-copy{position:relative;z-index:1;max-width:820px}
+  .participate .kicker{color:var(--lime)}
+  .participate h2{color:#fff}
+  .participate p{color:rgba(255,255,255,.76);font-size:1.07rem;margin:0 0 24px}
+  .partner-tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+  .partner-tags span{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);border-radius:999px;padding:8px 13px;font-size:.86rem;color:rgba(255,255,255,.88)}
 
   .patent{background:linear-gradient(145deg,#eff9f1,#fff)}
   .patent-panel{border:1px solid var(--line);border-radius:24px;background:#fff;box-shadow:var(--shadow);padding:46px;display:grid;grid-template-columns:1.2fr .8fr;gap:42px;align-items:center}
@@ -135,6 +187,7 @@
     .step:not(:last-child)::after{display:none}
     .pillars{grid-template-columns:repeat(2,1fr)}
     .problem-grid,.patent-panel{grid-template-columns:1fr}
+    .compare-row{grid-template-columns:1fr 40px 1fr}
   }
   @media(max-width:760px){
     .wrap{width:min(100% - 32px,var(--maxw))}
@@ -145,12 +198,14 @@
     .hero::before{background:linear-gradient(90deg,rgba(3,16,28,.94),rgba(3,16,28,.64))}
     .hero-bg{object-position:64% center}
     .hero-content{padding:82px 0 116px}
-    .patent-card{grid-template-columns:1fr}
-    .patent-fact+.patent-fact{border-left:0;border-top:1px solid var(--line)}
     section{padding:72px 0}
     .steps,.pillars,.scope-grid{grid-template-columns:1fr}
     .step:last-child{grid-column:auto}
     .patent-panel{padding:28px}
+    .distinction{padding:25px 20px}
+    .compare-row{grid-template-columns:1fr;gap:10px}
+    .compare-arrow{transform:rotate(90deg);margin:0 auto}
+    .participate-panel{padding:36px 26px}
     .foot{align-items:flex-start;flex-direction:column}
   }
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
@@ -190,8 +245,6 @@
     <div class="wrap">
       <div class="patent-card" aria-label="Patent details">
         <div class="patent-fact"><small>Status</small><strong>U.S. Patent Pending</strong></div>
-        <div class="patent-fact"><small>Application</small><strong>No. 19/714,615</strong></div>
-        <div class="patent-fact"><small>Filed</small><strong>June 21, 2026</strong></div>
       </div>
     </div>
   </div>
@@ -220,11 +273,26 @@
         <p>Five connected stages turn a general need to move into a set of specific, voluntary, and verifiable micro-maneuvers.</p>
       </div>
       <div class="steps">
-        <article class="step"><div class="step-num">1</div><h3>Request</h3><p>A priority participant submits a destination, urgency level, desired time saving, and spending limits.</p></article>
-        <article class="step"><div class="step-num">2</div><h3>Coordinate</h3><p>The platform identifies nearby participants and calculates a safe sequence of lane-level actions that can create a temporary corridor.</p></article>
-        <article class="step"><div class="step-num">3</div><h3>Offer</h3><p>Each assisting participant receives an individualized offer and may accept, reject, or counteroffer.</p></article>
-        <article class="step"><div class="step-num">4</div><h3>Verify</h3><p>Positioning, ranging, vehicle telemetry, cameras, radar, lidar, or V2X data can confirm that the accepted maneuver occurred.</p></article>
-        <article class="step"><div class="step-num">5</div><h3>Settle</h3><p>Compensation or credit is released only after the system verifies successful completion.</p></article>
+        <article class="step">
+          <div class="step-copy"><div class="step-num">1</div><h3>Request</h3><p>A priority participant shares the trip goal, urgency, desired time saving, and value limit.</p></div>
+          <figure class="step-scene"><img src="../assets/traffic-step-request.webp" alt="Priority vehicle sending a route request to the coordination network" width="900" height="675" loading="lazy"></figure>
+        </article>
+        <article class="step">
+          <div class="step-copy"><div class="step-num">2</div><h3>Coordinate</h3><p>The mediator calculates a safety-conditioned set of nearby maneuvers that can form one temporary corridor.</p></div>
+          <figure class="step-scene"><img src="../assets/traffic-step-coordinate.webp" alt="Multiple vehicles coordinating separate movements to open one temporary corridor" width="900" height="675" loading="lazy"></figure>
+        </article>
+        <article class="step">
+          <div class="step-copy"><div class="step-num">3</div><h3>Offer</h3><p>Each assisting participant receives a role-specific offer and may accept, decline, or counter.</p></div>
+          <figure class="step-scene"><img src="../assets/traffic-step-offer.webp" alt="Different vehicles receiving individualized offers for different assisting roles" width="900" height="675" loading="lazy"></figure>
+        </article>
+        <article class="step">
+          <div class="step-copy"><div class="step-num">4</div><h3>Verify</h3><p>Positioning, telemetry, cameras, radar, lidar, ranging, or V2X evidence confirms the promised action.</p></div>
+          <figure class="step-scene"><img src="../assets/traffic-step-verify.webp" alt="Vehicle sensors verifying that an accepted maneuver created the intended gap" width="900" height="675" loading="lazy"></figure>
+        </article>
+        <article class="step">
+          <div class="step-copy"><div class="step-num">5</div><h3>Settle</h3><p>Only a verified result releases compensation or records credit for later settlement.</p></div>
+          <figure class="step-scene"><img src="../assets/traffic-step-settle.webp" alt="Verified assisting vehicles receiving credit after successful completion" width="900" height="675" loading="lazy"></figure>
+        </article>
       </div>
     </div>
   </section>
@@ -237,12 +305,45 @@
         <p>The concept centers on a verified, multi-vehicle marketplace for specific physical actions at lane level.</p>
       </div>
       <div class="pillars">
-        <article class="pillar"><div class="pillar-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17c3-6 7-9 16-10M4 7c3 6 7 9 16 10"/><path d="m16 4 4 3-4 3M16 14l4 3-4 3"/></svg></div><h3>Multi-vehicle choreography</h3><p>Different participants can receive different, coordinated assignments that together open one temporary corridor.</p></article>
-        <article class="pillar"><div class="pillar-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Individualized value</h3><p>Offers may reflect a vehicle's position, inconvenience, expected delay, maneuver complexity, urgency, supply, and demand.</p></article>
-        <article class="pillar"><div class="pillar-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/><circle cx="12" cy="12" r="10"/></svg></div><h3>Verification before value</h3><p>Acceptance alone is not enough. The system is designed to confirm physical performance before releasing compensation.</p></article>
-        <article class="pillar"><div class="pillar-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 22h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2Z"/><path d="m9 16 2 2 4-5"/></svg></div><h3>Deferred settlement</h3><p>Credits or tokens can accrue from verified events and settle later, reducing friction during split-second coordination.</p></article>
-        <article class="pillar"><div class="pillar-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><h3>Safety-conditioned execution</h3><p>Instructions remain subject to safe conditions, participant discretion, traffic laws, and vehicle safety systems.</p></article>
-        <article class="pillar"><div class="pillar-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 9h8M8 13h3M15 13h1"/></svg></div><h3>Human and autonomous ready</h3><p>The architecture can support phones, vehicle displays, assisted-driving systems, fleets, connected vehicles, and autonomous vehicles.</p></article>
+        <article class="pillar"><div class="pillar-art"><img src="../assets/traffic-focus-choreography.webp" alt="Three-dimensional rendering of several vehicle paths combining into one corridor" width="900" height="900" loading="lazy"></div><div class="pillar-copy"><h3>Multi-vehicle choreography</h3><p>The mediator can assign different roles to multiple assisting vehicles—such as opening a forward gap, preserving a rear gap, or moving into an available space—so the separate actions create one usable corridor.</p></div></article>
+        <article class="pillar"><div class="pillar-art"><img src="../assets/traffic-focus-value.webp" alt="Three-dimensional rendering of distinct vehicle roles receiving different value offers" width="900" height="900" loading="lazy"></div><div class="pillar-copy"><h3>Individualized value</h3><p>One blanket price does not fit every participant. Offers can reflect position, inconvenience, expected delay, maneuver complexity, urgency, supply, and demand for each assigned role.</p></div></article>
+        <article class="pillar"><div class="pillar-art"><img src="../assets/traffic-focus-verification.webp" alt="Three-dimensional rendering of sensors verifying a vehicle maneuver" width="900" height="900" loading="lazy"></div><div class="pillar-copy"><h3>Verification before value</h3><p>An accepted offer is only a promise. The system is designed to combine location, ranging, telemetry, camera, radar, lidar, or V2X evidence before treating the physical action as completed.</p></div></article>
+        <article class="pillar"><div class="pillar-art"><img src="../assets/traffic-focus-settlement.webp" alt="Three-dimensional rendering of verified credits being stored for later settlement" width="900" height="900" loading="lazy"></div><div class="pillar-copy"><h3>Deferred settlement</h3><p>Verified events can produce credits or tokens that settle later or in a batch. That keeps payment friction out of the few seconds when traffic coordination must remain simple.</p></div></article>
+        <article class="pillar"><div class="pillar-art"><img src="../assets/traffic-focus-safety.webp" alt="Three-dimensional rendering of a vehicle path protected by a safety shield" width="900" height="900" loading="lazy"></div><div class="pillar-copy"><h3>Safety-conditioned execution</h3><p>The economic layer never replaces the safety layer. A maneuver remains subject to traffic law, current road conditions, participant discretion, and independent approval by vehicle safety systems.</p></div></article>
+        <article class="pillar"><div class="pillar-art"><img src="../assets/traffic-focus-autonomy.webp" alt="Three-dimensional rendering of phone, dashboard, and autonomous vehicle interfaces working together" width="900" height="900" loading="lazy"></div><div class="pillar-copy"><h3>Human and autonomous ready</h3><p>The architecture can bridge phones, vehicle displays, assisted-driving systems, fleets, connected vehicles, and autonomous vehicles instead of depending on a fully self-driving future.</p></div></article>
+      </div>
+
+      <div class="distinction" aria-labelledby="distinction-title">
+        <div class="distinction-head">
+          <div class="kicker">From promise to proof</div>
+          <h3 id="distinction-title">Where this concept takes traffic coordination further</h3>
+          <p>Existing approaches may optimize a route, negotiate one lane change, or coordinate connected vehicles. The patent-pending concept focuses on the complete transaction around a real, multi-vehicle result.</p>
+        </div>
+        <div class="compare-row">
+          <div><strong>Route priority</strong><p>A system may sell faster routing, priority signals, or access to a preferred path.</p></div>
+          <div class="compare-arrow" aria-hidden="true">→</div>
+          <div class="compare-new"><strong>Lane-level action market</strong><p>The value attaches to specific physical acts by nearby vehicles—not merely to choosing a route.</p></div>
+        </div>
+        <div class="compare-row">
+          <div><strong>One vehicle, one gap</strong><p>A conventional lane-change method can focus on one requester and one cooperating vehicle.</p></div>
+          <div class="compare-arrow" aria-hidden="true">→</div>
+          <div class="compare-new"><strong>One corridor, several roles</strong><p>Multiple participants can receive complementary assignments that work as a coordinated set.</p></div>
+        </div>
+        <div class="compare-row">
+          <div><strong>One published incentive</strong><p>A uniform reward may ignore the different cost or inconvenience borne by each participant.</p></div>
+          <div class="compare-arrow" aria-hidden="true">→</div>
+          <div class="compare-new"><strong>Individualized negotiation</strong><p>Role-specific offers, bids, and counteroffers can value each participant separately.</p></div>
+        </div>
+        <div class="compare-row">
+          <div><strong>Acceptance as completion</strong><p>A digital agreement does not prove that the promised real-world movement happened.</p></div>
+          <div class="compare-arrow" aria-hidden="true">→</div>
+          <div class="compare-new"><strong>Sensor-gated compensation</strong><p>Value is released only after the system verifies the agreed physical result.</p></div>
+        </div>
+        <div class="compare-row">
+          <div><strong>Future-only automation</strong><p>Some coordination models assume every participating vehicle is highly automated.</p></div>
+          <div class="compare-arrow" aria-hidden="true">→</div>
+          <div class="compare-new"><strong>Mixed-road interoperability</strong><p>Human, assisted, connected, fleet, and autonomous participants can share the same coordination layer.</p></div>
+        </div>
       </div>
     </div>
   </section>
@@ -284,16 +385,29 @@
       <div>
         <div class="kicker">Intellectual property</div>
         <h2>Patent pending in the United States</h2>
-        <p>The Transactional Traffic Mediator is the subject of U.S. Utility Patent Application No. 19/714,615, filed June 21, 2026.</p>
+        <p>The Transactional Traffic Mediator is patent pending in the United States.</p>
         <p>The application describes systems and methods for generating, pricing, assigning, verifying, and compensating coordinated lane-level micro-maneuvers, including embodiments for human-driven, assisted, connected, and autonomous vehicles.</p>
         <p><strong>Inventor:</strong> Benny Goldstein</p>
       </div>
       <aside class="patent-seal" aria-label="Patent-pending status">
         <svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 4 7v5c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V7l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg>
         <strong>Patent Pending</strong>
-        <span>U.S. Application No. 19/714,615</span>
-        <span>Filed June 21, 2026</span>
+        <span>Transactional Traffic Mediator</span>
       </aside>
+    </div>
+  </section>
+
+  <section class="participate" id="participate">
+    <div class="wrap participate-panel">
+      <div class="participate-copy">
+        <div class="kicker">Benny Labs Foundation initiative</div>
+        <h2>Help move the idea from patent to pilot.</h2>
+        <p>Benny Labs Foundation is working to develop, model, and validate the Transactional Traffic Mediator further. We welcome people and organizations that can help test the coordination logic, improve the safety model, build prototypes, study human behavior, or identify a practical pilot environment.</p>
+        <div class="partner-tags" aria-label="Ways to participate">
+          <span>Traffic &amp; mobility research</span><span>Automotive &amp; V2X engineering</span><span>Fleet operators</span><span>Human-factors research</span><span>Safety validation</span><span>Prototype &amp; pilot partners</span>
+        </div>
+        <a class="btn btn-primary" href="mailto:bennygoldstein@msn.com?subject=Help%20develop%20the%20Transactional%20Traffic%20Mediator">Participate in the project →</a>
+      </div>
     </div>
   </section>
 
@@ -301,7 +415,7 @@
     <div class="wrap">
       <div class="kicker" style="color:var(--lime)">Partnerships &amp; research</div>
       <h2>Interested in connected mobility, validation, or licensing?</h2>
-      <p>Benny Labs Foundation welcomes conversations with researchers, mobility platforms, automotive suppliers, fleets, infrastructure partners, and prospective licensees.</p>
+      <p>Benny Labs Foundation welcomes conversations with researchers, mobility platforms, automotive suppliers, fleets, infrastructure partners, prospective licensees, and anyone prepared to help turn the concept into a responsible pilot.</p>
       <a class="btn btn-primary" href="mailto:bennygoldstein@msn.com?subject=Transactional%20Traffic%20Mediator%20inquiry">Start a conversation →</a>
     </div>
   </section>
