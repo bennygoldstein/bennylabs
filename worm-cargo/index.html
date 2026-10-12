@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Worm Cargo | Patent-Pending Autonomous Cargo Routing</title>
+<meta name="description" content="Explore Worm Cargo, Benny Labs Foundation's patent-pending system for sorting destination-addressed packages across a live chain of connected cargo vehicles.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Benny Labs Foundation">
+<meta property="og:title" content="Worm Cargo | Benny Labs Foundation">
+<meta property="og:description" content="A patent-pending cargo network that connects, sorts in motion, and sends each package toward the right vehicle.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bennylabs.org/worm-cargo/">
+<meta property="og:image" content="https://bennylabs.org/assets/worm-cargo-hero.webp">
+<meta property="og:image:alt" content="Three connected autonomous cargo vehicles transferring packages through a continuous internal route">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Worm Cargo | Patent Pending">
+<meta name="twitter:description" content="A live chain of cargo vehicles that can sort packages while they remain connected.">
+<meta name="twitter:image" content="https://bennylabs.org/assets/worm-cargo-hero.webp">
+<meta name="theme-color" content="#071b13">
+<link rel="canonical" href="https://bennylabs.org/worm-cargo/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2316a34a'/%3E%3Cpath d='M41 20h18v20l15 28a7 7 0 0 1-6 11H32a7 7 0 0 1-6-11l15-28z' fill='none' stroke='%23bef264' stroke-width='6' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='58' r='6' fill='%23bef264'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Worm Cargo",
+  "description": "A patent-pending system for automatically sorting and routing destination-addressed packages across releasably coupled cargo vehicles.",
+  "url": "https://bennylabs.org/worm-cargo/",
+  "image": "https://bennylabs.org/assets/worm-cargo-hero.webp",
+  "author": {"@type": "Person", "name": "Benny Goldstein"},
+  "publisher": {
+    "@type": "Organization",
+    "name": "Benny Labs Foundation",
+    "url": "https://bennylabs.org/",
+    "logo": {"@type": "ImageObject", "url": "https://bennylabs.org/assets/logo.jpg"}
+  },
+  "about": ["autonomous cargo vehicles", "mobile package sorting", "inter-vehicle cargo transfer", "last-mile logistics"],
+  "creativeWorkStatus": "Patent Pending",
+  "dateModified": "2026-10-11"
+}
+</script>
+<style>
+  :root{
+    --green:#22c55e;
+    --green-deep:#15803d;
+    --lime:#bef264;
+    --ink:#071b13;
+    --navy:#071624;
+    --slate:#466052;
+    --muted:#718279;
+    --paper:#fff;
+    --wash:#f2faf4;
+    --line:#d9e9dd;
+    --amber:#f4b942;
+    --shadow:0 24px 70px -30px rgba(5,46,25,.42);
+    --maxw:1160px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  #how,#difference,#distinction-title,#patent,#participate{scroll-margin-top:88px}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.62;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  img{display:block;max-width:100%}
+  .wrap{width:min(var(--maxw),calc(100% - 48px));margin:0 auto}
+  .nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(217,233,221,.9)}
+  .nav-inner{height:70px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:760;letter-spacing:-.01em}
+  .brand img{width:42px;height:42px;border-radius:50%}
+  .brand small{display:block;color:var(--muted);font-weight:520;font-size:.72rem;margin-top:-3px;letter-spacing:.02em}
+  .nav-actions{display:flex;align-items:center;gap:24px}
+  .nav-actions>a:not(.btn){text-decoration:none;color:var(--slate);font-weight:620;font-size:.93rem}
+  .nav-actions>a:not(.btn):hover{color:var(--green-deep)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:730;border:1px solid transparent;transition:.18s ease}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:var(--green);color:#052b15;box-shadow:0 12px 28px -12px rgba(34,197,94,.72)}
+  .btn-primary:hover{background:var(--lime)}
+  .btn-outline{border-color:var(--green-deep);color:var(--green-deep);background:#fff}
+  .btn-outline:hover{background:var(--wash)}
+
+  .hero{position:relative;min-height:710px;display:grid;align-items:center;overflow:hidden;background:var(--navy);color:#fff}
+  .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+  .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,16,28,.96) 0%,rgba(3,16,28,.88) 38%,rgba(3,16,28,.35) 67%,rgba(3,16,28,.16) 100%)}
+  .hero::after{content:"";position:absolute;inset:auto 0 0;height:180px;background:linear-gradient(transparent,rgba(3,16,28,.9))}
+  .hero-content{position:relative;z-index:2;max-width:690px;padding:94px 0 112px}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(190,242,100,.32);background:rgba(9,50,31,.6);color:var(--lime);border-radius:999px;padding:8px 14px;font-size:.8rem;font-weight:760;letter-spacing:.1em;text-transform:uppercase;margin-bottom:24px}
+  .pulse{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 6px rgba(190,242,100,.12)}
+  h1{font-size:clamp(2.8rem,6.2vw,5.1rem);line-height:.98;letter-spacing:-.045em;margin:0 0 24px;font-weight:850}
+  h1 span{color:var(--lime)}
+  .lede{font-size:clamp(1.08rem,2vw,1.29rem);line-height:1.62;color:rgba(255,255,255,.82);max-width:640px;margin:0 0 34px}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:13px}
+  .hero .btn-outline{color:#fff;border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.06)}
+  .hero .btn-outline:hover{background:rgba(255,255,255,.13)}
+  .patent-strip{position:relative;z-index:3;margin-top:-62px}
+  .patent-card{display:flex;align-items:center;justify-content:center;border:1px solid var(--line);background:rgba(255,255,255,.97);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;text-align:center}
+  .patent-fact{padding:25px 34px}
+  .patent-fact small{display:block;color:var(--muted);font-size:.76rem;text-transform:uppercase;letter-spacing:.09em;font-weight:740;margin-bottom:5px}
+  .patent-fact strong{display:block;font-size:1.04rem;letter-spacing:-.01em}
+
+  section{padding:92px 0}
+  .section-head{max-width:760px;margin:0 auto 52px;text-align:center}
+  .kicker{color:var(--green-deep);font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+  h2{font-size:clamp(2rem,4.4vw,3.25rem);line-height:1.09;letter-spacing:-.035em;margin:0 0 16px;font-weight:830}
+  .section-head p{color:var(--slate);font-size:1.12rem;margin:0}
+  .problem-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
+  .problem-copy p{font-size:1.08rem;color:var(--slate);margin:0 0 17px}
+  .problem-copy .callout{border-left:4px solid var(--green);background:var(--wash);padding:18px 21px;border-radius:0 14px 14px 0;color:var(--ink);font-weight:650;margin-top:27px}
+  .problem-visual{position:relative;border-radius:24px;overflow:hidden;box-shadow:var(--shadow);background:#dfe9e3}
+  .problem-visual img{width:100%;aspect-ratio:3/2;object-fit:cover}
+  .image-note{position:absolute;bottom:14px;right:14px;background:rgba(5,24,15,.78);color:rgba(255,255,255,.8);font-size:.7rem;padding:6px 10px;border-radius:999px;backdrop-filter:blur(8px)}
+
+  .mechanism{background:var(--wash);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:15px}
+  .step{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:20px;min-height:420px;box-shadow:0 18px 42px -32px rgba(5,46,25,.64);overflow:hidden}
+  .step-copy{padding:24px 20px 20px}
+  .step-num{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:var(--ink);color:var(--lime);font-weight:830;margin-bottom:18px}
+  .step h3{font-size:1.11rem;margin:0 0 9px;letter-spacing:-.01em}
+  .step p{font-size:.92rem;color:var(--slate);margin:0}
+  .step-scene{margin:auto 0 0;background:var(--ink);border-top:1px solid var(--line);aspect-ratio:4/3;overflow:hidden}
+  .step-scene img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+  .step:hover .step-scene img{transform:scale(1.035)}
+  .step:not(:last-child)::after{content:"";position:absolute;z-index:2;right:-12px;top:42px;width:22px;height:2px;background:var(--green)}
+
+  .difference{background:var(--ink);color:#fff;overflow:hidden;position:relative}
+  .difference::before{content:"";position:absolute;width:540px;height:540px;border-radius:50%;right:-220px;top:-240px;background:radial-gradient(circle,rgba(34,197,94,.18),transparent 68%)}
+  .difference .section-head{position:relative}
+  .difference .kicker{color:var(--lime)}
+  .difference h2{color:#fff}
+  .difference .section-head p{color:rgba(255,255,255,.68)}
+  .pillars{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .pillar{display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.055);border-radius:22px;overflow:hidden;min-height:440px}
+  .pillar-art{position:relative;flex:0 0 240px;height:240px;overflow:hidden;background:radial-gradient(circle at 50% 55%,rgba(34,197,94,.18),rgba(4,28,18,.06) 52%,rgba(0,0,0,.12));border-bottom:1px solid rgba(255,255,255,.1)}
+  .pillar-art img{position:absolute;inset:10px;width:calc(100% - 20px);height:calc(100% - 20px);object-fit:contain;filter:drop-shadow(0 26px 22px rgba(0,0,0,.28))}
+  .pillar-copy{position:relative;z-index:1;padding:24px 24px 27px;background:rgba(7,27,19,.94)}
+  .pillar h3{font-size:1.17rem;margin:0 0 9px;color:#fff}
+  .pillar p{margin:0;color:rgba(255,255,255,.69);font-size:.95rem}
+  .distinction{position:relative;margin-top:48px;border:1px solid rgba(190,242,100,.24);border-radius:26px;padding:34px;background:linear-gradient(145deg,rgba(190,242,100,.08),rgba(255,255,255,.035))}
+  .distinction-head{max-width:760px;margin-bottom:28px}
+  .distinction-head .kicker{color:var(--lime)}
+  .distinction h3{font-size:clamp(1.7rem,3vw,2.35rem);line-height:1.1;margin:0 0 10px;color:#fff;letter-spacing:-.025em}
+  .distinction-head p{margin:0;color:rgba(255,255,255,.7)}
+  .compare-row{display:grid;grid-template-columns:1fr 44px 1fr;align-items:center;gap:18px;padding:18px 0;border-top:1px solid rgba(255,255,255,.1)}
+  .compare-row strong{display:block;color:#fff;margin-bottom:4px}
+  .compare-row p{margin:0;color:rgba(255,255,255,.66);font-size:.94rem}
+  .compare-arrow{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--lime);color:var(--ink);font-weight:900}
+  .compare-new{background:rgba(34,197,94,.09);border-radius:14px;padding:14px 16px}
+
+  .scope-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  .scope-card{border:1px solid var(--line);border-radius:20px;padding:30px;background:#fff}
+  .scope-card h3{margin:0 0 14px;font-size:1.25rem}
+  .scope-card ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+  .scope-card li{display:flex;gap:11px;color:var(--slate)}
+  .scope-card li::before{content:"✓";color:var(--green-deep);font-weight:900}
+  .scope-card.safety{background:linear-gradient(145deg,#eaf8ed,#f8fcf9)}
+  .scope-card.safety strong{color:var(--green-deep)}
+
+  .participate{background:#fff}
+  .participate-panel{position:relative;overflow:hidden;border-radius:28px;background:linear-gradient(135deg,#071b13 0%,#0c3e25 64%,#15803d 100%);color:#fff;padding:54px;box-shadow:var(--shadow)}
+  .participate-panel::after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;right:-160px;bottom:-250px;background:rgba(190,242,100,.14)}
+  .participate-copy{position:relative;z-index:1;max-width:820px}
+  .participate .kicker{color:var(--lime)}
+  .participate h2{color:#fff}
+  .participate p{color:rgba(255,255,255,.76);font-size:1.07rem;margin:0 0 24px}
+  .partner-tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+  .partner-tags span{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);border-radius:999px;padding:8px 13px;font-size:.86rem;color:rgba(255,255,255,.88)}
+
+  .patent{background:linear-gradient(145deg,#eff9f1,#fff)}
+  .patent-panel{border:1px solid var(--line);border-radius:24px;background:#fff;box-shadow:var(--shadow);padding:46px;display:grid;grid-template-columns:1.2fr .8fr;gap:42px;align-items:center}
+  .patent-panel h2{font-size:clamp(2rem,4vw,3rem)}
+  .patent-panel p{color:var(--slate);font-size:1.05rem;margin:0 0 17px}
+  .patent-seal{border-radius:22px;padding:34px;background:var(--ink);color:#fff;text-align:center}
+  .patent-seal svg{color:var(--lime);margin:0 auto 16px}
+  .patent-seal strong{display:block;font-size:1.38rem;color:var(--lime);margin-bottom:6px}
+  .patent-seal span{display:block;color:rgba(255,255,255,.72);font-size:.9rem}
+
+  .cta{background:linear-gradient(135deg,var(--green-deep),#0b5f31);color:#fff;text-align:center}
+  .cta h2{color:#fff;max-width:780px;margin-left:auto;margin-right:auto}
+  .cta p{color:rgba(255,255,255,.78);max-width:660px;margin:0 auto 28px;font-size:1.08rem}
+  .cta .btn-primary{background:var(--lime)}
+  footer{background:#03130b;color:rgba(255,255,255,.62);padding:38px 0;font-size:.86rem}
+  .foot{display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .foot a{color:#fff;text-decoration:none}
+  .foot a:hover{text-decoration:underline}
+
+  @media(max-width:980px){
+    .steps{grid-template-columns:repeat(2,1fr)}
+    .step:last-child{grid-column:span 2}
+    .step:not(:last-child)::after{display:none}
+    .pillars{grid-template-columns:repeat(2,1fr)}
+    .problem-grid,.patent-panel{grid-template-columns:1fr}
+    .compare-row{grid-template-columns:1fr 40px 1fr}
+  }
+  @media(max-width:760px){
+    .wrap{width:min(100% - 32px,var(--maxw))}
+    .nav-actions>a:not(.btn){display:none}
+    .nav-actions .btn{padding:9px 15px;font-size:.88rem}
+    .brand small{display:none}
+    .hero{min-height:670px}
+    .hero::before{background:linear-gradient(90deg,rgba(3,16,28,.94),rgba(3,16,28,.64))}
+    .hero-bg{object-position:64% center}
+    .hero-content{padding:82px 0 116px}
+    section{padding:72px 0}
+    .steps,.pillars,.scope-grid{grid-template-columns:1fr}
+    .step:last-child{grid-column:auto}
+    .patent-panel{padding:28px}
+    .distinction{padding:25px 20px}
+    .compare-row{grid-template-columns:1fr;gap:10px}
+    .compare-arrow{transform:rotate(90deg);margin:0 auto}
+    .participate-panel{padding:36px 26px}
+    .foot{align-items:flex-start;flex-direction:column}
+  }
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="../">
+      <img src="../assets/logo.jpg" alt="Benny Labs Foundation logo" width="42" height="42">
+      <span>Benny Labs Foundation<small>501(c)(3) nonprofit · R&amp;D &amp; education</small></span>
+    </a>
+    <nav class="nav-actions" aria-label="Page navigation">
+      <a href="#how">How it works</a>
+      <a href="#patent">Patent</a>
+      <a class="btn btn-outline" href="../#projects">← All projects</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="top">
+    <img class="hero-bg" src="../assets/worm-cargo-hero.webp" alt="Three connected autonomous cargo vehicles transferring packages through a continuous internal route at blue hour" width="1664" height="936">
+    <div class="wrap hero-content">
+      <div class="eyebrow"><span class="pulse" aria-hidden="true"></span> U.S. patent pending</div>
+      <h1>What if the road itself became <span>the sorting network?</span></h1>
+      <p class="lede">Worm Cargo is a patent-pending logistics architecture in which cargo vehicles connect into a live chain and automatically route destination-addressed packages from one vehicle to another—including through an intermediate vehicle—without first unloading at a fixed sorting hub.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#how">See how it works ↓</a>
+        <a class="btn btn-outline" href="#patent">View patent information</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="patent-strip">
+    <div class="wrap">
+      <div class="patent-card" aria-label="Patent details">
+        <div class="patent-fact"><small>Status</small><strong>U.S. Patent Pending</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap problem-grid">
+      <div class="problem-copy">
+        <div class="kicker">The opportunity</div>
+        <h2>Packages move. Sorting still makes them stop.</h2>
+        <p>Conventional logistics repeatedly sends vehicles to fixed facilities, unloads their cargo, sorts it, and reloads it for the next leg. Every stop adds dwell time, handling, infrastructure, and another opportunity for delay or damage.</p>
+        <p>Worm Cargo changes the unit of organization. The vehicles temporarily become one connected moving system, with an aligned route inside the chain that can carry each package toward the vehicle serving its destination.</p>
+        <div class="callout"><strong>The Moving Hub:</strong> sort inside a live vehicle chain, then let the vehicles separate with the right cargo already aboard.</div>
+      </div>
+      <figure class="problem-visual">
+        <img src="../assets/worm-cargo-system.webp" alt="Cutaway visualization of a connected vehicle chain routing packages through a continuous internal conveyor" width="1536" height="1024" loading="lazy">
+        <figcaption class="image-note">Conceptual visualization</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="mechanism" id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">The cargo-routing loop</div>
+        <h2>Connect. Route. Separate.</h2>
+        <p>Five stages turn several vehicles into a temporary mobile sorting network, while preserving a package-level destination for every unit.</p>
+      </div>
+      <div class="steps">
+        <article class="step">
+          <div class="step-copy"><div class="step-num">1</div><h3>Read the destination</h3><p>A scanner or manifest identifies where each individual package should go and selects a destination vehicle.</p></div>
+          <figure class="step-scene"><img src="../assets/worm-step-scan.webp" alt="A destination-addressed package being scanned inside an autonomous cargo vehicle" width="900" height="675" loading="lazy"></figure>
+        </article>
+        <article class="step">
+          <div class="step-copy"><div class="step-num">2</div><h3>Form the chain</h3><p>Compatible vehicles align and releasably couple, creating a protected transfer path between their cargo areas.</p></div>
+          <figure class="step-scene"><img src="../assets/worm-step-couple.webp" alt="Two cargo vehicles aligning and engaging a flexible protected coupling" width="900" height="675" loading="lazy"></figure>
+        </article>
+        <article class="step">
+          <div class="step-copy"><div class="step-num">3</div><h3>Transfer across vehicles</h3><p>Automated conveyors, robots, or other transfer mechanisms move the package through one or more connected vehicles.</p></div>
+          <figure class="step-scene"><img src="../assets/worm-step-transfer.webp" alt="A highlighted package moving across three connected cargo vehicles through the middle vehicle" width="900" height="675" loading="lazy"></figure>
+        </article>
+        <article class="step">
+          <div class="step-copy"><div class="step-num">4</div><h3>Pass, divert, or merge</h3><p>A switchable transfer spine can send a unit straight through, divert it into local storage, or merge it back into the flow.</p></div>
+          <figure class="step-scene"><img src="../assets/worm-step-sort.webp" alt="A powered internal turnout directing packages between a main conveyor and local storage" width="900" height="675" loading="lazy"></figure>
+        </article>
+        <article class="step">
+          <div class="step-copy"><div class="step-num">5</div><h3>Release and continue</h3><p>After sorting, vehicles decouple and diverge, each carrying the packages for the route or destination it serves.</p></div>
+          <figure class="step-scene"><img src="../assets/worm-step-release.webp" alt="Autonomous cargo vehicles separating and continuing along different routes with assigned cargo" width="900" height="675" loading="lazy"></figure>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="difference" id="difference">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">The inventive focus</div>
+        <h2>More than vehicles traveling together</h2>
+        <p>The concept centers on physical package routing across a persistent, releasably coupled chain—not merely platooning, pairing, or meeting at a dock.</p>
+      </div>
+      <div class="pillars">
+        <article class="pillar"><div class="pillar-art"><img src="../assets/worm-focus-multihop.webp" alt="Three-dimensional cutaway showing one package routed through a middle vehicle to a farther vehicle" width="900" height="900" loading="lazy"></div><div class="pillar-copy"><h3>Multi-hop through-routing</h3><p>A package can enter an intermediate vehicle that is neither its origin nor its destination, pass through it, and continue to a non-adjacent vehicle in the same coupled chain.</p></div></article>
+        <article class="pillar"><div class="pillar-art"><img src="../assets/worm-focus-hubless.webp" alt="Three-dimensional cargo chain continuing on a road while bypassing a fixed sorting hub" width="900" height="900" loading="lazy"></div><div class="pillar-copy"><h3>Hubless mobile sorting</h3><p>The chain can route cargo while moving or while parked without unloading that package at a fixed sorting facility between coupling and decoupling.</p></div></article>
+        <article class="pillar"><div class="pillar-art"><img src="../assets/worm-focus-coupling.webp" alt="Three-dimensional display of multiple compatible cargo vehicle coupling approaches" width="900" height="900" loading="lazy"></div><div class="pillar-copy"><h3>Coupling-agnostic architecture</h3><p>The transfer path is not tied to one connector. Implementations may use mechanical, magnetic, vacuum, inductive, bridge, or protected gangway arrangements.</p></div></article>
+        <article class="pillar"><div class="pillar-art"><img src="../assets/worm-focus-reordering.webp" alt="Three-dimensional cargo vehicles safely changing position to shorten a package route" width="900" height="900" loading="lazy"></div><div class="pillar-copy"><h3>Dynamic chain reordering</h3><p>Vehicle membership and position can be changed to shorten a package's path, consolidate cargo, or send a vehicle toward a different destination after sorting.</p></div></article>
+        <article class="pillar"><div class="pillar-art"><img src="../assets/worm-focus-custody.webp" alt="Three-dimensional package protected by sensors, a custody shield, and thermal rerouting" width="900" height="900" loading="lazy"></div><div class="pillar-copy"><h3>Verified custody and rescue</h3><p>Coupling handshakes, continuity sensing, transfer-complete interlocks, and condition-aware rerouting can help protect both custody and temperature-sensitive cargo.</p></div></article>
+        <article class="pillar"><div class="pillar-art"><img src="../assets/worm-focus-lastmile.webp" alt="Three-dimensional cargo vehicle loading a double-sided roadside parcel locker" width="900" height="900" loading="lazy"></div><div class="pillar-copy"><h3>Street-to-sidewalk delivery</h3><p>A vehicle can load a roadside locker from the street side while a recipient later retrieves from the sidewalk side, separating delivery timing from pickup.</p></div></article>
+      </div>
+
+      <div class="distinction" aria-labelledby="distinction-title">
+        <div class="distinction-head">
+          <div class="kicker">From transport to continuous flow</div>
+          <h3 id="distinction-title">Where Worm Cargo takes connected logistics further</h3>
+          <p>Other approaches may coordinate a formation, transfer between one pair of vehicles, or sort at a stationary site. The disclosed architecture combines a persistent vehicle chain with package-level, multi-hop routing.</p>
+        </div>
+        <div class="compare-row">
+          <div><strong>Fixed sortation cycle</strong><p>Vehicles stop at a hub, unload, wait for sorting, and reload for the next leg.</p></div>
+          <div class="compare-arrow" aria-hidden="true">→</div>
+          <div class="compare-new"><strong>Sorting inside the chain</strong><p>Packages can be routed between connected vehicles before the vehicles separate.</p></div>
+        </div>
+        <div class="compare-row">
+          <div><strong>Direct neighbor handoff</strong><p>A two-vehicle exchange ends when cargo reaches the immediately connected vehicle.</p></div>
+          <div class="compare-arrow" aria-hidden="true">→</div>
+          <div class="compare-new"><strong>Non-adjacent destination</strong><p>One addressed unit can pass across an intervening vehicle to a farther vehicle in the same chain.</p></div>
+        </div>
+        <div class="compare-row">
+          <div><strong>Vehicle platooning</strong><p>Connected vehicles may coordinate speed and spacing while their cargo remains isolated.</p></div>
+          <div class="compare-arrow" aria-hidden="true">→</div>
+          <div class="compare-new"><strong>Physical cargo continuity</strong><p>The coupling creates a transfer path that lets packages move among vehicle cargo areas.</p></div>
+        </div>
+        <div class="compare-row">
+          <div><strong>One required connector</strong><p>A transfer design may depend on one rigid geometry or narrowly defined coupling mechanism.</p></div>
+          <div class="compare-arrow" aria-hidden="true">→</div>
+          <div class="compare-new"><strong>Modality-agnostic connection</strong><p>The disclosed transfer architecture can be implemented through multiple coupling and bridge technologies.</p></div>
+        </div>
+        <div class="compare-row">
+          <div><strong>Delivery and pickup together</strong><p>A vehicle may wait at the curb while a recipient receives the package.</p></div>
+          <div class="compare-arrow" aria-hidden="true">→</div>
+          <div class="compare-new"><strong>Separated last-mile timing</strong><p>Street-side loading and sidewalk-side retrieval can occur independently through a secure receptacle.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">Designed as a flexible platform</div>
+        <h2>One routing principle, many embodiments</h2>
+        <p>The disclosed system supports different vehicle domains, transfer equipment, operating modes, and safeguards without making one mechanism essential to the entire concept.</p>
+      </div>
+      <div class="scope-grid">
+        <article class="scope-card">
+          <h3>Possible system components</h3>
+          <ul>
+            <li>Powered conveyors, roller beds, robotic arms, AMRs, or sorters</li>
+            <li>Optical codes, RFID, NFC, labels, or manifest records</li>
+            <li>Cameras, lidar, radar, and relative-pose sensing</li>
+            <li>Mechanical, magnetic, vacuum, inductive, bridge, or gangway couplings</li>
+            <li>Road vehicles, trailers, rail cars, yard vehicles, marine, or aerial modules</li>
+          </ul>
+        </article>
+        <article class="scope-card safety">
+          <h3>Operating safeguards</h3>
+          <ul>
+            <li><strong>Coupling identity and integrity can be verified before transfer.</strong></li>
+            <li>Mechanical continuity and transfer completion can gate release.</li>
+            <li>Relative position can be monitored during coupling and travel.</li>
+            <li>Temperature-sensitive cargo can be rerouted after a conditioning fault.</li>
+            <li>The system can operate in motion or in a parked mode.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="patent" id="patent">
+    <div class="wrap patent-panel">
+      <div>
+        <div class="kicker">Intellectual property</div>
+        <h2>Patent pending in the United States</h2>
+        <p>Worm Cargo is patent pending in the United States.</p>
+        <p>The application describes systems and methods for releasably coupling cargo vehicles, automatically routing destination-addressed package units across the resulting transfer path, carrying a package through an intermediate vehicle to a non-adjacent vehicle, and completing the process without unloading that package at a fixed sorting facility between coupling and decoupling.</p>
+        <p><strong>Inventor:</strong> Benny Goldstein</p>
+      </div>
+      <aside class="patent-seal" aria-label="Patent-pending status">
+        <svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 4 7v5c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V7l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg>
+        <strong>Patent Pending</strong>
+        <span>Worm Cargo</span>
+      </aside>
+    </div>
+  </section>
+
+  <section class="participate" id="participate">
+    <div class="wrap participate-panel">
+      <div class="participate-copy">
+        <div class="kicker">Benny Labs Foundation initiative</div>
+        <h2>Help move Worm Cargo from patent to prototype.</h2>
+        <p>Benny Labs Foundation is working to develop, model, and validate Worm Cargo further. We welcome people and organizations that can help with vehicle architecture, transfer mechanisms, controls, freight operations, safety validation, simulation, or a practical pilot environment.</p>
+        <div class="partner-tags" aria-label="Ways to participate">
+          <span>Freight &amp; logistics research</span><span>Autonomous vehicle engineering</span><span>Conveyor &amp; robotics systems</span><span>Fleet operators</span><span>Safety validation</span><span>Prototype &amp; pilot partners</span>
+        </div>
+        <a class="btn btn-primary" href="mailto:bennygoldstein@msn.com?subject=Help%20develop%20Worm%20Cargo">Participate in the project →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <div class="kicker" style="color:var(--lime)">Partnerships &amp; research</div>
+      <h2>Interested in mobile sortation, prototyping, or licensing?</h2>
+      <p>Benny Labs Foundation welcomes conversations with logistics researchers, autonomous-vehicle teams, material-handling companies, fleet operators, infrastructure partners, prospective licensees, and anyone prepared to help test the concept responsibly.</p>
+      <a class="btn btn-primary" href="mailto:bennygoldstein@msn.com?subject=Worm%20Cargo%20inquiry">Start a conversation →</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>© 2026 Benny Labs Foundation Inc. · 501(c)(3) public charity</div>
+    <div><a href="../">Benny Labs home</a> · <a href="mailto:bennygoldstein@msn.com">Contact</a></div>
+  </div>
+</footer>
+
+</body>
+</html>
