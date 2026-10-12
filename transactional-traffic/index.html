@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transactional Traffic Mediator | Benny Labs Foundation</title>
+<meta name="description" content="A patent-pending system for coordinating, verifying, and rewarding safe lane-level micro-maneuvers that help create temporary travel corridors.">
+<meta property="og:title" content="Transactional Traffic Mediator | Benny Labs Foundation">
+<meta property="og:description" content="A patent-pending marketplace and coordination layer for safer, more cooperative traffic movement.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bennylabs.org/transactional-traffic/">
+<meta property="og:image" content="https://bennylabs.org/assets/transactional-traffic-hero.webp">
+<meta name="theme-color" content="#071b13">
+<link rel="canonical" href="https://bennylabs.org/transactional-traffic/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2316a34a'/%3E%3Cpath d='M41 20h18v20l15 28a7 7 0 0 1-6 11H32a7 7 0 0 1-6-11l15-28z' fill='none' stroke='%23bef264' stroke-width='6' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='58' r='6' fill='%23bef264'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --green:#22c55e;
+    --green-deep:#15803d;
+    --lime:#bef264;
+    --ink:#071b13;
+    --navy:#071624;
+    --slate:#466052;
+    --muted:#718279;
+    --paper:#fff;
+    --wash:#f2faf4;
+    --line:#d9e9dd;
+    --amber:#f4b942;
+    --shadow:0 24px 70px -30px rgba(5,46,25,.42);
+    --maxw:1160px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.62;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  img{display:block;max-width:100%}
+  .wrap{width:min(var(--maxw),calc(100% - 48px));margin:0 auto}
+  .nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(217,233,221,.9)}
+  .nav-inner{height:70px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:760;letter-spacing:-.01em}
+  .brand img{width:42px;height:42px;border-radius:50%}
+  .brand small{display:block;color:var(--muted);font-weight:520;font-size:.72rem;margin-top:-3px;letter-spacing:.02em}
+  .nav-actions{display:flex;align-items:center;gap:24px}
+  .nav-actions>a:not(.btn){text-decoration:none;color:var(--slate);font-weight:620;font-size:.93rem}
+  .nav-actions>a:not(.btn):hover{color:var(--green-deep)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:730;border:1px solid transparent;transition:.18s ease}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:var(--green);color:#052b15;box-shadow:0 12px 28px -12px rgba(34,197,94,.72)}
+  .btn-primary:hover{background:var(--lime)}
+  .btn-outline{border-color:var(--green-deep);color:var(--green-deep);background:#fff}
+  .btn-outline:hover{background:var(--wash)}
+
+  .hero{position:relative;min-height:710px;display:grid;align-items:center;overflow:hidden;background:var(--navy);color:#fff}
+  .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+  .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,16,28,.96) 0%,rgba(3,16,28,.88) 38%,rgba(3,16,28,.35) 67%,rgba(3,16,28,.16) 100%)}
+  .hero::after{content:"";position:absolute;inset:auto 0 0;height:180px;background:linear-gradient(transparent,rgba(3,16,28,.9))}
+  .hero-content{position:relative;z-index:2;max-width:690px;padding:94px 0 112px}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(190,242,100,.32);background:rgba(9,50,31,.6);color:var(--lime);border-radius:999px;padding:8px 14px;font-size:.8rem;font-weight:760;letter-spacing:.1em;text-transform:uppercase;margin-bottom:24px}
+  .pulse{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 6px rgba(190,242,100,.12)}
+  h1{font-size:clamp(2.8rem,6.2vw,5.1rem);line-height:.98;letter-spacing:-.045em;margin:0 0 24px;font-weight:850}
+  h1 span{color:var(--lime)}
+  .lede{font-size:clamp(1.08rem,2vw,1.29rem);line-height:1.62;color:rgba(255,255,255,.82);max-width:640px;margin:0 0 34px}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:13px}
+  .hero .btn-outline{color:#fff;border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.06)}
+  .hero .btn-outline:hover{background:rgba(255,255,255,.13)}
+  .patent-strip{position:relative;z-index:3;margin-top:-62px}
+  .patent-card{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);background:rgba(255,255,255,.97);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+  .patent-fact{padding:25px 28px}
+  .patent-fact+.patent-fact{border-left:1px solid var(--line)}
+  .patent-fact small{display:block;color:var(--muted);font-size:.76rem;text-transform:uppercase;letter-spacing:.09em;font-weight:740;margin-bottom:5px}
+  .patent-fact strong{display:block;font-size:1.04rem;letter-spacing:-.01em}
+
+  section{padding:92px 0}
+  .section-head{max-width:760px;margin:0 auto 52px;text-align:center}
+  .kicker{color:var(--green-deep);font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+  h2{font-size:clamp(2rem,4.4vw,3.25rem);line-height:1.09;letter-spacing:-.035em;margin:0 0 16px;font-weight:830}
+  .section-head p{color:var(--slate);font-size:1.12rem;margin:0}
+  .problem-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
+  .problem-copy p{font-size:1.08rem;color:var(--slate);margin:0 0 17px}
+  .problem-copy .callout{border-left:4px solid var(--green);background:var(--wash);padding:18px 21px;border-radius:0 14px 14px 0;color:var(--ink);font-weight:650;margin-top:27px}
+  .problem-visual{position:relative;border-radius:24px;overflow:hidden;box-shadow:var(--shadow);background:#dfe9e3}
+  .problem-visual img{width:100%;aspect-ratio:3/2;object-fit:cover}
+  .image-note{position:absolute;bottom:14px;right:14px;background:rgba(5,24,15,.78);color:rgba(255,255,255,.8);font-size:.7rem;padding:6px 10px;border-radius:999px;backdrop-filter:blur(8px)}
+
+  .mechanism{background:var(--wash);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:15px}
+  .step{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;padding:25px 20px;min-height:250px;box-shadow:0 12px 35px -30px rgba(5,46,25,.6)}
+  .step-num{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:var(--ink);color:var(--lime);font-weight:830;margin-bottom:21px}
+  .step h3{font-size:1.11rem;margin:0 0 9px;letter-spacing:-.01em}
+  .step p{font-size:.92rem;color:var(--slate);margin:0}
+  .step:not(:last-child)::after{content:"";position:absolute;z-index:2;right:-12px;top:42px;width:22px;height:2px;background:var(--green)}
+
+  .difference{background:var(--ink);color:#fff;overflow:hidden;position:relative}
+  .difference::before{content:"";position:absolute;width:540px;height:540px;border-radius:50%;right:-220px;top:-240px;background:radial-gradient(circle,rgba(34,197,94,.18),transparent 68%)}
+  .difference .section-head{position:relative}
+  .difference .kicker{color:var(--lime)}
+  .difference h2{color:#fff}
+  .difference .section-head p{color:rgba(255,255,255,.68)}
+  .pillars{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .pillar{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.055);border-radius:18px;padding:27px 24px}
+  .pillar-icon{width:48px;height:48px;border-radius:14px;background:rgba(190,242,100,.12);color:var(--lime);display:grid;place-items:center;margin-bottom:18px}
+  .pillar h3{font-size:1.15rem;margin:0 0 8px;color:#fff}
+  .pillar p{margin:0;color:rgba(255,255,255,.67);font-size:.95rem}
+
+  .scope-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  .scope-card{border:1px solid var(--line);border-radius:20px;padding:30px;background:#fff}
+  .scope-card h3{margin:0 0 14px;font-size:1.25rem}
+  .scope-card ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+  .scope-card li{display:flex;gap:11px;color:var(--slate)}
+  .scope-card li::before{content:"✓";color:var(--green-deep);font-weight:900}
+  .scope-card.safety{background:linear-gradient(145deg,#eaf8ed,#f8fcf9)}
+  .scope-card.safety strong{color:var(--green-deep)}
+
+  .patent{background:linear-gradient(145deg,#eff9f1,#fff)}
+  .patent-panel{border:1px solid var(--line);border-radius:24px;background:#fff;box-shadow:var(--shadow);padding:46px;display:grid;grid-template-columns:1.2fr .8fr;gap:42px;align-items:center}
+  .patent-panel h2{font-size:clamp(2rem,4vw,3rem)}
+  .patent-panel p{color:var(--slate);font-size:1.05rem;margin:0 0 17px}
+  .patent-seal{border-radius:22px;padding:34px;background:var(--ink);color:#fff;text-align:center}
+  .patent-seal svg{color:var(--lime);margin:0 auto 16px}
+  .patent-seal strong{display:block;font-size:1.38rem;color:var(--lime);margin-bottom:6px}
+  .patent-seal span{display:block;color:rgba(255,255,255,.72);font-size:.9rem}
+
+  .cta{background:linear-gradient(135deg,var(--green-deep),#0b5f31);color:#fff;text-align:center}
+  .cta h2{color:#fff;max-width:780px;margin-left:auto;margin-right:auto}
+  .cta p{color:rgba(255,255,255,.78);max-width:660px;margin:0 auto 28px;font-size:1.08rem}
+  .cta .btn-primary{background:var(--lime)}
+  footer{background:#03130b;color:rgba(255,255,255,.62);padding:38px 0;font-size:.86rem}
+  .foot{display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .foot a{color:#fff;text-decoration:none}
+  .foot a:hover{text-decoration:underline}
+
+  @media(max-width:980px){
+    .steps{grid-template-columns:repeat(2,1fr)}
+    .step:last-child{grid-column:span 2}
+    .step:not(:last-child)::after{display:none}
+    .pillars{grid-template-columns:repeat(2,1fr)}
+    .problem-grid,.patent-panel{grid-template-columns:1fr}
+  }
+  @media(max-width:760px){
+    .wrap{width:min(100% - 32px,var(--maxw))}
+    .nav-actions>a:not(.btn){display:none}
+    .nav-actions .btn{padding:9px 15px;font-size:.88rem}
+    .brand small{display:none}
+    .hero{min-height:670px}
+    .hero::before{background:linear-gradient(90deg,rgba(3,16,28,.94),rgba(3,16,28,.64))}
+    .hero-bg{object-position:64% center}
+    .hero-content{padding:82px 0 116px}
+    .patent-card{grid-template-columns:1fr}
+    .patent-fact+.patent-fact{border-left:0;border-top:1px solid var(--line)}
+    section{padding:72px 0}
+    .steps,.pillars,.scope-grid{grid-template-columns:1fr}
+    .step:last-child{grid-column:auto}
+    .patent-panel{padding:28px}
+    .foot{align-items:flex-start;flex-direction:column}
+  }
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="../">
+      <img src="../assets/logo.jpg" alt="Benny Labs Foundation logo" width="42" height="42">
+      <span>Benny Labs Foundation<small>501(c)(3) nonprofit · R&amp;D &amp; education</small></span>
+    </a>
+    <nav class="nav-actions" aria-label="Page navigation">
+      <a href="#how">How it works</a>
+      <a href="#patent">Patent</a>
+      <a class="btn btn-outline" href="../#projects">← All projects</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="top">
+    <img class="hero-bg" src="../assets/transactional-traffic-hero.webp" alt="Connected vehicles safely coordinating to open a temporary traffic corridor at blue hour" width="1664" height="936">
+    <div class="wrap hero-content">
+      <div class="eyebrow"><span class="pulse" aria-hidden="true"></span> U.S. patent pending</div>
+      <h1>Traffic moves better when <span>cooperation has value.</span></h1>
+      <p class="lede">The Transactional Traffic Mediator is a proposed coordination layer that identifies safe, lane-level micro-maneuvers, offers individualized rewards to participating vehicles, verifies that each action happened, and settles value only after successful completion.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#how">See how it works ↓</a>
+        <a class="btn btn-outline" href="#patent">View patent information</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="patent-strip">
+    <div class="wrap">
+      <div class="patent-card" aria-label="Patent details">
+        <div class="patent-fact"><small>Status</small><strong>U.S. Patent Pending</strong></div>
+        <div class="patent-fact"><small>Application</small><strong>No. 19/714,615</strong></div>
+        <div class="patent-fact"><small>Filed</small><strong>June 21, 2026</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap problem-grid">
+      <div class="problem-copy">
+        <div class="kicker">The opportunity</div>
+        <h2>Road space is scarce. Cooperation is unpriced.</h2>
+        <p>Navigation software can suggest a faster route, but it normally treats the vehicles around us as passive obstacles. It cannot ask nearby participants to safely create and preserve the precise gaps needed for a vehicle to pass.</p>
+        <p>This concept introduces a voluntary marketplace and control layer for small traffic actions: create a gap, hold position, delay a merge, move into an available space, or yield when safe.</p>
+        <div class="callout">The goal is not reckless speed. It is coordinated, safety-conditioned movement that makes better use of the road already available.</div>
+      </div>
+      <figure class="problem-visual">
+        <img src="../assets/transactional-traffic-system.webp" alt="Top-down concept visualization of several vehicles coordinating safe lane and gap movements" width="1536" height="1024" loading="lazy">
+        <figcaption class="image-note">Conceptual visualization</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="mechanism" id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">The coordination loop</div>
+        <h2>From a travel request to a verified result</h2>
+        <p>Five connected stages turn a general need to move into a set of specific, voluntary, and verifiable micro-maneuvers.</p>
+      </div>
+      <div class="steps">
+        <article class="step"><div class="step-num">1</div><h3>Request</h3><p>A priority participant submits a destination, urgency level, desired time saving, and spending limits.</p></article>
+        <article class="step"><div class="step-num">2</div><h3>Coordinate</h3><p>The platform identifies nearby participants and calculates a safe sequence of lane-level actions that can create a temporary corridor.</p></article>
+        <article class="step"><div class="step-num">3</div><h3>Offer</h3><p>Each assisting participant receives an individualized offer and may accept, reject, or counteroffer.</p></article>
+        <article class="step"><div class="step-num">4</div><h3>Verify</h3><p>Positioning, ranging, vehicle telemetry, cameras, radar, lidar, or V2X data can confirm that the accepted maneuver occurred.</p></article>
+        <article class="step"><div class="step-num">5</div><h3>Settle</h3><p>Compensation or credit is released only after the system verifies successful completion.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="difference">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">The inventive focus</div>
+        <h2>Not simply paying for a faster route</h2>
+        <p>The concept centers on a verified, multi-vehicle marketplace for specific physical actions at lane level.</p>
+      </div>
+      <div class="pillars">
+        <article class="pillar"><div class="pillar-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17c3-6 7-9 16-10M4 7c3 6 7 9 16 10"/><path d="m16 4 4 3-4 3M16 14l4 3-4 3"/></svg></div><h3>Multi-vehicle choreography</h3><p>Different participants can receive different, coordinated assignments that together open one temporary corridor.</p></article>
+        <article class="pillar"><div class="pillar-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Individualized value</h3><p>Offers may reflect a vehicle's position, inconvenience, expected delay, maneuver complexity, urgency, supply, and demand.</p></article>
+        <article class="pillar"><div class="pillar-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/><circle cx="12" cy="12" r="10"/></svg></div><h3>Verification before value</h3><p>Acceptance alone is not enough. The system is designed to confirm physical performance before releasing compensation.</p></article>
+        <article class="pillar"><div class="pillar-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 22h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2Z"/><path d="m9 16 2 2 4-5"/></svg></div><h3>Deferred settlement</h3><p>Credits or tokens can accrue from verified events and settle later, reducing friction during split-second coordination.</p></article>
+        <article class="pillar"><div class="pillar-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><h3>Safety-conditioned execution</h3><p>Instructions remain subject to safe conditions, participant discretion, traffic laws, and vehicle safety systems.</p></article>
+        <article class="pillar"><div class="pillar-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 9h8M8 13h3M15 13h1"/></svg></div><h3>Human and autonomous ready</h3><p>The architecture can support phones, vehicle displays, assisted-driving systems, fleets, connected vehicles, and autonomous vehicles.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">Designed for real roads</div>
+        <h2>A flexible layer above vehicles and infrastructure</h2>
+        <p>The disclosed system can combine multiple communications, sensing, and interface technologies without depending on a single implementation.</p>
+      </div>
+      <div class="scope-grid">
+        <article class="scope-card">
+          <h3>Possible system inputs</h3>
+          <ul>
+            <li>GPS, GNSS, inertial sensing, and map data</li>
+            <li>UWB and Bluetooth Channel Sounding</li>
+            <li>Vehicle telemetry, cameras, radar, and lidar</li>
+            <li>V2V, V2I, C-V2X, and roadside infrastructure</li>
+            <li>Mobile, aftermarket, fleet, and OEM interfaces</li>
+          </ul>
+        </article>
+        <article class="scope-card safety">
+          <h3>Safety remains the gate</h3>
+          <ul>
+            <li><strong>No instruction overrides traffic law.</strong></li>
+            <li>Human participants retain discretion.</li>
+            <li>Automated systems independently approve safe execution.</li>
+            <li>Unsafe or infeasible maneuver plans can be rejected.</li>
+            <li>Verification helps discourage false completion claims.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="patent" id="patent">
+    <div class="wrap patent-panel">
+      <div>
+        <div class="kicker">Intellectual property</div>
+        <h2>Patent pending in the United States</h2>
+        <p>The Transactional Traffic Mediator is the subject of U.S. Utility Patent Application No. 19/714,615, filed June 21, 2026.</p>
+        <p>The application describes systems and methods for generating, pricing, assigning, verifying, and compensating coordinated lane-level micro-maneuvers, including embodiments for human-driven, assisted, connected, and autonomous vehicles.</p>
+        <p><strong>Inventor:</strong> Benny Goldstein</p>
+      </div>
+      <aside class="patent-seal" aria-label="Patent-pending status">
+        <svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 4 7v5c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V7l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg>
+        <strong>Patent Pending</strong>
+        <span>U.S. Application No. 19/714,615</span>
+        <span>Filed June 21, 2026</span>
+      </aside>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <div class="kicker" style="color:var(--lime)">Partnerships &amp; research</div>
+      <h2>Interested in connected mobility, validation, or licensing?</h2>
+      <p>Benny Labs Foundation welcomes conversations with researchers, mobility platforms, automotive suppliers, fleets, infrastructure partners, and prospective licensees.</p>
+      <a class="btn btn-primary" href="mailto:bennygoldstein@msn.com?subject=Transactional%20Traffic%20Mediator%20inquiry">Start a conversation →</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>© 2026 Benny Labs Foundation Inc. · 501(c)(3) public charity</div>
+    <div><a href="../">Benny Labs home</a> · <a href="mailto:bennygoldstein@msn.com">Contact</a></div>
+  </div>
+</footer>
+
+</body>
+</html>
