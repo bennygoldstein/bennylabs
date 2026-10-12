@@ -148,6 +148,9 @@
   .proj-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
   .proj-thumb{position:relative;aspect-ratio:1.91/1;overflow:hidden;background:#0b1120}
   .proj-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .proj-thumb-link{display:block;height:100%}
+  .proj-thumb-link img{transition:transform .3s ease}
+  .proj-thumb-link:hover img{transform:scale(1.04)}
   .proj-thumb.pennyowl{background:linear-gradient(135deg,#f8eadd,#d29a70)}
   .proj-thumb.pennyowl img{object-fit:contain;padding:12px}
   .proj-thumb.coming{display:grid;place-items:center;background:linear-gradient(135deg,#123020,#1d4a30)}
@@ -254,7 +257,7 @@
       </div>
     </div>
     <div class="hero-logo-wrap">
-      <div class="halo"><img src="assets/hero-logo.png" alt="Benny Labs — mad scientist mascot holding a bubbling green flask" width="760" height="760"></div>
+      <div class="halo"><a href="#projects" aria-label="See the projects we are backing"><img src="assets/hero-logo.png" alt="Benny Labs — mad scientist mascot holding a bubbling green flask" width="760" height="760"></a></div>
     </div>
   </div>
 </section>
@@ -270,7 +273,7 @@
     <div class="proj-grid">
       <div class="proj-card">
         <div class="proj-thumb">
-          <img src="assets/thermalcore.jpg" alt="ThermalCore module — a sealed computing core that heats water while it computes" loading="lazy">
+          <a class="proj-thumb-link" href="https://thermalcore.energy" target="_blank" rel="noopener" aria-label="Visit thermalcore.energy"><img src="assets/thermalcore.jpg" alt="ThermalCore module — a sealed computing core that heats water while it computes" loading="lazy"></a>
         </div>
         <div class="proj-body">
           <span class="proj-tag">Sponsored project</span>
@@ -281,7 +284,7 @@
       </div>
       <div class="proj-card">
         <div class="proj-thumb">
-          <img src="assets/newhab.jpg" alt="Newhab — adjustable strength from 0 to 5 lb: resists one way as you work the joint, unresisted on the return, and holds anywhere you stop" loading="lazy">
+          <a class="proj-thumb-link" href="https://newhab.life" target="_blank" rel="noopener" aria-label="Visit newhab.life"><img src="assets/newhab.jpg" alt="Newhab — adjustable strength from 0 to 5 lb: resists one way as you work the joint, unresisted on the return, and holds anywhere you stop" loading="lazy"></a>
         </div>
         <div class="proj-body">
           <span class="proj-tag">Sponsored project</span>
@@ -292,7 +295,7 @@
       </div>
       <div class="proj-card">
         <div class="proj-thumb">
-          <img src="assets/voco.jpg" alt="Voco — highlight text in any app and a human-sounding voice reads it aloud, generated on your own computer" loading="lazy">
+          <a class="proj-thumb-link" href="https://voco.talk" target="_blank" rel="noopener" aria-label="Visit voco.talk"><img src="assets/voco.jpg" alt="Voco — highlight text in any app and a human-sounding voice reads it aloud, generated on your own computer" loading="lazy"></a>
         </div>
         <div class="proj-body">
           <span class="proj-tag">Sponsored project</span>
@@ -302,8 +305,8 @@
         </div>
       </div>
       <div class="proj-card">
-        <div class="proj-thumb pennyowl">
-          <img src="assets/pennyowl.png" alt="Penny Owl copper coin — AI savings for everyone" loading="lazy">
+        <div class="proj-thumb">
+          <a class="proj-thumb-link" href="https://pennyowl.org/" target="_blank" rel="noopener" aria-label="Visit pennyowl.org"><img src="assets/pennyowl-card.jpg" alt="Penny Owl — a copper owl and coin: why pay more for the same AI? Compare videos, images and AI models at PennyOwl.org" loading="lazy"></a>
         </div>
         <div class="proj-body">
           <span class="proj-tag">Free community initiative</span>
@@ -314,13 +317,24 @@
       </div>
       <div class="proj-card">
         <div class="proj-thumb">
-          <img src="assets/transactional-traffic-card.webp" alt="Connected vehicles coordinating to create a temporary travel corridor" loading="lazy">
+          <a class="proj-thumb-link" href="transactional-traffic/" aria-label="Explore Transactional Traffic"><img src="assets/transactional-traffic-card.webp" alt="Connected vehicles coordinating to create a temporary travel corridor" loading="lazy"></a>
         </div>
         <div class="proj-body">
           <span class="proj-tag">Patent-pending invention</span>
           <h3>Transactional Traffic</h3>
           <p>A coordination and marketplace layer that assigns safe lane-level micro-maneuvers to nearby vehicles, verifies each completed action, and releases individualized rewards only after successful performance.</p>
           <a class="proj-link" href="transactional-traffic/">Explore the concept →</a>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-thumb">
+          <a class="proj-thumb-link" href="https://lionbrain.org" target="_blank" rel="noopener" aria-label="Visit lionbrain.org"><img src="assets/lionbrain-card.png" alt="Lion Brain — one private memory for all your AIs. Own your memory, rent the models." loading="lazy"></a>
+        </div>
+        <div class="proj-body">
+          <span class="proj-tag">Sponsored project</span>
+          <h3>Lion Brain</h3>
+          <p>One private memory for all your AIs. Lion Brain keeps your conversations, ideas and projects together in one place you own, so Claude, ChatGPT and your other AI assistants can pick up right where you left off — no more explaining yourself again in every new chat. You own your memory; the AI models are just rented.</p>
+          <a class="proj-link" href="https://lionbrain.org" target="_blank" rel="noopener">Visit lionbrain.org →</a>
         </div>
       </div>
     </div>
@@ -422,7 +436,7 @@
   <div class="wrap">
     <div class="team-grid">
       <div class="team-photo">
-        <img src="assets/team.jpg" alt="The Benny Labs team giving a thumbs up in front of the Benny Labs mascot" width="1400" height="859" loading="lazy">
+        <a href="#involve" aria-label="Get involved with Benny Labs"><img src="assets/team.jpg" alt="The Benny Labs team giving a thumbs up in front of the Benny Labs mascot" width="1400" height="859" loading="lazy"></a>
       </div>
       <div class="team-copy">
         <div class="kicker">The team</div>
