@@ -295,8 +295,9 @@
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 
 </style>
+<link rel="stylesheet" href="/improvements.css">
 </head>
-<body>
+<body class="home-page">
 <a class="skip-link" href="#main">Skip to main content</a>
 
 <!-- NAV -->
@@ -306,7 +307,7 @@
       <img src="assets/logo.jpg" alt="Benny Labs Foundation logo" width="42" height="42">
       <span>Benny Labs Foundation<small>501(c)(3) nonprofit · R&amp;D &amp; education</small></span>
     </a>
-    <nav class="nav-links" aria-label="Main navigation"><a class="navlink" href="programs/">Programs</a><a class="navlink" href="#projects">Projects</a><a class="navlink" href="#mission">Mission</a><a class="navlink" href="about/">About</a><a class="btn btn-outline" href="contact/">Contact</a></nav><details class="mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation"><a href="./">Home</a><a href="programs/">Programs</a><a href="#projects">Research projects</a><a href="about/">About the Foundation</a><a href="contact/">Contact</a></nav></details>
+    <nav class="nav-links" aria-label="Main navigation"><a class="navlink" href="/learn/">Free learning</a><a class="navlink" href="programs/">Programs</a><a class="navlink" href="#projects">Projects</a><a class="navlink" href="#mission">Mission</a><a class="navlink" href="about/">About</a><a class="btn btn-outline" href="contact/">Contact</a></nav><details class="mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation"><a href="/learn/">Free learning</a><a href="./">Home</a><a href="programs/">Programs</a><a href="#projects">Research projects</a><a href="about/">About the Foundation</a><a href="contact/">Contact</a></nav></details>
   </div>
 </header>
 
@@ -315,12 +316,12 @@
 <section class="hero" id="top">
   <div class="wrap hero-inner">
     <div class="hero-text">
-      <span class="eyebrow">🧪 A nonprofit R&amp;D &amp; innovation lab</span>
-      <h1>Turning bold ideas into <span class="accent">real‑world innovation.</span></h1>
-      <p class="lede">Benny Labs Foundation is a 501(c)(3) nonprofit dedicated to advancing the public good through research &amp; development, invention, and education — across science, technology, and the creative fields.</p>
+      <span class="eyebrow">Research, invention &amp; public education</span>
+      <h1>Free learning.<br><span class="accent">Ideas worth exploring.</span></h1>
+      <p class="lede">Benny Labs Foundation is a 501(c)(3) nonprofit advancing research, invention and education for the public good. Learn to estimate AI costs, evaluate an invention idea and explore how proposed technologies work — with free resources right here.</p>
       <div class="hero-cta">
-        <a class="btn btn-primary" href="programs/">Explore our programs →</a>
-        <a class="btn btn-outline" href="#what">See what we do</a>
+        <a class="btn btn-primary" href="/learn/">Start learning for free →</a>
+        <a class="btn btn-outline" href="programs/">Explore our programs</a>
       </div>
       <div class="hero-badges">
         <div class="hero-badge"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> IRS‑recognized 501(c)(3) public charity</div>
@@ -328,129 +329,23 @@
       </div>
     </div>
     <div class="hero-logo-wrap">
-      <div class="halo"><a href="#projects" aria-label="See the projects we are backing"><img src="assets/hero-logo.png" alt="Benny Labs — mad scientist mascot holding a bubbling green flask" width="760" height="760"></a></div>
+      <div class="halo"><a href="/learn/" aria-label="Explore our free learning library"><img src="assets/hero-logo.png" alt="Benny Labs — mad scientist mascot holding a bubbling green flask" width="760" height="760"></a></div>
     </div>
   </div>
 </section>
 
 <!-- CURRENT PUBLIC ACTIVITIES -->
-<section class="program-summary" id="programs"><div class="wrap">
-  <div class="section-head"><div class="kicker">Programs and public resources</div><h2>Useful tools and learning, available now</h2><p>Our public activities help people understand technology, access information and explore invention. Research concepts are identified separately from resources you can use today.</p></div>
-  <div class="pillars">
-    <article class="card"><h3>AI cost education</h3><p>Penny Owl is a free comparison and learning resource for people choosing AI tools. Learn about pricing units and compare published offers before deciding where to generate.</p><a class="proj-link" href="programs/#ai-education">How to use this resource →</a></article>
-    <article class="card"><h3>Accessible reading</h3><p>Voco offers free desktop text-to-speech for Mac and Windows. It lets people listen to selected text, with on-device voices available for local reading.</p><a class="proj-link" href="programs/#reading">Explore the reading tool →</a></article>
-    <article class="card"><h3>Learning through invention</h3><p>Our public project pages explain proposed systems, design choices and intended uses. Anyone can read them; a patent-pending concept is clearly identified as research in development.</p><a class="proj-link" href="programs/#invention-learning">Read the project explanations →</a></article>
-  </div><p class="proj-note"><a href="programs/">View all programs, current status and ways to participate</a></p>
-</div></section>
+<section class="program-summary home-learning" id="programs"><div class="wrap"><div class="section-head"><div class="kicker">Start here · no sign-up needed</div><h2>Useful skills you can practice today</h2><p>Original guides, worked examples and a free calculator for students, creators, developers and people curious about invention.</p></div><div class="pillars"><article class="card"><h3>Understand an AI bill</h3><p>Learn what tokens, image charges, retries and subscriptions mean. Work through examples before comparing a provider’s offer.</p><a class="proj-link" href="/learn/ai-costs/">Read the AI cost guide →</a></article><article class="card"><h3>Check a text-model budget</h3><p>Enter token counts and rates to estimate a charge. The calculator works in your browser, without an account or API key.</p><a class="proj-link" href="/learn/ai-costs/#calculator">Use the free calculator →</a></article><article class="card"><h3>Evaluate an invention idea</h3><p>Separate a concept from evidence. Define assumptions, plan a safe small test and record what you learn.</p><a class="proj-link" href="/learn/evaluate-an-invention/">Read the invention guide →</a></article></div><p class="proj-note"><a href="/learn/">Browse the learning library</a> · <a href="programs/">See all programs and current status</a></p></div></section>
 
 <!-- PROJECTS -->
-<section class="projects" id="projects">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">Projects we're backing</div>
-      <h2>The Benny Labs innovation portfolio</h2>
-      <p>Inventions and free community initiatives we're helping bring to life.</p>
-    </div>
-    <div class="proj-grid">
-      <div class="proj-card">
-        <div class="proj-thumb">
-          <a class="proj-thumb-link" href="https://thermalcore.energy" target="_blank" rel="noopener" aria-label="Visit thermalcore.energy"><img src="assets/thermalcore.jpg" alt="Concept illustration of the proposed ThermalCore computing and heat-recovery module" loading="lazy"></a>
-        </div>
-        <div class="proj-body">
-          <span class="proj-tag">Research in development</span>
-          <h3>ThermalCore</h3>
-          <p>A research concept for a sealed computing core designed to recover heat for water heating. The project explores combining useful computation with heat recovery; measured prototype performance remains part of development.</p>
-          <a class="proj-link" href="https://thermalcore.energy" target="_blank" rel="noopener">Visit thermalcore.energy →</a>
-        </div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-thumb">
-          <a class="proj-thumb-link" href="https://newhab.life" target="_blank" rel="noopener" aria-label="Visit newhab.life"><img src="assets/newhab.jpg" alt="Concept illustration of Newhab's proposed wearable resistance device and intended features; performance has not been established" loading="lazy"></a>
-        </div>
-        <div class="proj-body">
-          <span class="proj-tag">Research in development</span>
-          <h3>Newhab</h3>
-          <p>An investigational wearable exercise device intended to provide gentle, adjustable resistance for rehabilitation. In development, not available for sale and not FDA-cleared; treatment benefits have not been established.</p>
-          <a class="proj-link" href="https://newhab.life" target="_blank" rel="noopener">Visit newhab.life →</a>
-        </div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-thumb">
-          <a class="proj-thumb-link" href="https://voco.talk" target="_blank" rel="noopener" aria-label="Visit voco.talk"><img src="assets/voco.jpg" alt="Voco text-to-speech tool for Mac and Windows, illustrated with a colorful audio waveform" loading="lazy"></a>
-        </div>
-        <div class="proj-body">
-          <span class="proj-tag">Free public reading tool</span>
-          <h3>Voco</h3>
-          <p>A free desktop reading tool for Mac and Windows. Select text and listen instead of reading it on screen. Default on-device voices keep the selected text local; optional cloud voices send that reading to the speech provider.</p>
-          <a class="proj-link" href="https://voco.talk" target="_blank" rel="noopener">Visit voco.talk →</a>
-        </div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-thumb">
-          <a class="proj-thumb-link" href="https://pennyowl.org/" target="_blank" rel="noopener" aria-label="Visit pennyowl.org"><img src="assets/pennyowl-card.jpg" alt="Penny Owl — a copper owl and coin: why pay more for the same AI? Compare videos, images and AI models at PennyOwl.org" loading="lazy"></a>
-        </div>
-        <div class="proj-body">
-          <span class="proj-tag">Free community initiative</span>
-          <h3>Penny Owl</h3>
-          <p>A free AI savings guide from Benny Labs Foundation. Compare AI brain, image and video models, see combined leaderboard rankings, and find the lowest available API prices across multiple aggregators. We help creators, developers and curious people save money and spend less time searching.</p>
-          <a class="proj-link" href="https://pennyowl.org/" target="_blank" rel="noopener">Visit pennyowl.org →</a>
-        </div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-thumb">
-          <a class="proj-thumb-link" href="transactional-traffic/" aria-label="Explore Transactional Traffic"><img src="assets/transactional-traffic-card.webp" alt="Connected vehicles coordinating to create a temporary travel corridor" loading="lazy"></a>
-        </div>
-        <div class="proj-body">
-          <span class="proj-tag">Patent-pending invention</span>
-          <h3>Transactional Traffic</h3>
-          <p>A coordination and marketplace layer that assigns safe lane-level micro-maneuvers to nearby vehicles, verifies each completed action, and releases individualized rewards only after successful performance.</p>
-          <a class="proj-link" href="transactional-traffic/">Explore Transactional Traffic →</a>
-        </div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-thumb">
-          <a class="proj-thumb-link" href="worm-cargo/" aria-label="Explore Worm Cargo"><img src="assets/worm-cargo-card.webp" alt="A connected chain of autonomous cargo vehicles transferring packages while traveling" loading="lazy"></a>
-        </div>
-        <div class="proj-body">
-          <span class="proj-tag">Patent-pending invention</span>
-          <h3>Worm Cargo</h3>
-          <p>A mobile cargo-routing network that connects vehicles into a temporary chain, sorts destination-addressed packages across the connected vehicles, and lets each vehicle continue with the right cargo already aboard.</p>
-          <a class="proj-link" href="worm-cargo/">Explore Worm Cargo →</a>
-        </div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-thumb">
-          <a class="proj-thumb-link" href="living-nails/" aria-label="Explore Living Nails"><img src="assets/living-nails-hero.webp" alt="Digital display fingernails connected to elegant gold smart jewelry" loading="lazy"></a>
-        </div>
-        <div class="proj-body">
-          <span class="proj-tag">Patent-pending invention</span>
-          <h3>Living Nails</h3>
-          <p>A wearable display system that keeps the nails thin by moving the battery, controller, and wireless hardware into elegant jewelry—then coordinates several nail screens as one expressive canvas.</p>
-          <a class="proj-link" href="living-nails/">Explore Living Nails →</a>
-        </div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-thumb">
-          <a class="proj-thumb-link" href="https://lionbrain.org" target="_blank" rel="noopener" aria-label="Visit lionbrain.org"><img src="assets/lionbrain-card.png" alt="Lion Brain shared-memory service concept; supported connections and access limits are described on its project website" loading="lazy"></a>
-        </div>
-        <div class="proj-body">
-          <span class="proj-tag">Memory service in development</span>
-          <h3>Lion Brain</h3>
-          <p>A private memory service being developed to help people retain context across supported AI tools. Its public website explains access and limits. Connected assistants must actually read and save authorized information; complete capture is not automatic.</p>
-          <a class="proj-link" href="https://lionbrain.org" target="_blank" rel="noopener">Visit lionbrain.org →</a>
-        </div>
-      </div>
-    </div>
-    <p class="proj-note">Our activities include public digital tools, educational project explanations and research in development. Concept images illustrate proposed designs; they are not evidence of a working prototype or completed clinical testing. Read our <a href="programs/">program descriptions and current status</a>.</p>
-  </div>
-</section>
+<section class="projects" id="projects"><div class="wrap"><div class="section-head"><div class="kicker">Learn from a research concept</div><h2>How might an invention work?</h2><p>Read our public explanations of proposed designs. These patent-pending concepts remain in development; the illustrations do not show proven performance.</p></div><div class="proj-grid"><article class="proj-card"><div class="proj-thumb"><a class="proj-thumb-link" href="transactional-traffic/" aria-label="Read about Transactional Traffic"><img src="assets/transactional-traffic-card.webp" alt="Concept illustration for Transactional Traffic, a proposed design in development" loading="lazy"></a></div><div class="proj-body"><span class="proj-tag">Research concept · illustrated</span><h3>Transactional Traffic</h3><p>A proposed coordination system for connected vehicles. Explore how a request, a verified maneuver and a reward might fit together.</p><a class="proj-link" href="transactional-traffic/">Explore Transactional Traffic →</a></div></article><article class="proj-card"><div class="proj-thumb"><a class="proj-thumb-link" href="worm-cargo/" aria-label="Read about Worm Cargo"><img src="assets/worm-cargo-card.webp" alt="Concept illustration for Worm Cargo, a proposed design in development" loading="lazy"></a></div><div class="proj-body"><span class="proj-tag">Research concept · illustrated</span><h3>Worm Cargo</h3><p>A proposed package-routing system across connected cargo vehicles. Explore the routing problem, transfer steps and design questions.</p><a class="proj-link" href="worm-cargo/">Explore Worm Cargo →</a></div></article><article class="proj-card"><div class="proj-thumb"><a class="proj-thumb-link" href="living-nails/" aria-label="Read about Living Nails"><img src="assets/living-nails-hero.webp" alt="Concept illustration for Living Nails, a proposed design in development" loading="lazy"></a></div><div class="proj-body"><span class="proj-tag">Research concept · illustrated</span><h3>Living Nails</h3><p>A proposed wearable display system with nail screens and electronics in jewelry. Explore the design trade-offs and development questions.</p><a class="proj-link" href="living-nails/">Explore Living Nails →</a></div></article></div><div class="resource-links"><h3>Optional tools on other websites</h3><ul><li><a href="https://pennyowl.org/">Penny Owl</a> — free AI price comparisons and learning articles. AI providers have their own charges and terms.</li><li><a href="https://voco.talk/">Voco</a> — desktop text-to-speech software. Read its download requirements, voice options and privacy information before use.</li></ul><p>Our <a href="programs/#research">research background links</a> also cover ThermalCore, Newhab and Lion Brain. Those websites describe their own project terms, development status and any commercial activity. You can use the Foundation’s learning library without visiting or purchasing from them.</p></div><p class="proj-note">For a practical way to assess these ideas, start with <a href="/learn/evaluate-an-invention/">our invention evaluation guide</a>.</p></div></section>
 
 <!-- MISSION -->
 <section class="mission" id="mission">
   <div class="wrap">
     <div class="kicker">Our mission</div>
     <p class="quote">We exist to help <span>ideas become real</span> — exploring new technologies and sharing useful tools and knowledge so that progress can benefit society as a whole.</p>
-    <p class="sub">Our current public resources include free digital tools and detailed invention explanations. Our research portfolio includes concepts in development, with proposed uses and testing needs identified separately from resources available today. Visit our <a href="programs/">Programs page</a> to see who each resource serves and how to participate.</p>
+    <p class="sub">Our current public resources include original learning guides, an AI cost calculator and detailed invention explanations. Our research portfolio includes concepts in development, with proposed uses and testing needs identified separately from resources available today. Visit our <a href="programs/">Programs page</a> to see who each resource serves and how to participate.</p>
   </div>
 </section>
 
@@ -507,54 +402,10 @@
 </section>
 
 <!-- HOW WE FUND INNOVATION -->
-<section class="funding" id="funding">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">How we fund innovation</div>
-      <h2>Supporting research and public learning</h2>
-      <p>Our mission includes supporting early research, prototype development and public learning. Project-specific arrangements determine how work is supported and how it can benefit the community.</p>
-    </div>
-    <div class="fund-grid">
-      <div class="fund-card">
-        <h3>Inventors keep ownership</h3>
-        <p>Our stated research-support model lets inventors retain ownership of their inventions. Funding and collaboration terms are project-specific; no public research-award application round is currently announced here.</p>
-      </div>
-      <div class="fund-card">
-        <h3>We de&#8209;risk the first step</h3>
-        <p>The aim is to help investigate an idea, build and test a prototype, and share what is learned. Research concepts remain in development until their proposed performance has been demonstrated.</p>
-      </div>
-      <div class="fund-card">
-        <h3>Returns recycle into the mission</h3>
-        <p>Our research-support model allows a project-specific, capped share of successful sales to return to the Foundation. Any such Foundation proceeds support its charitable research and education mission.</p>
-      </div>
-    </div>
-    <div class="fund-quote">
-      <p>Our public purpose is to make useful tools, knowledge and research accessible. Explore the resources available now, and the research questions we are working to investigate.</p>
-    </div>
-  </div>
-</section>
+<section class="funding" id="funding"><div class="wrap"><div class="section-head"><div class="kicker">Access &amp; accountability</div><h2>Free learning with a clear public purpose</h2><p>The Foundation shares educational resources and research explanations so people can make informed choices and explore technology.</p></div><div class="fund-grid"><div class="fund-card"><h3>Learn without a purchase</h3><p>The guides and calculator on BennyLabs.org are free to use. This website has no checkout or donation form, and no paid account is required to read the materials.</p></div><div class="fund-card"><h3>Current project income</h3><p>As of October 16, 2026, Benny Labs Foundation receives no project revenue, licensing income, commissions or referral fees from Penny Owl, Voco, Newhab, ThermalCore or Lion Brain.</p></div><div class="fund-card"><h3>Research and outside links</h3><p>Research projects have different stages and terms. External sites may discuss commercial activity; that is separate from access to this Foundation learning library.</p></div></div><div class="fund-quote"><p>Read our <a href="about/#funding">current income disclosure and research-support model</a>, or <a href="contact/">contact the Foundation</a> with an organizational question.</p></div></div></section>
 
 <!-- TEAM -->
-<section class="team" id="team">
-  <div class="wrap">
-    <div class="team-grid">
-      <div class="team-photo">
-        <a href="#involve" aria-label="Get involved with Benny Labs"><img src="assets/team.jpg" alt="Illustration of the Benny Labs creative mission" width="1400" height="859" loading="lazy"></a>
-        <p style="margin:0;padding:10px 16px;font-size:.85rem;color:var(--slate)">Creative illustration of the Foundation’s mission.</p>
-      </div>
-      <div class="team-copy">
-        <div class="kicker">The team</div>
-        <h2>The people behind Benny Labs</h2>
-        <p>Benny Labs Foundation was founded and is led by Benny Goldstein. The Foundation brings together an interest in invention, public learning and practical research.</p>
-        <p>Founded on a simple belief: a good idea shouldn't die on a napkin — it deserves the chance to become real and help people.</p>
-        <div class="founder">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-          Founded &amp; led by Benny Goldstein
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<section class="team" id="team"><div class="wrap"><div class="team-grid"><div class="founder-panel"><div class="founder-initials" aria-hidden="true">BG</div><div class="kicker">Our founder</div><h2>Benny Goldstein</h2><p>Founder and leader of Benny Labs Foundation</p><a class="proj-link" href="about/">About the Foundation →</a></div><div class="team-copy"><div class="kicker">Research &amp; public learning</div><h2>Good questions move ideas forward.</h2><p>Benny Labs Foundation connects an interest in invention with public education. Our guides and research explanations are a starting point for people learning about technology and design.</p><p>Researchers, engineers and educators can contact the Foundation to discuss a specific development question or educational collaboration.</p><a class="btn btn-outline" href="contact/">Contact Benny Labs</a></div></div></div></section>
 
 <!-- TRUST -->
 <section class="trust" id="trust">
@@ -615,7 +466,7 @@
       </div>
       <div class="icard">
         <h3>Explore &amp; learn</h3>
-        <p>Read our public invention explanations and use the digital resources listed on the Programs page. Future workshops or awards will be described only when participation details are announced.</p>
+        <p>Read our <a href="/learn/">free learning guides</a> and public invention explanations. Future workshops or awards will be described only when participation details are announced.</p>
       </div>
     </div>
     <div class="involve-cta">
@@ -634,7 +485,7 @@
         <img src="assets/logo.jpg" alt="Benny Labs Foundation logo" width="38" height="38">
         <span>Benny Labs Foundation</span>
       </div>
-      <nav class="foot-links" aria-label="Footer navigation"><a href="programs/">Programs</a><a href="#projects">Projects</a><a href="about/">About</a><a href="contact/">Contact</a></nav>
+      <nav class="foot-links" aria-label="Footer navigation"><a href="/learn/">Free learning</a><a href="programs/">Programs</a><a href="#projects">Projects</a><a href="about/">About</a><a href="contact/">Contact</a></nav>
     </div>
     <address class="contact-summary"><strong>Benny Labs Foundation Inc.</strong><br>6772 Palmetto Cir S 201<br>Boca Raton, FL 33433<br><a href="mailto:b@bennylabs.org">b@bennylabs.org</a></address>
     <div class="foot-legal">

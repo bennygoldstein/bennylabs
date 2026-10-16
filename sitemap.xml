@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://bennylabs.org/</loc>
-    <lastmod>2026-10-14</lastmod>
-  </url>
-  <url>
-    <loc>https://bennylabs.org/transactional-traffic/</loc>
-    <lastmod>2026-10-12</lastmod>
-  </url>
-  <url>
-    <loc>https://bennylabs.org/worm-cargo/</loc>
-    <lastmod>2026-10-12</lastmod>
-  </url>
-  <url>
-    <loc>https://bennylabs.org/living-nails/</loc>
-    <lastmod>2026-10-12</lastmod>
-  </url>
-  <url><loc>https://bennylabs.org/programs/</loc><lastmod>2026-10-12</lastmod></url>
-  <url><loc>https://bennylabs.org/about/</loc><lastmod>2026-10-12</lastmod></url>
-  <url><loc>https://bennylabs.org/contact/</loc><lastmod>2026-10-12</lastmod></url>
+  <url><loc>https://bennylabs.org/</loc><lastmod>2026-10-16</lastmod></url>
+  <url><loc>https://bennylabs.org/learn/</loc><lastmod>2026-10-16</lastmod></url>
+  <url><loc>https://bennylabs.org/learn/ai-costs/</loc><lastmod>2026-10-16</lastmod></url>
+  <url><loc>https://bennylabs.org/learn/evaluate-an-invention/</loc><lastmod>2026-10-16</lastmod></url>
+  <url><loc>https://bennylabs.org/programs/</loc><lastmod>2026-10-16</lastmod></url>
+  <url><loc>https://bennylabs.org/about/</loc><lastmod>2026-10-16</lastmod></url>
+  <url><loc>https://bennylabs.org/contact/</loc><lastmod>2026-10-16</lastmod></url>
+  <url><loc>https://bennylabs.org/transactional-traffic/</loc><lastmod>2026-10-16</lastmod></url>
+  <url><loc>https://bennylabs.org/worm-cargo/</loc><lastmod>2026-10-16</lastmod></url>
+  <url><loc>https://bennylabs.org/living-nails/</loc><lastmod>2026-10-16</lastmod></url>
 </urlset>
