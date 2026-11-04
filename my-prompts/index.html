@@ -47,73 +47,99 @@
 </ol>
 <p class="small-note">The sliders were built and tested on one Windows 11 computer with two external monitors. The prompt has not been run on other computers, and laptop screen support is untested, so your results may differ. Read a prompt before you run it, because Claude Code will install and run this tool on your computer.</p>
 <div class="prompt-bar"><h3>The prompt</h3><button class="btn btn-primary" id="copy-prompt" type="button">Copy prompt</button></div>
-<pre class="prompt-text" id="prompt-text" tabindex="0">Build and install a small always-running tool for Windows 11: three sliders that sit directly on the Windows taskbar, just left of the tray icons. From left to right they control system volume, screen brightness and blue light. There are no text labels. Each slider's moving knob is a small icon that changes as the value changes. Do all of it yourself, including installing it and testing it.
+<pre class="prompt-text" id="prompt-text" tabindex="0">Build and install a small always-running tool for Windows 11: three sliders that sit directly on the Windows taskbar, just left of the tray icons. From left to right they control system volume, screen brightness and blue light. There are no text labels and no close button. Each slider's moving knob is a small icon that changes as the value changes. The bar can be shown or hidden with its own switch in Windows Taskbar settings. Do all of it yourself, including installing it and testing it.
 
 GROUND RULES
-- Write it in Python 3 with tkinter and ctypes only. Add no pip packages. Do not build an unsigned .exe, because Windows Smart App Control can block it.
-- If Python with tkinter is missing, stop and ask me to install it from https://www.python.org/downloads/windows/ and then continue.
+- Write it in Python 3 with tkinter, ctypes and the standard library only (json, threading, queue, winreg, zlib, struct and so on are fine). Add no pip packages. Do not build an unsigned .exe, because Windows Smart App Control can block it.
+- Find a real Python install that has tkinter. Do not use a virtual environment's Python that belongs to another app (check for a pyvenv.cfg next to it); if you find one, use the base interpreter its "home" line points to. If no Python with tkinter exists, stop and ask me to install it from https://www.python.org/downloads/windows/ and then continue.
 - No admin rights and no machine-wide changes. Do not change HKLM or any system setting.
-- Install to %LOCALAPPDATA%\ScreenSliders\screen_sliders.pyw, with settings.json next to it.
+- Install to %LOCALAPPDATA%\ScreenSliders\screen_sliders.pyw, with settings.json and a log file (screen_sliders.log, errors and the startup brightness reading only, kept under 256 KB) next to it.
 - Start it with Windows through a value named ScreenSliders under HKCU\Software\Microsoft\Windows\CurrentVersion\Run, running pythonw.exe with the full script path.
+- Also create %LOCALAPPDATA%\ScreenSliders\StartScreenSliders.lnk (pythonw.exe plus the quoted script path), so I can start it again with Win+R and that single path. Never ask me to paste a program-plus-arguments command line into Win+R or File Explorer; it fails there.
 - Allow only one running copy, using a named mutex.
+
+IF YOU RUN INSIDE THE CLAUDE DESKTOP APP (IMPORTANT)
+- The Claude desktop app is a packaged (MSIX) app. Files your shell writes under %LOCALAPPDATA% or %APPDATA% that did not already exist, and values it writes under HKCU, can be silently redirected into %LOCALAPPDATA%\Packages\Claude_*\LocalCache\... and the package's private registry. Your shell sees a merged view, so everything looks installed, but my Explorer and Windows sign-in never see it.
+- Processes you start from your shell are also ended whenever Claude updates or restarts.
+- So do the install and every launch from outside Claude: through the real Explorer, get the desktop shell window with (New-Object -ComObject Shell.Application).Windows().FindWindowSW(..., 8 /*SWC_DESKTOP*/, ..., 1 /*SWFO_NEEDDISPATCH*/) and call .Document.Application.ShellExecute("powershell.exe", "-NoProfile -WindowStyle Hidden -EncodedCommand &lt;base64&gt;"). That PowerShell runs as a child of Explorer: let it copy the files from a staging folder that is real (check it is not under the package's LocalCache), write the Run value, create the shortcut, start pythonw.exe and write a short report file you can read back.
+- Check whether this applies: after writing, look for the same path under %LOCALAPPDATA%\Packages\Claude_*\LocalCache. Prove the real install by deleting any LocalCache copy and confirming the real folder is still there.
 
 THE WINDOW
 - Use a borderless Tk window (overrideredirect) holding one Canvas that draws everything. Make the process per-monitor DPI aware.
-- Get the real top-level handle with GetAncestor(winfo_id, GA_ROOT) and add WS_EX_TOOLWINDOW and WS_EX_NOACTIVATE, so it has no taskbar button, no Alt-Tab entry and does not steal focus.
-- Every 400 ms: find Shell_TrayWnd and its child TrayNotifyWnd. Set the window's right edge 10 px left of the tray and centre it vertically on the taskbar. Call SetWindowPos with HWND_TOPMOST and SWP_NOACTIVATE. This must repeat, because the taskbar raises itself over other windows when clicked.
-- Hide the window with ShowWindow while a full-screen app is in front: the foreground window covers the taskbar's full width and reaches from the top of the screen to the bottom of the taskbar, and its class is not Progman, WorkerW, Shell_TrayWnd or Shell_SecondaryTrayWnd. Show it again without activating it.
+- Get the real top-level handle with GetAncestor(winfo_id, GA_ROOT), add WS_EX_TOOLWINDOW and WS_EX_NOACTIVATE and remove WS_EX_APPWINDOW, so it has no taskbar button, no Alt-Tab entry and does not steal focus.
+- Tk activates a window when it first maps it. Record the foreground window before creating Tk and give the focus straight back to it after setup.
+- Subclass the window procedures of the canvas and the top-level window: return MA_NOACTIVATE for WM_MOUSEACTIVATE, and take WM_MOUSEWHEEL there, because Tk only delivers the wheel to the window with keyboard focus, which this bar never has.
+- Never call Tcl/Tk (after, after_idle, redraw) from inside a window procedure or a WinEvent callback; it crashes pythonw (0xc0000409). In those callbacks only queue data in a plain Python list or make Win32 calls. A 40 ms Tk timer processes the queued wheel steps.
+- Every 400 ms: find Shell_TrayWnd and its child TrayNotifyWnd. Set the window's right edge 10 px left of the tray and centre it vertically on the taskbar. Call SetWindowPos with HWND_TOPMOST and SWP_NOACTIVATE.
+- Clicking anything on the taskbar (for example the "Show hidden icons" ^ button) brings the taskbar in front and covers the bar, which looks like flicker if you only re-raise on the 400 ms timer. Use SetWinEventHook for EVENT_SYSTEM_FOREGROUND and EVENT_OBJECT_REORDER, limited to Explorer's process id (from Shell_TrayWnd) with WINEVENT_SKIPOWNPROCESS. In the callback, call SetWindowPos(HWND_TOPMOST, NOMOVE|NOSIZE|NOACTIVATE) at once, and keep doing it from the 40 ms timer for 0.6 seconds afterwards. Set up the hooks again when Explorer's process id changes.
+- Hide the window with ShowWindow when either (a) a full-screen app is in front: the foreground window covers the taskbar's full width and reaches from the top of the screen to the bottom of the taskbar, and its class is not Progman, WorkerW, Shell_TrayWnd or Shell_SecondaryTrayWnd; or (b) the switch in Taskbar settings is off (see below). Show it again without activating it.
 - About every 5 seconds, sample the screen colour 6 px left of the window with GetPixel, use it as the background so the bar blends in, and choose dark or light text and track colours by its luminance.
 
 LAYOUT (pixels at 96 DPI; multiply everything by taskbar DPI / 96)
-- Window: 490 wide, 40 high.
+- Window: 470 wide, 40 high. There is no close button and no way to close it from the bar.
 - Tracks are 99 long, 4 thick, with round caps. Volume runs x=14 to 113, brightness x=171 to 270, blue light x=328 to 427.
-- Percentage text is Segoe UI 12 px, left aligned, at x=128, x=285 and x=442.
-- A small grey × at x=476, Segoe UI 13 px, closes the app.
+- Percentage text is Segoe UI 12 px (pixel size, not points), left aligned, at x=128, x=285 and x=442.
 - Each track is grey, with the part left of the knob filled in the slider's colour.
 - Before drawing each knob icon, draw a disc of radius 12 in the background colour, so the track does not run through the icon.
 
 CONTROLS
 - Pressing within 10 px of a track's ends jumps the knob there, and dragging moves it. Keep tracking while the button is held.
-- Mouse wheel over a slider moves it by 2. Wheel up always moves the knob to the right.
+- Mouse wheel over a slider moves it by 2. Wheel up always moves the knob to the right. The wheel must work while another app has the focus.
 - Save settings on mouse release and after wheel moves.
-- The × saves, sets the screen colour back to normal and exits.
+
+SWITCH IN TASKBAR SETTINGS (Settings &gt; Personalization &gt; Taskbar &gt; Other system tray icons)
+- Windows only lists apps that own a notification-area icon there, so register one with Shell_NotifyIconW: uID 1, tooltip "Screen Sliders", and NIF_STATE with dwState = dwStateMask = NIS_HIDDEN. It is never drawn on the taskbar; it exists only to give the bar its switch. Add it again whenever the Shell_TrayWnd handle changes (Explorer restarted).
+- Windows keeps the entry in HKCU\Control Panel\NotifyIconSettings\&lt;number&gt; with the values ExecutablePath, InitialTooltip, IsPromoted and IconSnapshot. Find ours by InitialTooltip = "Screen Sliders" and an ExecutablePath ending in pythonw.exe (it may use a {known-folder GUID}\... prefix).
+- Read IsPromoted every 400 ms: 1 means the switch is on and the bar shows; 0 or missing means off and the bar hides. The switch is an on/off toggle, not a radio button; apps cannot add their own controls to that page.
+- New icons start switched off. The first time the entry exists, set IsPromoted = 1 so the bar stays visible, and save "tray_switch_set": true in settings.json so this happens only once.
+- Windows labels the entry with the program file's name, so it shows as "Python". That cannot change without a separate .exe; say so in the report.
+- The icon picture: build it in code (no image files) at the small-icon size (GetSystemMetrics SM_CXSMICON) as a 32-bit icon (CreateDIBSection + CreateIconIndirect). See-through background. On a 16 px grid: three white tracks 2 px thick from x=0.5 to 15.5 at y=3, 8 and 13; knobs at x=4.5, 11.5 and 7.3, radius 2.2, in the three slider colours (green, amber, blue), each inside a white ring of radius 3.3. Use 4x4 supersampling for smooth edges. Settings draws every app's icon on a rounded tile in the Windows accent colour, so the icon must stand out on a coloured tile.
+- A hidden icon never refreshes the picture Windows stores, so the app writes its own icon as a 16x16 RGBA PNG (built with zlib and struct) into IconSnapshot whenever the stored bytes differ, checked about every 5 seconds.
 
 SLIDER 1: VOLUME (colour #2e9e6b, 0 to 100%)
 - Control the default playback device's master volume through Core Audio, calling the COM vtables directly with ctypes. CoCreateInstance CLSID BCDE0395-E52F-467C-8E3D-C4579291692E, IID A95664D2-9614-4F35-A746-DE8DB63617E6. Call GetDefaultAudioEndpoint (vtable slot 4) with eRender=0 and eConsole=0, then Activate (slot 3) with IID 5CDF2C82-841E-4546-9722-0CF74078229A.
-- On that interface use slot 7 SetMasterVolumeLevelScalar, slot 9 GetMasterVolumeLevelScalar, slot 14 SetMute and slot 15 GetMute. Get the device fresh for each call so it follows a change of speakers.
+- On that interface use slot 7 SetMasterVolumeLevelScalar, slot 9 GetMasterVolumeLevelScalar, slot 14 SetMute and slot 15 GetMute. Get the device fresh for each call so it follows a change of speakers. Release every COM pointer.
 - Any change above 0 also turns mute off, like the Windows slider.
 - About every 800 ms, unless this slider is being dragged, read the volume and mute state and redraw if they changed, so it follows the keyboard keys and the Windows volume panel.
 - Icon: a filled speaker, with sound-wave arcs to its right, each 100 degrees wide and centred on the speaker's right edge. Radii are 5, 8, 11 and 14, 2 px thick. Show ceil(level x 4) arcs, so none at 0 and four at full.
 - If the volume is 0 for any reason, or it is muted, replace the arcs with a small X. Dragging to 0 with the mouse must show the X too.
 
 SLIDER 2: BRIGHTNESS (colour #e0a100, 0 to 100%)
-- One slider sets all monitors together. On external monitors use DDC/CI through Dxva2: GetPhysicalMonitorsFromHMONITOR and SetVCPFeature with VCP code 0x10, retrying up to 3 times.
+- One slider sets all monitors together. On external monitors use DDC/CI through Dxva2: GetPhysicalMonitorsFromHMONITOR and SetVCPFeature with VCP code 0x10, retrying up to 3 times. Scale by the monitor's reported maximum.
 - Monitors respond slowly, so send values from a helper thread that always sends only the newest value. The slider must never lag.
-- On startup, read the current brightness with GetVCPFeatureAndVCPFeatureReply and show it. Do not change it on startup.
-- For a laptop's built-in screen, or a monitor that does not answer DDC/CI, fall back to WMI (WmiMonitorBrightness to read and WmiMonitorBrightnessMethods to set) where available. If neither works on a screen, tell me which screen in your final report.
+- On startup, read the current brightness with GetVCPFeatureAndVCPFeatureReply and show it. Do not change it on startup. A reply can be garbled when another program talks to the monitor at the same moment, so only trust a value that two reads in a row agree on (up to 4 reads), and log the value read.
+- For a laptop's built-in screen, or a monitor that does not answer DDC/CI, fall back to WMI (WmiMonitorBrightness to read and WmiMonitorBrightnessMethods.WmiSetBrightness to set). Do this with WMI COM through ctypes, not PowerShell: IWbemLocator (CLSID 4590F811-1D3A-11D0-891F-00AA004B2E24, IID DC12A687-737F-11CF-884D-00AA004B2E24) ConnectServer slot 3, then CoSetProxyBlanket; IWbemServices GetObject slot 6, ExecQuery slot 20, ExecMethod slot 24; IEnumWbemClassObject Next slot 4; IWbemClassObject Get slot 4, Put slot 5, SpawnInstance slot 15, GetMethod slot 19. Pass BSTRs from SysAllocString. If neither works on a screen, tell me which screen in your final report.
 - Icon: a filled sun of radius 4 with evenly spaced rays around it, starting 6.5 from the centre. Ray count is 4 x ceil(level x 4), meaning 0, 4, 8, 12 or 16, so at 0% there are no rays and the sun is always symmetrical. Rays get longer with level, ending at 9 + 3 x level. Use 2 px thick rays up to 10 rays and 1 px above that.
 
 SLIDER 3: BLUE LIGHT (colour #2f7de1)
 - The number shows how much blue is REMOVED. Far left shows 0% and the screen is normal. Sliding right removes more blue and makes the screen warmer.
 - Use SetDeviceGammaRamp on a DC from CreateDCW for each monitor device. With b = fraction of blue kept, for i from 0 to 255 and v = i x 257: red = v, green = v x (1 - (1 - b) x 0.3), blue = v x b.
-- Windows refuses strong ramps. On first run, try blue kept at 40% and go up in steps of 2 until a ramp is accepted, save that as the floor in settings.json, and use it as the far-right limit. If the floor is 50, far right shows 50%.
-- Save the setting and reapply it on startup. Also reapply it about every 5 seconds whenever blue is being removed, because Windows resets the ramp after sleep or a display change. Leave the ramp alone when the slider is at 0%.
+- Windows refuses strong ramps. On first run, try blue kept at 40% and go up in steps of 2 until a ramp is accepted, save that as the floor in settings.json, and use it as the far-right limit. If the floor is 50, far right shows 50%. Put the ramp back to normal after probing.
+- Save the setting and reapply it on startup. Also reapply it about every 5 seconds whenever blue is being removed, but only if the current ramp (GetDeviceGammaRamp) differs, because Windows resets the ramp after sleep or a display change. Leave the ramp alone when the slider is at 0%, except to put it back to normal when I move the slider to 0.
 - Icon: a light bulb. The glass is a circle of radius 6.5 centred 3 above the middle, with a tapered neck and two short lines for the base.
 - Let level = position along the slider, 0 to 1. Blend the bulb's colour from pale #b9cde4 at level 0 to #2f7de1 at level 1, so it looks unlit on the left and fully on at the right.
 - Add ceil(level x 9) rays fanning out from the top of the glass, spaced 27.5 degrees apart and centred straight up, from 8.5 to 10 + 2 x level from the glass centre, 2 px thick.
 
+ROBUSTNESS
+- Wrap every timer callback in try/except and log failures, so one error never stops the bar. Send Tk callback exceptions to the log too (pythonw has no console).
+- On 64-bit Python, set argtypes and restype for every Win32 call that takes or returns a handle, or calls will fail with overflow errors or pass truncated handles.
+
 TESTING (do this with the real mouse before you say it is done)
-1. Install it, start it, and confirm exactly one copy is running and the Run value is set.
-2. Use SetCursorPos and mouse_event on the real sliders. Before clicking, use WindowFromPoint to confirm the slider is really what is under the pointer at each test point. Do not rely on counting windows or reading your own variables.
-3. After each move, read the result back from the system: the monitors' brightness over DDC/CI, the gamma ramp with GetDeviceGammaRamp, and the volume and mute from Core Audio.
-4. Test both ends of the blue slider, the mouse wheel on the volume and blue sliders, and changing the volume from outside the app to confirm the slider follows.
-5. Drag volume to far left with the mouse and take a screenshot to confirm the X appears.
-6. Click an empty part of the taskbar and confirm the sliders stay on top.
-7. Take a zoomed screenshot of the bar and fix anything overlapping or clipped. Also draw each icon at levels 0, 0.1, 0.25, 0.5, 0.75 and 1 in a separate temporary window using the same drawing code, and check how they look.
-8. Be careful with my settings. Record my volume, mute, brightness and blue values first, put them all back exactly afterwards, keep test volumes low so nothing gets loud, and raise brightness by no more than 20 points during tests.
+1. Install it (outside Claude, see above), start it, and confirm exactly one copy is running, the Run value is set, and the files are in the real folder, not in Claude's package storage.
+2. Use SetCursorPos and mouse_event on the real sliders. Before every click, use WindowFromPoint to confirm the intended window is really what is under the pointer, and stop if not. Never assume a window came to the front: Settings and other windows often stay behind, and stray clicks then land in my other apps. Do not rely on counting windows or reading your own variables.
+3. After each move, read the result back from the system: the monitors' brightness over DDC/CI, the gamma ramp with GetDeviceGammaRamp (allow a rounding difference of 2), and the volume and mute from Core Audio. Wait about 1.5 seconds after a brightness change before reading it back, so your read does not collide with the app's own DDC/CI writes.
+4. Test both ends of the blue slider, the mouse wheel on all three sliders, and changing the volume and mute from outside the app to confirm the slider follows.
+5. Test the wheel and clicks while another window has the focus (open some other window first), and confirm the bar never takes the focus, including at startup.
+6. Drag volume to far left with the mouse and take a screenshot to confirm the X appears.
+7. Click an empty part of the taskbar, and open and close the "Show hidden icons" ^ menu three times, sampling every 20 ms that the bar stays visible and on top (no flicker).
+8. Open a full-screen window in front and confirm the bar hides, then shows again when it closes.
+9. Open Settings &gt; Personalization &gt; Taskbar &gt; Other system tray icons, find the entry with the sliders icon, flip its switch off and on with the mouse, and confirm the bar hides and shows, IsPromoted changes, and no tray icon ever appears on the taskbar. Decode IconSnapshot and check it is the new picture.
+10. Take a zoomed screenshot of the bar and fix anything overlapping or clipped. Also draw each icon at levels 0, 0.1, 0.25, 0.5, 0.75 and 1 in a separate temporary window using the same drawing code, and check how they look. Preview the tray icon on an accent-coloured tile too.
+11. Measure the app's CPU use over 30 seconds and its memory.
+12. Be careful with my settings. Record my volume, mute, brightness and blue values first, put them all back exactly afterwards, keep test volumes low so nothing gets loud, and raise brightness by no more than 20 points during tests. Before any brightness wheel test, confirm the starting value the bar shows matches what the monitor reports.
 
 WHEN DONE
-Tell me plainly what passed, what failed and what you could not test. Mention these limits if they apply: some monitors do not support DDC/CI, HDR can stop the blue-light effect from working, and Windows Night Light can conflict with it. Tell me that the small × closes the sliders until the next restart.</pre>
+Tell me plainly what passed, what failed and what you could not test. Mention these limits if they apply: some monitors do not support DDC/CI, HDR can stop the blue-light effect from working, and Windows Night Light can conflict with it. Tell me that the bar has no close button: to hide it I turn off its switch ("Python") in Taskbar settings, and to start it again I use Win+R with %LOCALAPPDATA%\ScreenSliders\StartScreenSliders.lnk. Also tell me how to remove it completely (end the pythonw.exe running screen_sliders.pyw, delete the ScreenSliders Run value, and delete the %LOCALAPPDATA%\ScreenSliders folder).</pre>
 </section></div></main>
 <footer><div class="wrap"><nav class="foot-links" aria-label="Footer navigation"><a href="/learn/">Free learning</a><a href="../">Home</a><a href="../programs/">Programs</a><a href="./">My Prompts</a><a href="../about/">About</a><a href="../contact/">Contact</a></nav><address class="contact-summary"><strong>Benny Labs Foundation Inc.</strong><br>6772 Palmetto Cir S 201<br>Boca Raton, FL 33433<br><a href="mailto:b@bennylabs.org">b@bennylabs.org</a></address><div class="foot-legal"><span>© 2026 Benny Labs Foundation Inc. · 501(c)(3) nonprofit public charity</span><span>EIN 41-5363285</span></div></div></footer>
 <script>
