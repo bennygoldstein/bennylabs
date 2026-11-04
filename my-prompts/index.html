@@ -15,7 +15,7 @@
 .prompt-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .prompt-bar h3{margin:0;font-size:1.1rem}
 .prompt-text{margin:0;background:var(--wash);border:1px solid var(--line);border-radius:12px;padding:18px;font:13px/1.6 Consolas,"Cascadia Mono",Menlo,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:70vh;overflow-y:auto;min-width:0}
-.prompt-text:focus-visible,#copy-prompt:focus-visible{outline:3px solid var(--green-dark);outline-offset:3px}
+.prompt-text:focus-visible,[data-copy]:focus-visible{outline:3px solid var(--green-dark);outline-offset:3px}
 </style>
 </head><body>
 <a class="skip-link" href="#main">Skip to main content</a><header class="nav"><div class="wrap nav-inner"><a class="brand" href="../"><img src="../assets/logo.jpg" alt="Benny Labs Foundation logo" width="42" height="42"><span>Benny Labs Foundation<small>501(c)(3) nonprofit · R&amp;D &amp; education</small></span></a><nav class="nav-links" aria-label="Main navigation"><a class="navlink" href="/learn/">Free learning</a><a class="navlink" href="../programs/">Programs</a><a class="navlink" href="../#projects">Projects</a><a class="navlink" href="./" aria-current="page">My Prompts</a><a class="navlink" href="../#mission">Mission</a><a class="navlink" href="../about/">About</a><a class="btn btn-outline" href="../contact/">Contact</a></nav><details class="mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation"><a href="/learn/">Free learning</a><a href="../">Home</a><a href="../programs/">Programs</a><a href="../#projects">Research projects</a><a href="./" aria-current="page">My Prompts</a><a href="../about/">About the Foundation</a><a href="../contact/">Contact</a></nav></details></div></header>
@@ -48,7 +48,7 @@
 <li>Approve what it asks.</li>
 </ol>
 <p class="small-note">The sliders were built and tested on one Windows 11 computer with two external monitors. The prompt has not been run on other computers, and laptop screen support is untested, so your results may differ. The update steps were tried once on an old copy, as a dry run without starting the result. Read a prompt before you run it, because Claude Code will install and run this tool on your computer.</p>
-<div class="prompt-bar"><h3>The prompt</h3><button class="btn btn-primary" id="copy-prompt" type="button">Copy prompt</button></div>
+<div class="prompt-bar"><h3>The prompt</h3><button class="btn btn-primary" id="copy-prompt" data-copy="prompt-text" type="button">Copy prompt</button></div>
 <pre class="prompt-text" id="prompt-text" tabindex="0">SCREEN SLIDERS PROMPT, VERSION 3
 
 START HERE: INSTALL OR UPDATE
@@ -183,22 +183,151 @@ TESTING (do this with the real mouse before you say it is done)
 
 WHEN DONE
 Tell me which version is now installed. Tell me plainly what passed, what failed and what you could not test. Mention these limits if they apply: some monitors do not support DDC/CI, HDR can stop the blue-light effect from working, and Windows Night Light can conflict with it. Tell me that the bar has no close button: to hide it I turn off its switch ("Python") in Taskbar settings, and to start it again I use Win+R with %LOCALAPPDATA%\ScreenSliders\StartScreenSliders.lnk. Also tell me how to remove it completely (end the pythonw.exe running screen_sliders.pyw, delete the ScreenSliders Run value, and delete the %LOCALAPPDATA%\ScreenSliders folder).</pre>
+</section>
+<section class="prompt-card" id="read-aloud-bar">
+<h2>Read Aloud Bar, version 1</h2>
+<p>Highlight text in any app, press play on the Windows 11 taskbar, and your computer reads it out loud. It has a pause button and a sound bar you can click to jump around. No API key, no account, no internet and no .exe.</p>
+<p>It uses the voices already built into Windows, so it sounds more robotic than paid voice services.</p>
+<div class="strip" role="img" aria-label="A read-aloud bar on a taskbar: a brown play button, a sound bar partly filled in brown, and a gray settings cog">
+<svg viewBox="0 0 228 38" fill="none" style="max-width:460px;margin:0 auto">
+<path transform="translate(6 5)" fill="#8B5A2B" fill-rule="evenodd" d="M9 0H19A9 9 0 0 1 28 9V19A9 9 0 0 1 19 28H9A9 9 0 0 1 0 19V9A9 9 0 0 1 9 0Z M10.500 9.200c0-.6.6-1 1.100-.7l7 4.800c.5.300.5 1.100 0 1.400l-7 4.800c-.5.300-1.100-.1-1.100-.7z"/>
+<rect x="40" y="9.0" width="3" height="20" rx="1.5" fill="#8B5A2B"/><rect x="45" y="7.5" width="3" height="23" rx="1.5" fill="#8B5A2B"/><rect x="50" y="9.0" width="3" height="20" rx="1.5" fill="#8B5A2B"/><rect x="55" y="11.5" width="3" height="15" rx="1.5" fill="#8B5A2B"/><rect x="60" y="13.5" width="3" height="11" rx="1.5" fill="#8B5A2B"/><rect x="65" y="13.0" width="3" height="12" rx="1.5" fill="#8B5A2B"/><rect x="70" y="11.0" width="3" height="16" rx="1.5" fill="#8B5A2B"/><rect x="75" y="9.0" width="3" height="20" rx="1.5" fill="#8B5A2B"/><rect x="80" y="9.5" width="3" height="19" rx="1.5" fill="#8B5A2B"/><rect x="85" y="12.0" width="3" height="14" rx="1.5" fill="#8B5A2B"/><rect x="90" y="16.0" width="3" height="6" rx="1.5" fill="#8B5A2B"/><rect x="95" y="17.5" width="3" height="3" rx="1.5" fill="#8B5A2B"/><rect x="100" y="17.5" width="3" height="3" rx="1.5" fill="#aeb5bd"/><rect x="105" y="15.0" width="3" height="8" rx="1.5" fill="#aeb5bd"/><rect x="110" y="11.5" width="3" height="15" rx="1.5" fill="#aeb5bd"/><rect x="115" y="10.0" width="3" height="18" rx="1.5" fill="#aeb5bd"/><rect x="120" y="11.5" width="3" height="15" rx="1.5" fill="#aeb5bd"/><rect x="125" y="13.5" width="3" height="11" rx="1.5" fill="#aeb5bd"/><rect x="130" y="14.5" width="3" height="9" rx="1.5" fill="#aeb5bd"/><rect x="135" y="13.0" width="3" height="12" rx="1.5" fill="#aeb5bd"/><rect x="140" y="9.5" width="3" height="19" rx="1.5" fill="#aeb5bd"/><rect x="145" y="7.0" width="3" height="24" rx="1.5" fill="#aeb5bd"/><rect x="150" y="7.0" width="3" height="24" rx="1.5" fill="#aeb5bd"/><rect x="155" y="9.5" width="3" height="19" rx="1.5" fill="#aeb5bd"/><rect x="160" y="13.5" width="3" height="11" rx="1.5" fill="#aeb5bd"/><rect x="165" y="16.5" width="3" height="5" rx="1.5" fill="#aeb5bd"/><rect x="170" y="16.5" width="3" height="5" rx="1.5" fill="#aeb5bd"/><rect x="175" y="14.0" width="3" height="10" rx="1.5" fill="#aeb5bd"/><rect x="180" y="12.0" width="3" height="14" rx="1.5" fill="#aeb5bd"/><rect x="185" y="11.5" width="3" height="15" rx="1.5" fill="#aeb5bd"/>
+<path transform="translate(198 9) scale(.8333)" fill="#A6A6A6" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.920-3.320c-.12-.22-.37-.29-.59-.22l-2.390.96c-.5-.38-1.030-.7-1.620-.94l-.36-2.540c-.04-.24-.24-.41-.48-.41h-3.840c-.24 0-.43.17-.47.41l-.36 2.540c-.59.24-1.130.57-1.620.94l-2.390-.96c-.22-.08-.47 0-.59.22L2.740 8.870c-.12.21-.08.47.12.61l2.030 1.580c-.05.3-.09.63-.09.94s.02.64.07.94l-2.030 1.580c-.18.14-.23.41-.12.61l1.920 3.320c.12.22.37.29.59.22l2.390-.96c.5.38 1.030.7 1.620.94l.36 2.540c.05.24.24.41.48.41h3.840c.24 0 .44-.17.47-.41l.36-2.540c.59-.24 1.130-.56 1.620-.94l2.390.96c.22.08.47 0 .59-.22l1.920-3.320c.12-.22.07-.47-.12-.61l-2.010-1.580zM12 15.600c-1.980 0-3.600-1.620-3.600-3.600s1.620-3.600 3.600-3.600 3.600 1.620 3.600 3.600-1.620 3.600-3.600 3.600z"/>
+</svg>
+</div>
+<ol>
+<li>Copy the prompt with the button below.</li>
+<li>Open Claude Code on a Windows 11 computer and paste it in.</li>
+<li>Approve what it asks.</li>
+</ol>
+<p class="small-note">An AI built a copy from a near-final draft of this prompt and tested it on one Windows 11 computer with a light taskbar. That test did not run the install steps, and dark taskbars and laptops are untested, so your results may differ. Read a prompt before you run it, because Claude Code will install and run this tool on your computer.</p>
+<div class="prompt-bar"><h3>The prompt</h3><button class="btn btn-primary" data-copy="prompt-text-reader" type="button">Copy prompt</button></div>
+<pre class="prompt-text" id="prompt-text-reader" tabindex="0">READ ALOUD BAR PROMPT, VERSION 1
+
+START HERE: INSTALL OR UPDATE
+Before you build or change anything, find out what I already have. Check %LOCALAPPDATA%\ReadAloudBar\read_aloud_bar.pyw from outside Claude if you run inside the Claude desktop app (see that section below). The version is the line VERSION = "N" near the top of that file.
+- Not installed: this is a NEW INSTALL. Follow FULL BUILD below, and skip WHAT'S NEW.
+- Same version as this prompt: tell me I'm up to date, change nothing, and stop.
+- Newer than this prompt: tell me so, change nothing, and stop.
+- Older than this prompt: this is an UPDATE. Tell me first, in plain words, what the WHAT'S NEW entries newer than my version will do. Save my current script next to it as read_aloud_bar_v&lt;N&gt;.pyw, and if that name is taken add a number rather than overwriting it. Change only what those entries name, keep my settings, Run value and shortcut, set the VERSION line, restart it, and run only the tests the entries list.
+
+WHAT'S NEW
+Version 1 is the first version.
+
+FULL BUILD
+
+Build and install a small always-running tool for Windows 11: a read-aloud bar that sits directly on the Windows taskbar. I highlight text in any app and press the play button, or a keyboard shortcut, and my computer reads it out loud using the voices already built into Windows. It has a play/pause button, a sound bar that fills as it reads and that I can click to jump around, and a settings cog. There is no API key, no account, no internet use and no .exe. Do all of it yourself, including installing it and testing it.
+
+GROUND RULES
+- Write it in Python 3 with tkinter, ctypes and the standard library only (json, threading, queue, winreg, zlib, struct, base64 and so on are fine). Add no pip packages. Do not build an unsigned .exe, because Windows Smart App Control can block it. Do not download any voice, model or program.
+- Find a real Python install that has tkinter. Do not use a virtual environment's Python that belongs to another app (check for a pyvenv.cfg next to it); if you find one, use the base interpreter its "home" line points to. If no Python with tkinter exists, stop and ask me to install it from https://www.python.org/downloads/windows/ and then continue.
+- No admin rights and no machine-wide changes. Do not change HKLM or any system setting. Reading HKLM is fine.
+- Install to %LOCALAPPDATA%\ReadAloudBar\read_aloud_bar.pyw, with settings.json and a log file (read_aloud_bar.log, errors only, kept under 256 KB) next to it. Never write the text I had read aloud into the log or settings.
+- Start it with Windows through a value named ReadAloudBar under HKCU\Software\Microsoft\Windows\CurrentVersion\Run, running pythonw.exe with the full script path.
+- Also create %LOCALAPPDATA%\ReadAloudBar\StartReadAloudBar.lnk (pythonw.exe plus the quoted script path), so I can start it again with Win+R and that single path. Never ask me to paste a program-plus-arguments command line into Win+R or File Explorer; it fails there.
+- Allow only one running copy, using a named mutex.
+- Put the line VERSION = "1" near the top of the script. Updates of this prompt read it.
+
+IF YOU RUN INSIDE THE CLAUDE DESKTOP APP (IMPORTANT)
+- The Claude desktop app is a packaged (MSIX) app. Files your shell writes under %LOCALAPPDATA% or %APPDATA% that did not already exist, and values it writes under HKCU, can be silently redirected into %LOCALAPPDATA%\Packages\Claude_*\LocalCache\... and the package's private registry. Your shell sees a merged view, so everything looks installed, but my Explorer and Windows sign-in never see it.
+- Processes you start from your shell are also ended whenever Claude updates or restarts.
+- So do the install and every launch from outside Claude: through the real Explorer, get the desktop shell window with (New-Object -ComObject Shell.Application).Windows().FindWindowSW(..., 8 /*SWC_DESKTOP*/, ..., 1 /*SWFO_NEEDDISPATCH*/) and call .Document.Application.ShellExecute("powershell.exe", "-NoProfile -WindowStyle Hidden -EncodedCommand &lt;base64&gt;", "", "", 0). The final 0 hides the window; without it, Windows Terminal can take the focus for a moment. That PowerShell runs as a child of Explorer: let it copy the files from a staging folder that is real (check it is not under the package's LocalCache), write the Run value, create the shortcut, start pythonw.exe and write a short report file you can read back.
+- Prove the real install with a report from a second PowerShell started the same way: the files, the Run value and the shortcut must all be listed there. A check from your own shell proves nothing.
+
+THE WINDOW
+- Use a borderless Tk window (overrideredirect) titled "ReadAloudBar", holding one Canvas that draws everything. Make the process per-monitor DPI aware.
+- Get the real top-level handle with GetAncestor(winfo_id, GA_ROOT), add WS_EX_TOOLWINDOW and WS_EX_NOACTIVATE and remove WS_EX_APPWINDOW, so it has no taskbar button, no Alt-Tab entry and never steals focus. This matters more than in most tools: the app holding my highlighted text must stay in front, or the copy gets nothing.
+- Tk activates a window when it first maps it, even with WS_EX_NOACTIVATE set. Record the foreground window before creating Tk and give the focus straight back to it after setup, within 50 ms.
+- Subclass the window procedures of the canvas and the top-level window: return MA_NOACTIVATE for WM_MOUSEACTIVATE, and catch WM_HOTKEY there.
+- Never call Tcl/Tk (after, after_idle, redraw) from inside a window procedure or a WinEvent callback; it crashes pythonw (0xc0000409). In those callbacks only queue data in a plain Python list or make Win32 calls. A 40 ms Tk timer processes what was queued.
+- Every 400 ms: find Shell_TrayWnd and its child TrayNotifyWnd. If a visible top-level window titled "ScreenSliders" exists (my taskbar sliders tool), set the bar's right edge 8 px left of that window; otherwise 8 px left of the tray. Centre it vertically on the taskbar. Call SetWindowPos with HWND_TOPMOST and SWP_NOACTIVATE.
+- Clicking anything on the taskbar brings the taskbar in front and covers the bar, and a press in that moment would miss. Use SetWinEventHook for EVENT_SYSTEM_FOREGROUND and EVENT_OBJECT_REORDER, limited to Explorer's process id (from Shell_TrayWnd) with WINEVENT_SKIPOWNPROCESS. In the callback, call SetWindowPos(HWND_TOPMOST, NOMOVE|NOSIZE|NOACTIVATE) at once, and keep doing it from the 40 ms timer for 0.6 seconds afterwards. Set up the hooks again when Explorer's process id changes.
+- Hide the window with ShowWindow when a full-screen app is in front: the foreground window covers the taskbar's full width and reaches from the top of the screen to the bottom of the taskbar, and its class is not Progman, WorkerW, Shell_TrayWnd or Shell_SecondaryTrayWnd. Show it again without activating it.
+- About every 5 seconds, sample the taskbar's colour with GetPixel, 6 px left of the window and 4 px below the taskbar's top edge (the very top row is a darker border, and another bar or an app icon can sit lower down in that spot). The match can be a shade or two off on the Windows 11 taskbar, which is fine. Use it as the canvas background so the bar looks see-through, and redraw if it changed.
+- About every 30 seconds read SystemUsesLightTheme from HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize. 0 means a dark taskbar, anything else light. nativeTheme-style app settings are the wrong signal; the taskbar is themed separately.
+
+LAYOUT (pixels at 96 DPI; multiply everything by taskbar DPI / 96)
+- Window: 228 wide, 38 high. Left to right: 6 padding, play button 28 x 28, 6 gap, sound bar filling the middle, 6 gap, cog 28 x 28, 6 padding. Both buttons are centred vertically.
+- Colours on a light taskbar: button #8B5A2B, button hover #9C6733, cog #A6A6A6, cog hover #6B4423, unplayed sound bars #1a1206 at 30% over the background, text #1a1206.
+- Colours on a dark taskbar: button and hover the same, cog #BDBDBD, cog hover #C8935A, unplayed bars white at 28% over the background, text #E8DCC8.
+- Tk canvas shapes have jagged edges, so draw the play, pause and cog icons in Python at 4 x 4 supersampling, blend them with the current background colour, turn them into an in-memory PNG (zlib and struct) and show them with tk.PhotoImage(data=base64). Cache one image per icon, colour and background. Do not use image files.
+- Play button: a brown rounded square, corner radius 9, with a rounded right-pointing triangle cut out of it, so the taskbar colour shows through the arrow. On the 28 grid the triangle's points are about (10.5, 8.5), (19, 14) and (10.5, 19.5), with corners rounded by about 1.
+- Pause icon: the same rounded square with two bars cut out, x=10 to 13 and x=15 to 18, y=9 to 19, corners rounded by 1. Show it only while playing.
+- Cog: a solid gear 20 x 20, centred in its 28 x 28 area, with 8 teeth and a round hole in the middle (hole radius about 3.6 of a 24-unit gear). The cog's colour changes on hover, and it also gets a faint rounded background: #1a1206 at 10% on light, white at 12% on dark.
+- Sound bar: 30 bars, each 3 wide with rounded ends, evenly spaced across the middle area. It is always shown and never changes shape. For bar i from 0 to 29: h = 0.5 + 0.28 x sin(i x 0.9 + 0.91) + 0.2 x sin(i x 0.37 + 0.287), limited to 0.12 to 1, and the bar's height is h x 26, at least 3, centred vertically.
+- The first round(fraction x 30) bars are filled in the button colour, where fraction is how far through the text it has read. The rest are the unplayed colour. When nothing is playing or paused, none are filled.
+- A short message ("Highlight text first") replaces the sound bar for 2.8 seconds, centred, Segoe UI 12 px (pixel size, not points), then the bars come back.
+- The whole button area and the whole sound bar area take clicks, including the gaps between bars and the cut-out arrow.
+
+SPEECH: WINDOWS BUILT-IN VOICES THROUGH SAPI, CALLED WITH CTYPES
+- Call CoInitialize on the main thread and keep the voice on the main thread only. CoCreateInstance CLSID 96749377-3391-11D2-9EE3-00C04F797396, IID 6C44DF74-72B9-4992-A1EC-EF996E0422D4 (ISpVoice), and call its COM vtable directly with ctypes.
+- ISpVoice slots: SetVoice 18, Speak 20, GetStatus 22, SetRate 28, SetVolume 30. Speak flags for every call are SPF_ASYNC | SPF_PURGEBEFORESPEAK | SPF_IS_NOT_XML = 1 | 2 | 0x10. Passing an empty string with these flags stops the speech.
+- GetStatus fills this struct: ulCurrentStream, ulLastStreamQueued (ULONG), hrLastResult (HRESULT), dwRunningState (DWORD), ulInputWordPos, ulInputWordLen, ulInputSentPos, ulInputSentLen (ULONG), lBookmarkId (LONG), PhonemeId (WCHAR), VisemeId (int), dwReserved1, dwReserved2 (DWORD). dwRunningState 1 means done, 2 means speaking. ulInputWordPos is where it is in the string given to the last Speak, in UTF-16 units, and returns to 0 when speech is stopped.
+- Find voices in the registry under both HKLM\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens and HKLM\SOFTWARE\Microsoft\Speech\Voices\Tokens. The OneCore ones sound better, and many are not listed by SAPI's default voice list, so select them by creating the token yourself: CoCreateInstance CLSID EF411752-3736-4CB4-9C8C-8EF4CCB58EFE, IID 14056589-E16C-11D2-BB90-00C04F8EE6C0 (ISpObjectToken); slot 15 is SetId(NULL, "HKEY_LOCAL_MACHINE\SOFTWARE\...\Tokens\&lt;name&gt;", FALSE). Then pass it to SetVoice and release it.
+- Each token key's default value is the display name and its Attributes subkey has a Language value (hex LCID). List one entry per voice name, preferring OneCore over Desktop. Default voice: the first OneCore voice whose language matches GetUserDefaultUILanguage, preferring one named Mark, then any voice of that language, then the first voice.
+- If no voice can be created, say so in the bar's message and log it.
+- PAUSE WITHOUT SAPI's PAUSE. Do not use ISpVoice Pause and Resume: measured on Windows 11, the sound carries on for about 0.9 seconds after Pause, and the calls are counted. Instead, to pause: read ulInputWordPos, add it to the offset of the string last spoken, save that as the resume point, then Speak "" to stop (the sound stops within 0.1 seconds). To resume: Speak the text from the resume point.
+- A 200 ms timer reads GetStatus while playing and sets fraction = (offset + ulInputWordPos) / text length, in UTF-16 units. It treats running state 1 as finished only once 0.5 seconds have passed since the last Speak, because the state can read wrong right after one.
+
+READING THE HIGHLIGHTED TEXT
+- The tool gets the selection by copying it, because most apps offer no other way, so it has to look after my clipboard. Do this on a helper thread and hand the result back through a queue to the 40 ms timer, so the bar never freezes.
+- Steps: wait until Ctrl, Alt, Shift and Win are released (GetAsyncKeyState, at most 1 second). Note GetClipboardSequenceNumber. Read the current clipboard text if it holds CF_UNICODETEXT. Send Ctrl+C with SendInput. Wait for the sequence number to change, up to 1.5 seconds, or 0.7 seconds when resuming from a pause. If it changed, read the new text, retrying if another app has the clipboard open.
+- Do not clear the clipboard first: an app that ignores the copy would leave me with an empty clipboard. If it never changed, nothing was highlighted.
+- After reading, put my previous clipboard text back if there was any.
+- Set argtypes and restype on GlobalAlloc, GlobalLock, GlobalUnlock, GetClipboardData and SetClipboardData, or 64-bit handles get truncated.
+- Change \r\n to \n and trim the text before comparing or reading it.
+
+CONTROLS
+- Phases: idle, loading, playing, paused, done. Loading is only the moment while copying; the bars pulse gently and presses are ignored.
+- Press play while playing: pause. It does not look at the selection.
+- Press play otherwise: get the selection. New highlighted text wins and reads from the start, even when paused. If the selection is the same text as last time, or there is none: resume when paused, read again from the start when done. If it is the same text and the phase is idle, read it. If there is no text and nothing to resume, show "Highlight text first".
+- Click the sound bar: fraction = click position across the bar area. Move to the nearest word start, and read from there, whether it was playing, paused or done. If nothing has been read yet, show "Highlight text first". The click never touches the clipboard.
+- Keyboard shortcut: Ctrl+Alt+R does the same as pressing play. Use RegisterHotKey on the top-level window and catch WM_HOTKEY in the window procedure. It is stored in settings.json as "hotkey", for example "ctrl+alt+r", and can be changed there. If Windows refuses it because another app holds it, log it and show that in the settings window, and keep working otherwise.
+- Cog: opens a normal small settings window, centred on the screen. This one may take focus. It has a list of voices, a speed slider from -5 to +5 (SetRate, default 0), a volume slider from 0 to 100 (SetVolume, default 100; this is the voice's volume, not the system's), a Test button that reads one short sentence, a line showing the shortcut, and a "Close the bar" button that ends the program. A second press on the cog brings the open window to the front; it never opens two.
+- Save settings on every change. settings.json is read at startup only, so restart the bar after editing it by hand. Nothing is read aloud at startup.
+
+ROBUSTNESS
+- Wrap every timer callback in try/except and log failures, so one error never stops the bar. Send Tk callback exceptions to the log too (pythonw has no console).
+- On 64-bit Python, set argtypes and restype for every Win32 call that takes or returns a handle, or calls will fail with overflow errors or pass truncated handles.
+- Stop speaking and release COM pointers when the program ends.
+
+TESTING (do this with the real mouse before you say it is done)
+1. Install it (outside Claude, see above), start it, and confirm exactly one copy is running, the Run value is set, and the files are in the real folder, not in Claude's package storage.
+2. Set the voice volume to 8 in settings.json for all tests, so nothing gets loud. Do not change the system volume. Prove sound comes out with the Windows audio meter rather than assuming it: on the default playback device, Activate IAudioMeterInformation (IID C02216F6-8C67-4B5B-9D00-D008E73E0064) and read GetPeakValue (slot 3). Silence reads 0. Other apps' sound would also show here, so check it is silent before you start.
+3. Make a test window of your own with a text box of known text (at least 400 words), and bring it to the front. Use SetCursorPos and mouse_event on the real bar. Before every click, use WindowFromPoint to confirm the intended window is really what is under the pointer, and stop if not. Never assume a window came to the front, and never click into my other apps.
+4. Select the test text, press play, and confirm: the meter shows sound, the test window keeps the focus, and the clipboard holds what it held before. On 400 words one bar takes about 8 seconds, so use a shorter text to watch the bars fill. Count a press as registered by reading the icon's centre pixel flip between the button colour and the background; hover changes the brown, so accept both browns.
+5. Press pause and confirm the meter reads silence within 0.3 seconds and the bars stay put. Press play and confirm it carries on from the same spot.
+6. Click the sound bar at about 25% and 75%, both backwards and forwards, while playing and while paused. Confirm the bars jump there and it keeps reading.
+7. Restart the bar so nothing has been read yet. With nothing highlighted, press play and confirm the message shows after the copy wait of about 1.5 seconds (the bars pulse until then), then goes away.
+8. Let a short text finish, and confirm the bars empty and the button returns to the play icon. Press again and confirm it reads again.
+9. Test the shortcut with the test window in front. If it is taken by another app, say so, then change "hotkey" to a free one for the test and put it back.
+10. Test every voice on the list with the Test button, and the speed slider at both ends. Say which voices work.
+11. Press play 16 times right on the cut-out arrow and 8 times on the brown edge, and confirm every press registered. Then click an empty part of the taskbar and press play 1.0 second later, 8 times, and report how many registered.
+12. Press the cog and confirm the settings window opens and only one opens. Hover the cog and take a zoomed screenshot to confirm the colour changes.
+13. Open a full-screen window in front and confirm the bar hides, then shows again when it closes.
+14. Take a zoomed screenshot of the bar, idle and playing, and fix anything overlapping or clipped. Confirm the arrow's centre matches the taskbar colour by reading the pixel. Check it on the current taskbar colour, and tell me which theme you could not test if you only tested one.
+15. Measure the app's CPU use over 30 seconds, idle and while reading, and its memory.
+16. Be careful with my things. Put my clipboard back, close your test windows, and put the mouse back where it was.
+
+WHEN DONE
+Tell me plainly what passed, what failed and what you could not test. Tell me these limits: the voices are Windows' built-in ones, so they sound more robotic than paid services; simulated Ctrl+C reaches only apps that accept it, an app running as administrator will ignore it, and in a console window it can stop the running command instead of copying; the bar sits over taskbar app icons when many are open; only clipboard text is put back, so a copied picture or file on the clipboard is replaced when text is read; and the voices available depend on the languages installed in Windows. Tell me how to close it (the cog's "Close the bar" button), how to start it again (Win+R with %LOCALAPPDATA%\ReadAloudBar\StartReadAloudBar.lnk), and how to remove it completely (close it, delete the ReadAloudBar Run value, and delete the %LOCALAPPDATA%\ReadAloudBar folder).</pre>
 </section></div></main>
 <footer><div class="wrap"><nav class="foot-links" aria-label="Footer navigation"><a href="/learn/">Free learning</a><a href="../">Home</a><a href="../programs/">Programs</a><a href="./">My Prompts</a><a href="../about/">About</a><a href="../contact/">Contact</a></nav><address class="contact-summary"><strong>Benny Labs Foundation Inc.</strong><br>6772 Palmetto Cir S 201<br>Boca Raton, FL 33433<br><a href="mailto:b@bennylabs.org">b@bennylabs.org</a></address><div class="foot-legal"><span>© 2026 Benny Labs Foundation Inc. · 501(c)(3) nonprofit public charity</span><span>EIN 41-5363285</span></div></div></footer>
 <script>
 (function () {
-  var btn = document.getElementById('copy-prompt');
-  var pre = document.getElementById('prompt-text');
-  function done(label) { btn.textContent = label; setTimeout(function () { btn.textContent = 'Copy prompt'; }, 2500); }
-  function selectText() {
-    var range = document.createRange(); range.selectNodeContents(pre);
-    var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
-    done('Selected. Press Ctrl+C');
-  }
-  btn.addEventListener('click', function () {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(pre.textContent).then(function () { done('Copied'); }, selectText);
-    } else { selectText(); }
+  document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    var pre = document.getElementById(btn.getAttribute('data-copy'));
+    function done(label) { btn.textContent = label; setTimeout(function () { btn.textContent = 'Copy prompt'; }, 2500); }
+    function selectText() {
+      var range = document.createRange(); range.selectNodeContents(pre);
+      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      done('Selected. Press Ctrl+C');
+    }
+    btn.addEventListener('click', function () {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(pre.textContent).then(function () { done('Copied'); }, selectText);
+      } else { selectText(); }
+    });
   });
 })();
 </script></body></html>
