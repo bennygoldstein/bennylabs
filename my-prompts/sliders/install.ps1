@@ -1,4 +1,4 @@
-# Taskbar Sliders installer, version 4. https://bennylabs.org/my-prompts/sliders/
+# Taskbar Sliders installer, version 5. https://bennylabs.org/my-prompts/sliders/
 # Installs for the current Windows user only, with no admin rights. It adds:
 #   - the folder %LOCALAPPDATA%\ScreenSliders with the program, a plain Python script
 #   - a startup entry named ScreenSliders under HKCU\...\CurrentVersion\Run
@@ -7,9 +7,9 @@
 param([switch]$Inner, [switch]$Reinstall)
 
 $ErrorActionPreference = 'Stop'
-$Version = '4'
+$Version = '5'
 $CodeUrl = 'https://bennylabs.org/my-prompts/sliders/screen_sliders.pyw'
-$CodeHash = '17001F2C380EE22DDF61E41357C48F673FE880991A91BB46AFDA2DD10457F417'
+$CodeHash = '3FF5CF8A78D100CEA8736515E857DCA7D06120E347A54C8FDEB5CC68C98251A2'
 $Report = Join-Path $env:USERPROFILE '.screen-sliders-install-report.txt'
 $Started = Join-Path $env:USERPROFILE '.screen-sliders-install-started.txt'
 $Staged = Join-Path $env:USERPROFILE '.screen-sliders-install.ps1'

@@ -18,7 +18,7 @@ import zlib
 from ctypes import wintypes as w
 import tkinter as tk
 
-VERSION = "4"
+VERSION = "5"
 HERE = os.path.dirname(os.path.abspath(__file__))
 SETTINGS = os.path.join(HERE, "settings.json")
 LOGFILE = os.path.join(HERE, "screen_sliders.log")
@@ -743,13 +743,81 @@ def load_settings():
         return {}
 
 
+def migrate_settings(st):
+    """Convert older settings files. Safe to call repeatedly. True if it changed anything."""
+    changed = False
+    number = lambda v: isinstance(v, (int, float)) and not isinstance(v, bool)
+    bf = st.get("blue_floor")
+    if not (number(bf) and 0 <= bf <= 1):
+        bf = None
+    if "floor" not in st and bf is not None:               # blue_floor is a fraction, floor a percent
+        st["floor"] = int(round(bf * 100))
+        changed = True
+    blue = st.get("blue")
+    if not number(blue):
+        return changed
+    if (isinstance(blue, float) or "blue_floor" in st) and 0 <= blue <= 1:
+        # Layout from an earlier prompt: "blue" is the knob's position, 0.0 to 1.0.
+        # This also repairs a version 4 file, once, because version 4 misread it.
+        if st.get("blue_migrated"):
+            return changed
+        if bf is None:
+            if not number(st.get("floor")):
+                return changed                             # main() calls again after finding the floor
+            bf = st["floor"] / 100.0
+        st["blue_removed"] = int(round(blue * (1 - bf) * 100))
+        st["blue_migrated"] = True
+        return True
+    if "blue_removed" not in st:                           # older layout: "blue" is percent of blue kept
+        st["blue_removed"] = max(0, 100 - int(blue))
+        changed = True
+    return changed
+
+
+def real_path(p):
+    try:
+        return os.path.normcase(os.path.realpath(p))
+    except (OSError, ValueError):
+        return os.path.normcase(p)
+
+
+def known_folder(guid_text):
+    """The real path behind a {known-folder GUID}, or None."""
+    try:
+        g = (ctypes.c_ubyte * 16).from_buffer_copy(uuid.UUID(guid_text).bytes_le)
+        out = ctypes.c_wchar_p()
+        shell = ctypes.WinDLL("shell32")
+        shell.SHGetKnownFolderPath.argtypes = [ctypes.c_void_p, w.DWORD, w.HANDLE, ctypes.POINTER(ctypes.c_wchar_p)]
+        shell.SHGetKnownFolderPath.restype = ctypes.c_long
+        if shell.SHGetKnownFolderPath(g, 0, None, ctypes.byref(out)) != 0:
+            return None
+        path = out.value
+        ctypes.WinDLL("ole32").CoTaskMemFree(out)
+        return path
+    except (OSError, ValueError):
+        return None
+
+
 def same_exe(stored):
-    """Is this notification entry ours? Windows may store a {known-folder GUID}\\... prefix."""
-    s, me = str(stored).lower(), sys.executable.lower()
-    if s.startswith("{"):
-        s = s.split("\\", 1)[1] if "\\" in s else ""
-        return bool(s) and me.endswith("\\" + s)
-    return s == me
+    """Is this notification entry ours? Windows stores the resolved path, which differs from
+    sys.executable behind a junction, symlink, subst drive or short name, and it may use a
+    {known-folder GUID}\\... prefix."""
+    s = str(stored)
+    plain = os.path.normcase(sys.executable)
+    mine = (plain, real_path(sys.executable))
+    if s.startswith("{") and "}" in s:
+        guid, _, rest = s.partition("}")
+        rest = rest.lstrip("\\")
+        if not rest:
+            return False
+        base = known_folder(guid + "}")
+        if base:
+            whole = os.path.join(base, rest)
+            if real_path(whole) in mine or os.path.normcase(whole) in mine:
+                return True
+        tail = os.path.normcase("\\" + rest)
+        return any(m.endswith(tail) for m in mine)
+    return real_path(s) in mine or os.path.normcase(s) in mine
 
 
 # window-procedure side: plain Python lists only, never Tcl
@@ -782,10 +850,11 @@ class Bar:
     def __init__(self, st, prev_fg):
         self.st = st
         # A different Python gets a new, switched-off entry in Taskbar settings, so switch that one on once.
-        me = sys.executable.lower()
-        if st.get("tray_exe") not in (None, me):
+        me = real_path(sys.executable)
+        if st.get("tray_exe") and real_path(st["tray_exe"]) != me:
             st["tray_switch_set"] = False
         st["tray_exe"] = me
+        self.no_entry_logged = False
         self.results = queue.Queue()
         self.boost_until = 0.0
         self.hook_pid = None
@@ -1249,7 +1318,11 @@ class Bar:
     def switch_on(self):
         k = self.entry_key(winreg.KEY_READ | winreg.KEY_SET_VALUE)
         if k is None:
-            return not self.st.get("tray_switch_set")    # first run: entry not created yet
+            # A missing entry must never hide the bar. Hide only when the entry says so.
+            if self.st.get("tray_switch_set") and not self.no_entry_logged:
+                self.no_entry_logged = True
+                log("no Taskbar settings entry matches " + sys.executable + "; keeping the bar visible")
+            return True
         with k:
             if not self.st.get("tray_switch_set"):
                 winreg.SetValueEx(k, "IsPromoted", 0, winreg.REG_DWORD, 1)
@@ -1284,10 +1357,12 @@ def main():
     prev_fg = user.GetForegroundWindow()
     ole32.CoInitializeEx(None, 2)                    # apartment threaded, for Tk's thread
     st = load_settings()
-    if "blue_removed" not in st and "blue" in st:    # older file: "blue" was percent of blue kept
-        st["blue_removed"] = max(0, 100 - int(st["blue"]))
+    changed = migrate_settings(st)
     if "floor" not in st:
         st["floor"] = find_blue_floor()
+        migrate_settings(st)
+        changed = True
+    if changed:
         try:
             with open(SETTINGS, "w", encoding="utf-8") as f:
                 json.dump(st, f)

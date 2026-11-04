@@ -1,4 +1,4 @@
-SCREEN SLIDERS PROMPT, VERSION 4
+SCREEN SLIDERS PROMPT, VERSION 5
 
 START HERE: INSTALL OR UPDATE
 Before you build or change anything, find out what I already have. Check %LOCALAPPDATA%\ScreenSliders\screen_sliders.pyw from outside Claude if you run inside the Claude desktop app (see that section below), because your own shell can show a copy that isn't really installed. The version is the line VERSION = "N" near the top of that file. If the file has no such line, it is version 2 if it contains the word IsPromoted, otherwise version 1.
@@ -14,6 +14,11 @@ Before you build or change anything, find out what I already have. Check %LOCALA
   6. Run only the tests that the entries list, keeping to the care rules in test 12. Then tell me what changed, and that nothing else was touched.
 
 WHAT'S NEW
+Version 5 changes only these things since version 4:
+- Fixes the bar staying hidden when Python runs through a linked folder (a junction, symlink, subst drive or short name). Compare the notification entry's path with this program's using real paths (see SWITCH IN TASKBAR SETTINGS). If no matching entry exists, keep the bar visible and log it once.
+- Fixes the blue setting after updating from an older build. An older settings file may hold "blue" as the knob's position from 0.0 to 1.0, with "blue_floor" as the fraction of blue kept at the far right. Then blue_removed = round(blue x (1 - blue_floor) x 100), and when floor is missing, floor = round(blue_floor x 100). A "blue" above 1 still means percent of blue kept. If the file still holds a blue from 0.0 to 1.0 beside blue_removed, and has no "blue_migrated", recompute blue_removed once and set "blue_migrated": true, so later choices are never overwritten.
+- Tests for this update: 9 with Python run through a junction, each conversion above run twice, and GetDeviceGammaRamp matching the converted setting.
+
 Version 4 changes only this since version 3:
 - Fixes the bar hiding itself on a computer with more than one Python. Find the notification entry by this exact program's path (see SWITCH IN TASKBAR SETTINGS) rather than any pythonw.exe. Save the program's path in settings.json as tray_exe, and if it differs from the saved one, set tray_switch_set to false so the new entry gets switched on once.
 - Tests for this update: 9, and confirm the bar is showing.
@@ -44,7 +49,7 @@ GROUND RULES
 - Start it with Windows through a value named ScreenSliders under HKCU\Software\Microsoft\Windows\CurrentVersion\Run, running pythonw.exe with the full script path.
 - Also create %LOCALAPPDATA%\ScreenSliders\StartScreenSliders.lnk (pythonw.exe plus the quoted script path), so I can start it again with Win+R and that single path. Never ask me to paste a program-plus-arguments command line into Win+R or File Explorer; it fails there.
 - Allow only one running copy, using a named mutex.
-- Put the line VERSION = "4" near the top of the script. Updates of this prompt read it.
+- Put the line VERSION = "5" near the top of the script. Updates of this prompt read it.
 - settings.json holds floor (percent of blue kept at the far right), blue_removed (0 to 100 minus floor), bright (0 to 100), tray_switch_set and tray_exe. It does not need to hold the volume, because Windows keeps that.
 
 IF YOU RUN INSIDE THE CLAUDE DESKTOP APP (IMPORTANT)
@@ -84,8 +89,8 @@ CONTROLS
 
 SWITCH IN TASKBAR SETTINGS (Settings > Personalization > Taskbar > Other system tray icons)
 - Windows only lists apps that own a notification-area icon there, so register one with Shell_NotifyIconW: uID 1, tooltip "Screen Sliders", and NIF_STATE with dwState = dwStateMask = NIS_HIDDEN. It is never drawn on the taskbar; it exists only to give the bar its switch. Add it again whenever the Shell_TrayWnd handle changes (Explorer restarted).
-- Windows keeps the entry in HKCU\Control Panel\NotifyIconSettings\<number> with the values ExecutablePath, InitialTooltip, IsPromoted and IconSnapshot. Find ours by InitialTooltip = "Screen Sliders" and an ExecutablePath that is exactly this program's sys.executable (it may use a {known-folder GUID}\... prefix, so then compare the part after the GUID with the end of the path). Each Python gets its own entry, so never match just any pythonw.exe: an old switched-off entry would hide the bar.
-- Read IsPromoted every 400 ms: 1 means the switch is on and the bar shows; 0 or missing means off and the bar hides. Until tray_switch_set is true, the entry may not exist yet, so keep the bar showing. The switch is an on/off toggle, not a radio button; apps cannot add their own controls to that page.
+- Windows keeps the entry in HKCU\Control Panel\NotifyIconSettings\<number> with the values ExecutablePath, InitialTooltip, IsPromoted and IconSnapshot. Find ours by InitialTooltip = "Screen Sliders" and an ExecutablePath that is this same program, comparing os.path.normcase(os.path.realpath()) of both, because Windows stores the resolved path and sys.executable may run through a junction, symlink, subst drive or short name (it may also use a {known-folder GUID}\... prefix, so then resolve the GUID with SHGetKnownFolderPath). Each Python gets its own entry, so never match just any pythonw.exe: an old switched-off entry would hide the bar.
+- Read IsPromoted every 400 ms: 1 means the switch is on and the bar shows; 0 or missing means off and the bar hides. If no matching entry exists, keep the bar showing and log it once: a missing entry must never hide the bar. Hide only when the matching entry exists and IsPromoted is 0 or missing. The switch is an on/off toggle, not a radio button; apps cannot add their own controls to that page.
 - New icons start switched off. The first time the entry exists, set IsPromoted = 1 so the bar stays visible, and save "tray_switch_set": true in settings.json so this happens only once.
 - Windows labels the entry with the program file's name, so it shows as "Python". That cannot change without a separate .exe; say so in the report.
 - The icon picture: build it in code (no image files) at the small-icon size (GetSystemMetrics SM_CXSMICON) as a 32-bit icon (CreateDIBSection + CreateIconIndirect). See-through background. On a 16 px grid: three white tracks 2 px thick from x=0.5 to 15.5 at y=3, 8 and 13; knobs at x=4.5, 11.5 and 7.3, radius 2.2, in the three slider colours (green, amber, blue), each on top of a white disc of radius 3.3, so it looks like a white ring. Colours are not premultiplied by alpha. Use 4x4 supersampling for smooth edges. Settings draws every app's icon on a rounded tile in the Windows accent colour, so the icon must stand out on a coloured tile.
