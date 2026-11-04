@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Taskbar Sliders | Benny Labs Foundation</title><meta name="description" content="Volume, brightness and blue-light sliders on the Windows 11 taskbar. Free. Paste a short prompt into Claude Code and it installs them."><meta name="robots" content="index,follow,max-image-preview:large"><meta name="theme-color" content="#16a34a"><link rel="canonical" href="https://bennylabs.org/my-prompts/sliders/"><link rel="icon" href="../../assets/logo.jpg"><link rel="stylesheet" href="../../site.css">
-<meta property="og:title" content="Taskbar Sliders | Benny Labs Foundation"><meta property="og:description" content="Volume, brightness and blue-light sliders on the Windows 11 taskbar. Free. Paste a short prompt into Claude Code and it installs them."><meta property="og:type" content="website"><meta property="og:url" content="https://bennylabs.org/my-prompts/sliders/"><meta property="og:image" content="https://bennylabs.org/assets/logo.jpg">
+<title>Taskbar Sliders | Benny Labs Foundation</title><meta name="description" content="Volume, brightness and blue-light sliders for your computer. Free. Paste a short prompt into your AI and it installs them, and they keep themselves up to date."><meta name="robots" content="index,follow,max-image-preview:large"><meta name="theme-color" content="#16a34a"><link rel="canonical" href="https://bennylabs.org/my-prompts/sliders/"><link rel="icon" href="../../assets/logo.jpg"><link rel="stylesheet" href="../../site.css">
+<meta property="og:title" content="Taskbar Sliders | Benny Labs Foundation"><meta property="og:description" content="Volume, brightness and blue-light sliders for your computer. Free. Paste a short prompt into your AI and it installs them, and they keep themselves up to date."><meta property="og:type" content="website"><meta property="og:url" content="https://bennylabs.org/my-prompts/sliders/"><meta property="og:image" content="https://bennylabs.org/assets/logo.jpg">
 <link rel="stylesheet" href="/improvements.css">
 <style>
 .prompt-card{max-width:860px;margin:32px 0 0;display:grid;gap:18px;min-width:0}
@@ -22,8 +22,8 @@
 </style>
 </head><body>
 <a class="skip-link" href="#main">Skip to main content</a><header class="nav"><div class="wrap nav-inner"><a class="brand" href="../../"><img src="../../assets/logo.jpg" alt="Benny Labs Foundation logo" width="42" height="42"><span>Benny Labs Foundation<small>501(c)(3) nonprofit · R&amp;D &amp; education</small></span></a><nav class="nav-links" aria-label="Main navigation"><a class="navlink" href="/learn/">Free learning</a><a class="navlink" href="../../programs/">Programs</a><a class="navlink" href="../../#projects">Projects</a><a class="navlink" href="../" aria-current="page">My Prompts</a><a class="navlink" href="../../#mission">Mission</a><a class="navlink" href="../../about/">About</a><a class="btn btn-outline" href="../../contact/">Contact</a></nav><details class="mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation"><a href="/learn/">Free learning</a><a href="../../">Home</a><a href="../../programs/">Programs</a><a href="../../#projects">Research projects</a><a href="../" aria-current="page">My Prompts</a><a href="../../about/">About the Foundation</a><a href="../../contact/">Contact</a></nav></details></div></header>
-<main class="page-main" id="main"><div class="wrap"><div class="kicker"><a href="../../">My Prompts</a></div><h1>Taskbar Sliders, version 5</h1>
-<p class="page-intro">Volume, brightness and blue-light sliders that sit right on the Windows 11 taskbar. Hold the mouse on a knob to see its percentage.</p>
+<main class="page-main" id="main"><div class="wrap"><div class="kicker"><a href="../../">My Prompts</a></div><h1>Taskbar Sliders</h1>
+<p class="page-intro">Volume, brightness and blue-light sliders. Hold the mouse on a knob to see its percentage. One short prompt installs them on your computer.</p>
 <section class="prompt-card">
 <div class="strip" role="img" aria-label="Three sliders on a taskbar: a speaker for volume, a sun for brightness and a blue bulb for blue light, with a tooltip above the sun reading 40 percent">
     <svg viewBox="0 -30 385 70" fill="none">
@@ -42,49 +42,68 @@
     </svg>
   </div>
 <div class="prompt-bar"><h3>The prompt</h3><button class="btn btn-primary" id="copy-prompt" data-copy="prompt-text" type="button">Copy prompt</button></div>
-<pre class="prompt-text" id="prompt-text" tabindex="0">I want to install Taskbar Sliders on this Windows computer. Go to https://bennylabs.org/my-prompts/sliders/ and follow the install steps there. The install file's SHA-256 fingerprint must be FA8AAC7C96CDEEE5FE352CEA0D581DAA738168EB1EB1DF8CC75AEB20944BF073. If Python is missing, install it too. Tell me when it's running.</pre>
+<pre class="prompt-text" id="prompt-text" tabindex="0">Install Taskbar Sliders on this computer. Go to https://bennylabs.org/my-prompts/sliders/ and follow the install steps there for this computer's operating system. If Python is missing, install it too. Tell me when it's running.</pre>
 <ol>
 <li>Copy the prompt.</li>
-<li>Paste it into Claude Code on a Windows 11 computer.</li>
-<li>Approve the install when it asks. That's it.</li>
+<li>Paste it into Claude Code, or another AI that can work on your computer.</li>
+<li>Approve the install if it asks. That's it.</li>
 </ol>
-<p><strong>Already have the sliders?</strong> Paste the same prompt. It updates only if yours is older, and your settings stay as they are.</p>
-<p><strong>New in version 5:</strong> fixes the bar staying hidden on a computer where Python runs through a linked folder, and fixes the blue-light slider jumping to its strongest setting after updating from an older build. If an update to version 4 changed your blue light, this puts it back. Version 4 fixed the bar hiding itself on a computer with more than one Python. Version 3 added the live tooltip: the percentage now shows in a tooltip that follows the knob and changes live, the numbers beside the sliders are gone, and the sliders sit closer together.</p>
-<p class="small-note">This one-step install was run on one Windows 11 computer that already had the sliders and Python. It has not yet been run on a clean computer, so a first-time install and the step that installs Python are untested. Read what a prompt does before you run it. Everything it installs is on this page.</p>
+<p><strong>It keeps itself up to date.</strong> Twice a day it checks here for a new version and installs it on its own, keeping your settings. If a new version doesn't work on your computer, it goes back to the one you had.</p>
+<p><strong>Already have an older copy?</strong> Paste the prompt once, and from then on it updates itself.</p>
+<h2>Which computers it works on</h2>
+<ul>
+<li><strong>Windows 11:</strong> tested on one computer. The sliders sit on the taskbar.</li>
+<li><strong>Windows 10:</strong> the same program, not yet tested there.</li>
+<li><strong>Mac and Linux:</strong> a ready-made version that floats on the screen. It has not yet been run on a real Mac or Linux computer, so expect rough edges.</li>
+</ul>
+<p class="small-note">A first-time install, and the step that installs Python, have not yet been run on a clean computer. If the ready-made version doesn't work, your AI can fix it or build it from the full instructions. Everything it installs is described on this page.</p>
 <h2>What it does</h2>
-<pre class="prompt-steps" id="install-steps">This page installs Taskbar Sliders version 5: a small always-running Python program that puts volume, brightness and blue-light sliders on the Windows 11 taskbar.
+<pre class="prompt-steps" id="install-steps">This page installs Taskbar Sliders: a small always-running Python program with volume, brightness and blue-light sliders. It is free and public. There is a ready-made version for each operating system below, so do not write or build any code. Find out which operating system this computer runs, then follow only that section.
 
-WHAT IT CHANGES ON THE COMPUTER
-- Adds the folder %LOCALAPPDATA%\ScreenSliders with the program, screen_sliders.pyw, a plain Python script anyone can read.
-- Adds a startup entry named ScreenSliders under HKCU\Software\Microsoft\Windows\CurrentVersion\Run, and a shortcut in that folder.
-- If no Python with tkinter exists, installs Python 3.12 for this user through winget. No admin rights are needed.
-- Sets the display's gamma ramp only when the person moves the blue-light slider. On its first run it briefly tests how far the ramp can go, then puts it back.
-- If an older version is there, it saves that copy beside the new one and keeps the settings.
-
-INSTALL STEPS, FOR THE AI DOING THE INSTALL
-Do not write or build any code. Run these lines together in one PowerShell command, putting the fingerprint from the person's prompt in place of FINGERPRINT:
+WINDOWS 10 AND 11
+Run these lines together in one PowerShell command:
 
 $f = Join-Path $env:TEMP 'sliders-install.ps1'
 Invoke-WebRequest 'https://bennylabs.org/my-prompts/sliders/install.ps1' -UseBasicParsing -OutFile $f
-if ((Get-FileHash $f).Hash -ne 'FINGERPRINT') { throw 'The fingerprint does not match. Stopping.' }
 powershell -NoProfile -ExecutionPolicy Bypass -File $f
 
-The installer does everything else, and takes under a minute unless it has to install Python. It runs itself through Explorer so that an install from inside a packaged app like the Claude desktop app is real, so don't judge the result by listing the folder from your own shell. Just read what it prints.
+It adds the folder %LOCALAPPDATA%\ScreenSliders with the program, a startup entry named ScreenSliders under HKCU\Software\Microsoft\Windows\CurrentVersion\Run, and a shortcut in that folder. No admin rights. If no Python with tkinter exists, it installs Python 3.12 for this user through winget. The sliders sit on the taskbar. The installer runs itself through Explorer, so that an install from inside a packaged app like the Claude desktop app is real, so don't judge the result by listing the folder from your own shell. Just read what it prints.
 
+MACOS AND LINUX
+Run these lines together in one shell command:
+
+f="$(mktemp)"
+curl -fsSL 'https://bennylabs.org/my-prompts/sliders/install.sh' -o "$f"
+sh "$f"
+
+It adds the folder ~/Library/Application Support/ScreenSliders on macOS or ~/.local/share/ScreenSliders on Linux, and a startup entry (a LaunchAgent on macOS, an autostart file on Linux). No admin rights. These systems have no taskbar slot an app can join, so the sliders are a small floating strip at the bottom right that can be dragged anywhere. Any slider this computer can't support is left out. On Linux, if Python's tkinter is missing, it prints the one package command to run.
+
+OTHER SYSTEMS
+Phones, tablets, Chromebooks and Windows before 10 aren't supported. Say so plainly.
+
+THE RESULT
 The first printed line is the result:
 - STATUS: INSTALLED or UPDATED or REINSTALLED: it worked.
 - STATUS: UP_TO_DATE: nothing was needed.
 - STATUS: NEWER: a newer version is already there, and nothing was changed.
-- STATUS: NEED_PYTHON: ask the person to install Python from the link it prints.
-- STATUS: FAILED: tell the person what it printed.
+- STATUS: NEED_PYTHON: install Python as it says, then run the steps again. Ask the person only if that needs their password.
+- STATUS: UNSUPPORTED: tell the person.
+- STATUS: FAILED: use the fallback below.
+Pass on the lines after it, which say how to hide, restart and remove the program.
 
-Pass on the lines after it, which say how to hide, restart and remove the program. Mention these limits: some monitors don't support the brightness control (DDC/CI), HDR can stop the blue-light effect, and Windows Night Light can conflict with it.</pre>
+FALLBACK, IF IT DOESN'T WORK ON THIS COMPUTER
+Read what it printed and the program's log in its folder, and fix the cause if you can. The code is public and free to change for this computer. If the ready-made program can't run here on Windows, build it from the full instructions at https://bennylabs.org/my-prompts/sliders/full-build.txt, which takes about 20 minutes. Tell the person what happened.
+
+WHAT IT DOES AFTER INSTALLING
+Every 12 hours the program checks this site for a new version of itself, using https://bennylabs.org/my-prompts/sliders/latest.json. If there is one, it downloads it, checks that the download arrived whole, saves the old copy, switches over and restarts itself, keeping the settings. If the new version doesn't start properly, it goes back to the old copy within about 2 minutes and never tries that version again. To turn this off, add "auto_update": false to settings.json in its folder.
+
+Mention these limits: some monitors don't support the brightness control, and on Windows HDR can stop the blue-light effect and Night Light can conflict with it. On macOS the brightness slider works only for the built-in screen. On Linux the blue-light slider works only on X11, not Wayland.</pre>
 <h2>The code</h2>
 <p>It's free and public. Read it, use it, change it.</p>
 <ul>
-<li><a href="screen_sliders.pyw">The program</a> (fingerprint <code style="overflow-wrap:anywhere">3FF5CF8A78D100CEA8736515E857DCA7D06120E347A54C8FDEB5CC68C98251A2</code>)</li>
-<li><a href="install.ps1">The installer</a></li>
-<li><a href="full-build.txt">Full build instructions</a>, for an AI to build it from scratch instead, in about 20 minutes.</li>
+<li><a href="screen_sliders.pyw">The Windows program</a> and <a href="install.ps1">its installer</a></li>
+<li><a href="sliders_unix.py">The Mac and Linux program</a> and <a href="install.sh">its installer</a></li>
+<li><a href="full-build.txt">Full build instructions</a>, for an AI to build it from scratch instead, in about 20 minutes</li>
 </ul>
 </section>
 </div></main>

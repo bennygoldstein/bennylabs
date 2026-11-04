@@ -1,4 +1,4 @@
-SCREEN SLIDERS PROMPT, VERSION 5
+SCREEN SLIDERS PROMPT, VERSION 6
 
 START HERE: INSTALL OR UPDATE
 Before you build or change anything, find out what I already have. Check %LOCALAPPDATA%\ScreenSliders\screen_sliders.pyw from outside Claude if you run inside the Claude desktop app (see that section below), because your own shell can show a copy that isn't really installed. The version is the line VERSION = "N" near the top of that file. If the file has no such line, it is version 2 if it contains the word IsPromoted, otherwise version 1.
@@ -14,6 +14,10 @@ Before you build or change anything, find out what I already have. Check %LOCALA
   6. Run only the tests that the entries list, keeping to the care rules in test 12. Then tell me what changed, and that nothing else was touched.
 
 WHAT'S NEW
+Version 6 changes only this since version 5:
+- Adds automatic updates. Build it exactly as the AUTOMATIC UPDATES section below says.
+- Tests for this update: an update from a local test server that works, one with the wrong fingerprint, one with broken code, one that crashes at start, and one that hides the bar. The last two must roll back.
+
 Version 5 changes only these things since version 4:
 - Fixes the bar staying hidden when Python runs through a linked folder (a junction, symlink, subst drive or short name). Compare the notification entry's path with this program's using real paths (see SWITCH IN TASKBAR SETTINGS). If no matching entry exists, keep the bar visible and log it once.
 - Fixes the blue setting after updating from an older build. An older settings file may hold "blue" as the knob's position from 0.0 to 1.0, with "blue_floor" as the fraction of blue kept at the far right. Then blue_removed = round(blue x (1 - blue_floor) x 100), and when floor is missing, floor = round(blue_floor x 100). A "blue" above 1 still means percent of blue kept. If the file still holds a blue from 0.0 to 1.0 beside blue_removed, and has no "blue_migrated", recompute blue_removed once and set "blue_migrated": true, so later choices are never overwritten.
@@ -49,8 +53,8 @@ GROUND RULES
 - Start it with Windows through a value named ScreenSliders under HKCU\Software\Microsoft\Windows\CurrentVersion\Run, running pythonw.exe with the full script path.
 - Also create %LOCALAPPDATA%\ScreenSliders\StartScreenSliders.lnk (pythonw.exe plus the quoted script path), so I can start it again with Win+R and that single path. Never ask me to paste a program-plus-arguments command line into Win+R or File Explorer; it fails there.
 - Allow only one running copy, using a named mutex.
-- Put the line VERSION = "5" near the top of the script. Updates of this prompt read it.
-- settings.json holds floor (percent of blue kept at the far right), blue_removed (0 to 100 minus floor), bright (0 to 100), tray_switch_set and tray_exe. It does not need to hold the volume, because Windows keeps that.
+- Put the line VERSION = "6" near the top of the script. Updates of this prompt read it.
+- settings.json holds floor (percent of blue kept at the far right), blue_removed (0 to 100 minus floor), bright (0 to 100), tray_switch_set, tray_exe and auto_update (optional, default on). It does not need to hold the volume, because Windows keeps that.
 
 IF YOU RUN INSIDE THE CLAUDE DESKTOP APP (IMPORTANT)
 - The Claude desktop app is a packaged (MSIX) app. Files your shell writes under %LOCALAPPDATA% or %APPDATA% that did not already exist, and values it writes under HKCU, can be silently redirected into %LOCALAPPDATA%\Packages\Claude_*\LocalCache\... and the package's private registry. Your shell sees a merged view, so everything looks installed, but my Explorer and Windows sign-in never see it.
@@ -75,6 +79,13 @@ LAYOUT (pixels at 96 DPI; multiply everything by taskbar DPI / 96)
 - No percentage text on the bar. See TOOLTIP.
 - Each track is grey, with the part left of the knob filled in the slider's colour.
 - Before drawing each knob icon, draw a disc of radius 12 in the background colour, so the track does not run through the icon.
+
+AUTOMATIC UPDATES
+- A daemon thread that never touches Tk checks https://bennylabs.org/my-prompts/sliders/latest.json about 2 minutes after start if the last check was 12 or more hours ago, and looks again every 10 minutes, so a computer that slept still checks on time. It stores last_check, pending and bad in update_state.json beside the script, written atomically. If settings.json has "auto_update": false, it never checks. Allow only https:// addresses. Being offline is ignored quietly, and the bar keeps working whatever happens.
+- The file looks like {"files": {"windows": {"version": 6, "url": "...", "sha256": "..."}}}. Take an update only if its whole-number version is above VERSION and not in bad, its SHA-256 matches, compile() accepts it, and it contains the line VERSION = "N".
+- The 40 ms timer applies it, and only when nothing is being dragged: copy the script to screen_sliders_v<OLD>.pyw (add a number rather than overwrite), write pending, os.replace the new file in, start a detached watchdog (pythonw -I -c), close the mutex, start the new copy detached, and os._exit.
+- The watchdog waits 90 seconds. If pending is still set for that version, it kills the recorded pid, restores the old copy, adds the version to bad, clears pending, logs it and starts the old copy.
+- The new copy records its pid in pending as soon as it starts, and clears pending after 30 seconds, unless its switch is on, no full-screen app is in front and the bar is not visible. So a version that runs but hides the bar also gets rolled back.
 
 TOOLTIP
 - The percentage shows in a small separate window just above the taskbar: a borderless Tk Toplevel titled "ScreenSlidersTip" holding one label, white Segoe UI 12 px (pixel size, not points) on #2b2b2b, with padding 7 across and 3 down. Set its width and height once from the text "100%", so it doesn't jitter as the number changes.

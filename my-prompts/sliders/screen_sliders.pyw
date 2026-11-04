@@ -3,22 +3,25 @@
 Python 3 + tkinter + ctypes + standard library only.
 """
 import ctypes
+import hashlib
 import json
 import math
 import os
 import queue
 import struct
+import subprocess
 import sys
 import threading
 import time
 import traceback
+import urllib.request
 import uuid
 import winreg
 import zlib
 from ctypes import wintypes as w
 import tkinter as tk
 
-VERSION = "5"
+VERSION = "6"
 HERE = os.path.dirname(os.path.abspath(__file__))
 SETTINGS = os.path.join(HERE, "settings.json")
 LOGFILE = os.path.join(HERE, "screen_sliders.log")
@@ -167,6 +170,8 @@ _d(gdi.CreateBitmap, w.HANDLE, ctypes.c_int, ctypes.c_int, w.UINT, w.UINT, ctype
 _d(gdi.DeleteObject, w.BOOL, w.HANDLE)
 _d(shell.Shell_NotifyIconW, w.BOOL, w.DWORD, ctypes.POINTER(NID))
 _d(kernel.CreateMutexW, w.HANDLE, ctypes.c_void_p, w.BOOL, w.LPCWSTR)
+_d(kernel.CloseHandle, w.BOOL, w.HANDLE)
+_d(user.IsWindowVisible, w.BOOL, w.HWND)
 _d(ole32.CoInitializeEx, ctypes.c_long, ctypes.c_void_p, w.DWORD)
 _d(ole32.CoCreateInstance, ctypes.c_long, ctypes.c_void_p, ctypes.c_void_p, w.DWORD, ctypes.c_void_p, ctypes.POINTER(ctypes.c_void_p))
 _d(ole32.CoSetProxyBlanket, ctypes.c_long, ctypes.c_void_p, w.DWORD, w.DWORD, ctypes.c_void_p, w.DWORD, w.DWORD, ctypes.c_void_p, w.DWORD)
@@ -845,6 +850,133 @@ def _subclass(hwnd):
     OLD_PROCS[hwnd] = user.SetWindowLongPtrW(hwnd, -4, ctypes.cast(cb, ctypes.c_void_p).value)
 
 
+# --------------------------------------------------------------------------- automatic updates
+UPDATE_URL = "https://bennylabs.org/my-prompts/sliders/latest.json"
+UPDATE_STATE = os.path.join(HERE, "update_state.json")
+CHECK_EVERY = 12 * 3600
+UPDATE_READY = []             # filled by the updater thread, emptied by the Tk timer
+MUTEX = None
+DETACHED = 0x00000008 | 0x00000200          # DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP
+
+# Runs by itself after an update. If the new version has not confirmed it is healthy
+# after 90 seconds, this puts the old one back and never tries that version again.
+WATCHDOG = r"""
+import json, os, shutil, subprocess, sys, time
+script, backup, path, version = sys.argv[1:5]
+version = int(version)
+time.sleep(90)
+try:
+    with open(path, encoding="utf-8") as f:
+        st = json.load(f)
+except Exception:
+    st = {}
+p = st.get("pending")
+if p and p.get("version") == version:
+    if p.get("pid"):
+        try:
+            os.kill(p["pid"], 9)
+        except Exception:
+            pass
+    time.sleep(2)
+    shutil.copy2(backup, script)
+    st["pending"] = None
+    st["bad"] = st.get("bad", []) + [version]
+    with open(path + ".tmp", "w", encoding="utf-8") as f:
+        json.dump(st, f)
+    os.replace(path + ".tmp", path)
+    with open(os.path.join(os.path.dirname(script), "screen_sliders.log"), "a", encoding="utf-8") as f:
+        f.write(time.strftime("%Y-%m-%d %H:%M:%S") + " version %d did not start properly; went back to the old copy\n" % version)
+    subprocess.Popen([sys.executable, script], creationflags=0x00000208, close_fds=True,
+                     stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+"""
+
+
+def load_update_state():
+    try:
+        with open(UPDATE_STATE, encoding="utf-8") as f:
+            st = json.load(f)
+        return st if isinstance(st, dict) else {}
+    except (OSError, ValueError):
+        return {}
+
+
+def save_update_state(st):
+    tmp = UPDATE_STATE + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(st, f)
+    os.replace(tmp, UPDATE_STATE)
+
+
+def update_url_allowed(url):
+    return isinstance(url, str) and (url.startswith("https://") or url.startswith("http://127.0.0.1"))
+
+
+def is_due(last, now):
+    return not isinstance(last, (int, float)) or now - last >= CHECK_EVERY or now < last
+
+
+def fetch(url, limit=2 * 1024 * 1024):
+    if not update_url_allowed(url):
+        raise ValueError("refused address")
+    req = urllib.request.Request(url, headers={"User-Agent": "ScreenSliders/" + VERSION, "Cache-Control": "no-cache"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        data = r.read(limit + 1)
+    if len(data) > limit:
+        raise ValueError("too large")
+    return data
+
+
+def pick_update(manifest, get, current, bad):
+    """Returns (version, program bytes) when a good newer version exists, else None."""
+    f = manifest["files"]["windows"]
+    v = f["version"]
+    if not isinstance(v, int) or isinstance(v, bool) or v <= current or v in bad:
+        return None
+    data = get(f["url"])
+    if hashlib.sha256(data).hexdigest().lower() != str(f["sha256"]).lower():
+        raise ValueError("version %d does not match its fingerprint" % v)
+    text = data.decode("utf-8")
+    if ('VERSION = "%d"' % v) not in text:
+        raise ValueError("version %d has the wrong version line" % v)
+    compile(text, "screen_sliders", "exec")
+    return v, data
+
+
+class Updater(threading.Thread):
+    """Never touches Tk. A failed check is ignored and tried again at the next one."""
+    def __init__(self, settings):
+        threading.Thread.__init__(self, daemon=True)
+        self.settings = settings
+
+    def run(self):
+        time.sleep(self.settings.get("update_first_check", 120))
+        while True:
+            try:
+                if self.settings.get("auto_update", True) is not False and self.check():
+                    return
+            except Exception:
+                log_exc("update check")
+            time.sleep(600)            # wakes often, so a computer that slept still checks on time
+
+    def check(self):
+        state = load_update_state()
+        now = time.time()
+        if not is_due(state.get("last_check"), now):
+            return False
+        state["last_check"] = now
+        save_update_state(state)
+        url = self.settings.get("update_url", UPDATE_URL)
+        try:
+            manifest = json.loads(fetch(url).decode("utf-8"))
+        except (OSError, ValueError):
+            return False               # offline, or the site is down
+        found = pick_update(manifest, fetch, int(VERSION), state.get("bad", []))
+        if found:
+            UPDATE_READY.append(found)
+            return True
+        return False
+
+
 # --------------------------------------------------------------------------- the bar
 class Bar:
     def __init__(self, st, prev_fg):
@@ -855,6 +987,8 @@ class Bar:
             st["tray_switch_set"] = False
         st["tray_exe"] = me
         self.no_entry_logged = False
+        self.started = time.time()
+        self.confirmed = False
         self.results = queue.Queue()
         self.boost_until = 0.0
         self.hook_pid = None
@@ -1000,6 +1134,61 @@ class Bar:
             user.ShowWindow(self.tip_hwnd, 4)          # SW_SHOWNOACTIVATE
             self.tip_on = True
 
+    def apply_update(self, version, data):
+        """Swap in the new version and restart. Anything failing before the restart leaves the old one running."""
+        script = os.path.abspath(__file__)
+        backup = os.path.join(HERE, "screen_sliders_v%s.pyw" % VERSION)
+        n = 2
+        while os.path.exists(backup):
+            backup = os.path.join(HERE, "screen_sliders_v%s-%d.pyw" % (VERSION, n))
+            n += 1
+        new = script + ".new"
+        with open(script, "rb") as f:
+            old = f.read()
+        with open(backup, "wb") as f:
+            f.write(old)
+        with open(new, "wb") as f:
+            f.write(data)
+        state = load_update_state()
+        state["pending"] = {"version": version, "from": int(VERSION), "backup": backup, "pid": None}
+        save_update_state(state)
+        os.replace(new, script)
+        quiet = dict(creationflags=DETACHED, close_fds=True, stdin=subprocess.DEVNULL,
+                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        try:
+            subprocess.Popen([sys.executable, "-I", "-c", WATCHDOG, script, backup, UPDATE_STATE, str(version)], **quiet)
+            self.save()
+            kernel.CloseHandle(MUTEX)
+            subprocess.Popen([sys.executable, script], **quiet)
+        except Exception:
+            with open(script, "wb") as f:
+                f.write(old)
+            state["pending"] = None
+            save_update_state(state)
+            raise
+        os._exit(0)
+
+    def update_tick(self):
+        if UPDATE_READY and not self.active:
+            version, data = UPDATE_READY.pop()
+            self.apply_update(version, data)
+
+    def confirm_tick(self):
+        """After an update, tell the watchdog this version really works: running, with the bar showing."""
+        if self.confirmed or time.time() - self.started < 30:
+            return
+        state = load_update_state()
+        p = state.get("pending")
+        if not p or p.get("version") != int(VERSION):
+            self.confirmed = True
+            return
+        g = self.taskbar_geometry()
+        if g and self.switch_on() and not self.fullscreen_in_front(g[0], g[1]) and not user.IsWindowVisible(self.hwnd):
+            return
+        state["pending"] = None
+        save_update_state(state)
+        self.confirmed = True
+
     def save(self):
         self.st["bright"] = self.bright
         self.st["blue_removed"] = self.blue
@@ -1144,10 +1333,13 @@ class Bar:
         self.n += 1
         self.safe(self.process_wheel)
         self.safe(self.update_tip)
+        self.safe(self.update_tick)
         if self.visible and time.time() < self.boost_until:
             user.SetWindowPos(self.hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE)
         if self.n % 5 == 0:
             self.safe(self.drain_results)
+        if self.n % 50 == 0:
+            self.safe(self.confirm_tick)
         if self.n % 10 == 0:
             self.safe(self.layout_tick)
         if self.n % 20 == 0:
@@ -1350,9 +1542,15 @@ class Bar:
 
 
 def main():
-    kernel.CreateMutexW(None, False, MUTEX_NAME)
+    global MUTEX
+    MUTEX = kernel.CreateMutexW(None, False, MUTEX_NAME)
     if ctypes.get_last_error() == 183:               # another copy is running
         return
+    state = load_update_state()
+    p = state.get("pending")
+    if p and p.get("version") == int(VERSION):       # just updated: let the watchdog know who to check
+        p["pid"] = os.getpid()
+        save_update_state(state)
     set_dpi_aware()
     prev_fg = user.GetForegroundWindow()
     ole32.CoInitializeEx(None, 2)                    # apartment threaded, for Tk's thread
@@ -1371,6 +1569,7 @@ def main():
     bar = Bar(st, prev_fg)
     if bar.blue > 0:
         set_blue(bar.blue)
+    Updater(st).start()
     bar.root.mainloop()
 
 

@@ -1,0 +1,19 @@
+{
+ "files": {
+  "windows": {
+   "version": 6,
+   "url": "https://bennylabs.org/my-prompts/sliders/screen_sliders.pyw",
+   "sha256": "E97ECFBF4739922B5E77B497881502694DAA15AC6A58F0376821808BB77AF8A7"
+  },
+  "mac": {
+   "version": 1,
+   "url": "https://bennylabs.org/my-prompts/sliders/sliders_unix.py",
+   "sha256": "09780E2A891E91CABEA26CE863D88F1229FE1A1C61B77AB396A1E6E214AC32C6"
+  },
+  "linux": {
+   "version": 1,
+   "url": "https://bennylabs.org/my-prompts/sliders/sliders_unix.py",
+   "sha256": "09780E2A891E91CABEA26CE863D88F1229FE1A1C61B77AB396A1E6E214AC32C6"
+  }
+ }
+}

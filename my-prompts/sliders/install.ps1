@@ -1,15 +1,14 @@
-# Taskbar Sliders installer, version 5. https://bennylabs.org/my-prompts/sliders/
+# Taskbar Sliders installer for Windows 10 and 11. https://bennylabs.org/my-prompts/sliders/
 # Installs for the current Windows user only, with no admin rights. It adds:
 #   - the folder %LOCALAPPDATA%\ScreenSliders with the program, a plain Python script
 #   - a startup entry named ScreenSliders under HKCU\...\CurrentVersion\Run
 #   - Python 3.12 for this user through winget, only if no Python with tkinter exists
 # It keeps existing settings, and saves any older copy beside the new one.
+# The program then checks this site every 12 hours and updates itself.
 param([switch]$Inner, [switch]$Reinstall)
 
 $ErrorActionPreference = 'Stop'
-$Version = '5'
-$CodeUrl = 'https://bennylabs.org/my-prompts/sliders/screen_sliders.pyw'
-$CodeHash = '3FF5CF8A78D100CEA8736515E857DCA7D06120E347A54C8FDEB5CC68C98251A2'
+$Manifest = 'https://bennylabs.org/my-prompts/sliders/latest.json'
 $Report = Join-Path $env:USERPROFILE '.screen-sliders-install-report.txt'
 $Started = Join-Path $env:USERPROFILE '.screen-sliders-install-started.txt'
 $Staged = Join-Path $env:USERPROFILE '.screen-sliders-install.ps1'
@@ -37,7 +36,7 @@ if (-not $Inner) {
     $lines = Get-Content -LiteralPath $Report
     $lines | Write-Output
     foreach ($f in $Report, $Started, $Staged) { if (Test-Path -LiteralPath $f) { Remove-Item -LiteralPath $f -Force } }
-    if ($lines[0] -match 'FAILED|NEED_PYTHON') { exit 1 }
+    if ($lines[0] -match 'FAILED|NEED_PYTHON|UNSUPPORTED') { exit 1 }
     exit 0
 }
 
@@ -80,8 +79,17 @@ try {
     $dir = Join-Path $env:LOCALAPPDATA 'ScreenSliders'
     $script = Join-Path $dir 'screen_sliders.pyw'
     $link = Join-Path $dir 'StartScreenSliders.lnk'
+    if ([Environment]::OSVersion.Version.Major -lt 10) { Finish 'UNSUPPORTED' @('This needs Windows 10 or 11.') }
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    $latest = (Invoke-WebRequest -Uri ($Manifest + '?t=' + [DateTime]::UtcNow.Ticks) -UseBasicParsing).Content | ConvertFrom-Json
+    $Version = [string]$latest.files.windows.version
+    $CodeUrl = [string]$latest.files.windows.url
+    $CodeHash = [string]$latest.files.windows.sha256
+    $win11 = [Environment]::OSVersion.Version.Build -ge 22000
+    $hide = if ($win11) { 'To hide the bar: Settings > Personalization > Taskbar > Other system tray icons, switch off "Python".' } else { 'To hide the bar: end the pythonw.exe running screen_sliders.pyw.' }
     $how = @(
-        'To hide the bar: Settings > Personalization > Taskbar > Other system tray icons, switch off "Python".',
+        $hide,
+        'It updates itself: it checks for a new version every 12 hours. To turn that off, add "auto_update": false to settings.json in its folder.',
         "To start it again: Win+R, then $link",
         'To remove it: end the pythonw.exe running screen_sliders.pyw, delete the ScreenSliders Run value, and delete that folder.'
     )
@@ -119,8 +127,7 @@ try {
 
     [void](New-Item -ItemType Directory -Force -Path $dir)
     $new = Join-Path $dir 'screen_sliders.new'
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-    Invoke-WebRequest -Uri $CodeUrl -UseBasicParsing -OutFile $new
+    Invoke-WebRequest -Uri ($CodeUrl + '?t=' + [DateTime]::UtcNow.Ticks) -UseBasicParsing -OutFile $new
     if ((Get-FileHash -LiteralPath $new -Algorithm SHA256).Hash -ne $CodeHash) {
         Remove-Item -LiteralPath $new -Force
         Finish 'FAILED' @('The downloaded program does not match its fingerprint, so nothing was installed.')
