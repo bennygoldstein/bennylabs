@@ -1,4 +1,4 @@
-# Taskbar Sliders installer, version 3. https://bennylabs.org/my-prompts/sliders/
+# Taskbar Sliders installer, version 4. https://bennylabs.org/my-prompts/sliders/
 # Installs for the current Windows user only, with no admin rights. It adds:
 #   - the folder %LOCALAPPDATA%\ScreenSliders with the program, a plain Python script
 #   - a startup entry named ScreenSliders under HKCU\...\CurrentVersion\Run
@@ -7,9 +7,9 @@
 param([switch]$Inner, [switch]$Reinstall)
 
 $ErrorActionPreference = 'Stop'
-$Version = '3'
+$Version = '4'
 $CodeUrl = 'https://bennylabs.org/my-prompts/sliders/screen_sliders.pyw'
-$CodeHash = '28FEF19A26EE17CCEC4474A027C1DA57EF11D80DDDDB297CAE1EA97F983A1483'
+$CodeHash = '17001F2C380EE22DDF61E41357C48F673FE880991A91BB46AFDA2DD10457F417'
 $Report = Join-Path $env:USERPROFILE '.screen-sliders-install-report.txt'
 $Started = Join-Path $env:USERPROFILE '.screen-sliders-install-started.txt'
 $Staged = Join-Path $env:USERPROFILE '.screen-sliders-install.ps1'
@@ -94,7 +94,14 @@ try {
     }
     if ($have -gt [int]$Version) { Finish 'NEWER' @("Version $have is installed, which is newer than this installer (version $Version). Nothing was changed.") }
 
-    $pythonw = Find-Pythonw
+    # Stay on the Python already in use, if it still works.
+    $pythonw = $null
+    $oldRun = (Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -ErrorAction SilentlyContinue).ScreenSliders
+    if ($oldRun -and $oldRun -match '^"([^"]+pythonw\.exe)"') {
+        $oldPy = $Matches[1] -replace 'pythonw\.exe$', 'python.exe'
+        if (Test-Path -LiteralPath $oldPy) { $pythonw = Test-Python $oldPy @() }
+    }
+    if (-not $pythonw) { $pythonw = Find-Pythonw }
     if (-not $pythonw) {
         $winget = Get-Command winget.exe -ErrorAction SilentlyContinue
         if ($winget) {
@@ -105,7 +112,7 @@ try {
     if (-not $pythonw) { Finish 'NEED_PYTHON' @('Python could not be installed automatically. Please install it from https://www.python.org/downloads/windows/ and then paste the prompt again.') }
 
     if ($have -eq [int]$Version -and -not $Reinstall) {
-        if ((Get-Copies).Count -gt 0) { Finish 'UP_TO_DATE' (@("Version $Version is already installed and running. Nothing was changed.") + $how) }
+        if (@(Get-Copies).Count -gt 0) { Finish 'UP_TO_DATE' (@("Version $Version is already installed and running. Nothing was changed.") + $how) }
         Start-Process -FilePath $pythonw -ArgumentList ('"' + $script + '"')
         Finish 'UP_TO_DATE' (@("Version $Version was already installed. It was not running, so it was started.") + $how)
     }
@@ -138,7 +145,7 @@ try {
 
     Start-Process -FilePath $pythonw -ArgumentList ('"' + $script + '"')
     Start-Sleep 5
-    if ((Get-Copies).Count -lt 1) {
+    if (@(Get-Copies).Count -lt 1) {
         $tail = @()
         $log = Join-Path $dir 'screen_sliders.log'
         if (Test-Path -LiteralPath $log) { $tail = Get-Content -LiteralPath $log -Tail 8 }

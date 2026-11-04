@@ -18,7 +18,7 @@ import zlib
 from ctypes import wintypes as w
 import tkinter as tk
 
-VERSION = "3"
+VERSION = "4"
 HERE = os.path.dirname(os.path.abspath(__file__))
 SETTINGS = os.path.join(HERE, "settings.json")
 LOGFILE = os.path.join(HERE, "screen_sliders.log")
@@ -743,6 +743,15 @@ def load_settings():
         return {}
 
 
+def same_exe(stored):
+    """Is this notification entry ours? Windows may store a {known-folder GUID}\\... prefix."""
+    s, me = str(stored).lower(), sys.executable.lower()
+    if s.startswith("{"):
+        s = s.split("\\", 1)[1] if "\\" in s else ""
+        return bool(s) and me.endswith("\\" + s)
+    return s == me
+
+
 # window-procedure side: plain Python lists only, never Tcl
 WHEEL = []
 OLD_PROCS = {}
@@ -772,6 +781,11 @@ def _subclass(hwnd):
 class Bar:
     def __init__(self, st, prev_fg):
         self.st = st
+        # A different Python gets a new, switched-off entry in Taskbar settings, so switch that one on once.
+        me = sys.executable.lower()
+        if st.get("tray_exe") not in (None, me):
+            st["tray_switch_set"] = False
+        st["tray_exe"] = me
         self.results = queue.Queue()
         self.boost_until = 0.0
         self.hook_pid = None
@@ -1217,7 +1231,7 @@ class Bar:
                         exe = winreg.QueryValueEx(k, "ExecutablePath")[0]
                 except OSError:
                     continue
-                if tip == TRAY_TIP and str(exe).lower().endswith("pythonw.exe"):
+                if tip == TRAY_TIP and same_exe(exe):
                     return name
 
     def entry_key(self, access):

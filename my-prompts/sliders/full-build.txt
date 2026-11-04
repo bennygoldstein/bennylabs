@@ -1,4 +1,4 @@
-SCREEN SLIDERS PROMPT, VERSION 3
+SCREEN SLIDERS PROMPT, VERSION 4
 
 START HERE: INSTALL OR UPDATE
 Before you build or change anything, find out what I already have. Check %LOCALAPPDATA%\ScreenSliders\screen_sliders.pyw from outside Claude if you run inside the Claude desktop app (see that section below), because your own shell can show a copy that isn't really installed. The version is the line VERSION = "N" near the top of that file. If the file has no such line, it is version 2 if it contains the word IsPromoted, otherwise version 1.
@@ -14,6 +14,10 @@ Before you build or change anything, find out what I already have. Check %LOCALA
   6. Run only the tests that the entries list, keeping to the care rules in test 12. Then tell me what changed, and that nothing else was touched.
 
 WHAT'S NEW
+Version 4 changes only this since version 3:
+- Fixes the bar hiding itself on a computer with more than one Python. Find the notification entry by this exact program's path (see SWITCH IN TASKBAR SETTINGS) rather than any pythonw.exe. Save the program's path in settings.json as tray_exe, and if it differs from the saved one, set tray_switch_set to false so the new entry gets switched on once.
+- Tests for this update: 9, and confirm the bar is showing.
+
 Version 3 changes only these things since version 2:
 - Removes the percentage numbers on the right of each slider.
 - Brings the sliders closer: the window is now 385 wide, and the tracks run x=14 to 113, x=143 to 242 and x=272 to 371. The wheel's split points between sliders move to x=128 and x=257.
@@ -40,8 +44,8 @@ GROUND RULES
 - Start it with Windows through a value named ScreenSliders under HKCU\Software\Microsoft\Windows\CurrentVersion\Run, running pythonw.exe with the full script path.
 - Also create %LOCALAPPDATA%\ScreenSliders\StartScreenSliders.lnk (pythonw.exe plus the quoted script path), so I can start it again with Win+R and that single path. Never ask me to paste a program-plus-arguments command line into Win+R or File Explorer; it fails there.
 - Allow only one running copy, using a named mutex.
-- Put the line VERSION = "3" near the top of the script. Updates of this prompt read it.
-- settings.json holds floor (percent of blue kept at the far right), blue_removed (0 to 100 minus floor), bright (0 to 100) and tray_switch_set. It does not need to hold the volume, because Windows keeps that.
+- Put the line VERSION = "4" near the top of the script. Updates of this prompt read it.
+- settings.json holds floor (percent of blue kept at the far right), blue_removed (0 to 100 minus floor), bright (0 to 100), tray_switch_set and tray_exe. It does not need to hold the volume, because Windows keeps that.
 
 IF YOU RUN INSIDE THE CLAUDE DESKTOP APP (IMPORTANT)
 - The Claude desktop app is a packaged (MSIX) app. Files your shell writes under %LOCALAPPDATA% or %APPDATA% that did not already exist, and values it writes under HKCU, can be silently redirected into %LOCALAPPDATA%\Packages\Claude_*\LocalCache\... and the package's private registry. Your shell sees a merged view, so everything looks installed, but my Explorer and Windows sign-in never see it.
@@ -80,7 +84,7 @@ CONTROLS
 
 SWITCH IN TASKBAR SETTINGS (Settings > Personalization > Taskbar > Other system tray icons)
 - Windows only lists apps that own a notification-area icon there, so register one with Shell_NotifyIconW: uID 1, tooltip "Screen Sliders", and NIF_STATE with dwState = dwStateMask = NIS_HIDDEN. It is never drawn on the taskbar; it exists only to give the bar its switch. Add it again whenever the Shell_TrayWnd handle changes (Explorer restarted).
-- Windows keeps the entry in HKCU\Control Panel\NotifyIconSettings\<number> with the values ExecutablePath, InitialTooltip, IsPromoted and IconSnapshot. Find ours by InitialTooltip = "Screen Sliders" and an ExecutablePath ending in pythonw.exe (it may use a {known-folder GUID}\... prefix).
+- Windows keeps the entry in HKCU\Control Panel\NotifyIconSettings\<number> with the values ExecutablePath, InitialTooltip, IsPromoted and IconSnapshot. Find ours by InitialTooltip = "Screen Sliders" and an ExecutablePath that is exactly this program's sys.executable (it may use a {known-folder GUID}\... prefix, so then compare the part after the GUID with the end of the path). Each Python gets its own entry, so never match just any pythonw.exe: an old switched-off entry would hide the bar.
 - Read IsPromoted every 400 ms: 1 means the switch is on and the bar shows; 0 or missing means off and the bar hides. Until tray_switch_set is true, the entry may not exist yet, so keep the bar showing. The switch is an on/off toggle, not a radio button; apps cannot add their own controls to that page.
 - New icons start switched off. The first time the entry exists, set IsPromoted = 1 so the bar stays visible, and save "tray_switch_set": true in settings.json so this happens only once.
 - Windows labels the entry with the program file's name, so it shows as "Python". That cannot change without a separate .exe; say so in the report.

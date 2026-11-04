@@ -22,7 +22,7 @@
 </style>
 </head><body>
 <a class="skip-link" href="#main">Skip to main content</a><header class="nav"><div class="wrap nav-inner"><a class="brand" href="../../"><img src="../../assets/logo.jpg" alt="Benny Labs Foundation logo" width="42" height="42"><span>Benny Labs Foundation<small>501(c)(3) nonprofit · R&amp;D &amp; education</small></span></a><nav class="nav-links" aria-label="Main navigation"><a class="navlink" href="/learn/">Free learning</a><a class="navlink" href="../../programs/">Programs</a><a class="navlink" href="../../#projects">Projects</a><a class="navlink" href="../" aria-current="page">My Prompts</a><a class="navlink" href="../../#mission">Mission</a><a class="navlink" href="../../about/">About</a><a class="btn btn-outline" href="../../contact/">Contact</a></nav><details class="mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation"><a href="/learn/">Free learning</a><a href="../../">Home</a><a href="../../programs/">Programs</a><a href="../../#projects">Research projects</a><a href="../" aria-current="page">My Prompts</a><a href="../../about/">About the Foundation</a><a href="../../contact/">Contact</a></nav></details></div></header>
-<main class="page-main" id="main"><div class="wrap"><div class="kicker"><a href="../../">My Prompts</a></div><h1>Taskbar Sliders, version 3</h1>
+<main class="page-main" id="main"><div class="wrap"><div class="kicker"><a href="../../">My Prompts</a></div><h1>Taskbar Sliders, version 4</h1>
 <p class="page-intro">Volume, brightness and blue-light sliders that sit right on the Windows 11 taskbar. Hold the mouse on a knob to see its percentage.</p>
 <section class="prompt-card">
 <div class="strip" role="img" aria-label="Three sliders on a taskbar: a speaker for volume, a sun for brightness and a blue bulb for blue light, with a tooltip above the sun reading 40 percent">
@@ -42,17 +42,17 @@
     </svg>
   </div>
 <div class="prompt-bar"><h3>The prompt</h3><button class="btn btn-primary" id="copy-prompt" data-copy="prompt-text" type="button">Copy prompt</button></div>
-<pre class="prompt-text" id="prompt-text" tabindex="0">I want to install Taskbar Sliders on this Windows computer. Go to https://bennylabs.org/my-prompts/sliders/ and follow the install steps there. The install file's SHA-256 fingerprint must be 3E227419348F71E97CFA1F3545563E333FBE176A5C1BE6A9DC79F633860CE599. If Python is missing, install it too. Tell me when it's running.</pre>
+<pre class="prompt-text" id="prompt-text" tabindex="0">I want to install Taskbar Sliders on this Windows computer. Go to https://bennylabs.org/my-prompts/sliders/ and follow the install steps there. The install file's SHA-256 fingerprint must be 1F9C5F066CADF6582B762F778C4F9833C9761BC980B05C09692A462046A2800B. If Python is missing, install it too. Tell me when it's running.</pre>
 <ol>
 <li>Copy the prompt.</li>
 <li>Paste it into Claude Code on a Windows 11 computer.</li>
 <li>Approve the install when it asks. That's it.</li>
 </ol>
 <p><strong>Already have the sliders?</strong> Paste the same prompt. It updates only if yours is older, and your settings stay as they are.</p>
-<p><strong>New in version 3:</strong> the percentage now shows in a tooltip that follows the knob and changes live, the numbers beside the sliders are gone, and the sliders sit closer together.</p>
-<p class="small-note">This one-step install was run on one Windows 11 computer. It has not yet been run on a clean computer, so the step that installs Python is untested. Read what a prompt does before you run it. Everything it installs is on this page.</p>
+<p><strong>New in version 4:</strong> fixes the bar hiding itself on a computer with more than one Python. Version 3 added the live tooltip: the percentage now shows in a tooltip that follows the knob and changes live, the numbers beside the sliders are gone, and the sliders sit closer together.</p>
+<p class="small-note">This one-step install was run on one Windows 11 computer that already had the sliders and Python. It has not yet been run on a clean computer, so a first-time install and the step that installs Python are untested. Read what a prompt does before you run it. Everything it installs is on this page.</p>
 <h2>What it does</h2>
-<pre class="prompt-steps" id="install-steps">This page installs Taskbar Sliders version 3: a small always-running Python program that puts volume, brightness and blue-light sliders on the Windows 11 taskbar.
+<pre class="prompt-steps" id="install-steps">This page installs Taskbar Sliders version 4: a small always-running Python program that puts volume, brightness and blue-light sliders on the Windows 11 taskbar.
 
 WHAT IT CHANGES ON THE COMPUTER
 - Adds the folder %LOCALAPPDATA%\ScreenSliders with the program, screen_sliders.pyw, a plain Python script anyone can read.
@@ -82,7 +82,7 @@ Pass on the lines after it, which say how to hide, restart and remove the progra
 <h2>The code</h2>
 <p>It's free and public. Read it, use it, change it.</p>
 <ul>
-<li><a href="screen_sliders.pyw">The program</a> (fingerprint <code style="overflow-wrap:anywhere">28FEF19A26EE17CCEC4474A027C1DA57EF11D80DDDDB297CAE1EA97F983A1483</code>)</li>
+<li><a href="screen_sliders.pyw">The program</a> (fingerprint <code style="overflow-wrap:anywhere">17001F2C380EE22DDF61E41357C48F673FE880991A91BB46AFDA2DD10457F417</code>)</li>
 <li><a href="install.ps1">The installer</a></li>
 <li><a href="full-build.txt">Full build instructions</a>, for an AI to build it from scratch instead, in about 20 minutes.</li>
 </ul>
