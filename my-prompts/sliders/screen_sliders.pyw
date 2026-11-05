@@ -21,7 +21,7 @@ import zlib
 from ctypes import wintypes as w
 import tkinter as tk
 
-VERSION = "6"
+VERSION = "7"
 HERE = os.path.dirname(os.path.abspath(__file__))
 SETTINGS = os.path.join(HERE, "settings.json")
 LOGFILE = os.path.join(HERE, "screen_sliders.log")
@@ -232,12 +232,21 @@ def physical(h):
 
 
 # --------------------------------------------------------------------------- blue light
-def make_ramp(removed):
-    """removed = percent of blue taken away (0..100)."""
+DIM = {}             # screen -> how bright its color ramp makes it, for screens that ignore brightness commands
+_removed = [0]
+
+
+def dim_for(percent):
+    """A screen dimmed by its color ramp never goes fully black."""
+    return 0.35 + 0.65 * max(0, min(100, percent)) / 100.0
+
+
+def make_ramp(removed, dim=1.0):
+    """removed = percent of blue taken away (0..100). dim = 1 for full brightness."""
     b = 1 - removed / 100.0
     ramp = (w.WORD * 768)()
     for i in range(256):
-        v = i * 257
+        v = int(i * 257 * dim)
         ramp[i] = v
         ramp[256 + i] = int(v * (1 - (1 - b) * 0.3))
         ramp[512 + i] = int(v * b)
@@ -246,12 +255,20 @@ def make_ramp(removed):
 
 def set_blue(removed):
     """Apply the tint to every screen. True if every screen accepted it."""
-    ramp = make_ramp(removed)
+    _removed[0] = removed
     ok = True
     for h in monitors():
-        dc = gdi.CreateDCW(monitor_device(h), None, None, None)
+        dev = monitor_device(h)
+        dc = gdi.CreateDCW(dev, None, None, None)
         if dc:
-            ok = bool(gdi.SetDeviceGammaRamp(dc, ramp)) and ok
+            dim = DIM.get(dev, 1.0)
+            good = bool(gdi.SetDeviceGammaRamp(dc, make_ramp(removed, dim)))
+            while not good and dim < 1.0:        # Windows refuses ramps too far from normal: dim a little less
+                dim = min(1.0, dim + 0.05)
+                good = bool(gdi.SetDeviceGammaRamp(dc, make_ramp(removed, dim)))
+            if dev in DIM:
+                DIM[dev] = dim
+            ok = good and ok
             gdi.DeleteDC(dc)
         else:
             ok = False
@@ -260,9 +277,10 @@ def set_blue(removed):
 
 def ramp_matches(removed, tol=2):
     """True when every screen's current ramp is within tol of the wanted one."""
-    want = make_ramp(removed)
     for h in monitors():
-        dc = gdi.CreateDCW(monitor_device(h), None, None, None)
+        dev = monitor_device(h)
+        want = make_ramp(removed, DIM.get(dev, 1.0))
+        dc = gdi.CreateDCW(dev, None, None, None)
         if not dc:
             continue
         cur = (w.WORD * 768)()
@@ -282,6 +300,23 @@ def find_blue_floor():
             break
     set_blue(0)
     return floor
+
+
+def untint(seen, own, painted):
+    """Some screens (one on a USB display adapter, for example) make Windows paint the color tint into what
+    programs read back from the screen. Then the taskbar color read here already has the tint in it, and painting
+    it would tint it twice: a darker box behind the bar. This window's own pixel shows how much: compare the
+    color painted with what the screen reports for it, and take that much back out."""
+    if own == 0xFFFFFFFF:
+        return seen
+    o = (own & 255, (own >> 8) & 255, (own >> 16) & 255)
+    p = tuple(int(painted[i:i + 2], 16) for i in (1, 3, 5))
+    if all(abs(a - b) <= 3 for a, b in zip(o, p)):
+        return seen
+    out = []
+    for s_, a, b in zip(seen, o, p):
+        out.append(s_ if b < 12 or a < 4 else max(0, min(255, int(round(s_ * b / float(a))))))
+    return tuple(out)
 
 
 # --------------------------------------------------------------------------- COM helpers
@@ -508,6 +543,7 @@ class BrightnessWorker(threading.Thread):
         self.pending = None
         self.maxes = {}          # (hmonitor, index) -> reported maximum
         self.ddc_ok = {}         # hmonitor -> answered DDC/CI at startup
+        self.no_ddc = set()      # screens that ignored a brightness command: dimmed by their color ramp instead
         self.need_wmi = False
 
     def push(self, value):
@@ -567,8 +603,13 @@ class BrightnessWorker(threading.Thread):
 
     def write_all(self, value):
         for h in monitors():
+            dev = monitor_device(h)
+            if dev in self.no_ddc:
+                continue
             arr, n = physical(h)
             if not arr:
+                self.no_ddc.add(dev)
+                log("brightness on %s: no physical monitor, dimming with its color ramp" % dev)
                 continue
             try:
                 for i in range(n):
@@ -583,9 +624,18 @@ class BrightnessWorker(threading.Thread):
                             break
                         time.sleep(0.05)
                     else:
-                        log("SetVCPFeature failed on %s" % monitor_device(h))
+                        self.no_ddc.add(dev)
+                        log("SetVCPFeature failed on %s: dimming it with its color ramp from now on" % dev)
             finally:
                 dxva.DestroyPhysicalMonitors(n, arr)
+        changed = False
+        for dev in self.no_ddc:
+            want = dim_for(value)
+            if DIM.get(dev) != want:
+                DIM[dev] = want
+                changed = True
+        if changed:
+            set_blue(_removed[0])
         if self.need_wmi:
             try:
                 wmi_set_brightness(value)
@@ -1369,7 +1419,7 @@ class Bar:
             self.draw()
 
     def reapply_blue(self):
-        if self.blue > 0 and not ramp_matches(self.blue):
+        if (self.blue > 0 or DIM) and not ramp_matches(self.blue):
             set_blue(self.blue)
 
     def sample_colour(self):
@@ -1378,12 +1428,15 @@ class Bar:
             return
         tb, rc, right = g
         x, y = self.target_pos()
+        me = RECT()
+        user.GetWindowRect(self.hwnd, ctypes.byref(me))
         dc = user.GetDC(None)
         c = gdi.GetPixel(dc, x - 6, rc.t + self.px(4))
+        own = gdi.GetPixel(dc, me.l + 1, me.t + 1) if self.visible else 0xFFFFFFFF
         user.ReleaseDC(None, dc)
         if c == 0xFFFFFFFF:
             return
-        r, g_, b = c & 255, (c >> 8) & 255, (c >> 16) & 255
+        r, g_, b = untint((c & 255, (c >> 8) & 255, (c >> 16) & 255), own, self.bg)
         new = "#%02x%02x%02x" % (r, g_, b)
         if new != self.bg:
             self.bg = new

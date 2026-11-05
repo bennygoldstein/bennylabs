@@ -1,9 +1,9 @@
 {
  "files": {
   "windows": {
-   "version": 6,
+   "version": 7,
    "url": "https://bennylabs.org/my-prompts/sliders/screen_sliders.pyw",
-   "sha256": "E97ECFBF4739922B5E77B497881502694DAA15AC6A58F0376821808BB77AF8A7"
+   "sha256": "A6F3149367CC92800D47B0E5055E59C05A3A79493EE892D31AEC89816A171AEF"
   },
   "mac": {
    "version": 1,
