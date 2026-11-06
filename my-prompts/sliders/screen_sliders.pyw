@@ -21,7 +21,7 @@ import zlib
 from ctypes import wintypes as w
 import tkinter as tk
 
-VERSION = "7"
+VERSION = "8"
 HERE = os.path.dirname(os.path.abspath(__file__))
 SETTINGS = os.path.join(HERE, "settings.json")
 LOGFILE = os.path.join(HERE, "screen_sliders.log")
@@ -1082,6 +1082,7 @@ class Bar:
         self.root.configure(bg=self.bg)
         self.cv = tk.Canvas(self.root, width=self.W, height=self.H, highlightthickness=0, bd=0, bg=self.bg)
         self.cv.pack()
+        self.root.attributes("-transparentcolor", self.bg)    # see-through: the real taskbar shows behind the bar
         self.root.geometry("%dx%d+0+0" % (self.W, self.H))
         self.root.update_idletasks()
         self.hwnd = user.GetAncestor(self.root.winfo_id(), 2)
@@ -1281,9 +1282,18 @@ class Bar:
             return self.bright / 100.0
         return self.blue / float(self.maxrem)
 
+    def near(self):
+        """One shade off the see-through color: looks the same, but still catches clicks and the wheel."""
+        r, g, b = (int(self.bg[i:i + 2], 16) for i in (1, 3, 5))
+        return "#%02x%02x%02x" % (r, g, b + 1 if b < 255 else b - 1)
+
     def draw(self):
         cv, mid, s = self.cv, self.H // 2, self.S
         cv.delete("all")
+        hit = getattr(self, "hitcol", None) or self.near()
+        for name in ("vol", "bright", "blue"):           # a strip you can click or scroll on, behind each slider
+            x0, x1 = self.zones[name]
+            cv.create_rectangle(x0 - self.px(14), mid - self.px(13), x1 + self.px(14), mid + self.px(13), fill=hit, outline=hit)
         spec = (("vol", draw_speaker, COL_VOL, self.volume), ("bright", draw_sun, COL_BRIGHT, self.bright),
                 ("blue", draw_bulb, COL_BLUE, self.blue))
         for name, icon, color, value in spec:
@@ -1292,7 +1302,7 @@ class Bar:
             cv.create_line(x0, mid, x1, mid, width=self.px(4), capstyle="round", fill=self.track)
             cv.create_line(x0, mid, vx, mid, width=self.px(4), capstyle="round", fill=color)
             r = s * 12
-            cv.create_oval(vx - r, mid - r, vx + r, mid + r, fill=self.bg, outline=self.bg)
+            cv.create_oval(vx - r, mid - r, vx + r, mid + r, fill=hit, outline=hit)
             if name == "vol":
                 icon(cv, vx, mid, color, self.frac(name), s, muted=self.muted or self.volume == 0)
             else:
@@ -1431,20 +1441,30 @@ class Bar:
         me = RECT()
         user.GetWindowRect(self.hwnd, ctypes.byref(me))
         dc = user.GetDC(None)
-        c = gdi.GetPixel(dc, x - 6, rc.t + self.px(4))
-        own = gdi.GetPixel(dc, me.l + 1, me.t + 1) if self.visible else 0xFFFFFFFF
+        c = gdi.GetPixel(dc, me.r + 3, me.t + self.H // 2)     # just right of the bar, at its middle: the taskbar is darker at its top edge
+        # a spot on the click strip, left of the volume slider: what the screen shows for the color painted there
+        own = gdi.GetPixel(dc, me.l + self.zones["vol"][0] - self.px(11), me.t + self.H // 2 - self.px(11)) if self.visible else 0xFFFFFFFF
         user.ReleaseDC(None, dc)
         if c == 0xFFFFFFFF:
             return
-        r, g_, b = untint((c & 255, (c >> 8) & 255, (c >> 16) & 255), own, self.bg)
+        r, g_, b = c & 255, (c >> 8) & 255, c >> 16 & 255     # the see-through color: only its exact pixels matter
         new = "#%02x%02x%02x" % (r, g_, b)
+        hr = untint((r, g_, b), own, getattr(self, "hitcol", new))   # the click strips are painted, so the screen tint lands on them too
+        hit = "#%02x%02x%02x" % hr
+        if hit == new:
+            hit = "#%02x%02x%02x" % (hr[0], hr[1], hr[2] + 1 if hr[2] < 255 else hr[2] - 1)
+        if hit != getattr(self, "hitcol", None):
+            self.hitcol = hit
+            if new == self.bg:
+                self.draw()
         if new != self.bg:
             self.bg = new
             light = (r * 299 + g_ * 587 + b * 114) / 1000 > 128
             self.fg = "#222222" if light else "#f2f2f2"
-            self.track = "#b0b0b0" if light else "#6a6a6a"
+            self.track = "#7d7268" if light else "#8a8a8a"     # see-through: the track needs more contrast with the taskbar itself
             self.cv.configure(bg=new)
             self.root.configure(bg=new)
+            self.root.attributes("-transparentcolor", new)
             self.draw()
 
     # -- visibility, position, hooks

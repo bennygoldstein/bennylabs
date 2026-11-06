@@ -1,4 +1,4 @@
-SCREEN SLIDERS PROMPT, VERSION 7
+SCREEN SLIDERS PROMPT, VERSION 8
 
 START HERE: INSTALL OR UPDATE
 Before you build or change anything, find out what I already have. Check %LOCALAPPDATA%\ScreenSliders\screen_sliders.pyw from outside Claude if you run inside the Claude desktop app (see that section below), because your own shell can show a copy that isn't really installed. The version is the line VERSION = "N" near the top of that file. If the file has no such line, it is version 2 if it contains the word IsPromoted, otherwise version 1.
@@ -14,6 +14,12 @@ Before you build or change anything, find out what I already have. Check %LOCALA
   6. Run only the tests that the entries list, keeping to the care rules in test 12. Then tell me what changed, and that nothing else was touched.
 
 WHAT'S NEW
+Version 8 changes only these things since version 7:
+- The bar is see-through. Give the window the transparentcolor attribute set to the canvas background color, and set it again whenever that color changes, so the real taskbar shows through.
+- Fully transparent pixels let clicks and the mouse wheel through, so draw a strip behind each slider (14 px beyond each end, 13 px above and below the track) one shade off the see-through color, and fill the clear circle behind each slider's icon with that same shade. Color that shade from the taskbar, corrected for the screen tint the way version 7 corrects the background: read a pixel on the strip at the left end of the volume slider and compare it with the color painted there.
+- Sample the taskbar color 3 px right of the bar at its middle height, not near the top edge, which is darker.
+- Track color: #7d7268 on a light taskbar, #8a8a8a on a dark one.
+
 Version 7 changes only these things since version 6:
 - With a screen on a USB display adapter, Windows can paint the colour tint into what programs read from the screen, so the sampled taskbar colour already carries the tint and the bar showed a darker box. After sampling, also read the pixel 1 px inside this window's top-left corner. If it differs from the colour you painted by more than 3 in any channel, divide each channel of the sample by (that pixel / painted colour) before using it. Skip a channel when the painted value is under 12 or the read value under 4.
 - A screen whose SetVCPFeature fails, or that has no physical monitor, is dimmed by its gamma ramp instead from then on: multiply its ramp by 0.35 + 0.65 * brightness / 100, together with the blue tint. If Windows refuses that ramp, raise the multiplier by 0.05 until it is accepted. Reapply it with the tint.
@@ -57,7 +63,7 @@ GROUND RULES
 - Start it with Windows through a value named ScreenSliders under HKCU\Software\Microsoft\Windows\CurrentVersion\Run, running pythonw.exe with the full script path.
 - Also create %LOCALAPPDATA%\ScreenSliders\StartScreenSliders.lnk (pythonw.exe plus the quoted script path), so I can start it again with Win+R and that single path. Never ask me to paste a program-plus-arguments command line into Win+R or File Explorer; it fails there.
 - Allow only one running copy, using a named mutex.
-- Put the line VERSION = "7" near the top of the script. Updates of this prompt read it.
+- Put the line VERSION = "8" near the top of the script. Updates of this prompt read it.
 - settings.json holds floor (percent of blue kept at the far right), blue_removed (0 to 100 minus floor), bright (0 to 100), tray_switch_set, tray_exe and auto_update (optional, default on). It does not need to hold the volume, because Windows keeps that.
 
 IF YOU RUN INSIDE THE CLAUDE DESKTOP APP (IMPORTANT)
