@@ -14,6 +14,7 @@
 <meta name="citation_publication_date" content="2026/11/21">
 <meta name="citation_technical_report_institution" content="Benny Labs Foundation">
 <meta name="citation_abstract_html_url" content="https://bennylabs.org/ai-in-its-infancy/">
+<meta name="citation_pdf_url" content="https://bennylabs.org/ai-in-its-infancy/paper.pdf">
 <meta name="citation_language" content="en">
 <meta property="og:title" content="AI in its Infancy | Benny Labs Foundation">
 <meta property="og:description" content="AI in its Infancy is the Benny Labs project on making AI models do less work for the same answer. Read Paper 1: why a warm prefix cache can change the output of a layer-skipping model, and two fixes that make it exact.">
@@ -164,7 +165,7 @@ article.paper{padding:26px 18px;border-radius:14px}.toc ol{columns:1}.tbl pre{fo
   <h2 class="ptitle">When a Warm Cache Changes the Answer in Reduced-Depth Inference</h2>
   <p class="psub">A correctness note on prefix caching with document-only depth plans on a hybrid model</p>
   <p class="byline"><strong>Benny Goldstein</strong> and <strong>Eytan Yair Goldstein</strong> · Benny Labs Foundation · bennylabs.org</p>
-  <p class="meta"><time datetime="2026-11-21">November 21, 2026</time> · <a href="paper.md">Plain-text copy</a></p>
+  <p class="meta"><time datetime="2026-11-21">November 21, 2026</time> · <a href="paper.pdf">PDF</a> · <a href="paper.md">Plain-text copy</a></p>
   <nav class="toc" aria-label="Contents of the paper"><strong>Contents</strong><ol><li><a href="#abstract">Abstract</a></li><li><a href="#1-introduction">1. Introduction</a></li><li><a href="#2-setting">2. Setting</a></li><li><a href="#3-the-failure">3. The failure</a></li><li><a href="#4-two-fixes">4. Two fixes</a></li><li><a href="#5-experiment">5. Experiment</a></li><li><a href="#6-a-test-anyone-can-run">6. A test anyone can run</a></li><li><a href="#7-supporting-results-from-a-reference-runner">7. Supporting results from a reference runner</a></li><li><a href="#8-limitations">8. Limitations</a></li><li><a href="#9-related-work">9. Related work</a></li><li><a href="#10-conclusion">10. Conclusion</a></li><li><a href="#appendix-a-reference-runner-tables">Appendix A. Reference-runner tables</a></li><li><a href="#appendix-b-reproducibility">Appendix B. Reproducibility</a></li></ol></nav>
 <h3 id="abstract">Abstract</h3>
 <p>Two ways of making long-document question answering cheaper are often wanted together. Depth reduction lets most document tokens run through fewer layers. Prefix caching stores the state of a document once and reuses it for every later question. We show that one way of combining them gives different outputs depending on whether the cache is warm, and we show two ways to remove the difference.</p>
