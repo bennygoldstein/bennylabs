@@ -1,0 +1,13 @@
+# Benny Labs Foundation
+
+> Benny Labs Foundation is a 501(c)(3) nonprofit for research, invention and public education. Site: https://bennylabs.org/
+
+## AI research: AI in its Infancy
+- [AI in its Infancy](https://bennylabs.org/ai-in-its-infancy/): the foundation's project on making AI models reach the same answer with less computation, tested with pass lines written before each run.
+- [Paper 1, plain Markdown](https://bennylabs.org/ai-in-its-infancy/paper.md): "When a Warm Cache Changes the Answer in Reduced-Depth Inference" by Benny Goldstein and Eytan Yair Goldstein, November 21, 2026. Shows that a document-only layer-skipping plan served through a prefix cache on a hybrid model (Qwen3.8-27B in vLLM) gives outputs that depend on whether the cache is warm, that aligning to a 16-token block does not fix it because the engine resumes only every 784 tokens, and that aligning to 784 or re-applying the plan on every request gives exact agreement on 240 of 240 follow-ups. No speed saving is claimed.
+
+## Other pages
+- [Free learning](https://bennylabs.org/learn/)
+- [Programs](https://bennylabs.org/programs/)
+- [About](https://bennylabs.org/about/)
+- [Contact](https://bennylabs.org/contact/)
