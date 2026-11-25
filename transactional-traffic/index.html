@@ -214,6 +214,39 @@
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
 </style>
 <link rel="stylesheet" href="/improvements.css">
+<style>
+  /* Coordination loop: one large row per step */
+  .steps{grid-template-columns:1fr;gap:24px}
+  .step,.step:last-child{grid-column:auto}
+  .step{flex-direction:row;min-height:0;align-items:stretch}
+  .step:nth-child(even){flex-direction:row-reverse}
+  .step-copy{flex:1 1 38%;padding:40px 36px;display:flex;flex-direction:column;justify-content:center}
+  .step h3{font-size:1.55rem;margin-bottom:12px}
+  .step p{font-size:1.06rem;line-height:1.55}
+  .step-scene{flex:0 0 61%;margin:0;border-top:0;border-left:1px solid var(--line);aspect-ratio:4/3}
+  .step:nth-child(even) .step-scene{border-left:0;border-right:1px solid var(--line)}
+  .step:not(:last-child)::after{display:none}
+  /* Research paper feature */
+  .paper-feature{padding:74px 0 20px}
+  .paper-panel{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:30px}
+  .paper-thumb{display:block;border-radius:18px;overflow:hidden;border:1px solid var(--line);line-height:0}
+  .paper-thumb img{width:100%;height:auto;display:block;transition:transform .35s ease}
+  .paper-thumb:hover img{transform:scale(1.02)}
+  .paper-copy h2{margin:0 0 6px;font-size:clamp(1.6rem,2.6vw,2.15rem);letter-spacing:-.02em;line-height:1.15}
+  .paper-copy .paper-sub{color:var(--slate);font-style:italic;margin:0 0 16px}
+  .paper-copy p{color:var(--slate);margin:0 0 14px}
+  .paper-copy ul{margin:0 0 22px;padding-left:1.15rem;color:var(--slate)}
+  .paper-copy li{margin:.3rem 0}
+  .paper-meta{font-size:.84rem;color:var(--slate);margin-top:14px}
+  .paper-cta{display:flex;flex-wrap:wrap;gap:12px}
+  @media(max-width:980px){.paper-panel{grid-template-columns:1fr;gap:26px}}
+  @media(max-width:760px){
+    .step,.step:nth-child(even){flex-direction:column}
+    .step-scene,.step:nth-child(even) .step-scene{flex:auto;border-left:0;border-right:0;border-top:1px solid var(--line)}
+    .step-copy{padding:24px 20px 20px}
+    .paper-panel{padding:18px}
+  }
+</style>
 </head>
 <body>
 
@@ -254,6 +287,32 @@
       </div>
     </div>
   </div>
+
+  <section class="paper-feature" id="paper">
+    <div class="wrap">
+      <div class="paper-panel">
+        <a class="paper-thumb" href="paper/" aria-label="Read the research paper">
+          <img src="../assets/ttm-paper/hero2-ttm.jpg" alt="Illustrated diagram of cars on a highway parting to open a temporary corridor for a priority vehicle, with labelled gaps, radio ranging and verification marks" width="1400" height="933">
+        </a>
+        <div class="paper-copy">
+          <div class="kicker">Research paper</div>
+          <h2>Read the research paper</h2>
+          <p class="paper-sub">Verified Cooperation as a Traffic Resource</p>
+          <p>A working paper that explains, step by step, how the Transactional Traffic Mediator works: how vehicles are placed in the right lane, how several vehicles each make one small move to open a single corridor, how each move is proven, and how value is credited only after proof.</p>
+          <ul>
+            <li>Ten illustrated figures and the formal model</li>
+            <li>Eight multi-vehicle choreographies and how each is verified</li>
+            <li>Why one batch settlement works where per-move payment cannot</li>
+          </ul>
+          <div class="paper-cta">
+            <a class="btn btn-primary" href="paper/">Read the research paper →</a>
+            <a class="btn btn-outline" href="paper/paper.pdf">Download PDF</a>
+          </div>
+          <p class="paper-meta">Benny Goldstein · Benny Labs Foundation · November 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section>
     <div class="wrap problem-grid">

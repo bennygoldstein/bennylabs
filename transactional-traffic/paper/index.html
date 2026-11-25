@@ -15,7 +15,7 @@
 <meta property="og:description" content="A working paper on the Transactional Traffic Mediator: several vehicles each make a small, verified move to open one corridor, and value is credited only on proof.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://bennylabs.org/transactional-traffic/paper/">
-<meta property="og:image" content="https://bennylabs.org/assets/ttm-paper/hero-ttm-share.jpg">
+<meta property="og:image" content="https://bennylabs.org/assets/ttm-paper/hero2-ttm-share.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Cars on a highway parting to open a glowing corridor, overlaid with measurement lines on graph paper">
@@ -23,7 +23,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Verified Cooperation as a Traffic Resource">
 <meta name="twitter:description" content="Several vehicles each make a small, verified move to open one corridor. Value is credited only on proof.">
-<meta name="twitter:image" content="https://bennylabs.org/assets/ttm-paper/hero-ttm-share.jpg">
+<meta name="twitter:image" content="https://bennylabs.org/assets/ttm-paper/hero2-ttm-share.jpg">
 <meta name="citation_title" content="Verified Cooperation as a Traffic Resource: Sensor-Verified Multi-Vehicle Corridors and Verification-Gated Token Settlement">
 <meta name="citation_author" content="Goldstein, Benny">
 <meta name="citation_technical_report_institution" content="Benny Labs Foundation">
@@ -81,7 +81,7 @@
 <body>
 <div class="top"><a href="../">← Transactional Traffic Mediator</a><span>Benny Labs Foundation · Working Paper · <a href="paper.pdf">Download PDF</a></span></div>
 <main>
-<figure class="hero"><img src="../../assets/ttm-paper/hero-ttm.jpg" alt="Cars on a multi-lane highway parting to open a glowing corridor for one vehicle, overlaid with measurement brackets and range arcs on graph paper" width="1400" height="933"></figure>
+<figure class="hero"><img src="../../assets/ttm-paper/hero2-ttm.jpg" alt="Illustrated diagram of cars on a highway parting to open a temporary corridor for a priority vehicle, with labelled forward gap, rear gap, gatekeeper, radio ranging and verification marks" width="1400" height="933"></figure>
 <div class="kicker">Working paper · Connected and cooperative mobility</div>
 <h1>Verified Cooperation as a Traffic Resource</h1>
 <p class="sub">Sensor-verified multi-vehicle corridors and verification-gated token settlement in the Transactional Traffic Mediator</p>
@@ -163,13 +163,13 @@
 <h3>5.1 The plan</h3>
 <p>Let <i>M</i> be the set of micro-maneuvers: create a forward gap, create a rear gap, hold position, refrain from accelerating, merge into a gap, vacate a lane, exit, or seal a corridor (Figure 4). A micro-maneuver is a discrete, safety-conditioned action or non-action that affects flow at lane level. A coordinated maneuver plan assigns one maneuver to each of <i>K</i> selected assisting vehicles:</p>
 <div class="eq"><span class="b"></span><span>Π = { (a<sub>k</sub>, m<sub>k</sub>) : k = 1, …, K },  K ≥ 2,  m<sub>k</sub> ∈ M</span><span class="n">(4)</span></div>
-<figure><img src="../../assets/ttm-paper/fig10b-maneuvers.jpg" alt="Six small road diagrams showing create forward gap, create rear gap, hold position, merge into gap, vacate lane and seal corridor"><figcaption><b>Figure 4.</b> The basic micro-maneuvers from which plans are built.</figcaption></figure>
+<figure><img src="../../assets/ttm-paper/fig10v2-maneuvers.jpg" alt="Six small road diagrams showing create forward gap, create rear gap, hold position, merge into gap, vacate lane and seal corridor"><figcaption><b>Figure 4.</b> The basic micro-maneuvers from which plans are built.</figcaption></figure>
 <p>The plan is valid when the maneuvers, performed together, form a contiguous temporary travel corridor for <i>p</i>: a connected region of lane and time through which the priority vehicle can pass. No single maneuver in the plan is sufficient on its own. Every plan must satisfy two constraints throughout its execution, for every adjacent pair of vehicles (<i>i</i>, <i>j</i>) and every vehicle <i>i</i>:</p>
 <div class="eq"><span class="b"></span><span>g<sub>ij</sub>(t) ≥ g<sub>min</sub>( v<sub>i</sub>(t) )  and  v<sub>i</sub>(t) ≤ v<sub>lim</sub></span><span class="n">(5)</span></div>
 <p>where <i>g</i><sub>ij</sub> is the gap, <i>g</i><sub>min</sub> the minimum following distance at the current speed, and <i>v</i><sub>lim</sub> the applicable speed limit. The planner rejects any maneuver that would require unlawful speed, unsafe spacing, sharp braking or excessive distraction. The plan may be computed by search, by optimization, or by a trained model that takes lane-level positions, speeds and predicted trajectories as input and returns the assignment.</p>
 <h3>5.2 A worked corridor</h3>
 <p>Figure 5 shows the simplest complete case. A first assisting vehicle slows slightly to open a forward gap. A second holds back to open a rear gap. A third merges into the space the first two created, which clears its former position. A fourth acts as gatekeeper, pacing the corridor's entrance so that a non-participating vehicle cannot take the space before the priority vehicle uses it. Each of the four has a different job, a different value and a different completion test.</p>
-<figure><img src="../../assets/ttm-paper/fig2-corridor.jpg" alt="Top-down three-lane highway with a priority vehicle, a temporary corridor ahead of it, and four assisting vehicles labelled forward gap, rear gap, merge and gatekeeper"><figcaption><b>Figure 5.</b> Four role-differentiated assisting vehicles form one contiguous corridor for the priority vehicle.</figcaption></figure>
+<figure><img src="../../assets/ttm-paper/fig2v2-corridor.jpg" alt="Top-down three-lane highway with a priority vehicle, a temporary corridor ahead of it, and four assisting vehicles labelled forward gap, rear gap, merge and gatekeeper"><figcaption><b>Figure 5.</b> Four role-differentiated assisting vehicles form one contiguous corridor for the priority vehicle.</figcaption></figure>
 <h3>5.3 Choreographies</h3>
 <p>The same building blocks compose into larger patterns. Table 2 lists eight. In each, every role has its own sensor-verified completion criterion, and that criterion alone triggers the role's token.</p>
 <table>
@@ -197,7 +197,7 @@
 <p>The maneuver is complete when the change meets its criterion and the measurement is corroborated:</p>
 <div class="eq"><span class="b"></span><span>V<sub>k</sub> = 1  if  Δg<sub>k</sub> ≥ g<sub>k</sub>*  and  B<sub>k</sub> = 1 ;  otherwise V<sub>k</sub> = 0</span><span class="n">(8)</span></div>
 <p>Here <i>g</i><sub>k</sub>* is the assigned target and <i>B</i><sub>k</sub> indicates that a distance-bounding measurement over the ultra-wideband or Channel Sounding link agrees with the claimed positions and has been cross-validated by at least two independent nearby ranging devices. For maneuvers that are not about opening a gap, the criterion is the analogous measured quantity: a lane-marking crossing with a matching yaw signature for a lane change, or the duration a position was actually held for a hold.</p>
-<figure><img src="../../assets/ttm-paper/fig5-verification.jpg" alt="Two panels showing the gap between two cars before and after a maneuver, with a check that the change meets the target and two witness devices confirming the range"><figcaption><b>Figure 6.</b> Verification. The gap is measured before and after, and the measurement is witnessed by two independent devices.</figcaption></figure>
+<figure><img src="../../assets/ttm-paper/fig5v2-verification.jpg" alt="Two panels showing the gap between two cars before and after a maneuver, with a check that the change meets the target and two witness devices confirming the range"><figcaption><b>Figure 6.</b> Verification. The gap is measured before and after, and the measurement is witnessed by two independent devices.</figcaption></figure>
 <p>Evidence may also include speed and acceleration profiles, vehicle interface event logs, C-V2X messages, roadside-unit observation and automated-vehicle telemetry. The engine combines the evidence into a verification-confidence score ρ<sub>k</sub> that governs full, partial or no credit.</p>
 <h3>7.1 The proximity verification device</h3>
 <p>Not every vehicle has built-in ranging. An aftermarket device (Figure 7) carries an ultra-wideband radio, a Bluetooth Channel Sounding radio, a satellite receiver, an inertial measurement unit and a secure element holding a credential bound to the host vehicle. In one form it plugs into the OBD-II port and reads the vehicle identifier from the data bus. During a maneuver it establishes a distance-bounding measurement to a device in another vehicle and produces a signed proximity attestation that binds three things: the host vehicle's identity, the distance-bounding measurement, and the measured change in relative position. The attestation is the evidence that this vehicle physically performed this maneuver near that vehicle.</p>
@@ -216,7 +216,7 @@
 <p>During a settlement period no money moves for individual maneuvers. At the period boundary the platform makes one aggregated payment or credit for the sum of the participant's tokens (Figure 8). Where the participant has also bought priority during the period, the platform settles only the net:</p>
 <div class="eq"><span class="b"></span><span>N = Σ T<sub>earned</sub> − C<sub>consumed</sub> − F</span><span class="n">(11)</span></div>
 <p>where <i>C</i> is the value of corridors the participant requested and <i>F</i> any recurring fee. A positive <i>N</i> is paid out or carried forward as one transaction; a negative <i>N</i> is charged as one transaction.</p>
-<figure><img src="../../assets/ttm-paper/fig6-settlement.jpg" alt="Timeline of a settlement period with many small verified maneuvers dropping tokens into a ledger and one single batch payment at period end"><figcaption><b>Figure 8.</b> Tokens accrue on verified maneuvers through the period. Money moves once, at the end.</figcaption></figure>
+<figure><img src="../../assets/ttm-paper/fig6v2-settlement.jpg" alt="Timeline of a settlement period with many small verified maneuvers dropping tokens into a ledger and one single batch payment at period end"><figcaption><b>Figure 8.</b> Tokens accrue on verified maneuvers through the period. Money moves once, at the end.</figcaption></figure>
 
 <h2 id="s9">9. Two-way membership</h2>
 <p>Most drivers will be on both sides of the market: sometimes in a hurry, more often not. A membership joins the two roles in one account. In exchange for a recurring fee the account receives a periodic priority allotment, expressed as a budget, a number of requests, or a quantity of priority credits. The allotment is decremented as the member obtains corridors. The same member earns confirmed tokens by performing verified maneuvers for others. Earned tokens are fungible with the allotment: they can replenish it or offset the fee. At period end the account is resolved by Equation 11 in a single transaction (Figure 9). Higher tiers may carry a larger allotment, a higher maximum per-maneuver value, or preferential matching when assisting vehicles are scarce. A fleet account can net across many vehicles.</p>
@@ -224,7 +224,7 @@
 
 <h2 id="s10">10. Emergency and autonomous operation</h2>
 <p><b>Emergency vehicles.</b> An authorized emergency vehicle is a super-priority participant. The platform issues lane-specific, direction-aware instructions and can form a center corridor by a peel-and-absorb wedge (Figure 10): a pair of center-lane vehicles peel outward, outer-lane vehicles open receiving gaps to absorb them, and a tail-keeper holds behind the emergency vehicle so the corridor closes after it. Emergency clearing defaults to a non-commercial mode. Credits, where a jurisdiction chooses to offer them, come from an authority account, and cooperation is never conditioned on payment.</p>
-<figure><img src="../../assets/ttm-paper/fig8-emergency.jpg" alt="Top-down four-lane road with an emergency vehicle, an open center corridor, two cars peeling outward, two cars absorbing in the outer lanes and a tail seal car"><figcaption><b>Figure 10.</b> Emergency wedge cascade with a verified tail seal.</figcaption></figure>
+<figure><img src="../../assets/ttm-paper/fig8v2-emergency.jpg" alt="Top-down four-lane road with an emergency vehicle, an open center corridor, two cars peeling outward, two cars absorbing in the outer lanes and a tail seal car"><figcaption><b>Figure 10.</b> Emergency wedge cascade with a verified tail seal.</figcaption></figure>
 <p><b>Automated vehicles.</b> Where a vehicle drives itself, the platform talks to its driving system through an interface or V2X link. The vehicle's safety controller independently evaluates every assigned maneuver and keeps a veto that the platform cannot override. A vetoed maneuver earns no token. The architecture therefore spans phones in human-driven cars, assisted-driving systems, fleets and fully automated vehicles without depending on any one of them.</p>
 <p><b>Third-party platforms.</b> The functions are exposed through an interface so that ride-hailing, delivery, navigation and fleet services can request a priority-assisted trip, receive a projected time saving and a quote, and receive a settlement record, without building the localization, coordination and verification layers themselves.</p>
 
