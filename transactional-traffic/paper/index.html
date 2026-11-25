@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verified Cooperation as a Traffic Resource: The Transactional Traffic Mediator | Benny Labs Foundation</title>
+<meta name="description" content="A working paper describing the Transactional Traffic Mediator: lane-level localization, multi-vehicle corridor planning, sensor-verified completion of micro-maneuvers, and verification-gated tokens with deferred batch settlement.">
+<meta name="author" content="Benny Goldstein">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="keywords" content="cooperative driving, connected vehicles, lane-level localization, ultra-wideband ranging, distance bounding, micropayments, traffic coordination, emergency vehicle preemption">
+<meta name="citation_publication_date" content="2026/11/25">
+<meta name="citation_abstract_html_url" content="https://bennylabs.org/transactional-traffic/paper/">
+<meta name="citation_pdf_url" content="https://bennylabs.org/transactional-traffic/paper/paper.pdf">
+<meta property="og:title" content="Verified Cooperation as a Traffic Resource">
+<meta property="og:description" content="A working paper on the Transactional Traffic Mediator: several vehicles each make a small, verified move to open one corridor, and value is credited only on proof.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://bennylabs.org/transactional-traffic/paper/">
+<meta property="og:image" content="https://bennylabs.org/assets/ttm-paper/hero-ttm-share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Cars on a highway parting to open a glowing corridor, overlaid with measurement lines on graph paper">
+<meta property="article:published_time" content="2026-11-25">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Verified Cooperation as a Traffic Resource">
+<meta name="twitter:description" content="Several vehicles each make a small, verified move to open one corridor. Value is credited only on proof.">
+<meta name="twitter:image" content="https://bennylabs.org/assets/ttm-paper/hero-ttm-share.jpg">
+<meta name="citation_title" content="Verified Cooperation as a Traffic Resource: Sensor-Verified Multi-Vehicle Corridors and Verification-Gated Token Settlement">
+<meta name="citation_author" content="Goldstein, Benny">
+<meta name="citation_technical_report_institution" content="Benny Labs Foundation">
+<meta name="citation_language" content="en">
+<meta name="theme-color" content="#15803d">
+<link rel="canonical" href="https://bennylabs.org/transactional-traffic/paper/">
+<style>
+  :root{--ink:#17231c;--soft:#4a5d52;--line:#dfe7e1;--wash:#f6faf7;--green:#15803d;--amber:#b7791f}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#fff;color:var(--ink);font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;font-size:18px;line-height:1.62}
+  .top{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.86rem;border-bottom:1px solid var(--line);padding:12px 24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .top a{color:var(--green);text-decoration:none;font-weight:600}
+  .draft{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#fff8e6;border-bottom:1px solid #f0dfae;color:#6b4e0e;text-align:center;font-size:.86rem;padding:8px 16px}
+  main{max-width:820px;margin:0 auto;padding:44px 24px 80px}
+  .kicker{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green);font-weight:700}
+  h1{font-size:2.15rem;line-height:1.18;margin:.5rem 0 .4rem;letter-spacing:-.01em}
+  .sub{font-size:1.2rem;color:var(--soft);margin:0 0 1.4rem;font-style:italic}
+  .byline{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.95rem;color:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:28px}
+  .byline strong{color:var(--ink)}
+  .abstract{background:var(--wash);border:1px solid var(--line);border-radius:10px;padding:20px 24px;margin:0 0 30px}
+  .abstract h2{margin:0 0 .4rem;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;border:0;padding:0}
+  .abstract p{margin:.4rem 0;font-size:.98rem}
+  .kw{font-size:.9rem;color:var(--soft)}
+  h2{font-size:1.42rem;margin:2.5rem 0 .6rem;padding-top:.6rem;border-top:1px solid var(--line)}
+  h3{font-size:1.1rem;margin:1.6rem 0 .3rem}
+  p{margin:.7rem 0}
+  a{color:var(--green)}
+  figure{margin:1.8rem 0;text-align:center}
+  figure img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px}
+  figure.hero{margin:0 0 1.6rem}
+  figure.hero img{border-radius:12px}
+  figcaption{font-size:.9rem;color:var(--soft);margin-top:.55rem;text-align:left;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.45}
+  figcaption b{color:var(--ink)}
+  .eq{display:flex;align-items:center;justify-content:center;gap:18px;margin:1.1rem 0;font-size:1.08rem;font-style:italic;text-align:center}
+  .eq span.n{font-style:normal;color:var(--soft);font-size:.9rem;margin-left:auto}
+  .eq span.b{margin-left:auto}
+  .eq i{font-style:normal}
+  table{border-collapse:collapse;width:100%;margin:1.3rem 0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.86rem;line-height:1.4}
+  th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{border-bottom:2px solid var(--ink);font-weight:700}
+  caption{caption-side:top;text-align:left;font-size:.9rem;color:var(--soft);padding-bottom:6px}
+  caption b{color:var(--ink)}
+  .note{background:#fffaf0;border-left:3px solid var(--amber);padding:12px 16px;font-size:.93rem;margin:1.2rem 0}
+  ol.refs{font-size:.9rem;padding-left:1.4rem}
+  ol.refs li{margin:.45rem 0}
+  .toc{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.9rem;columns:2;column-gap:32px;padding:0;list-style:none;margin:0 0 10px}
+  .toc li{margin:.2rem 0}
+  .toc a{text-decoration:none}
+  footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1rem;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.84rem;color:var(--soft)}
+  @media (max-width:640px){body{font-size:17px}h1{font-size:1.7rem}.toc{columns:1}}
+  @media print{.top,.draft{display:none}main{padding:0;max-width:none}body{font-size:11.5pt}figure,table,.eq{break-inside:avoid}h2,h3{break-after:avoid}}
+</style>
+</head>
+<body>
+<div class="top"><a href="../">← Transactional Traffic Mediator</a><span>Benny Labs Foundation · Working Paper · <a href="paper.pdf">Download PDF</a></span></div>
+<main>
+<figure class="hero"><img src="../../assets/ttm-paper/hero-ttm.jpg" alt="Cars on a multi-lane highway parting to open a glowing corridor for one vehicle, overlaid with measurement brackets and range arcs on graph paper" width="1400" height="933"></figure>
+<div class="kicker">Working paper · Connected and cooperative mobility</div>
+<h1>Verified Cooperation as a Traffic Resource</h1>
+<p class="sub">Sensor-verified multi-vehicle corridors and verification-gated token settlement in the Transactional Traffic Mediator</p>
+<div class="byline"><strong>Benny Goldstein</strong> · Benny Labs Foundation, New York · <a href="mailto:b@bennylabs.org">b@bennylabs.org</a><br>Working paper, November 25, 2026 · The system described is the subject of a pending U.S. patent application.</div>
+
+<section class="abstract">
+<h2>Abstract</h2>
+<p>Navigation software treats the vehicles around a traveler as obstacles. Cooperative-driving research has shown that connected vehicles can adjust to one another, but mostly in pairs, for a single maneuver, and without any reason for an uninvolved driver to take part. This paper describes the Transactional Traffic Mediator, a coordination layer that treats small acts of cooperation on the road as a resource that can be requested, valued, verified and settled.</p>
+<p>The system makes four contributions. First, it resolves each vehicle to a lane by fusing satellite positioning with inertial data, map matching and radio ranging over ultra-wideband or Bluetooth Channel Sounding. Second, it computes a coordinated plan in which two or more assisting vehicles each perform a different, individually assigned micro-maneuver, and the maneuvers together open one contiguous temporary corridor for a priority vehicle, within spacing and speed limits. Third, it verifies that each maneuver physically happened, by measuring the gap between vehicles before and after and by distance-bounding checks witnessed by independent nearby devices. Fourth, it credits a token only on that verification, lets tokens accrue in a tamper-evident ledger, and moves money once per period in a single netted batch.</p>
+<p>We give a formal description of each stage, a catalogue of eight multi-vehicle choreographies with their completion criteria, an analysis of why per-maneuver payment is infeasible and batch settlement is not, and a plan for evaluation. No field trial has been run; this is a design and analysis paper.</p>
+<p class="kw"><b>Keywords:</b> cooperative driving, connected vehicles, lane-level localization, ultra-wideband ranging, distance bounding, mechanism design, micropayments, emergency vehicle preemption</p>
+</section>
+
+<ul class="toc">
+<li><a href="#s1">1. Introduction</a></li>
+<li><a href="#s2">2. Related work</a></li>
+<li><a href="#s3">3. System overview</a></li>
+<li><a href="#s4">4. Lane-level localization</a></li>
+<li><a href="#s5">5. Corridor planning</a></li>
+<li><a href="#s6">6. Individualized value and offers</a></li>
+<li><a href="#s7">7. Completion verification</a></li>
+<li><a href="#s8">8. Tokens and deferred settlement</a></li>
+<li><a href="#s9">9. Two-way membership</a></li>
+<li><a href="#s10">10. Emergency and autonomous operation</a></li>
+<li><a href="#s11">11. Safety, voluntariness and equity</a></li>
+<li><a href="#s12">12. Analysis</a></li>
+<li><a href="#s13">13. Evaluation plan</a></li>
+<li><a href="#s14">14. Open questions</a></li>
+<li><a href="#s15">15. Conclusion</a></li>
+<li><a href="#refs">References</a></li>
+</ul>
+
+<h2 id="s1">1. Introduction</h2>
+<p>Road space is scarce, and the way it is shared is almost entirely unpriced. Congestion pricing, first analysed by Vickrey [4], puts a price on entering a road or a zone. It does not reach the scale at which most delay is actually created and relieved: the few metres between one vehicle and the next. A driver who eases off to let another vehicle merge gives up a little time and receives nothing. A driver who needs to cross three lanes to reach an exit has no way to ask for the gaps that would make it safe.</p>
+<p>Three technical obstacles have kept cooperation at this scale from being organised.</p>
+<p><b>Position.</b> Consumer satellite positioning alone often cannot tell which lane a vehicle is in. A plan that assigns different jobs to vehicles in adjacent lanes cannot be built on it.</p>
+<p><b>Proof.</b> If value is released when a driver accepts an offer, or taps a button to say the maneuver is done, the system can be cheated by anyone willing to claim cooperation without performing it.</p>
+<p><b>Payment.</b> A single lane-level maneuver may be worth a few cents. Every movement of real money carries a processing cost that is typically larger than that. Paying per maneuver loses money on every transaction.</p>
+<p>The Transactional Traffic Mediator (TTM) addresses the three together. It localizes vehicles to the lane by sensor fusion and secure radio ranging; it coordinates a set of vehicles, not a pair, into one corridor; it conditions value on independent, sensor-derived verification that the assigned physical action took place; and it separates the crediting of value from the movement of money, so that many small verified events settle as one transaction.</p>
+<p>The aim is not speed for its own sake. Every maneuver the system proposes is bounded by a minimum following distance and the applicable speed limit, is offered as a voluntary suggestion, and can be declined by a human or vetoed by a vehicle's own safety controller.</p>
+
+<h2 id="s2">2. Related work</h2>
+<p><b>Cooperative lane changing.</b> Car-following and lane-changing models such as the Intelligent Driver Model [9] and MOBIL [10] describe how individual vehicles react to their neighbours. With vehicle-to-vehicle communication, neighbours can act jointly. Wang et al. [1] propose a cooperative lane change model in which the leading vehicles in both lanes adjust their acceleration so that a lane change becomes feasible in congested traffic and the follower in the target lane brakes less; the result is validated in simulation. Surveys of coordination at merges and intersections [13] and reservation-based intersection control [12] extend the idea to conflict points. This body of work establishes that coordinated speed adjustment can open usable gaps. It concerns the kinematics of one maneuver, assumes the vehicles involved will cooperate, and has no mechanism for value, verification or settlement.</p>
+<p><b>Paid priority.</b> A granted U.S. patent on traffic decongestion [2] describes bidding for faster routes and faster signals, and compensation for taking a slower route or pulling off the road. It operates at the level of routes and traffic control, not individually assigned lane-level actions by several vehicles that are each verified and paid separately.</p>
+<p><b>Emergency vehicle warning.</b> Systems such as [3] warn motorists of an approaching emergency vehicle and give lane guidance. They do not assign role-specific maneuvers to named vehicles or verify that the maneuvers occurred.</p>
+<p><b>Secure ranging.</b> Distance-bounding protocols [5] let a verifier place an upper bound on its physical distance to a prover from the round-trip time of a challenge and response. Ultra-wideband ranging under IEEE 802.15.4z [6] and Bluetooth Channel Sounding [7] bring secure ranging to consumer hardware. TTM uses these as evidence that a physical maneuver took place.</p>
+<p><b>String stability.</b> A maneuver that opens a gap can send a braking wave backwards through traffic. The string-stability literature [11] gives the criterion for when a disturbance is damped instead of amplified, which TTM uses as a completion condition for one of its choreographies (Section 5.3).</p>
+
+<table>
+<caption><b>Table 1.</b> Where TTM sits relative to earlier approaches.</caption>
+<tr><th></th><th>Cooperative lane change [1]</th><th>Paid route priority [2]</th><th>Emergency warning [3]</th><th>TTM</th></tr>
+<tr><td>Unit of coordination</td><td>One lane change</td><td>Route or signal</td><td>Warning to drivers</td><td>Set of lane-level micro-maneuvers forming one corridor</td></tr>
+<tr><td>Vehicles assigned distinct roles</td><td>Implicit</td><td>No</td><td>No</td><td>Yes, two or more</td></tr>
+<tr><td>Incentive to cooperate</td><td>None</td><td>Bid or compensation</td><td>Legal duty</td><td>Individualized value per role</td></tr>
+<tr><td>Proof the action happened</td><td>None</td><td>Not central</td><td>None</td><td>Before and after gap measurement, witnessed ranging</td></tr>
+<tr><td>What triggers value</td><td>n/a</td><td>Transaction</td><td>n/a</td><td>Verification only</td></tr>
+<tr><td>Settlement</td><td>n/a</td><td>Per transaction</td><td>n/a</td><td>Tokens accrue; one netted batch per period</td></tr>
+</table>
+
+<h2 id="s3">3. System overview</h2>
+<p>The platform may run on central or distributed servers, edge nodes, vehicle processors and phones. It reaches participants through mobile apps, in-vehicle displays, manufacturer applications, fleet systems, automated-driving stacks and roadside units. Its four working parts are a localization module, a maneuver planner, a verification engine, and a token ledger with a settlement engine (Figure 1).</p>
+<figure><img src="../../assets/ttm-paper/fig1v2-architecture.jpg" alt="Block diagram of the coordination platform with localization, maneuver planner, verification engine and token ledger, connected to a priority vehicle, assisting vehicles, sensors and batch settlement"><figcaption><b>Figure 1.</b> System architecture. Vehicles and their sensors feed the platform; verified events feed the ledger; the ledger feeds one batch settlement per period.</figcaption></figure>
+<p>A request moves through seven stages (Figure 2). A priority participant states a destination and a limit on what the trip may cost. The platform localizes nearby vehicles, plans a corridor, and sends each selected assisting vehicle its own maneuver and its own value. Participants may accept, decline or counter; the plan is recomputed when they do, when positions change, or when roadside infrastructure signals a change. Each maneuver is then verified, a token is credited for each verified maneuver, and tokens are settled at the end of the period.</p>
+<figure><img src="../../assets/ttm-paper/fig3v2-loop.jpg" alt="Seven step flow: request, localize, plan, offer, verify, credit, settle, with a re-plan loop from offer back to plan"><figcaption><b>Figure 2.</b> The coordination loop. Value is created at the Verify step and nowhere else.</figcaption></figure>
+<p>Before committing, the priority participant sees a baseline arrival time, a priority arrival time, the estimated time saved, and the estimated total cost built up from the individual values. The participant can accept, reject, lower the maximum per-maneuver value, or choose only lower-cost actions.</p>
+
+<h2 id="s4">4. Lane-level localization</h2>
+<p>Let <i>p</i> denote the priority vehicle and <i>A</i> = {<i>a</i><sub>1</sub>, …, <i>a</i><sub>n</sub>} the assisting vehicles on a roadway segment. The state of vehicle <i>i</i> is</p>
+<div class="eq"><span class="b"></span><span>x<sub>i</sub> = (ℓ<sub>i</sub>, s<sub>i</sub>, v<sub>i</sub>)</span><span class="n">(1)</span></div>
+<p>where ℓ<sub>i</sub> is the lane index, <i>s</i><sub>i</sub> the position along the lane and <i>v</i><sub>i</sub> the speed. The platform needs ℓ<sub>i</sub> exactly and the gaps between neighbours accurately. It estimates the state by fusing a satellite fix <i>z</i><sup>G</sup> with at least one of inertial data <i>z</i><sup>I</sup> or map matching <i>z</i><sup>M</sup>, and with radio ranges <i>r</i><sub>ij</sub> to nearby vehicles:</p>
+<div class="eq"><span class="b"></span><span>x̂<sub>i</sub> = Φ( z<sup>G</sup><sub>i</sub>, z<sup>I</sup><sub>i</sub>, z<sup>M</sup><sub>i</sub>, { r<sub>ij</sub> } )</span><span class="n">(2)</span></div>
+<p>The ranges come from ultra-wideband two-way time-of-flight or Bluetooth Channel Sounding. For time-of-flight, the distance follows from the round-trip time <i>t</i> after subtracting the responder's known reply delay <i>t</i><sub>reply</sub>:</p>
+<div class="eq"><span class="b"></span><span>r<sub>ij</sub> = c · ( t − t<sub>reply</sub> ) / 2</span><span class="n">(3)</span></div>
+<p>Satellite positioning gives an absolute position with an error that can exceed a lane width. Inertial and steering data track short-term motion. Map matching constrains the estimate to drivable lanes. Ranging ties each vehicle to its neighbours with a much smaller error and supplies the inter-vehicle gap directly. Where available, real-time kinematic corrections, camera lane detection, radar, lidar, Wi-Fi round-trip time, vehicle telematics and C-V2X messages [8] can be added to the fusion (Figure 3).</p>
+<figure><img src="../../assets/ttm-paper/fig4v2-localization.jpg" alt="Sensor fusion: GNSS, IMU, map matching and UWB or Channel Sounding feed a fusion step that produces a tight lane-level estimate, compared with a large GNSS-only uncertainty circle"><figcaption><b>Figure 3.</b> Lane-level localization. Fusion with ranging shrinks the uncertainty from wider than a lane to within one.</figcaption></figure>
+<p>Two further bindings matter for trust. Cryptographic pairing between a phone and a vehicle shows that the phone is inside the vehicle it claims. Secure distance bounding places an upper limit on the physical separation between two vehicles, which defeats relay attacks in which a distant device pretends to be near.</p>
+
+<h2 id="s5">5. Corridor planning</h2>
+<h3>5.1 The plan</h3>
+<p>Let <i>M</i> be the set of micro-maneuvers: create a forward gap, create a rear gap, hold position, refrain from accelerating, merge into a gap, vacate a lane, exit, or seal a corridor (Figure 4). A micro-maneuver is a discrete, safety-conditioned action or non-action that affects flow at lane level. A coordinated maneuver plan assigns one maneuver to each of <i>K</i> selected assisting vehicles:</p>
+<div class="eq"><span class="b"></span><span>Π = { (a<sub>k</sub>, m<sub>k</sub>) : k = 1, …, K },  K ≥ 2,  m<sub>k</sub> ∈ M</span><span class="n">(4)</span></div>
+<figure><img src="../../assets/ttm-paper/fig10b-maneuvers.jpg" alt="Six small road diagrams showing create forward gap, create rear gap, hold position, merge into gap, vacate lane and seal corridor"><figcaption><b>Figure 4.</b> The basic micro-maneuvers from which plans are built.</figcaption></figure>
+<p>The plan is valid when the maneuvers, performed together, form a contiguous temporary travel corridor for <i>p</i>: a connected region of lane and time through which the priority vehicle can pass. No single maneuver in the plan is sufficient on its own. Every plan must satisfy two constraints throughout its execution, for every adjacent pair of vehicles (<i>i</i>, <i>j</i>) and every vehicle <i>i</i>:</p>
+<div class="eq"><span class="b"></span><span>g<sub>ij</sub>(t) ≥ g<sub>min</sub>( v<sub>i</sub>(t) )  and  v<sub>i</sub>(t) ≤ v<sub>lim</sub></span><span class="n">(5)</span></div>
+<p>where <i>g</i><sub>ij</sub> is the gap, <i>g</i><sub>min</sub> the minimum following distance at the current speed, and <i>v</i><sub>lim</sub> the applicable speed limit. The planner rejects any maneuver that would require unlawful speed, unsafe spacing, sharp braking or excessive distraction. The plan may be computed by search, by optimization, or by a trained model that takes lane-level positions, speeds and predicted trajectories as input and returns the assignment.</p>
+<h3>5.2 A worked corridor</h3>
+<p>Figure 5 shows the simplest complete case. A first assisting vehicle slows slightly to open a forward gap. A second holds back to open a rear gap. A third merges into the space the first two created, which clears its former position. A fourth acts as gatekeeper, pacing the corridor's entrance so that a non-participating vehicle cannot take the space before the priority vehicle uses it. Each of the four has a different job, a different value and a different completion test.</p>
+<figure><img src="../../assets/ttm-paper/fig2-corridor.jpg" alt="Top-down three-lane highway with a priority vehicle, a temporary corridor ahead of it, and four assisting vehicles labelled forward gap, rear gap, merge and gatekeeper"><figcaption><b>Figure 5.</b> Four role-differentiated assisting vehicles form one contiguous corridor for the priority vehicle.</figcaption></figure>
+<h3>5.3 Choreographies</h3>
+<p>The same building blocks compose into larger patterns. Table 2 lists eight. In each, every role has its own sensor-verified completion criterion, and that criterion alone triggers the role's token.</p>
+<table>
+<caption><b>Table 2.</b> Multi-vehicle choreographies and their per-role completion criteria.</caption>
+<tr><th>Choreography</th><th>Roles</th><th>What is verified</th></tr>
+<tr><td>Rolling lane-vacation wave</td><td>Sequential vacators, paired receivers, trailing gatekeeper</td><td>Lane departure inside a scheduled time window, with ranging confirming the vacator entered its receiver's gap; receiver's gap change; gatekeeper's held trailing range</td></tr>
+<tr><td>Multi-lane zipper hand-off</td><td>Opener pair per lane, hand-off marshal per boundary, tail-sealer</td><td>Each framed slot reached and held its length; the priority vehicle's lane index advanced by one and cleared the prior slot; no intruder in the origin gap</td></tr>
+<tr><td>Corridor integrity defense</td><td>Mouth-blocker, flank-pacers, tail-sweeper</td><td>Entrance gap held below an intrusion threshold; shoulder stations held with no lateral incursion; progressive re-closure behind</td></tr>
+<tr><td>On-ramp slot manufacture</td><td>Mainline slot-makers, upstream speed-pacer, merge-confirmer, blocker</td><td>Gap opened to target length within the ramp vehicle's predicted arrival window; speed band held; the specific ramp vehicle entered its assigned slot</td></tr>
+<tr><td>Emergency wedge cascade</td><td>Center-lane peelers, outer-lane absorbers, tail-keeper</td><td>Lateral peel executed; receiving gaps opened; emergency vehicle traversed the center; rear seal held</td></tr>
+<tr><td>Crosswalk sentinel hold</td><td>Turning vehicles, through vehicle, gap-keeper</td><td>Stop position stayed clear of the mapped crosswalk for the whole crossing; the road user was detected crossing</td></tr>
+<tr><td>Platoon split-and-seal</td><td>Split-front, split-rear, seal vehicle</td><td>Cross-slot reached target size and was used; the re-closing profile was low-jerk, so the gap closure damped instead of creating a shockwave [11]</td></tr>
+<tr><td>Anticipatory slot bank</td><td>Pre-positioners, timing conductor, gap holders, late-fill blocker</td><td>Each vehicle reached and held its slot by the deadline; clocks aligned; banked gaps preserved until arrival</td></tr>
+</table>
+<p>Two of these reward restraint instead of movement. The crosswalk hold pays for verified non-encroachment. The platoon seal pays only if the gap was closed gently enough to satisfy a string-stability criterion. Both show that the unit being valued is a verified physical outcome, not an action for its own sake.</p>
+
+<h2 id="s6">6. Individualized value and offers</h2>
+<p>One price does not fit every role. Holding position costs a participant little. Vacating a lane or taking an exit costs much more. For each assisting vehicle in the plan the platform determines an individualized value</p>
+<div class="eq"><span class="b"></span><span>u<sub>k</sub> = U( m<sub>k</sub>, context<sub>k</sub> ),  with u<sub>j</sub> ≠ u<sub>k</sub> for at least two roles</span><span class="n">(6)</span></div>
+<p>where the context may include the vehicle's position, the expected delay, the complexity of the maneuver, urgency, traffic density, time of day, and current supply of and demand for cooperation. An assisting participant may set a minimum acceptable value and may counter an offer; the platform accepts a counteroffer when it falls within the maximum per-maneuver value the priority participant has set. A rejected offer or a counter triggers re-planning before any token is credited.</p>
+
+<h2 id="s7">7. Completion verification</h2>
+<p>An accepted offer is a promise. TTM does not credit value for a promise. For each assigned maneuver the verification engine measures the physical quantity the maneuver was supposed to change. For a gap-creating maneuver that quantity is the inter-vehicle gap, measured before and after:</p>
+<div class="eq"><span class="b"></span><span>Δg<sub>k</sub> = g<sub>k</sub><sup>after</sup> − g<sub>k</sub><sup>before</sup></span><span class="n">(7)</span></div>
+<p>The maneuver is complete when the change meets its criterion and the measurement is corroborated:</p>
+<div class="eq"><span class="b"></span><span>V<sub>k</sub> = 1  if  Δg<sub>k</sub> ≥ g<sub>k</sub>*  and  B<sub>k</sub> = 1 ;  otherwise V<sub>k</sub> = 0</span><span class="n">(8)</span></div>
+<p>Here <i>g</i><sub>k</sub>* is the assigned target and <i>B</i><sub>k</sub> indicates that a distance-bounding measurement over the ultra-wideband or Channel Sounding link agrees with the claimed positions and has been cross-validated by at least two independent nearby ranging devices. For maneuvers that are not about opening a gap, the criterion is the analogous measured quantity: a lane-marking crossing with a matching yaw signature for a lane change, or the duration a position was actually held for a hold.</p>
+<figure><img src="../../assets/ttm-paper/fig5-verification.jpg" alt="Two panels showing the gap between two cars before and after a maneuver, with a check that the change meets the target and two witness devices confirming the range"><figcaption><b>Figure 6.</b> Verification. The gap is measured before and after, and the measurement is witnessed by two independent devices.</figcaption></figure>
+<p>Evidence may also include speed and acceleration profiles, vehicle interface event logs, C-V2X messages, roadside-unit observation and automated-vehicle telemetry. The engine combines the evidence into a verification-confidence score ρ<sub>k</sub> that governs full, partial or no credit.</p>
+<h3>7.1 The proximity verification device</h3>
+<p>Not every vehicle has built-in ranging. An aftermarket device (Figure 7) carries an ultra-wideband radio, a Bluetooth Channel Sounding radio, a satellite receiver, an inertial measurement unit and a secure element holding a credential bound to the host vehicle. In one form it plugs into the OBD-II port and reads the vehicle identifier from the data bus. During a maneuver it establishes a distance-bounding measurement to a device in another vehicle and produces a signed proximity attestation that binds three things: the host vehicle's identity, the distance-bounding measurement, and the measured change in relative position. The attestation is the evidence that this vehicle physically performed this maneuver near that vehicle.</p>
+<figure><img src="../../assets/ttm-paper/fig9v2-device.jpg" alt="Block diagram of the proximity verification device with UWB radio, Channel Sounding, GNSS, IMU, secure element and processor, an OBD-II connector and a signed attestation output"><figcaption><b>Figure 7.</b> Aftermarket proximity verification device and its signed attestation.</figcaption></figure>
+
+<h2 id="s8">8. Tokens and deferred settlement</h2>
+<h3>8.1 The confirmed token</h3>
+<p>When, and only when, the verification engine confirms a maneuver, the platform credits the assisting participant a confirmed token. The token is a unit of earned, not-yet-settled value. Its amount depends on the type of maneuver and on what the sensors measured:</p>
+<div class="eq"><span class="b"></span><span>T<sub>k</sub> = V<sub>k</sub> · ρ<sub>k</sub> · w( m<sub>k</sub> ) · f( q<sub>k</sub> )</span><span class="n">(9)</span></div>
+<p>where <i>w</i> is the per-maneuver-type weight and <i>f</i> depends on a measured characteristic <i>q</i><sub>k</sub> of the completed maneuver, such as the size of the gap actually created or the time a position was actually held. Because <i>V</i><sub>k</sub> multiplies everything, a participant who merely accepts, acknowledges or simulates a maneuver earns nothing. Displaying an instruction does not create a token. Accepting an offer does not create a token. Acknowledging receipt of funds does not create a token. The token is anti-spoof by construction.</p>
+<h3>8.2 The ledger</h3>
+<p>Each token is recorded as a ledger entry bound to the event that earned it:</p>
+<div class="eq"><span class="b"></span><span>e<sub>n</sub> = ( id, time, m, w, h(evidence) ),   H<sub>n</sub> = h( H<sub>n−1</sub> ‖ e<sub>n</sub> )</span><span class="n">(10)</span></div>
+<p>where <i>h</i> is a cryptographic hash. Chaining the entries makes the ledger tamper-evident: an entry cannot be inserted or altered afterwards without breaking every later link. Entries may also be anchored to a distributed ledger or signed by a secure element. In a distributed-ledger form, a smart contract releases or mints the token only on receipt of an attestation that verification occurred.</p>
+<h3>8.3 Batch settlement and netting</h3>
+<p>During a settlement period no money moves for individual maneuvers. At the period boundary the platform makes one aggregated payment or credit for the sum of the participant's tokens (Figure 8). Where the participant has also bought priority during the period, the platform settles only the net:</p>
+<div class="eq"><span class="b"></span><span>N = Σ T<sub>earned</sub> − C<sub>consumed</sub> − F</span><span class="n">(11)</span></div>
+<p>where <i>C</i> is the value of corridors the participant requested and <i>F</i> any recurring fee. A positive <i>N</i> is paid out or carried forward as one transaction; a negative <i>N</i> is charged as one transaction.</p>
+<figure><img src="../../assets/ttm-paper/fig6-settlement.jpg" alt="Timeline of a settlement period with many small verified maneuvers dropping tokens into a ledger and one single batch payment at period end"><figcaption><b>Figure 8.</b> Tokens accrue on verified maneuvers through the period. Money moves once, at the end.</figcaption></figure>
+
+<h2 id="s9">9. Two-way membership</h2>
+<p>Most drivers will be on both sides of the market: sometimes in a hurry, more often not. A membership joins the two roles in one account. In exchange for a recurring fee the account receives a periodic priority allotment, expressed as a budget, a number of requests, or a quantity of priority credits. The allotment is decremented as the member obtains corridors. The same member earns confirmed tokens by performing verified maneuvers for others. Earned tokens are fungible with the allotment: they can replenish it or offset the fee. At period end the account is resolved by Equation 11 in a single transaction (Figure 9). Higher tiers may carry a larger allotment, a higher maximum per-maneuver value, or preferential matching when assisting vehicles are scarce. A fleet account can net across many vehicles.</p>
+<figure><img src="../../assets/ttm-paper/fig7v2-membership.jpg" alt="A member account with tokens earned flowing in, priority used flowing out, a membership fee, and a single net settlement"><figcaption><b>Figure 9.</b> One account earns and spends. Only the difference is settled.</figcaption></figure>
+
+<h2 id="s10">10. Emergency and autonomous operation</h2>
+<p><b>Emergency vehicles.</b> An authorized emergency vehicle is a super-priority participant. The platform issues lane-specific, direction-aware instructions and can form a center corridor by a peel-and-absorb wedge (Figure 10): a pair of center-lane vehicles peel outward, outer-lane vehicles open receiving gaps to absorb them, and a tail-keeper holds behind the emergency vehicle so the corridor closes after it. Emergency clearing defaults to a non-commercial mode. Credits, where a jurisdiction chooses to offer them, come from an authority account, and cooperation is never conditioned on payment.</p>
+<figure><img src="../../assets/ttm-paper/fig8-emergency.jpg" alt="Top-down four-lane road with an emergency vehicle, an open center corridor, two cars peeling outward, two cars absorbing in the outer lanes and a tail seal car"><figcaption><b>Figure 10.</b> Emergency wedge cascade with a verified tail seal.</figcaption></figure>
+<p><b>Automated vehicles.</b> Where a vehicle drives itself, the platform talks to its driving system through an interface or V2X link. The vehicle's safety controller independently evaluates every assigned maneuver and keeps a veto that the platform cannot override. A vetoed maneuver earns no token. The architecture therefore spans phones in human-driven cars, assisted-driving systems, fleets and fully automated vehicles without depending on any one of them.</p>
+<p><b>Third-party platforms.</b> The functions are exposed through an interface so that ride-hailing, delivery, navigation and fleet services can request a priority-assisted trip, receive a projected time saving and a quote, and receive a settlement record, without building the localization, coordination and verification layers themselves.</p>
+
+<h2 id="s11">11. Safety, voluntariness and equity</h2>
+<p>The economic layer never replaces the safety layer. Four rules hold in every embodiment.</p>
+<p><b>Suggestions, not commands.</b> Each maneuver is presented as a safety-conditioned, voluntary suggestion ("when safe, create space"). A human may decline without penalty.</p>
+<p><b>Workload.</b> Prompts are not presented in a way that adds to driver distraction and may be suppressed, simplified, deferred or converted to audio according to driving workload.</p>
+<p><b>Emergency use is not for sale.</b> Lane clearing for emergency vehicles defaults to non-commercial.</p>
+<p><b>Priority is not decided by money alone.</b> Safeguards include a subsidized or non-monetary path to priority for eligible participants, per-participant fairness caps, and an aggregate-congestion guardrail that rejects any plan predicted to increase total network delay beyond a threshold.</p>
+
+<h2 id="s12">12. Analysis</h2>
+<h3>12.1 Why per-maneuver payment fails and batching does not</h3>
+<p>Let φ be the fixed cost of one movement of money and <i>u</i> the value of one maneuver. Paying per maneuver is viable only if <i>u</i> &gt; φ. Over a period with <i>n</i> verified maneuvers the two schemes cost</p>
+<div class="eq"><span class="b"></span><span>cost<sub>per-maneuver</sub> = n · φ   versus   cost<sub>batch</sub> = φ</span><span class="n">(12)</span></div>
+<p>and batching is viable whenever the period total exceeds one fee, Σ<i>u</i> &gt; φ. With netting, some accounts settle to zero and incur no fee at all.</p>
+<div class="note"><b>Illustration (assumed numbers, not measurements).</b> Suppose a participant completes 120 verified maneuvers in a month at an average of $0.08, earning $9.60, and that each money movement carries a fixed fee of $0.30. Paid per maneuver, fees would total $36.00, almost four times the value moved. Paid as one batch, the fee is $0.30, about 3% of the value.</div>
+<h3>12.2 What a cheater must do</h3>
+<p>Table 3 lists the ways a participant might try to collect value without cooperating, and what stops each.</p>
+<table>
+<caption><b>Table 3.</b> Attacks on the value mechanism and the corresponding defenses.</caption>
+<tr><th>Attempt</th><th>Why it fails</th></tr>
+<tr><td>Accept the offer and do nothing</td><td>Δ<i>g</i> does not meet <i>g</i>*; <i>V</i> = 0; no token</td></tr>
+<tr><td>Report completion from the app</td><td>Self-report is not evidence; crediting is triggered only by sensor verification</td></tr>
+<tr><td>Feed false satellite positions</td><td>Ranging to neighbours contradicts the claimed position</td></tr>
+<tr><td>Relay radio signals from elsewhere</td><td>Distance bounding places an upper limit on true separation</td></tr>
+<tr><td>Collude with one nearby device</td><td>Cross-validation requires at least two independent witnesses</td></tr>
+<tr><td>Use a phone outside the vehicle</td><td>Cryptographic phone-to-vehicle pairing; device attestation bound to the vehicle identifier</td></tr>
+<tr><td>Alter the ledger afterwards</td><td>Hash chaining makes any change detectable</td></tr>
+</table>
+<h3>12.3 Relation to cooperative lane-change models</h3>
+<p>Models such as [1] answer a control question: given vehicles that will cooperate, what accelerations make a lane change feasible and gentle? TTM answers the questions around it: which vehicles should be asked, what each should be offered, how to know each did its part, and how to pay for it. The two are complementary. A kinematic model of the kind in [1] can serve inside the TTM planner to compute the acceleration profile for a gap-creating maneuver, while TTM supplies the participation, proof and settlement that such models assume away.</p>
+
+<h2 id="s13">13. Evaluation plan</h2>
+<p>This paper reports design and analysis. The claims that need measurement, and how we propose to measure them, are these.</p>
+<table>
+<caption><b>Table 4.</b> Proposed evaluation.</caption>
+<tr><th>Question</th><th>Method</th><th>Measure</th></tr>
+<tr><td>How often is the lane assigned correctly?</td><td>Instrumented vehicles against a surveyed reference</td><td>Lane-assignment accuracy; gap error</td></tr>
+<tr><td>How much time does a corridor save, and at what cost to others?</td><td>Microscopic traffic simulation across densities and participation rates</td><td>Priority time saved; change in total network delay</td></tr>
+<tr><td>What participation rate is needed?</td><td>Simulation sweep</td><td>Corridor success rate against share of participating vehicles</td></tr>
+<tr><td>Does verification reject false claims?</td><td>Bench and track tests with scripted spoofing</td><td>False-accept and false-reject rates</td></tr>
+<tr><td>Do corridors create shockwaves?</td><td>Simulation and closed-track platoon tests</td><td>Speed variance upstream; string-stability margin</td></tr>
+<tr><td>Do prompts distract?</td><td>Driving-simulator study</td><td>Glance time; workload ratings</td></tr>
+</table>
+
+<h2 id="s14">14. Open questions</h2>
+<p><b>Density of participants.</b> A corridor needs willing vehicles in the right places. The system degrades gracefully, since a plan can be built from whoever is available, but its usefulness at low participation is an empirical matter.</p>
+<p><b>Human factors.</b> Even a well-timed suggestion asks something of a driver. The design favours passengers, automated vehicles and audio, and suppresses prompts under load. How far that goes in practice has to be measured.</p>
+<p><b>Law and policy.</b> Whether and where priority on public roads may be exchanged for value is a decision for regulators. The architecture supports non-monetary and authority-funded modes for jurisdictions that prefer them.</p>
+<p><b>Fairness.</b> The guardrails in Section 11 limit how much one participant's gain may cost everyone else. Choosing the thresholds is a public question, not only an engineering one.</p>
+
+<h2 id="s15">15. Conclusion</h2>
+<p>Small acts of cooperation between vehicles have always existed and have never been organised. The Transactional Traffic Mediator makes them requestable, by planning a set of different maneuvers that together open one corridor; provable, by measuring the gap before and after and having the measurement witnessed; and payable, by crediting a token only on proof and settling once per period. The principle that runs through the design is that value follows verification. A promise earns nothing. A measured physical result does.</p>
+
+<h2 id="pat">Patent notice</h2>
+<p>The system and methods described here are the subject of a pending United States patent application by the author. This paper is a description for research and educational purposes. For collaboration, evaluation partnerships or licensing, write to <a href="mailto:b@bennylabs.org">b@bennylabs.org</a>.</p>
+
+<h2 id="refs">References</h2>
+<ol class="refs">
+<li>D. Wang, J. Wang, Y. Wang, and S. Tian, "Cooperative Lane Change Model for Connected Vehicles under Congested Traffic Conditions," in <i>CICTP 2015</i>, American Society of Civil Engineers, 2015, pp. 398–409. doi:10.1061/9780784479292.036</li>
+<li>"System and method for traffic decongestion," U.S. Patent 10,706,461 B2 (published as US 2017/0358025 A1).</li>
+<li>"Traffic warning system," International Publication WO 2019/030182 A2.</li>
+<li>W. S. Vickrey, "Congestion Theory and Transport Investment," <i>American Economic Review</i>, vol. 59, no. 2, pp. 251–260, 1969.</li>
+<li>S. Brands and D. Chaum, "Distance-Bounding Protocols," in <i>Advances in Cryptology: EUROCRYPT '93</i>, Lecture Notes in Computer Science, vol. 765, Springer, 1994, pp. 344–359.</li>
+<li>IEEE Std 802.15.4z-2020, <i>IEEE Standard for Low-Rate Wireless Networks, Amendment 1: Enhanced Ultra Wideband (UWB) Physical Layers (PHYs) and Associated Ranging Techniques</i>, 2020.</li>
+<li>Bluetooth Special Interest Group, <i>Bluetooth Core Specification, Version 6.0</i> (Channel Sounding), 2024.</li>
+<li>SAE International, <i>SAE J2735: V2X Communications Message Set Dictionary</i>.</li>
+<li>M. Treiber, A. Hennecke, and D. Helbing, "Congested Traffic States in Empirical Observations and Microscopic Simulations," <i>Physical Review E</i>, vol. 62, no. 2, pp. 1805–1824, 2000.</li>
+<li>A. Kesting, M. Treiber, and D. Helbing, "General Lane-Changing Model MOBIL for Car-Following Models," <i>Transportation Research Record</i>, vol. 1999, pp. 86–94, 2007.</li>
+<li>D. Swaroop and J. K. Hedrick, "String Stability of Interconnected Systems," <i>IEEE Transactions on Automatic Control</i>, vol. 41, no. 3, pp. 349–357, 1996.</li>
+<li>K. Dresner and P. Stone, "A Multiagent Approach to Autonomous Intersection Management," <i>Journal of Artificial Intelligence Research</i>, vol. 31, pp. 591–656, 2008.</li>
+<li>J. Rios-Torres and A. A. Malikopoulos, "A Survey on the Coordination of Connected and Automated Vehicles at Intersections and Merging at Highway On-Ramps," <i>IEEE Transactions on Intelligent Transportation Systems</i>, vol. 18, no. 5, pp. 1066–1077, 2017.</li>
+</ol>
+
+<footer>
+<p><b>How to cite.</b> B. Goldstein, "Verified Cooperation as a Traffic Resource: Sensor-Verified Multi-Vehicle Corridors and Verification-Gated Token Settlement," Benny Labs Foundation Working Paper, 2026. https://bennylabs.org/transactional-traffic/paper/</p>
+<p>© 2026 Benny Goldstein. Benny Labs Foundation is a 501(c)(3) nonprofit for research, development and education.</p>
+</footer>
+</main>
+</body>
+</html>
