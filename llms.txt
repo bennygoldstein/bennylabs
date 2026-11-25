@@ -9,6 +9,7 @@
 ## Traffic research: Transactional Traffic Mediator
 - [Transactional Traffic Mediator](https://bennylabs.org/transactional-traffic/): a patent-pending coordination layer for lane-level cooperation between vehicles.
 - [Working paper](https://bennylabs.org/transactional-traffic/paper/): "Verified Cooperation as a Traffic Resource: Sensor-Verified Multi-Vehicle Corridors and Verification-Gated Token Settlement" by Benny Goldstein, November 25, 2026. Describes lane-level localization by sensor fusion and radio ranging, a plan in which two or more vehicles each perform a different micro-maneuver to open one corridor, verification by before-and-after gap measurement with witnessed distance bounding, and tokens credited only on verification and settled in one netted batch per period. A design and analysis paper; no field trial is reported.
+- [ThermalCore working paper](https://bennylabs.org/thermalcore/paper/): "The Heating Element That Computes: An Immersion Computing Module for the Standard Water-Heater Element Port" by Benny Goldstein, November 25, 2026. Describes a sealed computing module that fits the standard heating-element port of a water heater, shows that the port-limited power matches a household's average water-heating load, and gives a lumped thermal model in which the coupling between dies and enclosure wall, not the water side, limits power. A design and analysis paper; no prototype has been measured.
 
 ## Other pages
 - [Free learning](https://bennylabs.org/learn/)

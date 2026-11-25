@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Heating Element That Computes: An Immersion Computing Module for the Standard Water-Heater Element Port | Benny Labs Foundation</title>
+<meta name="description" content="A working paper on ThermalCore: a sealed computing module that screws into the standard heating-element port of a water heater, so the heat from computation warms the water. Design, load matching, a thermal model and an evaluation plan.">
+<meta name="author" content="Benny Goldstein">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="keywords" content="waste heat recovery, data center heat reuse, immersion cooling, water heating, distributed computing, edge computing, heat transfer, building decarbonization">
+<meta name="citation_publication_date" content="2026/11/25">
+<meta name="citation_abstract_html_url" content="https://bennylabs.org/thermalcore/paper/">
+<meta name="citation_pdf_url" content="https://bennylabs.org/thermalcore/paper/paper.pdf">
+<meta property="og:title" content="The Heating Element That Computes">
+<meta property="og:description" content="A sealed computing module that screws into a water heater's standard element port. The heat from computation warms the water.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://bennylabs.org/thermalcore/paper/">
+<meta property="og:image" content="https://bennylabs.org/assets/thermalcore-paper/tc-hero-share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Cutaway of a water heater with a glowing computing rod in the element port, warming the water">
+<meta property="article:published_time" content="2026-11-25">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Heating Element That Computes">
+<meta name="twitter:description" content="A sealed computing module that screws into a water heater's standard element port. The heat from computation warms the water.">
+<meta name="twitter:image" content="https://bennylabs.org/assets/thermalcore-paper/tc-hero-share.jpg">
+<meta name="citation_title" content="The Heating Element That Computes: An Immersion Computing Module for the Standard Water-Heater Element Port">
+<meta name="citation_author" content="Goldstein, Benny">
+<meta name="citation_technical_report_institution" content="Benny Labs Foundation">
+<meta name="citation_language" content="en">
+<meta name="theme-color" content="#15803d">
+<link rel="canonical" href="https://bennylabs.org/thermalcore/paper/">
+<style>
+  :root{--ink:#17231c;--soft:#4a5d52;--line:#dfe7e1;--wash:#f6faf7;--green:#15803d;--amber:#b7791f}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#fff;color:var(--ink);font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;font-size:18px;line-height:1.62}
+  .top{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.86rem;border-bottom:1px solid var(--line);padding:12px 24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .top a{color:var(--green);text-decoration:none;font-weight:600}
+  .draft{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#fff8e6;border-bottom:1px solid #f0dfae;color:#6b4e0e;text-align:center;font-size:.86rem;padding:8px 16px}
+  main{max-width:820px;margin:0 auto;padding:44px 24px 80px}
+  .kicker{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green);font-weight:700}
+  h1{font-size:2.15rem;line-height:1.18;margin:.5rem 0 .4rem;letter-spacing:-.01em}
+  .sub{font-size:1.2rem;color:var(--soft);margin:0 0 1.4rem;font-style:italic}
+  .byline{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.95rem;color:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:28px}
+  .byline strong{color:var(--ink)}
+  .abstract{background:var(--wash);border:1px solid var(--line);border-radius:10px;padding:20px 24px;margin:0 0 30px}
+  .abstract h2{margin:0 0 .4rem;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;border:0;padding:0}
+  .abstract p{margin:.4rem 0;font-size:.98rem}
+  .kw{font-size:.9rem;color:var(--soft)}
+  h2{font-size:1.42rem;margin:2.5rem 0 .6rem;padding-top:.6rem;border-top:1px solid var(--line)}
+  h3{font-size:1.1rem;margin:1.6rem 0 .3rem}
+  p{margin:.7rem 0}
+  a{color:var(--green)}
+  figure{margin:1.8rem 0;text-align:center}
+  figure img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px}
+  figure.hero{margin:0 0 1.6rem}
+  figure.hero img{border-radius:12px}
+  figcaption{font-size:.9rem;color:var(--soft);margin-top:.55rem;text-align:left;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.45}
+  figcaption b{color:var(--ink)}
+  .eq{display:flex;align-items:center;justify-content:center;gap:18px;margin:1.1rem 0;font-size:1.08rem;font-style:italic;text-align:center}
+  .eq span.n{font-style:normal;color:var(--soft);font-size:.9rem;margin-left:auto}
+  .eq span.b{margin-left:auto}
+  .eq i{font-style:normal}
+  table{border-collapse:collapse;width:100%;margin:1.3rem 0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.86rem;line-height:1.4}
+  th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{border-bottom:2px solid var(--ink);font-weight:700}
+  caption{caption-side:top;text-align:left;font-size:.9rem;color:var(--soft);padding-bottom:6px}
+  caption b{color:var(--ink)}
+  .note{background:#fffaf0;border-left:3px solid var(--amber);padding:12px 16px;font-size:.93rem;margin:1.2rem 0}
+  ol.refs{font-size:.9rem;padding-left:1.4rem}
+  ol.refs li{margin:.45rem 0}
+  .toc{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.9rem;columns:2;column-gap:32px;padding:0;list-style:none;margin:0 0 10px}
+  .toc li{margin:.2rem 0}
+  .toc a{text-decoration:none}
+  footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1rem;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.84rem;color:var(--soft)}
+  @media (max-width:640px){body{font-size:17px}h1{font-size:1.7rem}.toc{columns:1}}
+  @media print{.top,.draft{display:none}main{padding:0;max-width:none}body{font-size:11.5pt}figure,table,.eq{break-inside:avoid}h2,h3{break-after:avoid}}
+</style>
+</head>
+<body>
+<div class="top"><a href="../../">← Benny Labs Foundation</a><span>Working Paper · <a href="https://thermalcore.energy/">thermalcore.energy</a> · <a href="paper.pdf">Download PDF</a></span></div>
+<main>
+<figure class="hero"><img src="../../assets/thermalcore-paper/tc-hero.jpg" alt="Illustrated cutaway of a home water heater. A slim rod in the side element port holds circuit boards and glows warm, heating the water. Labels mark the compute dies, the hermetic enclosure, the standard element port and the single sealed feedthrough for power and data." width="1400" height="788"></figure>
+<div class="kicker">Working paper · Heat reuse and distributed computing</div>
+<h1>The Heating Element That Computes</h1>
+<p class="sub">An immersion computing module for the standard water-heater element port: design, load matching and a first thermal model</p>
+<div class="byline"><strong>Benny Goldstein</strong> · Benny Labs Foundation, New York · <a href="mailto:b@bennylabs.org">b@bennylabs.org</a><br>Working paper, November 25, 2026 · The module described is the subject of a pending U.S. patent application by the author.</div>
+
+<section class="abstract">
+<h2>Abstract</h2>
+<p>A resistive heating element and a computer chip do the same thing with electricity: both turn almost all of it into heat. A data center pays to throw that heat away. A building pays to make it. This paper describes an immersion computing module that closes the gap at the smallest possible scale. The module is packaged to the dimensions, pressure rating and wiring of an ordinary screw-in water-heater element. It seals into the existing element port of an installed tank, and its heat source is a set of compute dies running work received over a network.</p>
+<p>We make four contributions. First, we treat the standardized element port as an engineering interface and state the constraints it imposes. Second, we show that the power such a port allows is close to the <em>average</em> water-heating load of a household, so the module can run most of the day where a conventional element runs about a tenth of it. Third, we give a lumped thermal model of the heat path from die to water. The model finds that the water side is not the bottleneck; the coupling between the dies and the enclosure wall is. A still dielectric liquid alone supports only tens of watts in a one-inch enclosure, while conduction coupling supports roughly 220 to 720 W, and a flexible conduit raises the figure in proportion to its length. Fourth, we describe the hybrid controller, the serviceable and extended variants, and a building-scale system.</p>
+<p>No prototype has been measured. Every number in the analysis comes from a published model with stated assumptions, and the paper ends with the tests that would confirm or refute it.</p>
+<p class="kw"><b>Keywords:</b> waste heat recovery, data center heat reuse, immersion cooling, domestic hot water, distributed computing, heat transfer, load matching, building decarbonization</p>
+</section>
+
+<ul class="toc">
+<li><a href="#s1">1. Introduction</a></li>
+<li><a href="#s2">2. Related work</a></li>
+<li><a href="#s3">3. The element port as an interface</a></li>
+<li><a href="#s4">4. Module design</a></li>
+<li><a href="#s5">5. Load matching</a></li>
+<li><a href="#s6">6. Thermal model</a></li>
+<li><a href="#s7">7. Hybrid operation and control</a></li>
+<li><a href="#s8">8. More capacity through the same port</a></li>
+<li><a href="#s9">9. Building-scale systems</a></li>
+<li><a href="#s10">10. Safety and compliance</a></li>
+<li><a href="#s11">11. The economics in one equation</a></li>
+<li><a href="#s12">12. Limitations and evaluation plan</a></li>
+<li><a href="#s13">13. Conclusion</a></li>
+<li><a href="#refs">References</a></li>
+</ul>
+
+<h2 id="s1">1. Introduction</h2>
+<p>Data centers in the United States used about 4.4% of the country's electricity in 2023, and the share is projected to reach between 6.7% and 12% by 2028 [1]. Nearly every watt-hour of it ends as low-temperature heat, and a large further amount of energy and capital is spent on equipment whose only job is to reject that heat to the air [2]. In the same cities, water heating accounts for close to a fifth of the energy used in a home [3], much of it supplied by a resistive element that turns electricity into heat and nothing else.</p>
+<p>The mismatch is old and well known. The usual remedies move heat from where the computers are to where the heat is wanted, through district heating networks [4], or move the computers to where the heat is wanted, as in the "data furnace" proposal [5] and the commercial heaters and boilers that followed it. Each remedy has asked the building for something: a new appliance in place of a working one, a heat exchanger and new plumbing, or a unit strapped to the outside of a tank.</p>
+<figure><img src="../../assets/thermalcore-paper/tc-fig1-mismatch.jpg" alt="Split illustration. On the left a data center with a cooling plant sends heat into the sky and pays for it. On the right a building pays to make the same heat with a resistive element." width="1400" height="933"><figcaption><b>Figure 1.</b> The mismatch. One site pays to remove heat; another pays to create the same heat.</figcaption></figure>
+<p>This paper starts from a different observation. Almost every electric storage water heater already has an opening made for exactly one purpose: to hold an electrically powered heat source, sealed, in direct contact with the water. It is the heating-element port. Elements are replaced through it as routine maintenance. The port has a standard thread or flange, a known pressure rating, a dedicated circuit and a thermostat already wired to it.</p>
+<p>The module described here, developed under the name ThermalCore, is a computer packaged as a heating element. It goes where the element went. The questions we address are whether that is physically reasonable, how much power such a module can carry, and what it takes for the water heater to behave exactly as it did before.</p>
+
+<h2 id="s2">2. Related work</h2>
+<p><b>Heat reuse at the data center.</b> Reviews of data center cooling [2] describe the low grade of the heat available, typically 30 to 60&nbsp;°C for liquid-cooled equipment, and the options for upgrading it. Studies of district heating integration [4] show the heat is useful where a network exists and the data center sits close to it. Both conditions are uncommon outside a few countries.</p>
+<p><b>Computing where heat is wanted.</b> Liu et al. [5] proposed placing servers in homes and offices as "data furnaces". Commercial products followed: electric room heaters and boilers built around processors, and more recently purpose-built water heaters whose heat source is a set of mining chips. These are complete appliances. Installing one means removing a serviceable heater.</p>
+<p><b>Compute in or on a hot water system.</b> Several designs bring processors to an existing hot-water system. One family places processors submerged in a dielectric liquid and transfers their heat to domestic hot water or pool water through integrated, wrap-around or retrofit arrangements, with a controller tied to hot-water demand [6]. Another places a gastight dielectric-filled vessel holding compute boards inside a potable water tank [7]. A third bonds a compute unit to the outside of an existing hot-water cylinder and throttles work by temperature [8]. In data centers, sealed dielectric-filled modules that conduct heat through the module wall to a surrounding liquid are established practice [9].</p>
+<p><b>Elements that fit the port.</b> Independently of computing, the heating-element port has been used for unconventional elements: screw-in retrofit elements with their own electronics and power source [10], and flexible spiral elements that pass through the port and expand inside the tank [11]. These are resistive.</p>
+<p>The module in this paper sits at the intersection. It takes the heat source of the first group and the mounting of the second: compute dies inside a pressure-rated enclosure that passes through, and seals in, the standard element port, with power and data through a single sealed feedthrough.</p>
+
+<table>
+<caption><b>Table 1.</b> Where the element-port module sits among approaches to using computational heat for hot water.</caption>
+<tr><th>Approach</th><th>Keeps the existing tank</th><th>New plumbing</th><th>Heat source location</th><th>Mounting</th></tr>
+<tr><td>Purpose-built computing water heater</td><td>No</td><td>Replacement install</td><td>Inside a new appliance</td><td>Built in</td></tr>
+<tr><td>External dielectric loop and heat exchanger [6]</td><td>Sometimes</td><td>Yes</td><td>Outside the tank</td><td>Skid or wrap</td></tr>
+<tr><td>Sealed vessel placed inside a tank [7]</td><td>Modified or new tank</td><td>No</td><td>In the water</td><td>Access opening</td></tr>
+<tr><td>Unit bonded to the tank exterior [8]</td><td>Yes</td><td>No</td><td>Outside the wall and insulation</td><td>Clamp-on</td></tr>
+<tr><td><b>Element-port module (this paper)</b></td><td><b>Yes</b></td><td><b>No</b></td><td><b>In the water</b></td><td><b>Standard element port</b></td></tr>
+</table>
+
+<h2 id="s3">3. The element port as an interface</h2>
+<p>A design that must fit an opening it did not choose is defined by that opening. For a residential electric storage water heater in North America the port sets five constraints.</p>
+<p><b>Aperture.</b> The common screw-in element uses a nominal one-inch NPT thread. Whatever enters the tank must pass a bore of roughly one inch. Flanged four-bolt openings, and the 1¼ to 2½ inch bosses of commercial vessels, are larger but equally fixed.</p>
+<p><b>Depth.</b> A rigid body can extend only as far as the tank interior allows, about 8 to 14 inches in a residential tank, and must stay clear of the dip tube, the anode rod and any other element.</p>
+<p><b>Pressure.</b> The enclosure is part of a potable pressure vessel. It must hold against a working pressure of at least about 150&nbsp;psi, and materials in contact with the water must be suitable for potable use.</p>
+<p><b>Electrical supply.</b> The element position is served by a dedicated circuit, commonly 240&nbsp;V at 30&nbsp;A, switched by a thermostat, with a manual-reset high-limit cutoff above it.</p>
+<p><b>Behaviour.</b> The water heater's thermostat expects to switch a load on and off. Whatever sits in the port has to accept that.</p>
+<p>The aperture and depth together fix the wetted surface. For a cylinder of outer diameter <i>D</i> and immersed length <i>L</i>, with a ceiling on surface watt density <i>q″</i><sub>max</sub>, the power is bounded by</p>
+<div class="eq"><span class="b"></span><span><i>P</i> ≤ <i>q″</i><sub>max</sub> · π <i>D L</i></span><span class="n">(1)</span></div>
+<p>A 25.4&nbsp;mm by 30&nbsp;cm enclosure has 239&nbsp;cm² (37&nbsp;in²) of surface. At a ceiling of 40&nbsp;W/in², well under the 150 to 350&nbsp;W/in² of a conventional element sheath, the bound is about 1,500&nbsp;W. Section 6 shows that chip temperature, not watt density, sets a tighter limit.</p>
+<figure><img src="../../assets/thermalcore-paper/tc-fig2-installed.jpg" alt="Cutaway of a residential storage water heater with a cold inlet dip tube, a hot outlet, an upper resistive element, and an immersion computing module in the lower element port, wired to the thermostat." width="1400" height="933"><figcaption><b>Figure 2.</b> The module installed in the lower element port of a dual-element storage water heater. The upper resistive element, the thermostat and the high-limit cutoff are unchanged.</figcaption></figure>
+
+<h2 id="s4">4. Module design</h2>
+<p>The module has five parts (Figure 3).</p>
+<p><b>Mounting fitting.</b> A threaded plug, or a bolt-on flange, that seals against the existing port in place of the removed element, with the same gasket or thread sealant.</p>
+<p><b>Hermetic enclosure.</b> A pressure-rated tube of stainless steel, copper or copper alloy, sized to pass through the port and extending from the fitting into the water. It may carry external fins to increase wetted area.</p>
+<p><b>Compute dies.</b> One or more integrated circuits on boards inside the enclosure: ASICs, GPUs, CPUs, systems-on-chip or FPGAs. They are thermally coupled to the enclosure wall through a dielectric liquid, a thermally conductive potting compound, heat spreaders clamped to the wall, heat pipes, or a combination.</p>
+<p><b>Sealed feedthrough.</b> One penetration through the fitting carries the power conductors and the data pathway. Data may travel by power-line communication on the power conductors themselves, by a wired pair or fibre, or by a wireless transceiver on the dry side of the fitting.</p>
+<p><b>Controller and sensors.</b> A module controller supervises the workloads, reads a temperature sensor and a moisture sensor, obeys the thermostat interlock, and reports telemetry.</p>
+<figure><img src="../../assets/thermalcore-paper/tc-fig3-crosssection.jpg" alt="Longitudinal cross-section of the module: threaded mounting fitting with sealed feedthrough, finned hermetic enclosure, dielectric medium, compute board with dies, temperature sensor, module controller and moisture sensor, surrounded by water." width="1400" height="933"><figcaption><b>Figure 3.</b> Longitudinal section of a rigid module. Heat from the dies crosses the coupling medium and the enclosure wall into the water.</figcaption></figure>
+<p><b>Installation.</b> The procedure is the one a plumber already uses to change an element: switch off the supply, drain below the port, remove the old element, fit the module, reconnect the thermostat wiring to the module's element-equivalent terminals, and connect data if it is not carried on the power conductors. No pipe is cut.</p>
+<p><b>Workloads.</b> Because the thermostat will interrupt the module, suitable work is latency-tolerant and can be checkpointed: batch inference, rendering, transcoding, scientific computation and similar jobs. The controller checkpoints and resumes work as the interlock and the temperature limits change the power available. The module's function as a heater does not depend on any particular commercial arrangement for the work.</p>
+
+<h2 id="s5">5. Load matching</h2>
+<p>A conventional lower element is rated at 4,500&nbsp;W so that a tank recovers quickly after a heavy draw. It is sized for the peak. The energy it delivers over a day is modest. Heating a daily draw of volume <i>V</i> through a temperature rise Δ<i>T</i>, with standby loss <i>E</i><sub>s</sub>, takes</p>
+<div class="eq"><span class="b"></span><span><i>E</i> = ρ <i>V c</i> Δ<i>T</i> + <i>E</i><sub>s</sub></span><span class="n">(2)</span></div>
+<p>For 240 litres a day raised by 42&nbsp;K this is 11.7&nbsp;kWh, plus about 1&nbsp;kWh of standby loss. Spread over 24 hours, that is an average of roughly 500&nbsp;W. A heat source of power <i>P</i> serving a daily demand <i>E</i> runs for a fraction of the day</p>
+<div class="eq"><span class="b"></span><span><i>d</i> = <i>E</i> / (24 <i>P</i>)</span><span class="n">(3)</span></div>
+<p>and, if it cannot keep up, supplies a share of the day's heat</p>
+<div class="eq"><span class="b"></span><span><i>f</i> = min(1, 24 <i>P</i> / <i>E</i>)</span><span class="n">(4)</span></div>
+<p>Table 2 evaluates both. A 4,500&nbsp;W element is on for 6 to 14% of the day. A 500&nbsp;W module serving the same demand is on for 50 to 100% of it, and supplies all of the heat up to 12&nbsp;kWh a day. Above that, the remainder comes from the auxiliary element of Section 7 or from the tank's other element.</p>
+
+<table>
+<caption><b>Table 2.</b> Duty and share of daily heat for a module of continuous power <i>P</i>, from Eqs. (3) and (4).</caption>
+<tr><th>Daily demand <i>E</i></th><th>6 kWh</th><th>9 kWh</th><th>12 kWh</th><th>15 kWh</th></tr>
+<tr><td>Duty of a 4,500 W element</td><td>6%</td><td>8%</td><td>11%</td><td>14%</td></tr>
+<tr><td>Duty of a 500 W module carrying the load</td><td>50%</td><td>75%</td><td>100%</td><td>100%</td></tr>
+<tr><td>Share supplied by a 300 W module</td><td>100%</td><td>80%</td><td>60%</td><td>48%</td></tr>
+<tr><td>Share supplied by a 500 W module</td><td>100%</td><td>100%</td><td>100%</td><td>80%</td></tr>
+<tr><td>Share supplied by an 800 W module</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td></tr>
+</table>
+
+<figure><img src="../../assets/thermalcore-paper/tc-fig4b-loadmatch.jpg" alt="Two water heaters with 24-hour timelines. A 4,500 watt conventional element runs in a few short bursts. A 500 watt computing module runs as one long low band. Both deliver the same heat per day." width="1400" height="933"><figcaption><b>Figure 4.</b> The same daily heat delivered two ways: short bursts at high power, or a long run at low power.</figcaption></figure>
+<p>This is the central point of the design. Computing hardware earns only while it runs, so a heat source that is idle 90% of the day is a poor host for it. The port forces the module's power down by an order of magnitude, and that happens to put it at the household's average load, where it can run nearly all the time. A limit that looks like a handicap turns out to be the match.</p>
+<p>The cost is recovery time. A 500&nbsp;W source takes about 16 hours to warm a cold 189-litre (50-gallon) tank to 50&nbsp;°C with no draw, against under two hours for 4,500&nbsp;W (Table 3). A module on its own would give a poor shower after a heavy draw. That is why the design pairs it with a resistive source.</p>
+
+<table>
+<caption><b>Table 3.</b> Modelled warm-up of a 189 L tank from 15&nbsp;°C with no draw (standby loss coefficient 1.1&nbsp;W/K).</caption>
+<tr><th>Continuous power</th><th>300 W</th><th>500 W</th><th>800 W</th><th>1,500 W</th><th>4,500 W</th></tr>
+<tr><td>Time to 50&nbsp;°C</td><td>26.5 h</td><td>15.6 h</td><td>9.6 h</td><td>5.1 h</td><td>1.7 h</td></tr>
+<tr><td>Time to 60&nbsp;°C</td><td>34.8 h</td><td>20.3 h</td><td>12.5 h</td><td>6.6 h</td><td>2.2 h</td></tr>
+</table>
+
+<h2 id="s6">6. Thermal model</h2>
+<p>The question that decides whether the module is practical is how hot the dies run. Tank water at a normal setpoint is 45 to 65&nbsp;°C. Compute dies are typically limited to junction temperatures of about 90 to 110&nbsp;°C. The whole heat path has to fit in the 30 to 60&nbsp;K between them.</p>
+<h3>6.1 The heat path</h3>
+<p>We model the path as thermal resistances in series (Figure 5). For total module power <i>P</i> and power per die <i>P</i><sub>d</sub>, the junction temperature is</p>
+<div class="eq"><span class="b"></span><span><i>T</i><sub>j</sub> = <i>T</i><sub>w</sub> + <i>P</i> (<i>R</i><sub>film</sub> + <i>R</i><sub>wall</sub> + <i>R</i><sub>c</sub>) + <i>P</i><sub>d</sub> <i>R</i><sub>jc</sub></span><span class="n">(5)</span></div>
+<p>where <i>T</i><sub>w</sub> is the tank water temperature, <i>R</i><sub>film</sub> the water-side convection resistance, <i>R</i><sub>wall</sub> the conduction resistance of the enclosure wall, <i>R</i><sub>c</sub> the coupling resistance between the dies and the inner wall, and <i>R</i><sub>jc</sub> the junction-to-case resistance of one die.</p>
+<div class="eq"><span class="b"></span><span><i>R</i><sub>film</sub> = 1 / (<i>h</i> <i>A</i> φ) ,  <i>R</i><sub>wall</sub> = ln(<i>D</i><sub>o</sub>/<i>D</i><sub>i</sub>) / (2π <i>k L</i>)</span><span class="n">(6)</span></div>
+<p>Here <i>A</i> = π<i>D</i><sub>o</sub><i>L</i>, φ is the area gain from fins, and <i>h</i> is the water-side coefficient. In still water we take <i>h</i> from the Churchill and Chu correlation for free convection from a horizontal cylinder [12]; with an impeller, from the Churchill and Bernstein correlation for cross-flow [13]. Solving Eq. (5) for the largest power that keeps the junction under its limit gives</p>
+<div class="eq"><span class="b"></span><span><i>P</i><sub>max</sub> = (<i>T</i><sub>j,max</sub> − <i>T</i><sub>w</sub> − <i>P</i><sub>d</sub> <i>R</i><sub>jc</sub>) / (<i>R</i><sub>film</sub> + <i>R</i><sub>wall</sub> + <i>R</i><sub>c</sub>)</span><span class="n">(7)</span></div>
+<p>which is solved by iteration because <i>h</i> depends on the wall temperature.</p>
+<figure><img src="../../assets/thermalcore-paper/tc-fig5-thermalpath.jpg" alt="Layered diagram of the heat path from the die junction through the dielectric film and enclosure wall into the water film and tank water, with a chain of resistors below and the largest temperature step marked at the dielectric film." width="1400" height="933"><figcaption><b>Figure 5.</b> The heat path as a chain of resistances. In the model the largest temperature step is on the inside of the enclosure.</figcaption></figure>
+<h3>6.2 Assumptions</h3>
+<p>The reference module is a 316L stainless tube, 25.4&nbsp;mm outer diameter, 0.89&nbsp;mm wall, 30&nbsp;cm immersed, lying horizontally. Dies dissipate 15&nbsp;W each with <i>R</i><sub>jc</sub> = 0.8&nbsp;K/W. Three coupling options are compared:</p>
+<p><b>Still dielectric liquid.</b> Dies and their heat sinks sit in a liquid such as mineral oil. Heat crosses two free-convection films, sink to liquid and liquid to wall, each at 150&nbsp;W/m²K, with 0.13&nbsp;m² of sink area per metre of tube.</p>
+<p><b>Circulated dielectric liquid.</b> The same, with the liquid gently moved, at 600&nbsp;W/m²K.</p>
+<p><b>Conduction.</b> Dies mounted on a metal spreader pressed or potted against the wall, with a contact conductance of 3,000&nbsp;W/m²K over half of the inner wall.</p>
+<p>These coefficients are estimates within the ranges given in standard references [14]. They are not measurements, and Section 12 lists them among the things a prototype must establish.</p>
+<h3>6.3 Results</h3>
+<p><b>The water side is not the limit.</b> In still water at 60&nbsp;°C the model gives <i>h</i> of about 950 to 1,250&nbsp;W/m²K. A bare enclosure carrying 500&nbsp;W runs 19&nbsp;K above the tank. Fins that multiply the wetted area by 2.5 bring that to 10&nbsp;K, and a flow of 0.3&nbsp;m/s brings it to 6&nbsp;K. The wall itself adds about 1&nbsp;K. The surface watt density at 500&nbsp;W is 13.5&nbsp;W/in², a small fraction of a conventional element's.</p>
+<p><b>The coupling is.</b> At 500&nbsp;W, with a finned enclosure in a 60&nbsp;°C tank, the temperature step across the coupling is 235&nbsp;K for still liquid, 59&nbsp;K for circulated liquid and 15&nbsp;K for conduction. Only the last leaves the junction near its limit. A narrow tube simply does not have room for the heat-sink area that passive oil cooling needs.</p>
+
+<table>
+<caption><b>Table 4.</b> Modelled maximum continuous power (W) of a 30&nbsp;cm rigid module, by coupling and exterior, for three operating points.</caption>
+<tr><th>Coupling</th><th>Exterior</th><th>Tank 50&nbsp;°C, <i>T</i><sub>j</sub> ≤ 90&nbsp;°C</th><th>Tank 60&nbsp;°C, <i>T</i><sub>j</sub> ≤ 90&nbsp;°C</th><th>Tank 60&nbsp;°C, <i>T</i><sub>j</sub> ≤ 105&nbsp;°C</th></tr>
+<tr><td rowspan="3">Still dielectric liquid</td><td>Bare, still water</td><td>50</td><td>30</td><td>60</td></tr>
+<tr><td>Fins ×2.5</td><td>50</td><td>30</td><td>60</td></tr>
+<tr><td>Impeller, 0.3 m/s</td><td>50</td><td>30</td><td>60</td></tr>
+<tr><td rowspan="3">Circulated dielectric liquid</td><td>Bare, still water</td><td>150</td><td>100</td><td>190</td></tr>
+<tr><td>Fins ×2.5</td><td>190</td><td>120</td><td>220</td></tr>
+<tr><td>Impeller, 0.3 m/s</td><td>200</td><td>130</td><td>240</td></tr>
+<tr><td rowspan="3">Conduction (spreader or potting)</td><td>Bare, still water</td><td>360</td><td>220</td><td>460</td></tr>
+<tr><td>Fins ×2.5</td><td>520</td><td>330</td><td>650</td></tr>
+<tr><td>Impeller, 0.3 m/s</td><td>600</td><td>390</td><td>720</td></tr>
+</table>
+
+<p>Three conclusions follow.</p>
+<p>First, a rigid one-inch module is a device of a few hundred watts. With conduction coupling the model gives 220 to 720&nbsp;W across the cases in Table 4, which brackets the household average of Section 5. The junction limit binds long before the watt-density ceiling of Eq. (1).</p>
+<p>Second, the tank setpoint matters a great deal. Dropping the water from 60 to 50&nbsp;°C raises the allowable power by roughly half. A module is happiest in the lower, cooler part of a stratified tank, which is where the lower element port is.</p>
+<p>Third, the design effort belongs on the inside of the tube. A dielectric fill is useful for electrical isolation and for evening out temperature, but in this geometry it cannot be the main heat path. Fins and impellers on the water side help only once the coupling is good; with still liquid they change nothing.</p>
+<div class="note">These figures come from a lumped model with assumed coefficients. They show which resistance dominates and roughly where the limits are. They are not a substitute for a bench measurement, and a different choice of contact conductance or die power would move every number in Table 4.</div>
+<p>The model is short and is published with this paper as <a href="model.py">model.py</a>, so the assumptions can be changed and the tables regenerated.</p>
+
+<h2 id="s7">7. Hybrid operation and control</h2>
+<p>A module that only computes leaves three gaps: it cannot heat when it has no work or no network, it cannot recover a tank quickly, and it cannot easily raise water above the temperature its dies tolerate. The hybrid module fills all three by carrying an auxiliary resistive element on the same fitting, powered through the same feedthrough (Figure 6).</p>
+<p>The controller meets thermal demand by computation first. It energizes the auxiliary element on any of three conditions: workloads are unavailable; the demand exceeds what the dies can deliver; or the commanded water temperature exceeds what the dies can reach. The third case includes a periodic sanitization cycle, in which computation is reduced and the resistive element raises the water to at least about 60&nbsp;°C for control of <i>Legionella</i>, in line with guidance for building water systems [15].</p>
+<p>The two sources share one supply circuit. The controller apportions it so that</p>
+<div class="eq"><span class="b"></span><span><i>P</i><sub>compute</sub>(<i>t</i>) + <i>P</i><sub>aux</sub>(<i>t</i>) ≤ <i>P</i><sub>circuit</sub></span><span class="n">(8)</span></div>
+<p>at all times. The division of labour is by character and not merely redundancy. Computation supplies the continuous base load, where each kilowatt-hour does two jobs. Resistance supplies the short, intense demands that computation cannot.</p>
+<figure><img src="../../assets/thermalcore-paper/tc-fig6-hybrid.jpg" alt="A hybrid module with a compute enclosure and an auxiliary resistive coil on one fitting, above a ring of seven controller modes: compute-heat, throttled, idle, auxiliary, offline-heat, sanitize and demand-response." width="1400" height="933"><figcaption><b>Figure 6.</b> The hybrid module and its controller modes.</figcaption></figure>
+
+<table>
+<caption><b>Table 5.</b> Operating modes of the module controller.</caption>
+<tr><th>Mode</th><th>Entered when</th><th>Behaviour</th></tr>
+<tr><td>COMPUTE-HEAT</td><td>Thermostat calls for heat, temperatures within limits</td><td>Workloads run at full available power; all heat goes to the water</td></tr>
+<tr><td>THROTTLED</td><td>Water nears setpoint, or enclosure nears its limit</td><td>Power reduced in steps by scheduling, clock and voltage scaling, or checkpoint and suspend</td></tr>
+<tr><td>IDLE</td><td>Thermostat opens</td><td>Computation suspended or held at a housekeeping level</td></tr>
+<tr><td>AUXILIARY</td><td>No work, demand above compute capacity, or setpoint above compute temperature</td><td>Resistive element energized</td></tr>
+<tr><td>OFFLINE-HEAT</td><td>Data connection lost</td><td>Module heats resistively; the appliance works with no network</td></tr>
+<tr><td>SANITIZE</td><td>Periodic schedule</td><td>Resistive element raises water above a pathogen-control temperature</td></tr>
+<tr><td>DEMAND-RESPONSE</td><td>External grid signal (optional)</td><td>Compute draw reduced; stored heat rides through</td></tr>
+</table>
+
+<p>Transitions follow a fixed order of precedence: the thermostat interlock first, then the module's own temperature sensor, then connectivity, then commanded setpoints, then fleet commands. The appliance's high-limit cutoff sits above all of them and is not altered. From the user's side the tank behaves as it always did.</p>
+
+<h2 id="s8">8. More capacity through the same port</h2>
+<p>Section 6 shows that power scales with wetted area and with the quality of the heat path. Three variants raise capacity or serviceability without enlarging the port.</p>
+<h3>8.1 Flexible conduit</h3>
+<p>The enclosure need not be rigid. A flexible corrugated or smooth conduit of 0.6 to 1.0 inch diameter can be fed through the port straight and then take a curved, serpentine or coiled shape inside the tank. Compute boards are distributed along it as a chain of short segments joined by flexible links. The immersed length can be two to twenty times the straight insertion depth, in some cases longer than the tank is tall.</p>
+<p>Because the heat path per unit length is unchanged, power scales with length. Table 6 gives the modelled figures for conduction coupling in a 60&nbsp;°C tank.</p>
+
+<table>
+<caption><b>Table 6.</b> Modelled maximum power of a flexible-conduit module against immersed length (conduction coupling, bare surface, tank 60&nbsp;°C, <i>T</i><sub>j</sub> ≤ 90&nbsp;°C).</caption>
+<tr><th>Immersed length</th><th>0.3 m</th><th>0.6 m</th><th>1.2 m</th><th>2.4 m</th><th>4.8 m</th></tr>
+<tr><td>Maximum power</td><td>220 W</td><td>450 W</td><td>900 W</td><td>1,800 W</td><td>3,610 W</td></tr>
+<tr><td>Surface watt density</td><td>5.9 W/in²</td><td>6.1 W/in²</td><td>6.1 W/in²</td><td>6.1 W/in²</td><td>6.1 W/in²</td></tr>
+</table>
+
+<h3>8.2 Deployment by buoyancy</h3>
+<p>A long conduit pushed into a tank has to end up somewhere sensible. The design uses buoyancy to place it (Figure 7). A chamber at the far end of the conduit, charged with gas through a small passage running inside the conduit to a valve at the fitting, makes the tip float. If the conduit is inserted while the tank is drained, it lies on the floor; when the tank is refilled, the rising water lifts the tip first and then successive lengths, laying the conduit into an ascending coil. The refill does the deployment. Adding or venting gas trims the coil's height, and venting fully lets the conduit be drawn back out.</p>
+<figure><img src="../../assets/thermalcore-paper/tc-fig7-flexcoil.jpg" alt="Three tanks in sequence: a flexible conduit inserted into a drained tank lies on the floor; the refill lifts the buoyant tip; the conduit stands as an ascending coil in the full tank." width="1400" height="933"><figcaption><b>Figure 7.</b> Rise-on-refill deployment of a flexible conduit with a buoyant tip.</figcaption></figure>
+<h3>8.3 Dry-well sleeve</h3>
+<p>Computing hardware ages faster than a water tank. In the dry-well variant the enclosure is a sleeve, closed at the far end and open only through a bore in the fitting. The sleeve, not the electronics, is the pressure boundary, and it stays in the tank permanently. The boards ride on a cartridge that slides in and out of the sleeve while the tank is full and under pressure. The tank is drained once, when the sleeve is fitted, and never again for service or upgrade. Thermal contact between cartridge and sleeve is made by sprung pads or wedges, a conformable interface material or a small charge of dielectric liquid. In the terms of Section 6 this is the coupling resistance, and it is the component on which a dry-well design will succeed or fail.</p>
+<h3>8.4 Forced circulation</h3>
+<p>A small impeller carried by the module, either magnetically coupled through the wall or a wet-rotor pump of the kind used in potable circulators, moves tank water over the enclosure. In the model a flow of 0.3&nbsp;m/s roughly triples the water-side coefficient. With good coupling this adds 15 to 20% to the allowable power of a rigid module (Table 4) for a parasitic draw of a few watts, and it reduces stratification around the module.</p>
+<figure><img src="../../assets/thermalcore-paper/tc-fig8-drywell.jpg" alt="Left: a dry-well sleeve fixed in the port of a full tank with a compute cartridge half withdrawn. Right: a module with a circulation impeller forcing flow over the enclosure." width="1400" height="933"><figcaption><b>Figure 8.</b> Left, the dry-well sleeve with a withdrawable cartridge. Right, forced circulation.</figcaption></figure>
+<p>The variants combine. A flexible dry-well sleeve can be installed empty, where it is strongly buoyant and deploys itself on refill, and loaded afterwards with a chain of cartridges through the fitting.</p>
+
+<h2 id="s9">9. Building-scale systems</h2>
+<p>The household case is the hardest one for the economics, because one tank supports one small module. A multi-dwelling building is different in two ways. Its central plant has large storage vessels with several element ports each, and its recirculation loop loses heat all day and all year, which presents a nearly continuous load.</p>
+<p>In the building system (Figure 9) a bank of modules occupies the element ports of the storage vessels, and optionally of a side-arm vessel plumbed into the recirculation loop, which adds ports without regard to how many the main vessels have. A fleet controller allocates work among the modules, reduces the work of any module whose vessel interlock opens, and calls on the building's existing boiler for whatever the modules cannot supply:</p>
+<div class="eq"><span class="b"></span><span><i>Q</i><sub>legacy</sub>(<i>t</i>) = max(0, <i>Q</i><sub>demand</sub>(<i>t</i>) − Σ<sub>i</sub> <i>P</i><sub>i</sub>(<i>t</i>))</span><span class="n">(9)</span></div>
+<p>The legacy appliance becomes the peaking plant. The controller may also accept a grid signal and shed compute load for a period, letting the stored hot water carry the building. That behaviour is subordinate to the thermostat interlocks.</p>
+<figure><img src="../../assets/thermalcore-paper/tc-fig9-building.jpg" alt="Cutaway apartment building with basement storage vessels fitted with rows of computing modules, a side-arm vessel, circulation pump, recirculation loop to the dwelling units, a legacy boiler, and a fleet controller receiving network workloads and a grid signal." width="1400" height="933"><figcaption><b>Figure 9.</b> A building system: module banks in the central plant, coordinated by a fleet controller, with the existing boiler as backup.</figcaption></figure>
+<h3>9.1 Heat-pump coupling</h3>
+<p>Computation delivers heat at moderate temperature. Where a higher temperature is needed, a heat pump can take the module-heated liquid as its source. The ideal coefficient of performance for delivery at absolute temperature <i>T</i><sub>h</sub> from a source at <i>T</i><sub>c</sub> is</p>
+<div class="eq"><span class="b"></span><span>COP<sub>ideal</sub> = <i>T</i><sub>h</sub> / (<i>T</i><sub>h</sub> − <i>T</i><sub>c</sub>)</span><span class="n">(10)</span></div>
+<p>For delivery at 65&nbsp;°C, a source at 10&nbsp;°C gives an ideal value of 6.1, and a source at 35&nbsp;°C gives 11.3. Real machines reach a fraction of the ideal, but the ratio shows the direction: raising the source temperature with computational heat nearly halves the lift the heat pump has to provide.</p>
+<h3>9.2 Steam plants</h3>
+<p>Many older apartment buildings are heated by steam. Modules cannot make steam, but they can preheat boiler feedwater or returning condensate in a feedwater or side-arm vessel. Each unit of computational heat <i>Q</i><sub>c</sub> delivered to the feedwater displaces fuel of</p>
+<div class="eq"><span class="b"></span><span><i>F</i><sub>saved</sub> = <i>Q</i><sub>c</sub> / η<sub>boiler</sub></span><span class="n">(11)</span></div>
+<p>where η<sub>boiler</sub> is the boiler efficiency.</p>
+<figure><img src="../../assets/thermalcore-paper/tc-fig10-plantvariants.jpg" alt="Left: module-heated liquid feeding the source side of a heat pump whose load side delivers a higher temperature. Right: modules preheating feedwater ahead of a steam boiler." width="1400" height="933"><figcaption><b>Figure 10.</b> Two plant variants: a heat pump lifting module heat to a higher temperature, and feedwater preheating for a steam boiler.</figcaption></figure>
+
+<h2 id="s10">10. Safety and compliance</h2>
+<p>The module's safety case rests on changing as little as possible.</p>
+<p><b>Existing protections stay.</b> The thermostat, the manual-reset high-limit cutoff and the temperature-and-pressure relief valve remain in service, unaltered, and keep their supervisory roles. The module presents itself electrically as an element of its rated power.</p>
+<p><b>Lower surface temperature.</b> At 6 to 20&nbsp;W/in² the enclosure runs far cooler than a conventional sheath at 150 to 350&nbsp;W/in². Scale forms fastest on hot surfaces, so a cooler surface is expected to accumulate less. This is a prediction to be tested, not a result.</p>
+<p><b>Two barriers.</b> In potable applications at least two sealed barriers, the enclosure wall and the feedthrough, separate any dielectric medium from the water. A moisture sensor inside the enclosure stops the dies and raises an alert on ingress.</p>
+<p><b>Pathogen control.</b> A source that holds water at moderate temperature for long periods must not create a hygiene risk. The sanitize mode of Section 7 exists for this reason, and any deployment would need to follow the building's water management plan [15].</p>
+<p><b>Certification.</b> A product would need listing under the standards that apply to water-heater elements and to heat-producing information-technology equipment [16, 17]. No such listing has been sought yet.</p>
+
+<h2 id="s11">11. The economics in one equation</h2>
+<p>A resistive element buys heat at the price of electricity, <i>c</i><sub>e</sub> per kilowatt-hour. A computing module buys the same heat and also sells the computation. If the work earns <i>r</i><sub>c</sub> per kilowatt-hour consumed, net of hardware wear and network costs, the net cost of heat is</p>
+<div class="eq"><span class="b"></span><span><i>c</i><sub>net</sub> = <i>c</i><sub>e</sub> − <i>r</i><sub>c</sub></span><span class="n">(12)</span></div>
+<p>and the annual value of a module of power <i>P</i> running a fraction <i>d</i> of the year is 8,760 <i>P d r</i><sub>c</sub>. Two things follow without assuming any price. The value is proportional to the duty <i>d</i>, which is why Section 5 matters: at a duty of 10% the same hardware would earn a tenth as much. And the module never makes heat more expensive than a resistive element as long as <i>r</i><sub>c</sub> is positive, because the heat delivered per kilowatt-hour is the same.</p>
+<p>We deliberately give no figure for <i>r</i><sub>c</sub>. It varies by more than a hundredfold between kinds of work and changes from month to month. Whether a given workload can tolerate an interruptible host with a residential network connection is an open question that belongs to the evaluation.</p>
+
+<h2 id="s12">12. Limitations and evaluation plan</h2>
+<p>This is a design and analysis paper. Its limits should be plain.</p>
+<p><b>No measurements.</b> No module has been built and run in a tank. The thermal results rest on correlations and assumed coefficients.</p>
+<p><b>The coupling is assumed.</b> The contact conductance in the conduction case carries the whole result. A value half as large would cut the allowable power substantially.</p>
+<p><b>Fin performance is idealised.</b> Fins that must pass a one-inch bore are short, and their real area gain may be below the factor of 2.5 used here.</p>
+<p><b>Tank flow is simplified.</b> The model treats the water as a uniform bath. Real tanks stratify, and a horizontal source low in the tank drives its own circulation.</p>
+<p><b>Reliability is unknown.</b> Electronics held at 80 to 100&nbsp;°C for years, in a sealed tube, in a pressure vessel, is a demanding service.</p>
+<p>The tests that would settle these, in order of cost:</p>
+<table>
+<caption><b>Table 7.</b> Evaluation plan.</caption>
+<tr><th>Stage</th><th>Test</th><th>Question answered</th></tr>
+<tr><td>1. Bench</td><td>Instrumented module in an open, unpressurised bath at fixed temperature</td><td>What are the real coupling and water-side resistances? Does Table 4 hold?</td></tr>
+<tr><td>2. Tank</td><td>Module in a standard 50-gallon heater on a programmed draw profile</td><td>What duty and share of heat are achieved? How long is recovery with and without the auxiliary element?</td></tr>
+<tr><td>3. Pressure and leak</td><td>Hydrostatic test of enclosure and feedthrough; ingress detection test</td><td>Does the pressure boundary hold? Does the moisture sensor trip in time?</td></tr>
+<tr><td>4. Scale</td><td>Matched tanks on hard water, module against conventional element</td><td>Does low watt density reduce scale as predicted?</td></tr>
+<tr><td>5. Deployment</td><td>Flexible conduit in a transparent tank, repeated refills</td><td>Does buoyant deployment place the coil reliably and clear of the dip tube and anode?</td></tr>
+<tr><td>6. Field</td><td>Small bank in a multifamily plant with fleet control</td><td>What is the year-round duty? How often is the boiler called?</td></tr>
+</table>
+
+<h2 id="s13">13. Conclusion</h2>
+<p>The heating-element port is the one place in an installed water heater that was built to accept an electric heat source in the water. Packaging a computer to fit it removes the main obstacle that earlier heat-reuse schemes ran into, which is the need to change the building.</p>
+<p>The port's small size limits the module to a few hundred watts, and that limit is what makes the idea work: it matches the average load of a household, so the module can run for most of the day. The first thermal model says the limit is set inside the tube, at the coupling between dies and wall, and that conduction coupling is needed to reach useful power. A flexible conduit scales the same design to kilowatts through the same opening, a dry-well sleeve makes the hardware serviceable without draining, and a resistive partner on the same fitting restores everything computation cannot do.</p>
+<p>What remains is to build one and measure it.</p>
+
+<h2 id="refs">References</h2>
+<ol class="refs">
+<li>A. Shehabi et al., <i>2024 United States Data Center Energy Usage Report</i>, Lawrence Berkeley National Laboratory, LBNL-2001637, 2024.</li>
+<li>K. Ebrahimi, G. F. Jones and A. S. Fleischer, "A review of data center cooling technology, operating conditions and the corresponding low-grade waste heat recovery opportunities," <i>Renewable and Sustainable Energy Reviews</i>, vol. 31, pp. 622–638, 2014.</li>
+<li>U.S. Department of Energy, Energy Saver, "Water Heating," energy.gov.</li>
+<li>M. Wahlroos, M. Pärssinen, J. Manner and S. Syri, "Utilizing data center waste heat in district heating: impacts on energy efficiency and prospects for low-temperature district heating networks," <i>Energy</i>, vol. 140, pp. 1228–1238, 2017.</li>
+<li>J. Liu, M. Goraczko, S. James, C. Belady, J. Lu and K. Whitehouse, "The data furnace: heating up with cloud computing," in <i>Proc. 3rd USENIX Workshop on Hot Topics in Cloud Computing (HotCloud)</i>, 2011.</li>
+<li>U.S. Patent 11,974,412 (Hunt Energy), processors in dielectric liquid for heating domestic hot water, granted 2024.</li>
+<li>U.S. Patent Application Publication 2022/0214727 (Positive Degree), dielectric-filled vessel with compute boards inside a water tank.</li>
+<li>U.K. Patent GB 2,576,035 (Heata), compute unit thermally bonded to the exterior of a hot-water cylinder.</li>
+<li>U.S. Patent 9,516,791 (Iceotope), sealed liquid-filled module for electronic components.</li>
+<li>U.S. Patent 9,518,759 (Butler), screw-in retrofit water-heater element with associated electronics.</li>
+<li>U.S. Patent 6,539,171 (Watlow), flexible spiral heating element insertable through a standard port.</li>
+<li>S. W. Churchill and H. H. S. Chu, "Correlating equations for laminar and turbulent free convection from a horizontal cylinder," <i>International Journal of Heat and Mass Transfer</i>, vol. 18, pp. 1049–1053, 1975.</li>
+<li>S. W. Churchill and M. Bernstein, "A correlating equation for forced convection from gases and liquids to a circular cylinder in crossflow," <i>Journal of Heat Transfer</i>, vol. 99, pp. 300–306, 1977.</li>
+<li>T. L. Bergman, A. S. Lavine, F. P. Incropera and D. P. DeWitt, <i>Fundamentals of Heat and Mass Transfer</i>, 7th ed., Wiley, 2011.</li>
+<li>ASHRAE, <i>Guideline 12-2020: Managing the Risk of Legionellosis Associated with Building Water Systems</i>, 2020.</li>
+<li>UL 174, <i>Standard for Household Electric Storage Tank Water Heaters</i>, and UL 1030, <i>Standard for Sheathed Heating Elements</i>.</li>
+<li>UL 62368-1, <i>Audio/Video, Information and Communication Technology Equipment, Part 1: Safety Requirements</i>.</li>
+</ol>
+
+<h2 id="cite">How to cite</h2>
+<p>B. Goldstein, "The Heating Element That Computes: An Immersion Computing Module for the Standard Water-Heater Element Port," Benny Labs Foundation working paper, November 2026. https://bennylabs.org/thermalcore/paper/</p>
+
+<div class="note"><b>Disclosure.</b> The author is the inventor named on a pending U.S. patent application covering the module described here, and has a financial interest in it. The model code is open and is published with the paper.</div>
+
+<footer>© 2026 Benny Goldstein. Published by Benny Labs Foundation Inc., a 501(c)(3) nonprofit public charity. · <a href="../../">bennylabs.org</a> · <a href="https://thermalcore.energy/">thermalcore.energy</a></footer>
+</main>
+</body>
+</html>
