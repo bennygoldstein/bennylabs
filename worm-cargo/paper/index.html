@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Sorting Hub That Drives: Routing Packages Through a Coupled Chain of Autonomous Cargo Vehicles | Benny Labs Foundation</title>
+<meta name="description" content="A working paper on Worm Cargo: driverless cargo vehicles that couple into a live chain and pass destination-addressed packages through one another, so parcels are sorted on the road instead of at a hub. Design, a routing model, capacity limits and an evaluation plan.">
+<meta name="author" content="Benny Goldstein">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="keywords" content="parcel sortation, middle-mile logistics, cross-docking, hub-and-spoke networks, autonomous vehicles, modular vehicles, physical internet, last-mile delivery">
+<meta name="citation_publication_date" content="2026/11/25">
+<meta name="citation_abstract_html_url" content="https://bennylabs.org/worm-cargo/paper/">
+<meta name="citation_pdf_url" content="https://bennylabs.org/worm-cargo/paper/paper.pdf">
+<meta property="og:title" content="The Sorting Hub That Drives">
+<meta property="og:description" content="Driverless cargo vehicles that couple into a chain and pass packages through one another, sorting parcels on the road instead of at a hub.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://bennylabs.org/worm-cargo/paper/">
+<meta property="og:image" content="https://bennylabs.org/assets/wormcargo-paper/wc-hero-share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Three coupled driverless cargo vehicles on a highway, roofs cut away, parcels riding a conveyor through bellows gangways between them">
+<meta property="article:published_time" content="2026-11-25">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Sorting Hub That Drives">
+<meta name="twitter:description" content="Driverless cargo vehicles that couple into a chain and pass packages through one another, sorting parcels on the road instead of at a hub.">
+<meta name="twitter:image" content="https://bennylabs.org/assets/wormcargo-paper/wc-hero-share.jpg">
+<meta name="citation_title" content="The Sorting Hub That Drives: Routing Packages Through a Coupled Chain of Autonomous Cargo Vehicles">
+<meta name="citation_author" content="Goldstein, Benny">
+<meta name="citation_technical_report_institution" content="Benny Labs Foundation">
+<meta name="citation_language" content="en">
+<meta name="theme-color" content="#1e5a8a">
+<link rel="canonical" href="https://bennylabs.org/worm-cargo/paper/">
+<style>
+  :root{--ink:#17202b;--soft:#4b5866;--line:#dde4ec;--wash:#f5f8fb;--accent:#1e5a8a;--amber:#b7791f}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#fff;color:var(--ink);font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;font-size:18px;line-height:1.62}
+  .top{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.86rem;border-bottom:1px solid var(--line);padding:12px 24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .top a{color:var(--accent);text-decoration:none;font-weight:600}
+  main{max-width:820px;margin:0 auto;padding:44px 24px 80px}
+  .kicker{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  h1{font-size:2.15rem;line-height:1.18;margin:.5rem 0 .4rem;letter-spacing:-.01em}
+  .sub{font-size:1.2rem;color:var(--soft);margin:0 0 1.4rem;font-style:italic}
+  .byline{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.95rem;color:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:28px}
+  .byline strong{color:var(--ink)}
+  .abstract{background:var(--wash);border:1px solid var(--line);border-radius:10px;padding:20px 24px;margin:0 0 30px}
+  .abstract h2{margin:0 0 .4rem;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;border:0;padding:0}
+  .abstract p{margin:.4rem 0;font-size:.98rem}
+  .kw{font-size:.9rem;color:var(--soft)}
+  h2{font-size:1.42rem;margin:2.5rem 0 .6rem;padding-top:.6rem;border-top:1px solid var(--line)}
+  h3{font-size:1.1rem;margin:1.6rem 0 .3rem}
+  p{margin:.7rem 0}
+  a{color:var(--accent)}
+  figure{margin:1.8rem 0;text-align:center}
+  figure img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px}
+  figure.hero{margin:0 0 1.6rem}
+  figure.hero img{border-radius:12px}
+  figcaption{font-size:.9rem;color:var(--soft);margin-top:.55rem;text-align:left;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.45}
+  figcaption b{color:var(--ink)}
+  .eq{display:flex;align-items:center;justify-content:center;gap:18px;margin:1.1rem 0;font-size:1.08rem;font-style:italic;text-align:center}
+  .eq span.n{font-style:normal;color:var(--soft);font-size:.9rem;margin-left:auto}
+  .eq span.b{margin-left:auto}
+  .eq i{font-style:normal}
+  table{border-collapse:collapse;width:100%;margin:1.3rem 0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.86rem;line-height:1.4}
+  th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{border-bottom:2px solid var(--ink);font-weight:700}
+  caption{caption-side:top;text-align:left;font-size:.9rem;color:var(--soft);padding-bottom:6px}
+  caption b{color:var(--ink)}
+  .note{background:#fffaf0;border-left:3px solid var(--amber);padding:12px 16px;font-size:.93rem;margin:1.2rem 0}
+  ol.refs{font-size:.9rem;padding-left:1.4rem}
+  ol.refs li{margin:.45rem 0}
+  .toc{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.9rem;columns:2;column-gap:32px;padding:0;list-style:none;margin:0 0 10px}
+  .toc li{margin:.2rem 0}
+  .toc a{text-decoration:none}
+  footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1rem;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.84rem;color:var(--soft)}
+  @media (max-width:640px){body{font-size:17px}h1{font-size:1.7rem}.toc{columns:1}table{display:block;overflow-x:auto}}
+  @media print{.top{display:none}main{padding:0;max-width:none}body{font-size:11.5pt}figure,table,.eq{break-inside:avoid}h2,h3{break-after:avoid}}
+</style>
+</head>
+<body>
+<div class="top"><a href="../../">← Benny Labs Foundation</a><span>Working Paper · <a href="../">Worm Cargo project page</a> · <a href="paper.pdf">Download PDF</a></span></div>
+<main>
+<figure class="hero"><img src="../../assets/wormcargo-paper/wc-hero.jpg" alt="Illustration of three box-shaped driverless cargo vehicles coupled into one chain on a curving highway. The roofs are cut away to show a conveyor deck running through bellows gangways between the vehicles, with parcels moving from the origin vehicle across the intermediate vehicle to the destination vehicle." width="1400" height="788"></figure>
+<div class="kicker">Working paper · Logistics and autonomous vehicles</div>
+<h1>The Sorting Hub That Drives</h1>
+<p class="sub">Routing destination-addressed packages through a coupled chain of autonomous cargo vehicles: design, a routing model and the limits of sorting on the move</p>
+<div class="byline"><strong>Benny Goldstein</strong> · Benny Labs Foundation, New York · <a href="mailto:b@bennylabs.org">b@bennylabs.org</a><br>Working paper, November 25, 2026 · The system described is the subject of a pending U.S. patent application by the author, Application No. 19/719,219, filed June 25, 2026 (patent pending).</div>
+
+<section class="abstract">
+<h2>Abstract</h2>
+<p>Parcels spend much of their journey standing still. In a hub-and-spoke network a vehicle drives to a fixed building, stops, is unloaded, and its cargo is sorted and reloaded onto other vehicles, and the cycle repeats at the next hub. This paper describes a different arrangement, developed under the name Worm Cargo. Driverless cargo vehicles releasably couple into a live chain, either while travelling along a shared road or while parked. The coupling forms an enclosed transfer path between their cargo areas, and an automated transfer mechanism moves each package, according to its own destination identifier, to the vehicle that will carry it onward. A package can cross an intermediate vehicle that is neither its origin nor its destination to reach a vehicle further along the chain. When the vehicles separate, each already carries the packages for the place it serves.</p>
+<p>We describe the system and give a simple, open model of what it changes and where it stops working. On a long corridor with two hub visits of six hours each, replacing hub dwell with sorting on the move removes about 12.5 hours of a 38.4-hour trip; the saving is almost entirely the dwell assumption. Re-ordering the vehicles in a chain matters: moving a feeder vehicle from the end to the middle of a five-vehicle chain cuts the transfers needed from 3,000 to 1,800 and halves the load on the busiest link. The model also exposes the limits plainly. One coupling aperture passes about 2,000 parcels an hour, and the robots that pull parcels from storage are often slower still. Coupling and decoupling alone use about 20 km of shared road at highway speed, so a shared segment of 15 km sorts nothing, and sorting 1,200 parcels from one feeder vehicle needs 34 to 140 km of road together, depending on chain order, handling robots and decks. Catching up to a partner that is even five minutes ahead costs tens of kilometres.</p>
+<p>No prototype exists. Every number in the analysis comes from a published model with stated assumptions, and the paper ends with the tests that would confirm or refute it.</p>
+<p class="kw"><b>Keywords:</b> parcel sortation, middle-mile logistics, cross-docking, hub-and-spoke networks, autonomous vehicles, modular vehicles, physical internet, last-mile delivery</p>
+</section>
+
+<ul class="toc">
+<li><a href="#s1">1. Introduction</a></li>
+<li><a href="#s2">2. Related work</a></li>
+<li><a href="#s3">3. The system</a></li>
+<li><a href="#s4">4. Through-routing in a live chain</a></li>
+<li><a href="#s5">5. What hub dwell costs</a></li>
+<li><a href="#s6">6. Chain order</a></li>
+<li><a href="#s7">7. The aperture is the bottleneck</a></li>
+<li><a href="#s8">8. How much shared road a sort needs</a></li>
+<li><a href="#s9">9. More capacity through one coupling</a></li>
+<li><a href="#s10">10. Custody, safety and security</a></li>
+<li><a href="#s11">11. The last mile</a></li>
+<li><a href="#s12">12. Limitations and evaluation plan</a></li>
+<li><a href="#s13">13. Conclusion</a></li>
+<li><a href="#refs">References</a></li>
+</ul>
+
+<h2 id="s1">1. Introduction</h2>
+<p>A parcel network is built around places where cargo stops. Between first pickup and final delivery, the usual middle-mile cycle is: drive to a fixed installation, stop, unload, sort by onward destination, reload onto other vehicles, and drive on. The cycle repeats at each hub on the way. Hub-and-spoke design exists for good reasons. Concentrating flows at a few nodes lets a network serve many origin and destination pairs with few links, and the problem of where to put those nodes is a classic of operations research [1]. Cross-docking, in which goods pass from inbound to outbound vehicles with little or no storage, is the refined form of the same idea [2].</p>
+<p>The cost is that every parcel must come to rest at every node on its path. It waits in a trailer for a dock door, waits to be unloaded, waits on a sorter, and then waits for the outbound vehicle to depart. The route itself bends to reach the hub, even when the hub lies off the line from origin to destination. Each handling is also one more chance for damage, delay or a missort.</p>
+<figure><img src="../../assets/wormcargo-paper/wc-fig1-hubchain.jpg" alt="Split illustration. Left: trucks at the loading docks of a warehouse hub with parcels piled on a sorter, a clock above it and a route bending out of the way to reach it. Right: three driverless cargo vehicles coupled into a chain on a highway, parcels moving between them, the route continuing straight." width="1400" height="933"><figcaption><b>Figure 1.</b> Two ways to sort. Left, the vehicles detour to a fixed hub and the cargo dwells there. Right, the vehicles that share a stretch of road couple and sort among themselves while travelling.</figcaption></figure>
+<p>This paper starts from an observation about where vehicles already are. Many cargo vehicles in a region travel the same trunk roads for part of their trips before splitting toward different towns. During that shared stretch they are, in effect, side by side with the very vehicles their cargo needs to reach. If they could join and pass packages to one another, the sort could happen there, on the road, and the hub stop could be skipped.</p>
+<p>The system described here, Worm Cargo, is built on that idea. Its vehicles have no driver's cab and so no fixed front or back. They couple end to end into a chain, and the coupling forms an enclosed, deck-level passage between cargo areas. A coordination system reads each package's destination and moves it, through as many vehicles as needed, to the vehicle that will carry it onward. The vehicles then separate. The name comes from the intermediate vehicle, which acts as a moving conduit that packages pass through.</p>
+<p>The questions we address are practical ones. How much time does the hub stop actually cost? How many transfers does a chain need, and does the order of the vehicles matter? How fast can parcels move through a coupling? How long must vehicles stay together to finish a sort, and what happens when the shared road is short? We give a small model for each, publish it, and say where the answers are unfavourable.</p>
+
+<h2 id="s2">2. Related work</h2>
+<p><b>Hubs and cross-docks.</b> Hub location models [1] and the cross-docking literature [2] treat the fixed transfer node as given and optimise around it: where to place it, how to assign doors, how to schedule trucks. Sortation conveyors inside parcel hubs are themselves the subject of a large body of work on layout and control [3]. Worm Cargo does not improve the hub; it asks how much of its sorting function can be moved into the vehicles.</p>
+<p><b>The physical internet.</b> Montreuil's physical internet vision [4] proposes that goods move through an open network in standard modular containers, routed hop by hop like data packets, through distributed transit centres. The present system shares the hop-by-hop, per-unit routing idea and pushes it one step further: some of the "routers" are the moving vehicles themselves.</p>
+<p><b>Platooning.</b> Truck platooning keeps vehicles close together by wireless control to save fuel. Reviews of platooning projects report energy savings for both the lead and the following trucks [5], and track tests have measured fuel savings of up to 5.3% for a lead truck and up to 9.7% for a trailing truck [6]. Platooning manages the formation; the cargo in each truck stays where it is. Patents on semi-autonomous convoys follow the same line [17].</p>
+<p><b>Modular and combining vehicles.</b> Research on modular autonomous vehicles studies units that join and split in service, mostly for passengers [7]. Independent driving vehicles that combine through mating surfaces so that passengers and cargo can move between them have been patented [13], as have vehicle systems that transload containers between releasably coupled vehicles over a bridge member above the couplers [14].</p>
+<p><b>Transfers between vehicles.</b> Several patents describe moving goods from one vehicle to another: a robotic arm reaching across an air gap between moving autonomous vehicles, including hand-offs along a planned succession of vehicles [12]; two delivery vehicles that rendezvous to exchange a package [15]; a single vehicle carrying its own scanner and onboard sorter feeding its own outfeeds [16]; and robots that shuffle package racks inside one delivery vehicle, with optional rack transfer to an aligned neighbour [18].</p>
+<p><b>The last mile.</b> Surveys of last-mile delivery describe the high cost of dispersed stops, failed attended deliveries and stopped vans [8, 9]. Parcel locker networks decouple delivery from collection [10].</p>
+<p>The system here sits across these groups. It takes the per-unit routing of the physical internet, the close travel of platooning and the coupling of modular vehicles, and adds a persistent chain of three or more vehicles through which a single package can be routed past an intervening vehicle to a non-adjacent one, under one coordinating controller, in motion or parked.</p>
+
+<table>
+<caption><b>Table 1.</b> Where the coupled-chain approach sits among ways of moving parcels between vehicles.</caption>
+<tr><th>Approach</th><th>Vehicles involved</th><th>Package-level routing</th><th>Past an intervening vehicle</th><th>In motion</th><th>Fixed facility needed</th></tr>
+<tr><td>Hub or cross-dock [1, 2]</td><td>Many, sequentially</td><td>Yes, at the hub</td><td>Not applicable</td><td>No</td><td>Yes</td></tr>
+<tr><td>Platooning [5, 6]</td><td>Several</td><td>No</td><td>No</td><td>Yes</td><td>No</td></tr>
+<tr><td>Two-vehicle exchange or rendezvous [12, 15]</td><td>A pair at a time</td><td>Yes</td><td>Only by separate meetings</td><td>Varies</td><td>No</td></tr>
+<tr><td>Onboard sorter in one vehicle [16, 18]</td><td>One</td><td>Within the vehicle</td><td>No</td><td>Yes</td><td>No</td></tr>
+<tr><td>Combining vehicles, bridge transloading [13, 14]</td><td>Two or more</td><td>Limited</td><td>Not described as routing</td><td>Varies</td><td>No</td></tr>
+<tr><td><b>Coupled chain (this paper)</b></td><td><b>Three or more, persistent</b></td><td><b>Yes, per unit</b></td><td><b>Yes</b></td><td><b>Yes, or parked</b></td><td><b>No</b></td></tr>
+</table>
+
+<h2 id="s3">3. The system</h2>
+<p>The system has four parts: the vehicles, the coupling, the transfer mechanism and the coordination system.</p>
+<p><b>Vehicles.</b> Each cargo vehicle has a chassis on wheels, a propulsion system and a cargo area (Figure 2). In the main embodiment it is driverless and has no manual driving controls, no seat and no windshield. Because nothing fixes a front, each end carries the same coupling portion, deck-level door and transfer equipment. Two vehicles can therefore couple front to back, front to front or back to back, and any vehicle can take any position in a chain. A perception subsystem of cameras, lidar or radar senses the pose of a neighbouring vehicle, and an onboard controller ties propulsion, sensing, coupling and transfer together. The application also covers manned and mixed fleets and other domains such as rail and yard vehicles; this paper models road vehicles only.</p>
+<figure><img src="../../assets/wormcargo-paper/wc-fig2-vehicle.jpg" alt="Side and top cutaway views of one box-shaped driverless cargo vehicle: identical coupling portions with deck-level apertures at both ends, a conveyor deck running end to end, storage shelves, a scanner, perception sensors, a controller and no driver cab." width="1400" height="933"><figcaption><b>Figure 2.</b> One cargo vehicle. With no cab at either end, both ends carry the same coupling portion and aperture.</figcaption></figure>
+<p><b>Coupling.</b> The releasable coupling interface is deliberately not tied to one mechanism. It may be a mechanical latch, a magnetic or electromagnetic coupler, a vacuum coupler, or a deployable bridge or extendable conveyor that spans a gap without a rigid joint. What matters is what the engaged coupling does: it defines an inter-vehicle transfer path. In the main embodiment the two coupling portions mate so that doors in the facing end walls line up at deck level, and a flexible bellows gangway of the kind used between bus sections or rail cars encloses the passage (Figure 3). The joint articulates, so a chain can take curves and grades while the passage stays continuous. The coupling can retract flush into the body when not in use, and it can carry energy from one vehicle's battery to another's.</p>
+<figure><img src="../../assets/wormcargo-paper/wc-fig4-coupling.jpg" alt="Cut-away detail of the joint between two coupled cargo vehicles: mated coupling portions, a bellows gangway enclosing an aligned deck-level aperture, and a conveyor running continuously through it. An inset shows the gangway compressed on the inside of a curve and extended on the outside." width="1400" height="933"><figcaption><b>Figure 3.</b> The engaged coupling. Packages travel through the passage the coupling forms, at deck level, not across an open gap.</figcaption></figure>
+<p><b>Transfer mechanism.</b> Any powered means of moving a package along the path qualifies: a powered conveyor or roller bed through the aperture, a robotic arm, an autonomous mobile robot that drives from one cargo area into the next, a wheeled platform that lifts and turns parcels, or a conventional sorter such as a cross-belt or sliding-shoe unit. Different vehicles in the same chain may use different mechanisms. Inside each vehicle, a handling system puts each unit in an assigned slot and later retrieves it.</p>
+<p><b>Coordination.</b> A coordination system, which may be a remote fleet controller, a designated lead vehicle or any one vehicle, acts as the single controller of the whole sequence. It reads each package's destination identifier (label, optical code, RFID tag or manifest entry), selects the destination vehicle, plans the route through the chain, commands coupling and transfer, confirms placement, and commands decoupling. It chooses for each operation between an in-motion mode, in which vehicles couple and transfer while travelling along a common route, and a parked mode, in which they do so at a depot or roadside stop. In both, no package is unloaded at a fixed sortation facility between coupling and decoupling.</p>
+
+<h2 id="s4">4. Through-routing in a live chain</h2>
+<p>The step that distinguishes the system from a two-vehicle exchange is through-routing (Figure 4). A package that starts on one vehicle and is bound for a vehicle two positions away crosses the middle vehicle. It enters through one coupling and leaves through the other. It did not start on the middle vehicle and is not going to it; the middle vehicle is a transit conduit. Reaching the destination takes two transfer events, and both happen while all three vehicles remain coupled as one persistent chain, not in two separate meetings.</p>
+<figure><img src="../../assets/wormcargo-paper/wc-fig3-throughroute.jpg" alt="Three stacked panels of the same three-vehicle chain. A highlighted parcel starts on the origin vehicle, crosses the first gangway onto the intermediate vehicle, then crosses the second gangway and comes to rest on the destination vehicle." width="1400" height="933"><figcaption><b>Figure 4.</b> Through-routing. One package reaches a non-adjacent vehicle in two transfers, crossing a vehicle that is neither its origin nor its destination.</figcaption></figure>
+<p>Number the vehicles of a chain 1 to <i>N</i>. A package carried from position <i>i</i> to position <i>j</i> makes</p>
+<div class="eq"><span class="b"></span><span><i>h</i> = |<i>i</i> − <i>j</i>|</span><span class="n">(1)</span></div>
+<p>aperture crossings, or hops. Two load patterns bracket practice. In a <i>feeder</i> sort, one vehicle carries a mixed load that it must distribute evenly to the other <i>N</i> − 1. In an <i>exchange</i>, every vehicle carries parcels for every other in equal shares. The mean hops per parcel are</p>
+<div class="eq"><span class="b"></span><span><i>h̄</i><sub>feeder, end</sub> = <i>N</i> / 2 ,   <i>h̄</i><sub>exchange</sub> = (<i>N</i> + 1) / 3</span><span class="n">(2)</span></div>
+<p>The load on a link matters as much as the number of hops, because every package that must pass a link uses its capacity. If link <i>k</i> joins positions <i>k</i> and <i>k</i> + 1, a feeder at the end pushes its whole load across link 1. In an exchange with <i>m</i> parcels per ordered pair, link <i>k</i> carries <i>m k</i> (<i>N</i> − <i>k</i>) parcels in each direction, the most at the centre of the chain.</p>
+
+<table>
+<caption><b>Table 2.</b> Mean transfers per parcel, and the busiest link as a share of a feeder's load, from Eq. (2) and the model.</caption>
+<tr><th>Vehicles <i>N</i></th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr>
+<tr><td>Feeder at the end</td><td>1.50</td><td>2.00</td><td>2.50</td><td>3.00</td><td>3.50</td><td>4.00</td></tr>
+<tr><td>Feeder in the middle</td><td>1.00</td><td>1.33</td><td>1.50</td><td>1.80</td><td>2.00</td><td>2.29</td></tr>
+<tr><td>Uniform exchange</td><td>1.33</td><td>1.67</td><td>2.00</td><td>2.33</td><td>2.67</td><td>3.00</td></tr>
+<tr><td>Busiest link, feeder at end</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td></tr>
+<tr><td>Busiest link, feeder in middle</td><td>50%</td><td>67%</td><td>50%</td><td>60%</td><td>50%</td><td>57%</td></tr>
+</table>
+<p>Hops are not the same as handling. If each vehicle stores every arriving parcel and later re-picks it, every hop is a pick and a place. With the switchable transfer spine of Section 7, a parcel passing through a vehicle is never stored there, so a parcel is picked once at its origin and placed once at its destination however many vehicles it crosses. A hub visit, by comparison, involves at least unloading, sorting and reloading.</p>
+<p>The same mechanism extends beyond one chain. Over a long journey a parcel can be handed through a succession of chains, each formed by vehicles whose routes coincide for a while. The application gives the example of a parcel from Chicago to Miami carried by many different vehicles in turn. Section 5 models that corridor.</p>
+
+<h2 id="s5">5. What hub dwell costs</h2>
+<p>The main claim made for sorting on the move is that it removes hub dwell. The model makes the claim explicit so that its size can be judged. For a trip of road length <i>L</i> at speed <i>v</i>, with a circuity factor κ for the extra distance of the chosen path, a conventional trip through <i>n</i><sub>h</sub> hubs with dwell <i>D</i> at each takes</p>
+<div class="eq"><span class="b"></span><span><i>T</i><sub>hub</sub> = κ<sub>hub</sub> <i>L</i> / <i>v</i> + <i>n</i><sub>h</sub> <i>D</i> ,   <i>T</i><sub>chain</sub> = κ<sub>chain</sub> <i>L</i> / <i>v</i> + <i>K s</i></span><span class="n">(3)</span></div>
+<p>where the chain trip makes <i>K</i> relays, each costing a timing slack <i>s</i> while vehicles meet. We assume both trips use driverless vehicles at the same speed, so driver rest rules do not differ between them. The assumptions for the corridor are: <i>L</i> = 2,200&nbsp;km, roughly the road distance from Chicago to Miami; <i>v</i> = 90&nbsp;km/h; κ<sub>hub</sub> = 1.08 and κ<sub>chain</sub> = 1.02; <i>n</i><sub>h</sub> = 2 and <i>D</i> = 6&nbsp;h; <i>K</i> = 4 relays at <i>s</i> = 15&nbsp;min each.</p>
+<p>The conventional trip takes 26.4&nbsp;h of driving plus 12&nbsp;h of dwell, 38.4&nbsp;h in all. The chain trip takes 24.9&nbsp;h of driving plus 1&nbsp;h of slack, 25.9&nbsp;h. The saving is 12.5&nbsp;h, or 32%.</p>
+
+<table>
+<caption><b>Table 3.</b> Hours saved on the 2,200 km corridor, by dwell per hub visit and number of hubs on the path (Eq. 3).</caption>
+<tr><th>Hubs on path</th><th>1 h dwell</th><th>2 h</th><th>4 h</th><th>6 h</th><th>8 h</th><th>12 h</th></tr>
+<tr><td>1</td><td>1.5</td><td>2.5</td><td>4.5</td><td>6.5</td><td>8.5</td><td>12.5</td></tr>
+<tr><td>2</td><td>2.5</td><td>4.5</td><td>8.5</td><td>12.5</td><td>16.5</td><td>24.5</td></tr>
+<tr><td>3</td><td>3.5</td><td>6.5</td><td>12.5</td><td>18.5</td><td>24.5</td><td>36.5</td></tr>
+</table>
+<p>Two things should be read from Table 3. The saving is nearly all dwell: the shorter path contributes only 1.5&nbsp;h, less the 1&nbsp;h of relay slack. And the dwell figure is an assumption, not a measurement. A well-run hub with tight connections and an hour of dwell leaves little to win; a network in which parcels miss a departure wave and wait half a day leaves a great deal. The case for the system is therefore strongest where dwell is long and where parcels pass through several nodes, and weakest for short trips through one efficient hub.</p>
+<p>The relay slack <i>s</i> also carries the result. Fifteen minutes assumes the coordination system has already brought partners onto the shared road together. Section 8.3 shows what happens when it has not.</p>
+
+<h2 id="s6">6. Chain order</h2>
+<p>Because the vehicles have no fixed front or back and can couple in any order, the coordination system can choose the order. The application describes re-ordering a chain, by adding, removing or re-sequencing vehicles, specifically to shorten the routing path of packages. The model shows the effect is large.</p>
+<p><b>Feeder sorts.</b> Take a feeder carrying 1,200 parcels for four regional vehicles. With the feeder at the end of the chain, the parcels make 3,000 transfers in all and every one of them crosses the first link. With the feeder in the middle, the same parcels make 1,800 transfers and the busiest link carries 600 (Figure 5). Moving one vehicle two places cuts the transfers by 40% and halves the peak link load, which Section 7 shows is what sets the time a sort takes.</p>
+<figure><img src="../../assets/wormcargo-paper/wc-fig6-reorder.jpg" alt="Two five-vehicle chains. Top: an amber feeder vehicle at the left end sends arrows through every gangway to the right, the thickest at the first gangway, labelled 3,000 transfers and busiest link 1,200 parcels. Bottom: the feeder in the middle sends thinner arrows to both sides, labelled 1,800 transfers and busiest link 600 parcels." width="1400" height="933"><figcaption><b>Figure 5.</b> The same feeder load in two chain orders. Placing the feeder in the middle cuts transfers by 40% and halves the busiest link.</figcaption></figure>
+<p><b>General demand.</b> Real loads are uneven. The model includes a fixed example of six vehicles exchanging 1,030 parcels in ten unequal flows, and checks all 360 distinct orders of the chain (a chain read backwards is the same chain).</p>
+
+<table>
+<caption><b>Table 4.</b> Effect of chain order on a six-vehicle exchange of 1,030 parcels (fixed example in model.py).</caption>
+<tr><th>Order</th><th>Chain</th><th>Total transfers</th><th>Mean hops per parcel</th><th>Busiest link (parcels)</th></tr>
+<tr><td>Best of 360</td><td>C E B F A D</td><td>1,610</td><td>1.56</td><td>330</td></tr>
+<tr><td>As arrived</td><td>A B C D E F</td><td>3,320</td><td>3.22</td><td>670</td></tr>
+<tr><td>Worst of 360</td><td>A B E C D F</td><td>3,670</td><td>3.56</td><td>700</td></tr>
+</table>
+<p>The best order needs less than half the transfers of the order in which the vehicles happened to arrive, and it halves the busiest link. Finding it is a version of the minimum linear arrangement problem, which is NP-complete in general [11]. For the small chains that matter here, this is not an obstacle: a chain of eight vehicles has 20,160 distinct orders, few enough to check exhaustively in a fraction of a second. The harder problem is physical. Re-ordering a moving chain means decoupling, overtaking and recoupling, which costs road and time. The model treats order as chosen at coupling; it does not price a mid-journey reshuffle.</p>
+
+<h2 id="s7">7. The aperture is the bottleneck</h2>
+<p>A fixed hub's sorter is a large machine fed from many doors at once. A coupled chain's sorter is a passage the size of a doorway. Its capacity is the first hard limit of the system.</p>
+<p>A conveyor moving at speed <i>v</i><sub>c</sub>, carrying parcels at a pitch <i>p</i> (parcel length plus gap), passes</p>
+<div class="eq"><span class="b"></span><span><i>r</i><sub>ap</sub> = <i>v</i><sub>c</sub> / <i>p</i></span><span class="n">(4)</span></div>
+<p>parcels per unit time. At 0.5&nbsp;m/s and a 0.9&nbsp;m pitch, one aperture passes 2,000 parcels an hour; at 0.3&nbsp;m/s, 1,200; at 1.0&nbsp;m/s, 4,000. The aperture is not the only constraint. Parcels must be pulled out of storage at the origin and put away at the destination. If one pick head handles <i>r</i><sub>pick</sub> parcels an hour and one put head <i>r</i><sub>place</sub>, a link with <i>n</i><sub>p</sub> pick heads, <i>n</i><sub>q</sub> put heads and <i>d</i> decks carries</p>
+<div class="eq"><span class="b"></span><span><i>r</i><sub>link</sub> = <i>d</i> · min(<i>r</i><sub>ap</sub>, <i>n</i><sub>p</sub> <i>r</i><sub>pick</sub>, <i>n</i><sub>q</sub> <i>r</i><sub>place</sub>)</span><span class="n">(5)</span></div>
+<p>We assume 900 parcels an hour for one pick or put head. With one head at each end, a link carries 900 parcels an hour, less than half of what the aperture could pass. Two heads raise it to 1,800, and only with three does the aperture, at 2,000, become the limit. In this model the robots that fetch parcels from shelves, not the doorway, usually set the pace.</p>
+<p>For scale, the sortation conveyors of a large parcel hub are fed continuously and divert to many outlets at once [3]. One link of a coupled chain is a much smaller machine. The system does not replace a large hub's capacity with one chain; it would spread sorting across many chains, each handling a modest flow during the time its vehicles share a road. Whether enough chains form at the right times is a network question this paper does not answer.</p>
+<h3>7.1 The switchable spine</h3>
+<p>The application describes a transfer architecture that keeps pass-through traffic from consuming handling capacity (Figure 6). Each vehicle carries a deck-level track that ends at self-aligning ports on each coupling face. When the vehicles couple, the ports register and the tracks join into one continuous spine along the chain, so the act of coupling sets up the routing path. In each vehicle a powered turnout, set per parcel from the scanned identifier, takes one of three states: pass-through along the spine, divert-in to the vehicle's local storage, or merge-out from storage back onto the spine. Routing is executed in hardware at each vehicle, and a parcel crossing an intermediate vehicle is never picked or stored there. In the terms of Eq. (5), intermediate vehicles need no pick or put capacity for through traffic; only the aperture rate applies.</p>
+<figure><img src="../../assets/wormcargo-paper/wc-fig5-spine.jpg" alt="Top-down plan of four coupled vehicles with one continuous track down the centre joined at coupling-face ports. Each vehicle has a turnout with a branch to local storage. Callouts show a parcel passing through, a parcel diverting in to storage and a parcel merging out onto the spine." width="1400" height="933"><figcaption><b>Figure 6.</b> The switchable transfer spine. Coupling joins the tracks; three-state turnouts route each parcel in hardware.</figcaption></figure>
+
+<h2 id="s8">8. How much shared road a sort needs</h2>
+<p>The in-motion mode has a cost that a hub does not: the vehicles must stay together until the sort is done, which means they must share enough road. This is the second hard limit.</p>
+<h3>8.1 The shared-segment equation</h3>
+<p>If the busiest link must carry <i>M</i><sub>max</sub> parcels at rate <i>r</i><sub>link</sub>, and coupling and decoupling take <i>t</i><sub>c</sub> and <i>t</i><sub>d</sub>, the length of road the vehicles must share at speed <i>v</i> is</p>
+<div class="eq"><span class="b"></span><span><i>S</i> = <i>v</i> (<i>t</i><sub>c</sub> + <i>M</i><sub>max</sub> / <i>r</i><sub>link</sub> + <i>t</i><sub>d</sub>)</span><span class="n">(6)</span></div>
+<p>We assume <i>t</i><sub>c</sub> = 10&nbsp;min for approach, alignment, engagement, the security handshake and opening the doors, and <i>t</i><sub>d</sub> = 3&nbsp;min for closing and release, at 90&nbsp;km/h. The overhead alone uses 19.5&nbsp;km of road before a single parcel moves.</p>
+<figure><img src="../../assets/wormcargo-paper/wc-fig7-sharedroad.jpg" alt="Bird's-eye route map. Three roads merge into one shared highway and then split toward three towns. Vehicles converge, couple, sort on the shared road, decouple and diverge. A bracket marks the shared segment." width="1400" height="933"><figcaption><b>Figure 7.</b> Sorting on a shared segment. Vehicles whose routes coincide converge, couple, sort while travelling, then decouple and diverge.</figcaption></figure>
+
+<table>
+<caption><b>Table 5.</b> Shared road (and time coupled) needed to finish a feeder sort in a five-vehicle chain, from Eq. (6), coupling overhead included.</caption>
+<tr><th>Parcels</th><th>Feeder at end, 1 head</th><th>At end, 2 heads</th><th>In middle, 1 head per side</th><th>In middle, 2 heads per side</th><th>In middle, 2 heads per side, 2 decks</th></tr>
+<tr><td>300</td><td>50 km (33 min)</td><td>34 km (23 min)</td><td>34 km (23 min)</td><td>27 km (18 min)</td><td>23 km (15 min)</td></tr>
+<tr><td>600</td><td>80 km (53 min)</td><td>50 km (33 min)</td><td>50 km (33 min)</td><td>34 km (23 min)</td><td>27 km (18 min)</td></tr>
+<tr><td>1,200</td><td>140 km (93 min)</td><td>80 km (53 min)</td><td>80 km (53 min)</td><td>50 km (33 min)</td><td>34 km (23 min)</td></tr>
+<tr><td>2,400</td><td>259 km (173 min)</td><td>140 km (93 min)</td><td>140 km (93 min)</td><td>80 km (53 min)</td><td>50 km (33 min)</td></tr>
+</table>
+<p>Sorting 1,200 parcels takes between 34 and 140&nbsp;km of road together, depending on chain order, handling heads and decks. These are distances that occur on intercity trunk roads, but not within a city.</p>
+<h3>8.2 Short shared segments</h3>
+<p>Turned around, Eq. (6) says how much a given shared segment can sort. With one handling head per link, 30&nbsp;km of shared road sorts 105 parcels over the busiest link, 50&nbsp;km sorts 305, and 100&nbsp;km sorts 805. With the link at the aperture limit the figures are 233, 678 and 1,789, and with two decks 467, 1,356 and 3,578. At 200&nbsp;km a single-deck, aperture-bound link sorts 4,011 parcels. A shared segment of 15&nbsp;km sorts nothing at all, because coupling and decoupling consume it, and 20&nbsp;km sorts 5 to 22.</p>
+<p>This is the clearest weakness the model exposes. The in-motion mode suits long shared trunk segments. On short overlaps it does not work, and the parked mode, in which vehicles couple at a roadside stop, is the better choice. The parked mode keeps the main benefit, since nothing is unloaded at a fixed facility, but the vehicles stand still for the sort, and Eq. (6) then gives the dwell time instead of a distance.</p>
+<p><b>Exchanges.</b> When every vehicle sends 60 parcels to every other and both directions share one aperture, the centre link of a four-vehicle chain carries 240 parcels each way and the exchange takes 14 minutes of sorting and 41&nbsp;km of road; five vehicles, 360 each way, 22 minutes, 52&nbsp;km; six vehicles, 540 each way, 32 minutes, 68&nbsp;km; eight vehicles, 960 each way, 58 minutes, 106&nbsp;km. Re-ordering cannot help a uniform exchange, because every position is equally loaded by symmetry. Longer chains carry more cargo but take disproportionately longer to sort.</p>
+<h3>8.3 Catching up</h3>
+<p>All of this assumes the partners reach the shared road together. If a follower must catch a leader that is a time gap τ ahead at speed <i>v</i>, by driving Δ<i>v</i> faster, the distance it covers before it can couple is</p>
+<div class="eq"><span class="b"></span><span><i>x</i> = (<i>v</i> + Δ<i>v</i>) · <i>v</i>τ / Δ<i>v</i></span><span class="n">(7)</span></div>
+
+<table>
+<caption><b>Table 6.</b> Time and distance to close a gap at 90 km/h, from Eq. (7).</caption>
+<tr><th>Gap</th><th>Δ<i>v</i> = 5 km/h</th><th>Δ<i>v</i> = 10 km/h</th><th>Δ<i>v</i> = 20 km/h</th></tr>
+<tr><td>1 min</td><td>18 min, 28 km</td><td>9 min, 15 km</td><td>4 min, 8 km</td></tr>
+<tr><td>5 min</td><td>90 min, 142 km</td><td>45 min, 75 km</td><td>22 min, 41 km</td></tr>
+<tr><td>10 min</td><td>180 min, 285 km</td><td>90 min, 150 km</td><td>45 min, 82 km</td></tr>
+<tr><td>20 min</td><td>360 min, 570 km</td><td>180 min, 300 km</td><td>90 min, 165 km</td></tr>
+</table>
+<p>A five-minute gap closed at 10&nbsp;km/h above cruising speed takes 45 minutes and 75&nbsp;km, more than the whole sort in most rows of Table 5. Speed limits cap Δ<i>v</i>, and the leader slowing down only moves the cost to the leader. The conclusion is that in-motion coupling depends on scheduling, not on chasing: the coordination system has to time departures so that vehicles enter the shared segment together, within a minute or so. That is a planning burden a hub does not impose, and it is the reason the relay slack in Section 5 is an assumption to be tested rather than a given.</p>
+
+<h2 id="s9">9. More capacity through one coupling</h2>
+<p>Because the aperture and the handling heads limit the rate, the application describes multiplying the passages within a single coupling (Figure 8). Each vehicle has two or more stacked decks, and each deck has its own deck-level port at each coupling face, positioned so that one coupling event registers every deck's port with the matching port of the neighbour. Each deck carries its own transfer mechanism, a conveyor or a wheeled transfer robot, and routes parcels horizontally through its own passage. The decks transfer in parallel, and no parcel is lifted or lowered between decks. The passages may each have their own gangway or share one full-height gangway.</p>
+<figure><img src="../../assets/wormcargo-paper/wc-fig8-multideck.jpg" alt="Side cutaway of two tall coupled cargo vehicles with three decks each. Each deck has its own aligned doorway and small gangway, and on each deck a robot or conveyor carries a parcel across in parallel. No lift is present." width="1400" height="933"><figcaption><b>Figure 8.</b> Multi-deck coupling. One coupling event registers a through-passage at every deck; the decks transfer in parallel.</figcaption></figure>
+<p>In the model, each deck multiplies the link rate. Moving 1,200 parcels over one link with two handling heads per deck takes 40 minutes of sorting and 80&nbsp;km of shared road on one deck, 20 minutes and 50&nbsp;km on two, and 13 minutes and 39&nbsp;km on three. The returns diminish because the fixed 19.5&nbsp;km of coupling overhead does not shrink. Combined with a feeder in the middle, two decks bring the 1,200-parcel sort of Table 5 down to 34&nbsp;km. Multi-deck vehicles are not new in themselves; the point here is that a single coupling event opens all the passages at once.</p>
+
+<h2 id="s10">10. Custody, safety and security</h2>
+<p>A chain of vehicles that hand cargo to one another raises three kinds of risk: a parcel going to the wrong place, a person or object in the passage, and a vehicle that should not be trusted.</p>
+<p><b>Custody in hardware.</b> Each vehicle can carry a per-unit release actuator wired in a series hardware enable line (Figure 9, left). A parcel can be released only when a coupling-continuity sensor confirms that the coupling to the next vehicle is mechanically engaged and the controller confirms that the next vehicle is the correct one for that parcel's destination. A parcel can therefore leave a vehicle only into its intended next vehicle and never into open space.</p>
+<p><b>Presence sensing.</b> A light curtain, laser scanner or pressure-sensitive plate spans the passage. If it detects a person or object while the chain is moving, the transfer mechanism stops and a hold prevents the coupling from releasing until the passage is clear.</p>
+<p><b>Attested coupling.</b> Before a coupling engages or a door opens, adjacent vehicles perform a handshake in which each presents a hardware-rooted cryptographic identity and evidence of its software integrity. The coordination system may also command a candidate vehicle to make a small, verifiable movement and confirm through its sensors that the vehicle alongside is the one that answered. A segmented control bus keeps each vehicle's propulsion and braking separate from the shared transfer domain, so that a compromised vehicle cannot spread commands along the chain, and each vehicle keeps authority over its own brakes.</p>
+<p><b>Fail-safe decoupling.</b> On a fault, a lost link, a failed re-attestation or a loss of alignment, the system halts or reverses any parcel in transit to a safe position, closes the doors, and separates the vehicles to a safe gap without abrupt relative motion.</p>
+<p><b>Thermal rescue.</b> If a vehicle carrying temperature-sensitive parcels develops a cooling fault, the coordination system can re-route those parcels through the chain, while it remains coupled, to another vehicle that can hold the required temperature (Figure 9, right).</p>
+<figure><img src="../../assets/wormcargo-paper/wc-fig9-custody.jpg" alt="Left: a release gate at a coupling joint wired through a coupling-engaged sensor, a correct-next-vehicle check and an attested handshake in series, with a light curtain across the gangway. Right: a three-vehicle chain in which a cold parcel is moved off a middle vehicle with a cooling fault and into a cold compartment in the last vehicle." width="1400" height="933"><figcaption><b>Figure 9.</b> Left, the custody interlock and presence sensing. Right, moving temperature-sensitive cargo off a vehicle with a cooling fault while the chain stays coupled.</figcaption></figure>
+<p><b>Exposure.</b> Through-routing has one cost the model can state simply. Each aperture crossing is a transition at which a parcel can jam or misroute. With an independent fault probability <i>p</i> per crossing, the chance a parcel meets at least one fault in <i>h</i> hops is</p>
+<div class="eq"><span class="b"></span><span><i>P</i> = 1 − (1 − <i>p</i>)<sup><i>h</i></sup></span><span class="n">(8)</span></div>
+<p>At <i>p</i> = 0.001, one hop gives 0.10%, three hops 0.30% and five hops 0.50%. The exposure grows almost linearly with hops, which is one more reason to choose chain order well. No value of <i>p</i> is known for this kind of transfer; the figure is illustrative.</p>
+
+<h2 id="s11">11. The last mile</h2>
+<p>The same vehicles can make final deliveries along their route. The application pairs them with a double-sided roadside parcel locker (Figure 10). The vehicle stops parallel to the locker, opens a roll-up door on its side, and its transfer mechanism places each parcel into a compartment of suitable size through the street-facing side. The recipient later opens the same compartment from the sidewalk side with a code or scannable credential sent to a phone. Loading never blocks the sidewalk, the recipient never steps into the road, and because the door is on the vehicle's side, traffic ahead and behind is not obstructed.</p>
+<figure><img src="../../assets/wormcargo-paper/wc-fig10-locker.jpg" alt="Street scene. A driverless cargo vehicle parked at the curb with its side roll-up door open; a robotic arm places a parcel into the street side of a double-sided locker. On the sidewalk side, a person seen from behind opens a compartment with a phone at a credential reader." width="1400" height="933"><figcaption><b>Figure 10.</b> Street-side loading and sidewalk-side retrieval through a double-sided roadside locker.</figcaption></figure>
+<p>The time a vehicle spends beside the locker is</p>
+<div class="eq"><span class="b"></span><span><i>t</i> = <i>t</i><sub>a</sub> + <i>n t</i><sub>p</sub></span><span class="n">(9)</span></div>
+<p>With an assumed 60&nbsp;s to align and 25&nbsp;s to place each parcel, one parcel takes 1.4 minutes, five take 3.1, ten take 5.2 and twenty take 9.3. Delivery and collection are separated in time, which removes the failed attended delivery that surveys identify as a major last-mile cost [8, 9], as locker networks do generally [10]. What the locker requires, a structure at the kerb loadable from the roadway, is a question for cities, and the model says nothing about it.</p>
+
+<h2 id="s12">12. Limitations and evaluation plan</h2>
+<p>This is a design and analysis paper. Its limits should be plain.</p>
+<p><b>No prototype.</b> No vehicle, coupling or transfer mechanism of this kind has been built. Every number above is modelled.</p>
+<p><b>The benefit rests on the dwell assumption.</b> Section 5 shows the time saving is almost entirely hub dwell. Its real distribution, and how much of it a well-run hub already avoids, has to come from network data, not from this model.</p>
+<p><b>Capacity per chain is small.</b> One link passes about 2,000 parcels an hour at best in the base case, and less when handling heads are few. The system spreads sorting across many chains; it does not reproduce the throughput of a large hub in one place.</p>
+<p><b>Short overlaps do not work in motion.</b> About 20&nbsp;km of shared road goes to coupling overhead, and a 1,200-parcel sort needs 34 to 140&nbsp;km. Where routes overlap briefly, the parked mode must be used.</p>
+<p><b>Rendezvous is assumed.</b> The model assumes partners meet with 15 minutes of slack. Table 6 shows that chasing a partner even a few minutes ahead is costly. Whether enough vehicles share the right roads at the right times, with enough cargo to exchange, depends on fleet density and scheduling, and no network-level simulation has been done.</p>
+<p><b>Coupling in motion is unproven.</b> Joining two road vehicles at speed, with an enclosed passage between them, raises vehicle dynamics, regulatory and public-acceptance questions far beyond this model. Platooning has been tested on public roads [5, 6]; physical coupling at speed has not, to our knowledge, been demonstrated for road cargo vehicles.</p>
+<p><b>Simplified handling.</b> Pick and put rates, conveyor speed and parcel pitch are assumed. Real parcels vary in size and weight, and some will not fit a doorway conveyor.</p>
+<p>The tests that would settle these questions, in order of cost:</p>
+<table>
+<caption><b>Table 7.</b> Evaluation plan.</caption>
+<tr><th>Stage</th><th>Test</th><th>Question answered</th></tr>
+<tr><td>1. Network simulation</td><td>Replay real parcel flows and vehicle routes for a region with chain formation, ordering and the parked fallback</td><td>How often do partners share enough road? What share of hub dwell is actually removed?</td></tr>
+<tr><td>2. Bench transfer</td><td>Two static cargo bodies with a coupling, aperture conveyor and pick heads; mixed parcel sizes</td><td>What are the real aperture and handling rates? What is the jam rate per crossing?</td></tr>
+<tr><td>3. Parked chain</td><td>Three or more vehicles coupling at a yard, feeder and exchange sorts, spine and turnouts</td><td>Does through-routing work end to end? What are coupling and decoupling times?</td></tr>
+<tr><td>4. Low-speed coupling</td><td>Coupling and transfer in motion on a closed track at increasing speed, with fail-safe decoupling</td><td>Can vehicles couple, hold a passage and separate safely in motion?</td></tr>
+<tr><td>5. Security</td><td>Attested handshake, physical challenge and segmented bus under fault and attack injection</td><td>Can a rogue or faulty vehicle be kept out of custody and control?</td></tr>
+<tr><td>6. Last mile</td><td>Double-sided locker loaded from a vehicle at a test kerb</td><td>What is the real time at the kerb and the retrieval experience?</td></tr>
+</table>
+
+<h2 id="s13">13. Conclusion</h2>
+<p>A hub-and-spoke network sorts parcels by bringing them to a stop in a building. The system described here sorts them in the vehicles that already share a road: driverless cargo vehicles couple into a live chain, an enclosed deck-level passage forms between them, and each package is routed, through intermediate vehicles if necessary, to the vehicle that will carry it onward.</p>
+<p>The model finds that the time this removes is essentially hub dwell, about 12.5 hours on a long corridor with two six-hour hub visits, and much less where dwell is short. It finds that chain order matters a great deal, and that the best order for a small chain is easy to compute. And it finds two hard limits: a coupling aperture is a small sorter, often limited further by the robots that fetch parcels, and sorting in motion needs tens of kilometres of shared road and tightly scheduled rendezvous. Multi-deck coupling and the parked mode soften those limits; they do not remove them.</p>
+<p>The idea therefore looks best on long trunk corridors, with loads that are pre-grouped, partners that are scheduled to meet, and the parked mode as the fallback. What remains is to simulate it on real flows, and then to build one.</p>
+
+<p>The model is short and is published with this paper as <a href="model.py">model.py</a>, so the assumptions can be changed and every table regenerated.</p>
+
+<h2 id="refs">References</h2>
+<ol class="refs">
+<li>M. E. O'Kelly, "A quadratic integer program for the location of interacting hub facilities," <i>European Journal of Operational Research</i>, vol. 32, no. 3, pp. 393–404, 1987. <a href="https://doi.org/10.1016/S0377-2217(87)80007-3">doi:10.1016/S0377-2217(87)80007-3</a></li>
+<li>J. Van Belle, P. Valckenaers and D. Cattrysse, "Cross-docking: State of the art," <i>Omega</i>, vol. 40, no. 6, pp. 827–846, 2012. <a href="https://doi.org/10.1016/j.omega.2012.01.005">doi:10.1016/j.omega.2012.01.005</a></li>
+<li>N. Boysen, D. Briskorn, S. Fedtke and M. Schmickerath, "Automated sortation conveyors: A survey from an operational research perspective," <i>European Journal of Operational Research</i>, vol. 276, no. 3, pp. 796–815, 2019. <a href="https://doi.org/10.1016/j.ejor.2018.08.014">doi:10.1016/j.ejor.2018.08.014</a></li>
+<li>B. Montreuil, "Toward a Physical Internet: meeting the global logistics sustainability grand challenge," <i>Logistics Research</i>, vol. 3, no. 2–3, pp. 71–87, 2011. <a href="https://doi.org/10.1007/s12159-011-0045-x">doi:10.1007/s12159-011-0045-x</a></li>
+<li>S. Tsugawa, S. Jeschke and S. E. Shladover, "A review of truck platooning projects for energy savings," <i>IEEE Transactions on Intelligent Vehicles</i>, vol. 1, no. 1, pp. 68–77, 2016. <a href="https://doi.org/10.1109/TIV.2016.2577499">doi:10.1109/TIV.2016.2577499</a></li>
+<li>National Renewable Energy Laboratory, "NREL Highlight: Truck Platooning Testing," fact sheet NREL/FS-5400-64133, 2015. <a href="https://www.osti.gov/biblio/1215230">osti.gov/biblio/1215230</a></li>
+<li>L. Ye and T. Yamamoto, "Exploring modular mobility: industry advancements, research trends, and future directions on modular autonomous vehicles," arXiv:2412.17885, 2024. <a href="https://arxiv.org/abs/2412.17885">arxiv.org/abs/2412.17885</a></li>
+<li>N. Boysen, S. Fedtke and S. Schwerdfeger, "Last-mile delivery concepts: a survey from an operational research perspective," <i>OR Spectrum</i>, vol. 43, pp. 1–58, 2021. <a href="https://doi.org/10.1007/s00291-020-00607-8">doi:10.1007/s00291-020-00607-8</a></li>
+<li>T. Bosona, "Urban freight last mile logistics: challenges and opportunities to improve sustainability: a literature review," <i>Sustainability</i>, vol. 12, no. 21, 8769, 2020. <a href="https://doi.org/10.3390/su12218769">doi:10.3390/su12218769</a></li>
+<li>Y. Deutsch and B. Golany, "A parcel locker network as a solution to the logistics last mile problem," <i>International Journal of Production Research</i>, vol. 56, no. 1–2, pp. 251–261, 2018. <a href="https://doi.org/10.1080/00207543.2017.1395490">doi:10.1080/00207543.2017.1395490</a></li>
+<li>M. R. Garey, D. S. Johnson and L. Stockmeyer, "Some simplified NP-complete graph problems," <i>Theoretical Computer Science</i>, vol. 1, no. 3, pp. 237–267, 1976. <a href="https://doi.org/10.1016/0304-3975(76)90059-1">doi:10.1016/0304-3975(76)90059-1</a></li>
+<li>J. A. Healey and O. U. Florez Choque (Intel), "Autonomous mobile goods transfer," U.S. Patent 11,853,062 B2, 2023.</li>
+<li>T. Gecchelin and E. Spera, "Selectively combinable independent driving vehicles," U.S. Patent 11,535,314 B2, 2022.</li>
+<li>A. D. Paul, N. T. North and M. Karunaratne (Transportation IP Holdings), "Vehicle system and method for cargo transloading," U.S. Patent 12,151,750 B2, 2024.</li>
+<li>E. V. Kline and S. K. Rakshit (IBM), "Mobile package delivery," U.S. Patent 11,164,138 B2, 2021.</li>
+<li>M. Veasey (Deutsche Post), "Transportation vehicle for mobile sorting of shipments," U.S. Patent 10,350,643 B2, 2019.</li>
+<li>J. P. Switkes, J. C. Gerdes, E. Berdichevsky et al. (Peloton Technology), "Systems and methods for semi-autonomous vehicular convoys," U.S. Patent 9,665,102 B2, 2017.</li>
+<li>T. Brady (Amazon Technologies), "Automated mobile sortation and delivery systems and methods," U.S. Patent 12,473,149 B1, 2025.</li>
+</ol>
+
+<h2 id="cite">How to cite</h2>
+<p>B. Goldstein, "The Sorting Hub That Drives: Routing Packages Through a Coupled Chain of Autonomous Cargo Vehicles," Benny Labs Foundation working paper, November 2026. https://bennylabs.org/worm-cargo/paper/</p>
+
+<div class="note"><b>Disclosure.</b> The author is the inventor named on a pending U.S. patent application covering the system described here (Application No. 19/719,219, filed June 25, 2026), and has a financial interest in it. The model code is open and is published with the paper.</div>
+
+<footer>© 2026 Benny Goldstein. Published by Benny Labs Foundation Inc., a 501(c)(3) nonprofit public charity. · <a href="../../">bennylabs.org</a> · <a href="../">Worm Cargo</a></footer>
+</main>
+</body>
+</html>
