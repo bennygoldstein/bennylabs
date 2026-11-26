@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resistance Without a Weight: A Dial-Set, Direction-Dependent Friction Unit for Rehabilitation Braces and Gym Machines | Benny Labs Foundation</title>
+<meta name="description" content="A working paper on Newhab: a compact rotary friction unit with a one-way clutch, a drum brake and a worm-set dial in pounds, worn in a joint brace or bolted to a cable machine in place of a weight stack. Mechanism, an open model, and where friction resistance wins and loses against iron and elastic.">
+<meta name="author" content="Benny Goldstein">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="keywords" content="resistance training, rehabilitation, friction brake, one-way clutch, worm gear, joint brace, weight stack, eccentric training">
+<meta name="citation_publication_date" content="2026/11/26">
+<meta name="citation_abstract_html_url" content="https://bennylabs.org/newhab/paper/">
+<meta name="citation_pdf_url" content="https://bennylabs.org/newhab/paper/paper.pdf">
+<meta property="og:title" content="Resistance Without a Weight">
+<meta property="og:description" content="A dial-set friction unit that resists one direction, frees the other and holds wherever you stop, for rehab braces and gym machines. An open model of where it beats iron and elastic, and where it does not.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://bennylabs.org/newhab/paper/">
+<meta property="og:image" content="https://bennylabs.org/assets/newhab-paper/nh-hero-share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="An arm doing a curl in an elbow brace with a small round dial unit at the hinge, beside a slim cable station that has no weight stack">
+<meta property="article:published_time" content="2026-11-26">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Resistance Without a Weight">
+<meta name="twitter:description" content="A dial-set friction unit that resists one direction, frees the other and holds wherever you stop, for rehab braces and gym machines. An open model of where it beats iron and elastic, and where it does not.">
+<meta name="twitter:image" content="https://bennylabs.org/assets/newhab-paper/nh-hero-share.jpg">
+<meta name="citation_title" content="Resistance Without a Weight: A Dial-Set, Direction-Dependent Friction Unit for Rehabilitation Braces and Gym Machines">
+<meta name="citation_author" content="Goldstein, Benny">
+<meta name="citation_technical_report_institution" content="Benny Labs Foundation">
+<meta name="citation_language" content="en">
+<!-- DOI PLACEHOLDER: add <meta name="citation_doi" content="10.5281/zenodo.XXXXXXXX"> here once the Zenodo record exists, and fill the DOI line in the byline and the How to cite entry. -->
+<meta name="theme-color" content="#1d5c57">
+<link rel="canonical" href="https://bennylabs.org/newhab/paper/">
+<style>
+  :root{--ink:#16211f;--soft:#4f5d5a;--line:#dbe6e3;--wash:#f4f9f8;--accent:#1d5c57;--amber:#b7791f}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#fff;color:var(--ink);font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;font-size:18px;line-height:1.62}
+  .top{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.86rem;border-bottom:1px solid var(--line);padding:12px 24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .top a{color:var(--accent);text-decoration:none;font-weight:600}
+  main{max-width:820px;margin:0 auto;padding:44px 24px 80px}
+  .kicker{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  h1{font-size:2.15rem;line-height:1.18;margin:.5rem 0 .4rem;letter-spacing:-.01em}
+  .sub{font-size:1.2rem;color:var(--soft);margin:0 0 1.4rem;font-style:italic}
+  .byline{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.95rem;color:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:28px}
+  .byline strong{color:var(--ink)}
+  .abstract{background:var(--wash);border:1px solid var(--line);border-radius:10px;padding:20px 24px;margin:0 0 30px}
+  .abstract h2{margin:0 0 .4rem;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;border:0;padding:0}
+  .abstract p{margin:.4rem 0;font-size:.98rem}
+  .kw{font-size:.9rem;color:var(--soft)}
+  h2{font-size:1.42rem;margin:2.5rem 0 .6rem;padding-top:.6rem;border-top:1px solid var(--line)}
+  h3{font-size:1.1rem;margin:1.6rem 0 .3rem}
+  p{margin:.7rem 0}
+  a{color:var(--accent)}
+  figure{margin:1.8rem 0;text-align:center}
+  figure img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px}
+  figure.hero{margin:0 0 1.6rem}
+  figure.hero img{border-radius:12px}
+  figcaption{font-size:.9rem;color:var(--soft);margin-top:.55rem;text-align:left;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.45}
+  figcaption b{color:var(--ink)}
+  .eq{display:flex;align-items:center;justify-content:center;gap:18px;margin:1.1rem 0;font-size:1.08rem;font-style:italic;text-align:center}
+  .eq span.n{font-style:normal;color:var(--soft);font-size:.9rem;margin-left:auto}
+  .eq span.b{margin-left:auto}
+  .eq i{font-style:normal}
+  table{border-collapse:collapse;width:100%;margin:1.3rem 0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.86rem;line-height:1.4}
+  th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{border-bottom:2px solid var(--ink);font-weight:700}
+  caption{caption-side:top;text-align:left;font-size:.9rem;color:var(--soft);padding-bottom:6px}
+  caption b{color:var(--ink)}
+  .note{background:#fffaf0;border-left:3px solid var(--amber);padding:12px 16px;font-size:.93rem;margin:1.2rem 0}
+  ol.refs{font-size:.9rem;padding-left:1.4rem}
+  ol.refs li{margin:.45rem 0}
+  .toc{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.9rem;columns:2;column-gap:32px;padding:0;list-style:none;margin:0 0 10px}
+  .toc li{margin:.2rem 0}
+  .toc a{text-decoration:none}
+  footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1rem;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.84rem;color:var(--soft)}
+  @media (max-width:640px){body{font-size:17px}h1{font-size:1.7rem}.toc{columns:1}table{display:block;overflow-x:auto}.eq{font-size:1rem;gap:10px}}
+  @media print{.top{display:none}main{padding:0;max-width:none}body{font-size:11.5pt}figure,table,.eq{break-inside:avoid}h2,h3{break-after:avoid}}
+</style>
+</head>
+<body>
+<div class="top"><a href="../../">← Benny Labs Foundation</a><span>Working Paper · <a href="https://newhab.life/">Newhab project page</a> · <a href="paper.pdf">Download PDF</a></span></div>
+<main>
+<figure class="hero"><img src="../../assets/newhab-paper/nh-hero.jpg" alt="Illustration of an arm doing a biceps curl in a slim elbow brace. A small round housing with a graduated dial sits at the hinge beside the elbow. Next to the arm stands a slim cable station with a handle and a pulley but no weight stack." width="1400" height="788"></figure>
+<div class="kicker">Working paper · Exercise and rehabilitation equipment</div>
+<h1>Resistance Without a Weight</h1>
+<p class="sub">A dial-set, direction-dependent friction unit for rehabilitation braces and gym machines: the mechanism, an open model, and where friction resistance beats iron and elastic and where it does not</p>
+<div class="byline"><strong>Benny Goldstein</strong> · Benny Labs Foundation, New York · <a href="mailto:b@bennylabs.org">b@bennylabs.org</a><br>Working paper, November 26, 2026 · The mechanism described is the subject of a pending U.S. patent application by the author, Application No. 19/722,859, filed June 28, 2026, claiming priority to U.S. Provisional Application No. 63/832,311, filed June 29, 2025 (patent pending).<br><!-- DOI PLACEHOLDER: replace this comment with  DOI: <a href="https://doi.org/10.5281/zenodo.XXXXXXXX">10.5281/zenodo.XXXXXXXX</a>  once the record is published. --></div>
+
+<section class="abstract">
+<h2>Abstract</h2>
+<p>Training resistance comes mostly from lifted iron or stretched elastic. Both store energy, so both can fall or snap back, and neither can be set to an exact, repeatable number in small steps. This paper describes a third source, developed under the name Newhab: a compact rotary unit in which a one-way clutch couples a brake drum to the shaft in one direction only, a friction member presses on the drum, and a self-locking worm sets and holds that pressure from a dial graduated in pounds. One unit resists one direction and frees the other; an outer and an inner brake in one unit, or two oppositely rigged units on either side of a joint, resist both directions to independently set values. The same unit, about the size of a bottle cap, can be worn in an elbow or knee brace, or built larger and bolted to a machine frame to drive a cable in place of a weight stack.</p>
+<p>We give an open model of the mechanism against a dumbbell and an elastic band. At the elbow, 5 lb at the grip is 7.3 N·m, which on a 12 mm drum takes 1,750 N of shoe force. The unit's resistance is flat across a curl and independent of speed, and at the same peak it asks 1.38 times a dumbbell's work per lift. Stopped mid-lift, a dumbbell sheds 10 to 23 J and a band 4 J; the unit 0.13 J. Against a 200 lb weight stack, a gym unit is about 26 times lighter and 41 times smaller. The model also finds the costs. Friction cannot load a muscle eccentrically. Every joule becomes heat: three sets of 15 at 5 lb take a 30 g drum to about 67 °C, and a gym unit needs a drum of about 1 kg. The dial sets preload, not force, so a ±15% change in friction moves a 5 lb reading by ±12 oz.</p>
+<p>No prototype exists. Every number comes from a published model with stated assumptions, and the paper ends with the tests that would confirm or refute it.</p>
+<p class="kw"><b>Keywords:</b> resistance training, rehabilitation, friction brake, one-way clutch, worm gear, joint brace, weight stack, eccentric training</p>
+</section>
+
+<ul class="toc">
+<li><a href="#s1">1. Introduction</a></li>
+<li><a href="#s2">2. Related work</a></li>
+<li><a href="#s3">3. The mechanism</a></li>
+<li><a href="#s4">4. Three architectures</a></li>
+<li><a href="#s5">5. From dial to pounds</a></li>
+<li><a href="#s6">6. The brace and the machine</a></li>
+<li><a href="#s7">7. Stopping mid-repetition</a></li>
+<li><a href="#s8">8. Resistance across the range</a></li>
+<li><a href="#s9">9. What friction cannot do: the lowering phase</a></li>
+<li><a href="#s10">10. Heat</a></li>
+<li><a href="#s11">11. How true is the dial?</a></li>
+<li><a href="#s12">12. Mass, volume and the case for tension weights</a></li>
+<li><a href="#s13">13. Limitations and evaluation plan</a></li>
+<li><a href="#s14">14. Conclusion</a></li>
+<li><a href="#refs">References</a></li>
+</ul>
+
+<h2 id="s1">1. Introduction</h2>
+<p>Muscle is built and rebuilt by working against an opposing force, and the force has almost always come from one of two places: a mass lifted against gravity, or an elastic element stretched [1, 2]. Each has a character that follows from its physics. A weight resists only upward motion, and how hard it resists depends on the angle of the limb, because gravity acts on the weight through a moment arm that changes as the joint turns. An elastic band resists more the further it is stretched. Both store the energy the user puts into them and give it back: the weight on the way down, the band as it shortens. That stored energy is what makes the lowering phase of a lift work the muscle as it lengthens, and it is also what makes a dropped dumbbell or a released band dangerous [3].</p>
+<p>A third family has grown up beside them: resistance made mechanically or electronically, with no lifted mass. Isokinetic dynamometers hold the limb to a set speed [4]; flywheel devices store and return kinetic energy [5, 6]; pneumatic and vacuum-cylinder machines have flown on the International Space Station [7]; motor-driven robotic devices are established in rehabilitation [8]; and friction-belt cycle ergometers have set the load in exercise laboratories for decades [9]. The background of the application calls this family tension or "digital" weight. Most of its members are large, expensive or need mains power.</p>
+<p>This paper describes a small, purely mechanical member of that family, developed under the name Newhab: a friction brake on a drum, made to act in one direction by a one-way clutch, its pressure set and held by a worm and read on a dial in pounds (Figure 1). It stores essentially no energy, so the user can stop anywhere and nothing falls or snaps back. It can be worn in a joint brace or bolted to a gym machine where the weight stack would be.</p>
+<figure><img src="../../assets/newhab-paper/nh-fig1-three-loads.jpg" alt="Three side-by-side panels of the same forearm doing a curl. Left, a dumbbell in the hand with an arrow for gravity pulling straight down. Middle, an elastic band running from the hand to an anchor under the foot, stretching as the hand rises. Right, a forearm in a brace with a small round dial unit at the elbow hinge, with a curved arrow showing resistance opposing the lift." width="1400" height="933"><figcaption><b>Figure 1.</b> Three ways to load a muscle: a lifted iron weight, a stretched elastic band, and a friction tension unit at the joint.</figcaption></figure>
+<p>The question this paper addresses is whether resistance training's future lies in such "tension weights" rather than in lifted mass. Rather than assert an answer, we give a small model for each property that matters: the force the unit must make, its resistance across a curl, what is released when the user stops, what friction cannot do, heat, the truth of the dial, and mass and space. We publish the model and say plainly where the answers are unfavourable.</p>
+
+<h2 id="s2">2. Related work</h2>
+<p><b>Forms of resistance.</b> Frost, Cronin and Newton compare gravity, elastic, isoinertial and other resistance by the force, velocity and power they produce [2]; McMaster and colleagues review variable resistance [3]; Uchida and colleagues measure clinical elastic bands [15]. Hislop and Perrine set out the isokinetic concept [4]. Berg and Tesch built a gravity-independent flywheel ergometer for spaceflight [5], whose eccentric overload is reviewed in [6]; Loehr and colleagues report training on the vacuum-cylinder device of the International Space Station [7]; Maciejasz and colleagues survey motor-driven rehabilitation devices [8]; and Maxwell and colleagues calibrated friction-belt cycle ergometers [9].</p>
+<p><b>Concentric and eccentric work.</b> A muscle works concentrically when it shortens under load and eccentrically when it lengthens under load. Meta-analyses find eccentric training at least as effective as concentric training for strength and mass [10, 11], and eccentric loading has an established place in rehabilitation [12, 13]. This matters for Section 9, because a friction brake cannot produce it.</p>
+<p><b>Strength curves.</b> The torque a joint can produce varies with its angle. Kulig, Andrews and Hay review these strength curves [14]; for the elbow flexors the curve peaks in mid-range and is lower near full extension. We use a shape of that kind, labelled as an illustration, in Section 8.</p>
+<p><b>Resistance at a worn joint.</b> Airy and Kadavy describe a two-arm exercise device with two one-way roller clutches, each with its own friction belt and setting [21]. Knoth [22] and Longo and colleagues [23] use hydraulic resistance with separate flexion and extension settings. Tran [24] and Cersonsky [25] squeeze friction surfaces with a threaded knob, resisting both directions equally. DeRoyal uses a non-backdrivable worm to position a joint, not to set a resistance [26]; Ultraflex uses a spring [27]; Krishnan and colleagues use a speed-dependent eddy-current brake [28]. Fishing-reel drags combine a friction brake, an anti-reverse clutch and a dial [29]. Elastic garments that resist joint motion are described by Paulos and Nelson [30], New York University [31] and Tau Orthopedics [32].</p>
+<p><b>Brakes.</b> Drum, shoe and band brake design is covered by Limpert [16] and, for clutches, brakes and worm gearing in general, by Budynas and Nisbett [19]. Blau reviews friction materials and how their friction coefficient changes with temperature and wear [17]. Armstrong-Hélouvry, Dupont and Canudas de Wit survey static friction, the drop to kinetic friction, and stick-slip [18]. Limits for skin contact with hot surfaces are given in ISO 13732-1 [20].</p>
+
+<table>
+<caption><b>Table 1.</b> Where the friction tension unit sits among sources of training resistance.</caption>
+<tr><th>Source</th><th>Varies with</th><th>One direction only</th><th>Stores energy</th><th>Loads lowering phase</th><th>Needs power</th><th>Wearable</th></tr>
+<tr><td>Free weight, weight stack [1, 2]</td><td>Joint angle (gravity)</td><td>Yes, upward</td><td>Yes</td><td>Yes</td><td>No</td><td>Small weights</td></tr>
+<tr><td>Elastic band or garment [3, 15, 30–32]</td><td>Stretch</td><td>No</td><td>Yes</td><td>Yes</td><td>No</td><td>Yes</td></tr>
+<tr><td>Flywheel [5, 6]</td><td>Acceleration</td><td>No</td><td>Yes (kinetic)</td><td>Yes</td><td>No</td><td>No</td></tr>
+<tr><td>Isokinetic or motorized [4, 8]</td><td>Program</td><td>Programmable</td><td>No</td><td>If motor drives</td><td>Yes</td><td>Rarely</td></tr>
+<tr><td>Eddy-current brace [28]</td><td>Speed</td><td>With clutch</td><td>No</td><td>No</td><td>Field only</td><td>Yes</td></tr>
+<tr><td>Hydraulic brace [22, 23]</td><td>Speed</td><td>Per valve</td><td>No</td><td>No</td><td>No</td><td>Yes</td></tr>
+<tr><td>Threaded friction brace [24, 25]</td><td>Nothing (flat)</td><td>No, both equal</td><td>No</td><td>No</td><td>No</td><td>Yes</td></tr>
+<tr><td><b>Worm-set friction unit (this paper)</b></td><td><b>Nothing (flat)</b></td><td><b>Yes, or both set separately</b></td><td><b>No</b></td><td><b>No</b></td><td><b>No</b></td><td><b>Yes, and machine-mounted</b></td></tr>
+</table>
+
+<h2 id="s3">3. The mechanism</h2>
+<p>The unit has five working parts on one axis: a shaft, a one-way clutch, a brake drum, a friction member, and a worm adjuster with a dial (Figure 2). The exploded view in the application enumerates twenty components: support arms, housing, gear keeper, turning knob, turning cover, dial, metal block, pillar, shaft, brake material, worm gear, worm bolt, one-way clutch, metal plate, washer, spring, retaining rings and screws. The materials given as examples are glass- or carbon-filled polyamide, zinc alloy, ABS, and stainless and spring steels, scaled to the host: a small unit for a brace and a larger, more robust one for a machine.</p>
+<figure><img src="../../assets/newhab-paper/nh-fig2-exploded.jpg" alt="Exploded view along one axis of a small round resistance unit: a central shaft, a one-way clutch ring, a brake drum, a curved brake pad, a worm screw with a worm wheel, a return spring, and a round housing with a graduated dial on top." width="1400" height="933"><figcaption><b>Figure 2.</b> The unit, exploded: shaft, one-way clutch, brake drum, friction member (brake pad), worm adjuster and dial.</figcaption></figure>
+<p><b>One-way operation.</b> The clutch, which may be a sprag clutch, a roller clutch or a ball-type one-way bearing, sits between the shaft and the drum. Turned one way, the clutch overruns: the drum stays still and the shaft turns freely. Turned the other way, the clutch locks the drum to the shaft, and the friction member resists the motion (Figure 3). The user therefore feels the set resistance in the working direction and little or none on the return.</p>
+<figure><img src="../../assets/newhab-paper/nh-fig3-direction.jpg" alt="Two views of the same unit. In the first, a green arrow shows the shaft turning one way while the clutch overruns and the drum stays still, labelled free. In the second, a red arrow shows the shaft turning the other way with the clutch locked, the drum turning against the pressed brake pad, labelled resisted." width="1400" height="933"><figcaption><b>Figure 3.</b> Direction dependence. One way the one-way clutch overruns and the shaft spins free; the other way it locks the drum to the shaft and the brake resists.</figcaption></figure>
+<p><b>Setting and holding.</b> The friction member, a shoe, band or pad, bears radially on the drum's cylindrical surface. It is pressed there by a follower, a cam or threaded follower, that the worm wheel advances; the worm wheel is turned by the worm bolt, and the worm bolt by the knob (Figure 4). A worm and wheel of low lead angle cannot be turned from the wheel side, so the force with which the pad bears on the drum, the preload, stays where the knob put it. The application gives a reduction of about 30:1 to 100:1 as an example and illustrates a large turn of the worm producing about an eighth of a turn of the wheel. A spring retracts the friction member when the setting is reduced. The claimed arrangement places the worm outside the path through which the resisted rotation reaches the brake, so force at the shaft acts on the drum and pad but cannot turn the worm. A dial on the housing displays the setting, graduated in units of force such as pounds; in digital forms the reading may instead appear on a small screen or a paired phone.</p>
+<figure><img src="../../assets/newhab-paper/nh-fig4-worm-dial.jpg" alt="Cutaway of the unit: a knob on top turns a worm screw, which turns a worm wheel; the wheel advances a follower that presses a brake pad against the drum. A dial face on the housing reads the setting in pounds." width="1400" height="933"><figcaption><b>Figure 4.</b> The worm sets the preload of the pad on the drum, through the worm wheel and a follower, and holds it: force at the shaft cannot turn the worm back. The dial reads the setting in pounds.</figcaption></figure>
+<p><b>Holding anywhere.</b> Friction stores essentially no energy and exerts no restoring force, so if the user stops, the unit stops: the load cannot drop or recoil. Section 7 puts numbers on this safety property and on one qualification.</p>
+<p><b>Alternatives in the application.</b> The worm may be replaced by another self-locking transmission (planetary set, low-helix lead or ball screw, harmonic drive, ratchet and detent); the knob may be supplemented by a processor-controlled motor with sensors and an app; and the brake may be supplemented or replaced by a magnetically actuated element, which the application notes is generally speed-dependent and may allow some back-driving. This paper models the manual friction unit only.</p>
+
+<h2 id="s4">4. Three architectures</h2>
+<p>The application arranges the basic unit in three ways.</p>
+<p><b>A. Single unit, single direction.</b> One clutch, one drum and an external shoe pressing inward. It resists one direction and frees the other. This is the simplest form and the one Figure 3 shows.</p>
+<p><b>B. Single unit, both directions.</b> An external brake presses radially inward on the outer surface of the drum and an internal, "inside-out" brake presses radially outward on its inner surface (Figure 5). Each friction member has its own follower and its own worm, and each is associated with its own one-way clutch, the two clutches oriented oppositely and nested one inside the other about the common axis, joined by a shared wall or rim. The external member is then effective in one direction and the internal member in the other, so one compact unit gives two independently set resistances. In an alternative form, the inner clutch and its drum are extended outward to present their own outer surface, so both directions are braked from outside on two coaxial drums.</p>
+<figure><img src="../../assets/newhab-paper/nh-fig5-dual-brake.jpg" alt="Cross-section of a single unit with an outer brake pressing inward on the drum and an inner brake pressing outward, one for each direction of rotation, each with its own small worm screw." width="1400" height="933"><figcaption><b>Figure 5.</b> Architecture B: one unit with an outer brake pressing inward and an inner brake pressing outward, each on its own oppositely oriented one-way clutch and each set by its own worm, so the two directions are resisted to different, independently chosen values.</figcaption></figure>
+<p><b>C. Two units about one pivot.</b> Two complete units are placed on opposite sides of a joint and oriented oppositely: one resists the in-motion and frees the out-motion, the other resists the out-motion and frees the in-motion (Figure 6). Each direction then has its own knob and its own dial. The two units may also be stacked coaxially back to back, one reversed relative to the other, at a single location. The application calls a single unit a "mechanism" and the oppositely rigged pair a "device".</p>
+<figure><img src="../../assets/newhab-paper/nh-fig6-brace.jpg" alt="An elbow brace on an arm: a soft sleeve, two flat bars running along the upper arm and forearm on each side, and a round dial unit at the elbow hinge on the inner side and another on the outer side. Arrows show that one unit resists bending and the other resists straightening." width="1400" height="933"><figcaption><b>Figure 6.</b> Architecture C in an elbow brace: a sleeve, flat arms on the upper arm and forearm, and one unit on each side of the joint, oppositely rigged, so bending and straightening are each resisted by their own unit and set on their own dial.</figcaption></figure>
+<p>For modelling, what matters is whether the return is free (A) or braked (B and C), and whether both directions heat one drum (B) or two (C); see Sections 9 and 10.</p>
+
+<h2 id="s5">5. From dial to pounds</h2>
+<p><b>Torque.</b> A shoe pressed on a drum of radius <i>r</i> with a normal force <i>N</i> and a kinetic friction coefficient μ resists rotation with a torque <i>T</i>. At a joint, what the user feels as a "pound" is that torque divided by the distance <i>L</i> from the joint axis to the hand:</p>
+<div class="eq"><span class="b"></span><span><i>T</i> = μ <i>N</i> <i>r</i> ,   <i>F</i><sub>hand</sub> = <i>T</i> / <i>L</i></span><span class="n">(1)</span></div>
+<p>We take <i>L</i> = 0.33&nbsp;m, the elbow axis to the centre of a grip. A dial reading of 5&nbsp;lb then means the torque of a 5&nbsp;lb dumbbell held with the forearm level: 7.34&nbsp;N·m. The site for the brace gives a range of 0 to 5&nbsp;lb, and we use that range. The application gives no drum size; it says the unit is about the size of a bottle cap. We assume a braking radius of 12&nbsp;mm and μ = 0.35, a typical value for a dry organic pad on steel [17].</p>
+<p>Equation (1) shows the first pressure on a small unit. To make 7.34&nbsp;N·m on a 12&nbsp;mm drum, the shoe must press with 1,748&nbsp;N, about 393 pounds-force; over an assumed 10 × 15&nbsp;mm shoe that is 11.7&nbsp;MPa of contact pressure, high for a friction material. A drum of 15 or 18&nbsp;mm, the "slightly larger if required" the application allows, brings the force down to 1,398 or 1,165&nbsp;N. The friction member may also be a band. For a band wrapped an angle θ round the drum, the tight and slack tensions differ by the factor e<sup>μθ</sup>, and</p>
+<div class="eq"><span class="b"></span><span><i>T</i> = <i>T</i><sub>2</sub> (e<sup>μθ</sup> − 1) <i>r</i></span><span class="n">(2)</span></div>
+<p>With 270° of wrap, e<sup>μθ</sup> = 5.20, and the slack end needs only 146&nbsp;N for 5&nbsp;lb, twelve times less than the shoe. The price is sensitivity: a band brake's torque moves 2.04 times as much as μ does, which matters for Section 11.</p>
+<p><b>Turns to pounds.</b> The knob turns the worm; <i>i</i> turns of the worm turn the wheel once; one turn of the wheel advances the follower by a rise <i>h</i>; and the pad, shoe and housing, compressed together, push back with a stiffness <i>K</i>. After <i>n</i> knob turns from first contact, the reading at the hand is</p>
+<div class="eq"><span class="b"></span><span><i>F</i><sub>hand</sub> = μ <i>r</i> <i>K</i> <i>h</i> <i>n</i> / (<i>i</i> <i>L</i>)</span><span class="n">(3)</span></div>
+<p>The application fixes none of <i>h</i>, <i>K</i> or the drum radius, so we choose values that put the whole 0 to 5&nbsp;lb range in an eighth of a turn of the wheel, as the application's worm figure illustrates: <i>i</i> = 40, <i>h</i> = 7.0&nbsp;mm per wheel revolution, and an assumed <i>K</i> = 2.0&nbsp;N/µm. The result is one pound per knob turn, and 0.45&nbsp;oz per 10° of knob.</p>
+
+<table>
+<caption><b>Table 2.</b> What the wearable unit must do at each dial setting, from Eqs. (1) to (3). Drum radius 12&nbsp;mm, μ = 0.35.</caption>
+<tr><th>Dial (lb at the grip)</th><th>Elbow torque</th><th>Shoe force</th><th>Shoe pressure</th><th>Band slack tension, 270° wrap</th><th>Knob turns from contact</th><th>Follower travel</th></tr>
+<tr><td>1</td><td>1.47 N·m</td><td>350 N</td><td>2.3 MPa</td><td>29 N</td><td>1.0</td><td>0.175 mm</td></tr>
+<tr><td>2</td><td>2.94 N·m</td><td>699 N</td><td>4.7 MPa</td><td>58 N</td><td>2.0</td><td>0.350 mm</td></tr>
+<tr><td>5</td><td>7.34 N·m</td><td>1,748 N</td><td>11.7 MPa</td><td>146 N</td><td>5.0</td><td>0.874 mm</td></tr>
+</table>
+<p><b>Holding the setting.</b> At 5&nbsp;lb the follower pushes back on the wheel with 1.95&nbsp;N·m. Whether the worm holds against that depends on its lead angle λ and the friction μ<sub>w</sub> between worm and wheel. With a normal pressure angle φ<sub>n</sub>, a worm cannot be driven from the wheel when</p>
+<div class="eq"><span class="b"></span><span>tan λ &lt; μ<sub>w</sub> / cos φ<sub>n</sub></span><span class="n">(4)</span></div>
+<p>A single-start worm of module 0.5&nbsp;mm on a 6&nbsp;mm pitch diameter has λ = 4.76°. With μ<sub>w</sub> from 0.10 (lubricated) to 0.25 (dry polymer wheel) the friction angle is 6.1 to 14.9°, so the worm locks in every case, though at 0.10 the margin is under 1.5°, thin for a part shaken and loaded thousands of times [19]. Self-locking costs efficiency, 23 to 44% here, yet the knob needs only 0.11 to 0.21&nbsp;N·m at full scale, a light twist of the fingers.</p>
+<p><b>At the gym.</b> On a cable machine the reading is simpler: the force at the handle is the torque divided by the radius of the cable spool on the unit's input. With an assumed 50&nbsp;mm spool and an 80&nbsp;mm drum, 20, 50, 100 and 200&nbsp;lb at the handle need 159, 397, 794 and 1,589&nbsp;N of shoe force: in the same range as the wearable unit, because the larger drum offsets the larger torque.</p>
+
+<h2 id="s6">6. The brace and the machine</h2>
+<p><b>The brace.</b> In the wearable form the unit, in a round housing with a graduated knob, sits at the joint. Two flat, shaped arms of metal or tough polymer engage the limb segments and are joined for relative rotation at the unit, and a sleeve with a connecting strap or bridge holds the assembly on the limb; the application also shows a strap and a clip-on wire frame. The claims name the elbow, knee, shoulder, wrist and ankle. The intended use on the project site is rehabilitation at 0 to 5&nbsp;lb, set by a therapist and continued at home. Newhab is in development; it is not FDA-cleared and is not for sale, and this paper makes no claim about clinical outcomes.</p>
+<p><b>The machine.</b> In the machine form, one or more units are fastened to a machine frame in place of, or in addition to, a weight stack (Figure 7). A cable wound on the unit's input runs over one or more pulleys to a handle, and pulling it turns the unit against the set friction. The unit does not pull the cable back, so the application provides a light rewind spring or, in the both-direction forms, the other direction's resistance. In a preferred alternative the user moves a rigid lever arm, or a linkage of rigid arms, positively in both directions, and nothing is needed to return it. The application names gymnasium machines, physical-therapy and rehabilitation machines, home-gym cable machines and portable trainers.</p>
+<figure><img src="../../assets/newhab-paper/nh-fig7-gym.jpg" alt="A cable machine frame with a round resistance unit bolted to the frame where a weight stack would normally be. A cable wound on the unit runs up over a pulley to a handle held by a user. There are no weight plates anywhere on the machine." width="1400" height="933"><figcaption><b>Figure 7.</b> The machine form: the unit bolted to the frame where the weight stack would be, driving a cable over a pulley to the handle.</figcaption></figure>
+
+<h2 id="s7">7. Stopping mid-repetition</h2>
+<p>The clearest difference between the three loads in Figure 1 is what happens when the user stops or lets go (Figure 8). We place the elbow at 90°, the hardest point of a curl with a dumbbell, at a 5&nbsp;lb load, and compute the energy that is released.</p>
+<figure><img src="../../assets/newhab-paper/nh-fig8-let-go.jpg" alt="Three panels at the moment the user stops mid-curl. Left, the dumbbell falling from the open hand toward the floor. Middle, an elastic band snapping back toward its anchor. Right, the forearm in the brace stopped in place at the same angle, with the dial unit unchanged." width="1400" height="933"><figcaption><b>Figure 8.</b> Stopping mid-repetition. The dumbbell drops, the band snaps back, and the tension unit stays where it was stopped.</figcaption></figure>
+
+<table>
+<caption><b>Table 3.</b> Energy released when the user stops or lets go, from the model. Elbow at 90°, 5&nbsp;lb.</caption>
+<tr><th>Load</th><th>What happens</th><th>Energy released</th><th>Consequence</th></tr>
+<tr><td>Dumbbell, muscle gives way</td><td>Arm and weight swing down</td><td>10.3 J</td><td>Hand reaches 2.7 m/s at the bottom, in the joint's end range</td></tr>
+<tr><td>Dumbbell, dropped from the hand</td><td>Falls 1.05 m</td><td>23.4 J</td><td>4.5 m/s at the floor or foot</td></tr>
+<tr><td>Elastic band, released</td><td>Band recoils from 53% strain, 21 N</td><td>4.1 J</td><td>Free end can reach tens of m/s in the ideal limit</td></tr>
+<tr><td>Tension unit</td><td>Stops</td><td>0.13 J of elastic windup</td><td>About 2° of spring-back</td></tr>
+<tr><td>Cable machine, 100 lb stack at the top of a 0.6 m stroke</td><td>Stack falls</td><td>267 J</td><td>Plates slam on the stack</td></tr>
+<tr><td>Cable machine, tension unit with rewind spring</td><td>Handle retracts</td><td>9 J</td><td>Light pull back</td></tr>
+<tr><td>Cable machine, tension unit with rigid lever</td><td>Stops</td><td>0 J</td><td>Lever stays put</td></tr>
+</table>
+<p>The windup figure assumes the clutch, shaft and brace arms together have a torsional stiffness of 200&nbsp;N·m/rad; at 7.34&nbsp;N·m they twist 2.1° and store 0.13&nbsp;J, about 1% of what the dumbbell releases. The band's speed is an upper bound for a 20&nbsp;g band with a third of its mass moving; real bands lose energy internally, but the order of magnitude is why released bands hurt.</p>
+<p><b>A qualification.</b> The unit adds no stored energy, but it holds only in the direction it resists. In a standing curl with a flexion-only brace (architecture A, or C with the straightening unit set to zero), gravity on the forearm pulls toward straightening, which is the free direction. The forearm and hand weigh about 1.8&nbsp;kg, which at 90° is 3.0&nbsp;N·m, or 2.0&nbsp;lb at the grip. If the user relaxes, the forearm falls freely under its own weight. The brace makes nothing worse than an unbraced arm, but it does not hold the limb. To hold, the straightening direction must also be braked at about 2&nbsp;lb or more; because static friction is higher than sliding friction (Section 11), a setting of about 1.7&nbsp;lb already holds a resting forearm, with no margin. That holding setting also resists the user's own straightening, which is a training choice, not a free safety feature.</p>
+
+<h2 id="s8">8. Resistance across the range</h2>
+<p>The three loads resist a curl in three shapes. For a dumbbell of weight <i>W</i>, with the upper arm vertical and θ the elbow angle from the hanging position, the torque is <i>W</i> <i>L</i> sin θ. For a band anchored under the foot and attached at the hand, the torque is the band tension, its tension at 100% elongation <i>F</i><sub>100</sub> times its strain ε, multiplied by its moment arm <i>a</i> about the elbow, both of which change with angle. For the friction unit it is the set torque <i>T</i>, the same at every angle and every speed:</p>
+<div class="eq"><span class="b"></span><span>τ<sub>w</sub> = <i>W</i> <i>L</i> sin θ ,   τ<sub>b</sub> = <i>F</i><sub>100</sub> ε(θ) <i>a</i>(θ) ,   τ<sub>u</sub> = <i>T</i></span><span class="n">(5)</span></div>
+<p>We place the elbow 1.05&nbsp;m above the floor, set the band just taut with the arm hanging, and scale all three to the same 5&nbsp;lb peak. The band then needs about 40&nbsp;N at 100% elongation, close to the silver grade in Uchida's measurements [15]. Table 4 and Figure 9 show the result.</p>
+
+<table>
+<caption><b>Table 4.</b> Resistance across a 0 to 140° curl, in pounds at the grip, all matched to a 5&nbsp;lb peak, from Eq. (5). The last column is the illustrative elbow-flexor strength shape, relative to its peak.</caption>
+<tr><th>Elbow angle</th><th>Dumbbell</th><th>Band (strain)</th><th>Tension unit</th><th>Strength shape</th></tr>
+<tr><td>0°</td><td>0.00</td><td>0.00 (0%)</td><td>5.00</td><td>0.55</td></tr>
+<tr><td>30°</td><td>2.50</td><td>0.52 (9%)</td><td>5.00</td><td>0.78</td></tr>
+<tr><td>60°</td><td>4.33</td><td>2.59 (29%)</td><td>5.00</td><td>0.94</td></tr>
+<tr><td>90°</td><td>5.00</td><td>4.58 (53%)</td><td>5.00</td><td>1.00</td></tr>
+<tr><td>110°</td><td>4.70</td><td>5.00 (67%)</td><td>5.00</td><td>0.97</td></tr>
+<tr><td>140°</td><td>3.21</td><td>3.87 (83%)</td><td>5.00</td><td>0.84</td></tr>
+<tr><td><b>Mean over the lift</b></td><td><b>3.61</b></td><td><b>2.81</b></td><td><b>5.00</b></td><td></td></tr>
+<tr><td><b>Work per lift</b></td><td><b>13.0 J</b></td><td><b>10.1 J</b></td><td><b>17.9 J</b></td><td></td></tr>
+</table>
+<figure><img src="../../assets/newhab-paper/nh-fig9-profile.jpg" alt="A chart of resistance against elbow angle from 0 to 140 degrees. The dumbbell curve rises from zero to a peak at 90 degrees and falls again. The band curve stays near zero at first, rises late and peaks around 110 degrees. The tension unit is a flat horizontal line at the set value across the whole range." width="1400" height="933"><figcaption><b>Figure 9.</b> Resistance across the curl, from Table 4. The dumbbell peaks in mid-range, the band rises with stretch and peaks late, and the tension unit is flat.</figcaption></figure>
+<p>Three observations follow. First, at the same peak the flat unit asks for 1.38 times the dumbbell's work and 1.77 times the band's, because it does not let up near the ends of the range. The work per lift is simply</p>
+<div class="eq"><span class="b"></span><span><i>E</i><sub>u</sub> = <i>T</i> Δθ ,   <i>E</i><sub>w</sub> = <i>W</i> <i>L</i> (1 − cos θ<sub>max</sub>)</span><span class="n">(6)</span></div>
+<p>Second, the band does almost nothing for the first 30° when anchored this way, and peaks before its strain does, because its moment arm shrinks as the hand rises. Third, the unit's resistance does not depend on speed. A dumbbell adds inertial torque when accelerated: 0.51&nbsp;lb at the start of a 2&nbsp;s lift, 2.03&nbsp;lb for 1&nbsp;s, and 8.1&nbsp;lb, 162% of its static peak, for a jerky 0.5&nbsp;s lift. The friction unit adds nothing.</p>
+<p><b>Flat is not the same as matched.</b> The flat profile is not automatically better. A muscle's strength varies with angle [14], and what decides whether a person can finish a repetition is the hardest point: the angle at which the load is largest relative to strength. With the illustrative shape in Table 4 (peak at 90°, 55% of peak at full extension), the flat unit is hardest at full extension, where the flexors are weakest. If each load is set so that its hardest point is just achievable, the unit can be set to only 55% of peak strength, while the dumbbell, whose curve rises and falls with the muscle's, can be set to 100%. On that basis the dumbbell does 1.31 times the unit's work over a full 0 to 140° curl. Starting the curl at 20° or 30° narrows the gap to 1.16 and 1.09 times. For the elbow curl, then, the dumbbell's curve fits the muscle better than a flat one. The application's background says a band is weakest at the start of a movement "where many muscles are strongest"; for the elbow flexors in this model the start is where the muscle is weakest. The application discloses a processor that adjusts resistance to the user's performance, but not a resistance that follows joint angle, and we do not model one.</p>
+
+<h2 id="s9">9. What friction cannot do: the lowering phase</h2>
+<p>A friction brake always opposes motion. It can take energy out of a movement but never put energy in. That has a consequence the model makes exact.</p>
+<p>With a dumbbell, the flexors lift the weight (concentric work) and then lower it under control (eccentric work), absorbing the 13.0&nbsp;J they put in. With a friction unit there is nothing to lower. Table 5 sets out who works in each phase of an elbow brace.</p>
+
+<table>
+<caption><b>Table 5.</b> Which muscles work, and how, in each phase of an elbow movement.</caption>
+<tr><th>Load</th><th>Lifting (flexion)</th><th>Lowering (extension)</th><th>Eccentric work per repetition</th></tr>
+<tr><td>Dumbbell</td><td>Flexors, concentric</td><td>Flexors, eccentric</td><td>13.0 J at 5 lb</td></tr>
+<tr><td>Tension unit, flexion braked only (A)</td><td>Flexors, concentric</td><td>No load beyond the limb's weight</td><td>0 J</td></tr>
+<tr><td>Tension units, both directions braked (B or C)</td><td>Flexors, concentric</td><td>Extensors, concentric</td><td>0 J</td></tr>
+</table>
+<p>When the straightening direction is braked, the user pushes the forearm down against it: the extensors shortening, concentric work for a different muscle. It trains the opposing muscle in the same session and doubles the work per cycle, as the application's description of both-phase resistance suggests, but it is not eccentric loading of the flexors, and no setting of a passive friction unit makes it so. The application's first figure labels the out-motion "eccentric extension", and its machine embodiment mentions protocols "for controlled eccentric loading". The model does not support either reading for a friction brake: eccentric work needs something that drives the limb, such as gravity on a mass, a stretched elastic element, a flywheel or a motor [5, 6, 8].</p>
+<p>How much this matters depends on the use. Eccentric training is at least as effective as concentric training for strength and mass, and is used deliberately in rehabilitation of tendons and after surgery [10–13]. On the other hand, concentric-only work produces less delayed-onset soreness and less muscle damage [13], which may suit early rehabilitation and older users. A friction unit is a concentric training tool, in both directions if the brace has two units, and should be described that way.</p>
+
+<h2 id="s10">10. Heat</h2>
+<p>Because nothing is stored, every joule the user puts into the unit becomes heat in the drum and pad. With a heat capacity <i>C</i>, a cooling conductance <i>hA</i> to air at temperature <i>T</i><sub>a</sub>, and the user's mechanical power <i>P</i> during a set,</p>
+<div class="eq"><span class="b"></span><span><i>C</i> d<i>T</i>/d<i>t</i> = <i>P</i> − <i>hA</i> (<i>T</i> − <i>T</i><sub>a</sub>)</span><span class="n">(7)</span></div>
+<p><b>The wearable unit.</b> We assume 30&nbsp;g of steel-equivalent metal is in thermal contact with the drum (drum, shaft, metal block and plate), 14.7&nbsp;J/K, cooling from the outside of a 32&nbsp;mm housing at 10&nbsp;W/m²K, 32&nbsp;mW/K, a time constant of 7.7 minutes. The session is three sets of 15 repetitions, 3&nbsp;s each, through 140°, with a minute's rest, starting at 25&nbsp;°C.</p>
+
+<table>
+<caption><b>Table 6.</b> Drum temperature in the wearable unit over a rehabilitation session, from Eq. (7).</caption>
+<tr><th>Dial setting</th><th>Heat per repetition</th><th>Power during a set</th><th>Heat per session</th><th>Rise in one set, no cooling</th><th>Peak drum temperature</th></tr>
+<tr><td>1 lb</td><td>3.6 J</td><td>1.2 W</td><td>161 J</td><td>3.7 K</td><td>33.5 °C</td></tr>
+<tr><td>2 lb</td><td>7.2 J</td><td>2.4 W</td><td>323 J</td><td>7.3 K</td><td>41.9 °C</td></tr>
+<tr><td>5 lb</td><td>17.9 J</td><td>6.0 W</td><td>807 J</td><td>18.3 K</td><td>67.4 °C</td></tr>
+<tr><td>5 lb, both directions in one unit (B)</td><td>35.9 J</td><td>12.0 W</td><td>1,614 J</td><td>36.6 K</td><td>109.7 °C</td></tr>
+<tr><td>5 lb, 60 g heat mass</td><td>17.9 J</td><td>6.0 W</td><td>807 J</td><td>9.1 K</td><td>49.0 °C</td></tr>
+<tr><td>5 lb, 100 g heat mass</td><td>17.9 J</td><td>6.0 W</td><td>807 J</td><td>5.5 K</td><td>40.2 °C</td></tr>
+</table>
+<p>At 1 to 2&nbsp;lb heat is not a problem. At 5&nbsp;lb it is: a bottle-cap unit reaches about 67&nbsp;°C after three sets, and architecture B, with both directions' heat in one drum, about 110&nbsp;°C. Skin contact with surfaces above roughly 43 to 48&nbsp;°C for minutes to hours can burn [20], and this unit sits against the limb. The housing must insulate the drum, or its heat mass must double or triple. Architecture C, one unit per direction, halves each drum's heat and is the better choice thermally. The application gives materials but no thermal design; this is a requirement the model adds.</p>
+<p><b>The gym unit.</b> A 100&nbsp;lb cable stroke of 0.6&nbsp;m puts 267&nbsp;J into the drum on every repetition, 89&nbsp;W during a set. We model five sets of ten repetitions with 90&nbsp;s rests, and also the steady state of a busy machine with a new set every two minutes.</p>
+
+<table>
+<caption><b>Table 7.</b> Gym unit drum temperature, peak over five sets / steady state on a busy machine, from Eq. (7). Steel drums cooled at 12&nbsp;W/m²K.</caption>
+<tr><th>Load at the handle</th><th>Heat per rep</th><th>Power in a set</th><th>Wearable-size unit</th><th>0.5 kg drum, 0.020 m²</th><th>1 kg drum, 0.040 m²</th><th>2 kg drum, 0.063 m²</th></tr>
+<tr><td>20 lb</td><td>53 J</td><td>18 W</td><td>128 / 141 °C</td><td>34 / 44 °C</td><td>29 / 34 °C</td><td>27 / 31 °C</td></tr>
+<tr><td>50 lb</td><td>133 J</td><td>44 W</td><td>282 / 315 °C</td><td>47 / 71 °C</td><td>36 / 48 °C</td><td>31 / 40 °C</td></tr>
+<tr><td>100 lb</td><td>267 J</td><td>89 W</td><td>539 / 604 °C</td><td>68 / 118 °C</td><td>47 / 71 °C</td><td>36 / 54 °C</td></tr>
+</table>
+<p>The bottle-cap scale does not carry over to the gym. A drum of about 1&nbsp;kg with 0.04&nbsp;m² of exposed surface holds 100&nbsp;lb sets under 50&nbsp;°C and a busy machine near 70&nbsp;°C. The binding constraint is not one set, which a few hundred grams of steel absorbs, but the steady state of repeated use, which surface area sets. Holding the drum 60&nbsp;K under an assumed 150&nbsp;°C ceiling for an organic pad on a machine used back to back takes 0.029&nbsp;m² of drum surface at 100&nbsp;lb (22&nbsp;W average) and 0.057&nbsp;m² at 200&nbsp;lb (44&nbsp;W), for example a 160&nbsp;mm drum 28 or 57&nbsp;mm wide. That is the size of a small motorcycle drum brake. The application already says a machine unit is larger and more robust; the model says how much larger, and it is still small next to a weight stack (Section 12). Friction-braked cycle ergometers, which dissipate a few hundred watts in a flywheel rim for an hour at a time, show that this is ordinary engineering [9].</p>
+
+<h2 id="s11">11. How true is the dial?</h2>
+<p>The dial reads the preload: how far the worm has advanced the follower. The resistance the user feels is μ times that preload. Anything that changes μ or the preload without moving the dial changes the pounds.</p>
+<p><b>Friction coefficient.</b> The friction coefficient of a brake material is not a constant. It changes with temperature, humidity, sliding speed, the bedding-in of a new pad and its wear [17]. If the dial is calibrated at μ<sub>0</sub>, the true resistance is</p>
+<div class="eq"><span class="b"></span><span><i>F</i><sub>true</sub> = <i>F</i><sub>dial</sub> μ / μ<sub>0</sub></span><span class="n">(8)</span></div>
+
+<table>
+<caption><b>Table 8.</b> What a dial reading of 5&nbsp;lb delivers if μ drifts from the calibrated 0.35, from Eqs. (2) and (8).</caption>
+<tr><th>Actual μ</th><th>Shoe or pad</th><th>Error</th><th>Band, 270° wrap</th></tr>
+<tr><td>0.28</td><td>4.00 lb</td><td>−16.0 oz</td><td>3.26 lb</td></tr>
+<tr><td>0.35</td><td>5.00 lb</td><td>0</td><td>5.00 lb</td></tr>
+<tr><td>0.42</td><td>6.00 lb</td><td>+16.0 oz</td><td>7.42 lb</td></tr>
+</table>
+<p>A ±15% swing in μ, modest for a friction material across temperature and wear, moves a 5&nbsp;lb reading by ±12&nbsp;oz, a 2&nbsp;lb reading by ±4.8&nbsp;oz and a 1&nbsp;lb reading by ±2.4&nbsp;oz. The band form, which needs far less actuating force, roughly doubles the error. The dial's resolution, under half an ounce per 10° of knob in our example, is far finer than its accuracy. The heat of Section 10 feeds directly into this: a drum that warms by 40&nbsp;K during a session is a drum whose μ is changing during the session.</p>
+<p><b>Wear.</b> If the preload comes from compressing a stiff stack, as Eq. (3) assumes, pad wear relaxes it. At <i>K</i> = 2.0&nbsp;N/µm, 10&nbsp;µm of wear loses 20&nbsp;N, 1.1% of the 5&nbsp;lb setting; 50&nbsp;µm loses 5.7%; 100&nbsp;µm loses 11.4%. The reading stays where it was while the resistance falls.</p>
+<p><b>Starting and sliding.</b> Static friction is higher than kinetic friction, and many materials also lose friction as sliding speed rises from zero, which is the condition for stick-slip [18]. Assuming μ<sub>s</sub> = 1.2 μ<sub>k</sub>, a 5&nbsp;lb setting needs 6.0&nbsp;lb to start moving, and a 2&nbsp;lb setting 2.4&nbsp;lb. At breakaway the resisting torque drops by 1.47&nbsp;N·m at 5&nbsp;lb, and a forearm pushing at that moment accelerates at about 23&nbsp;rad/s² until the muscle responds, about 1.6° in the first 50&nbsp;ms. That is a small jerk at the start of every repetition and at every pause, and it is largest exactly when the hold-anywhere feature is used. At the slow speeds of early rehabilitation it can appear as stick-slip chatter if the pad material's friction falls with speed.</p>
+<p><b>What follows.</b> None of this is fatal, but a graduated dial on a friction unit is a repeatable setting, not a measurement. To be a number a therapist can prescribe, each unit needs calibration against torque, a pad material with stable μ over its working temperature, and periodic checks. The application's digital embodiment, with a force or torque sensor, would read the real resistance rather than the preload.</p>
+
+<h2 id="s12">12. Mass, volume and the case for tension weights</h2>
+<p><b>Mass and volume.</b> The obvious advantage of a tension unit is what it leaves out. A 200&nbsp;lb selectorized stack is 91&nbsp;kg of plates plus an assumed 12&nbsp;kg of rods, top plate, selector and cable, 103&nbsp;kg in a 0.35 × 0.25 × 1.80&nbsp;m envelope of 158&nbsp;L. A gym unit holding the 1 to 2&nbsp;kg drum of Section 10 with its shaft, clutch, housing and worm we put at 4&nbsp;kg in a 220&nbsp;mm by 100&nbsp;mm envelope of 3.8&nbsp;L: 26 times lighter and 41 times smaller. The same 200&nbsp;lb as loose plates is 11.6&nbsp;L of solid iron. At the brace, a 5&nbsp;lb dumbbell weighs 2.27&nbsp;kg and a set from 1 to 5&nbsp;lb 6.8&nbsp;kg; a brace with two units covering 0 to 5&nbsp;lb in each direction, an assumed 0.37&nbsp;kg.</p>
+
+<p>The unit's figures are assumptions about a design that does not exist; if it came out twice as heavy, the ratio would still exceed ten. The unit also works in any orientation. A weight resists only upward motion; the unit resists its set direction lying down, side on, overhead, or with no gravity at all, the reason flywheel and vacuum-cylinder devices were developed for spaceflight [5, 7].</p>
+<figure><img src="../../assets/newhab-paper/nh-fig10-future.jpg" alt="A compact home gym corner with no weight stacks: a slim wall-mounted cable station with a round dial unit, a small portable trainer on the floor, and a wearable arm brace with dial units." width="1400" height="933"><figcaption><b>Figure 10.</b> A gym without weight stacks: a wall cable station, a portable trainer and a wearable brace, each resisting through a dial-set friction unit.</figcaption></figure>
+<p><b>The case, weighed.</b> Is the future of resistance training in tension weights rather than lifted mass? Table 9 collects what the model says.</p>
+
+<table>
+<caption><b>Table 9.</b> Where the numbers favour the friction tension unit, and where they do not.</caption>
+<tr><th>Property</th><th>Friction tension unit</th><th>Iron weight</th><th>Verdict</th></tr>
+<tr><td>Mass and space for 200 lb</td><td>About 4 kg, 4 L</td><td>About 103 kg, 158 L</td><td>Unit, by 26× and 41×</td></tr>
+<tr><td>Energy released if the user stops or lets go</td><td>0 to 0.13 J</td><td>10 to 267 J</td><td>Unit</td></tr>
+<tr><td>Speed dependence</td><td>None</td><td>Adds up to 162% at a fast start</td><td>Unit, for safety and control</td></tr>
+<tr><td>Orientation</td><td>Any, including no gravity</td><td>Upward only</td><td>Unit</td></tr>
+<tr><td>Setting resolution</td><td>Under 0.5 oz per 10° of knob</td><td>Plate or dumbbell steps</td><td>Unit</td></tr>
+<tr><td>Direction control</td><td>Each direction set separately, or one free</td><td>Same weight both ways</td><td>Unit</td></tr>
+<tr><td>Work per lift at the same peak</td><td>1.38× the dumbbell</td><td>1.0</td><td>Unit</td></tr>
+<tr><td>Fit to the elbow strength curve</td><td>Flat; hardest at the weak end</td><td>Rises and falls with the muscle</td><td>Weight, by 1.31× in work at equal difficulty</td></tr>
+<tr><td>Eccentric (lowering) load</td><td>None, in any architecture</td><td>Full</td><td>Weight</td></tr>
+<tr><td>Heat</td><td>All work becomes heat; 1 kg drum for a gym</td><td>None</td><td>Weight</td></tr>
+<tr><td>Accuracy of the number</td><td>±12 oz at 5 lb per ±15% in μ, needs calibration</td><td>Exact, permanent</td><td>Weight</td></tr>
+<tr><td>Smoothness at the start</td><td>Breakaway about 20% above setting</td><td>Smooth</td><td>Weight</td></tr>
+</table>
+<p>The honest reading is that a dial-set friction unit is a better source of concentric resistance than iron in most practical respects: far smaller and lighter, unable to fall or recoil, independent of gravity and speed, and finely settable for each direction. It is worse in three respects that engineering does not remove: no lowering phase, all work turned into heat, and a number that drifts with friction. For rehabilitation, home training and anywhere space or safety dominates, the trade looks favourable. For training built on eccentric overload it does not, and there the tension systems that can compete with iron are those with a motor that drives the limb, not a brake. A future in tension weights is plausible for a large part of resistance training, not all of it.</p>
+
+<h2 id="s13">13. Limitations and evaluation plan</h2>
+<p>This is a design and analysis paper. Its limits should be plain.</p>
+<p><b>No prototype.</b> No unit, brace or machine of this kind has been built or tested. Every number above is modelled. The project site states the same: no bench torque data has been collected and no patient has used the device.</p>
+<p><b>Dimensions are ours, not the application's.</b> Beyond a bottle-cap size, a worm ratio range, materials and an eighth-turn example, every dimension is our assumption. A different design would move the numbers in Tables 2, 6 and 7 but not the structural findings: no eccentric load, all work to heat, and a reading that depends on μ follow from the physics.</p>
+<p><b>The friction coefficient is the least certain number.</b> Its value, its spread between units and its change with temperature and wear decide how true the dial is. Only a bench test can settle it.</p>
+<p><b>The strength curve is illustrative.</b> Another exercise, joint or person would change the 1.31 figure of Section 8, and for some a flat profile may fit better than a weight.</p>
+<p><b>Thermal model is lumped.</b> The pad surface runs hotter than the bulk drum, and the housing cooler; skin contact needs a measured surface temperature.</p>
+<p><b>Use is not modelled.</b> Whether patients set loads correctly at home and whether gym users accept a machine with no stack are questions for people, not equations.</p>
+<p>The tests that would settle these questions, in order of cost:</p>
+<table>
+<caption><b>Table 10.</b> Evaluation plan.</caption>
+<tr><th>Stage</th><th>Test</th><th>Question answered</th></tr>
+<tr><td>1. Bench torque</td><td>Ten wearable units on an instrumented hinge with a load cell: torque against dial setting, angle and speed, including breakaway at slow speed and worm creep under vibration</td><td>What is μ and how repeatable is it? How linear is the dial? How large is the breakaway step? Does the setting hold?</td></tr>
+<tr><td>2. Thermal</td><td>Drum and housing-surface temperature through the session of Table 6, at 1, 2 and 5 lb, and for architectures B and C</td><td>Does the housing stay within skin-contact limits? How much does μ change as it warms?</td></tr>
+<tr><td>3. Durability</td><td>Accelerated cycling to 100,000 repetitions with periodic torque checks</td><td>How fast does the reading drift with wear? What service interval and recalibration are needed?</td></tr>
+<tr><td>4. Gym unit</td><td>A 1 to 2 kg drum unit on a cable frame, five sets at 100 lb and continuous back-to-back use</td><td>Does the drum stay under the pad's temperature ceiling? What does the handle force look like across a stroke?</td></tr>
+<tr><td>5. Users</td><td>Therapists and patients setting prescribed loads; gym users comparing the unit with a stack</td><td>Accuracy of self-set loads, perceived breakaway, acceptance of concentric-only resistance</td></tr>
+</table>
+
+<h2 id="s14">14. Conclusion</h2>
+<p>A friction brake behind a one-way clutch, its pressure set and held by a worm and read on a dial, makes training resistance without a weight. One unit resists one direction and frees the other; an outer and an inner brake in one unit, or two units on either side of a joint, set the two directions separately. The same mechanism fits in a brace and, built larger, replaces a weight stack.</p>
+<p>The model finds the concept strong where its physics is simple. Stopping or letting go releases 0.13&nbsp;J where a dumbbell releases 10 to 23&nbsp;J and a weight stack 267&nbsp;J. Resistance is flat and independent of speed and orientation, and at the same peak it asks 1.38 times a dumbbell's work per lift. A 200&nbsp;lb gym unit is about 26 times lighter and 41 times smaller than a stack.</p>
+<p>The model also finds where the concept, and the project's own material, go further than the numbers. Friction cannot load a muscle eccentrically; braking the return trains the opposing muscle concentrically, so the out-motion is not "eccentric" in the sense the application's first figure labels it. The brace holds wherever the user stops only in the direction it resists; a flexion-only brace lets a relaxed forearm fall under its own weight of about 2&nbsp;lb at the grip. The site's "dialed to the ounce" describes the dial's resolution, not its accuracy: a ±15% change in friction moves a 5&nbsp;lb reading by ±12&nbsp;oz until each unit is calibrated. At 5&nbsp;lb a bottle-cap unit heats to about 67&nbsp;°C over three sets, 110&nbsp;°C in the single-unit two-direction form, so the 0 to 5&nbsp;lb range needs more heat mass or insulation than a bottle cap holds. For the elbow curl, a dumbbell's curve fits the muscle's strength curve better than a flat one.</p>
+<p>The idea therefore looks best as a concentric resistance tool: a brace with two units, one per direction, for rehabilitation at light loads, and a cable machine with a drum of about a kilogram in place of a stack. Whether tension weights replace iron depends less on mechanics than on whether users accept resistance without a lowering phase. What remains is to put a unit on a torque bench, then on a limb.</p>
+
+<p>The model is short and is published with this paper as <a href="model.py">model.py</a>, so the assumptions can be changed and every table regenerated.</p>
+
+<h2 id="refs">References</h2>
+<ol class="refs">
+<li>N. A. Ratamess, B. A. Alvar, T. K. Evetoch, T. J. Housh, W. B. Kibler, W. J. Kraemer and N. T. Triplett, "Progression models in resistance training for healthy adults" (American College of Sports Medicine position stand), <i>Medicine &amp; Science in Sports &amp; Exercise</i>, vol. 41, no. 3, pp. 687–708, 2009. <a href="https://doi.org/10.1249/MSS.0b013e3181915670">doi:10.1249/MSS.0b013e3181915670</a></li>
+<li>D. M. Frost, J. Cronin and R. U. Newton, "A biomechanical evaluation of resistance: fundamental concepts for training and sports performance," <i>Sports Medicine</i>, vol. 40, no. 4, pp. 303–326, 2010. <a href="https://doi.org/10.2165/11319420-000000000-00000">doi:10.2165/11319420-000000000-00000</a></li>
+<li>D. T. McMaster, J. Cronin and M. McGuigan, "Forms of variable resistance training," <i>Strength and Conditioning Journal</i>, vol. 31, no. 1, pp. 50–64, 2009. <a href="https://doi.org/10.1519/SSC.0b013e318195ad32">doi:10.1519/SSC.0b013e318195ad32</a></li>
+<li>H. J. Hislop and J. J. Perrine, "The isokinetic concept of exercise," <i>Physical Therapy</i>, vol. 47, no. 2, pp. 114–117, 1967. <a href="https://doi.org/10.1093/ptj/47.2.114">doi:10.1093/ptj/47.2.114</a></li>
+<li>H. E. Berg and P. A. Tesch, "A gravity-independent ergometer to be used for resistance training in space," <i>Aviation, Space, and Environmental Medicine</i>, vol. 65, no. 8, pp. 752–756, 1994. <a href="https://pubmed.ncbi.nlm.nih.gov/7980338/">PMID 7980338</a></li>
+<li>S. Maroto-Izquierdo, D. García-López, R. Fernandez-Gonzalo, O. C. Moreira, J. González-Gallego and J. A. de Paz, "Skeletal muscle functional and structural adaptations after eccentric overload flywheel resistance training: a systematic review and meta-analysis," <i>Journal of Science and Medicine in Sport</i>, vol. 20, no. 10, pp. 943–951, 2017. <a href="https://doi.org/10.1016/j.jsams.2017.03.004">doi:10.1016/j.jsams.2017.03.004</a></li>
+<li>J. A. Loehr, S. M. C. Lee, K. L. English, J. Sibonga, S. M. Smith, B. A. Spiering and R. D. Hagan, "Musculoskeletal adaptations to training with the advanced resistive exercise device," <i>Medicine &amp; Science in Sports &amp; Exercise</i>, vol. 43, no. 1, pp. 146–156, 2011. <a href="https://doi.org/10.1249/MSS.0b013e3181e4f161">doi:10.1249/MSS.0b013e3181e4f161</a></li>
+<li>P. Maciejasz, J. Eschweiler, K. Gerlach-Hahn, A. Jansen-Troy and S. Leonhardt, "A survey on robotic devices for upper limb rehabilitation," <i>Journal of NeuroEngineering and Rehabilitation</i>, vol. 11, 3, 2014. <a href="https://doi.org/10.1186/1743-0003-11-3">doi:10.1186/1743-0003-11-3</a></li>
+<li>B. F. Maxwell, R. T. Withers, A. H. Ilsley, M. J. Wakim, G. F. Woods and L. Day, "Dynamic calibration of mechanically, air- and electromagnetically braked cycle ergometers," <i>European Journal of Applied Physiology and Occupational Physiology</i>, vol. 78, no. 4, pp. 346–352, 1998. <a href="https://doi.org/10.1007/s004210050430">doi:10.1007/s004210050430</a></li>
+<li>M. Roig, K. O'Brien, G. Kirk, R. Murray, P. McKinnon, B. Shadgan and W. D. Reid, "The effects of eccentric versus concentric resistance training on muscle strength and mass in healthy adults: a systematic review with meta-analysis," <i>British Journal of Sports Medicine</i>, vol. 43, no. 8, pp. 556–568, 2009. <a href="https://doi.org/10.1136/bjsm.2008.051417">doi:10.1136/bjsm.2008.051417</a></li>
+<li>J. Douglas, S. Pearson, A. Ross and M. McGuigan, "Chronic adaptations to eccentric training: a systematic review," <i>Sports Medicine</i>, vol. 47, no. 5, pp. 917–941, 2017. <a href="https://doi.org/10.1007/s40279-016-0628-4">doi:10.1007/s40279-016-0628-4</a></li>
+<li>P. C. LaStayo, J. M. Woolf, M. D. Lewek, L. Snyder-Mackler, T. Reich and S. L. Lindstedt, "Eccentric muscle contractions: their contribution to injury, prevention, rehabilitation, and sport," <i>Journal of Orthopaedic &amp; Sports Physical Therapy</i>, vol. 33, no. 10, pp. 557–571, 2003. <a href="https://doi.org/10.2519/jospt.2003.33.10.557">doi:10.2519/jospt.2003.33.10.557</a></li>
+<li>S. Hody, J.-L. Croisier, T. Bury, B. Rogister and P. Leprince, "Eccentric muscle contractions: risks and benefits," <i>Frontiers in Physiology</i>, vol. 10, 536, 2019. <a href="https://doi.org/10.3389/fphys.2019.00536">doi:10.3389/fphys.2019.00536</a></li>
+<li>K. Kulig, J. G. Andrews and J. G. Hay, "Human strength curves," <i>Exercise and Sport Sciences Reviews</i>, vol. 12, pp. 417–466, 1984. <a href="https://pubmed.ncbi.nlm.nih.gov/6376139/">PMID 6376139</a></li>
+<li>M. C. Uchida, M. M. Nishida, R. A. C. Sampaio, T. Moritani and H. Arai, "Thera-band® elastic band tension: reference values for physical activity," <i>Journal of Physical Therapy Science</i>, vol. 28, no. 4, pp. 1266–1271, 2016. <a href="https://doi.org/10.1589/jpts.28.1266">doi:10.1589/jpts.28.1266</a></li>
+<li>R. Limpert, <i>Brake Design and Safety</i>, 3rd ed., SAE International, Warrendale, PA, 2011. ISBN 978-0-7680-3438-7.</li>
+<li>P. J. Blau, "Compositions, functions, and testing of friction brake materials and their additives," Oak Ridge National Laboratory, report ORNL/TM-2001/64, 2001. <a href="https://doi.org/10.2172/788356">doi:10.2172/788356</a></li>
+<li>B. Armstrong-Hélouvry, P. Dupont and C. Canudas de Wit, "A survey of models, analysis tools and compensation methods for the control of machines with friction," <i>Automatica</i>, vol. 30, no. 7, pp. 1083–1138, 1994. <a href="https://doi.org/10.1016/0005-1098(94)90209-7">doi:10.1016/0005-1098(94)90209-7</a></li>
+<li>R. G. Budynas and J. K. Nisbett, <i>Shigley's Mechanical Engineering Design</i>, 11th ed., McGraw-Hill Education, New York, 2020. ISBN 978-0-07-339820-4.</li>
+<li>International Organization for Standardization, "Ergonomics of the thermal environment — Methods for the assessment of human responses to contact with surfaces — Part 1: Hot surfaces," ISO 13732-1:2006. <a href="https://www.iso.org/standard/43558.html">iso.org/standard/43558.html</a></li>
+<li>J. F. Airy and T. D. Kadavy (Soma Dynamics Corp.), "Exercise device," U.S. Patent 4,718,665 A, 1988. <a href="https://patents.google.com/patent/US4718665A/en">patents.google.com/patent/US4718665A</a></li>
+<li>D. E. Knoth (Mauch Laboratories, Inc.), "Limb brace with adjustable hydraulic resistance unit," U.S. Patent 5,472,412 A, 1995. <a href="https://patents.google.com/patent/US5472412A/en">patents.google.com/patent/US5472412A</a></li>
+<li>M. C. Longo, J. C. Vukich and J. A. Genova, "Adjustable resistance knee rehabilitating and strengthening apparatus," U.S. Patent 5,358,468 A, 1994. <a href="https://patents.google.com/patent/US5358468A/en">patents.google.com/patent/US5358468A</a></li>
+<li>P. Tran, "Adjustable resistance joint brace," U.S. Patent 8,753,301 B2, 2014. <a href="https://patents.google.com/patent/US8753301B2/en">patents.google.com/patent/US8753301B2</a></li>
+<li>S. M. Cersonsky, "Resistance brace," U.S. Patent 9,289,640 B2, 2016. <a href="https://patents.google.com/patent/US9289640B2/en">patents.google.com/patent/US9289640B2</a></li>
+<li>T. R. Weltner, R. D. Curley Jr. and M. T. Ingersoll (DeRoyal Industries, Inc.), "Brace with worm gear," U.S. Patent 7,473,234 B1, 2009. <a href="https://patents.google.com/patent/US7473234">patents.google.com/patent/US7473234</a></li>
+<li>M. Deharde and K. Patchel (Ultraflex Systems Inc.), "Multi-functional dynamic splint," U.S. Patent 5,658,241 A, 1997. <a href="https://patents.google.com/patent/US5658241A/en">patents.google.com/patent/US5658241A</a></li>
+<li>C. Krishnan, E. P. Washabaugh IV, R. B. Gillespie, S. Goretski, S. Abdulhamid and E. Mays (The Regents of the University of Michigan), "Wearable resistive device for functional strength training," U.S. Patent 10,507,351 B2, 2019. <a href="https://patents.google.com/patent/US10507351B2/en">patents.google.com/patent/US10507351B2</a></li>
+<li>P. Svensson and P. Yaskowski (Pure Fishing, Inc.), "IAR drag release," U.S. Patent 8,807,471 B2, 2014. <a href="https://patents.google.com/patent/US8807471B2/en">patents.google.com/patent/US8807471B2</a></li>
+<li>L. E. Paulos and K. A. Nelson, "Elastic brace assembly and methods of use," U.S. Patent 9,554,934 B2, 2017. <a href="https://patents.google.com/patent/US9554934B2/en">patents.google.com/patent/US9554934B2</a></li>
+<li>F. Yao (New York University), "Exercise garment with ergonomic and modifiable resistance bands," U.S. Patent 9,895,569 B2, 2018. <a href="https://patents.google.com/patent/US9895569B2/en">patents.google.com/patent/US9895569B2</a></li>
+<li>K. von Hoffmann and G. von Hoffmann (Tau Orthopedics LLC), "Low profile passive exercise garment," U.S. Patent 9,770,617 B2, 2017. <a href="https://patents.google.com/patent/US9770617B2/en">patents.google.com/patent/US9770617B2</a></li>
+</ol>
+
+<h2 id="cite">How to cite</h2>
+<p>B. Goldstein, "Resistance Without a Weight: A Dial-Set, Direction-Dependent Friction Unit for Rehabilitation Braces and Gym Machines," Benny Labs Foundation working paper, November 2026. https://bennylabs.org/newhab/paper/<!-- DOI PLACEHOLDER: replace the URL above with https://doi.org/10.5281/zenodo.XXXXXXXX once the record is published. --></p>
+
+<div class="note"><b>Disclosure.</b> The author is the inventor named on a pending U.S. patent application covering the mechanism described here (Application No. 19/722,859, filed June 28, 2026), and has a financial interest in it. Newhab is an investigational device in development; it is not FDA-cleared, it is not for sale, and no clinical claims are made. The model code is open and is published with the paper.</div>
+
+<footer>© 2026 Benny Goldstein. Published by Benny Labs Foundation Inc., a 501(c)(3) nonprofit public charity. · <a href="../../">bennylabs.org</a> · <a href="https://newhab.life/">Newhab</a></footer>
+</main>
+</body>
+</html>
