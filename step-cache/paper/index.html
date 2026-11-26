@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skip a Step, Keep the Clip: A Fixed-Schedule Step Cache for Open Video Models | Benny Labs Foundation</title>
+<meta name="description" content="A working paper on a very simple way to make open-source video generation faster: on a fixed schedule, skip the model's layer stack and add back one stored change. On Wan 2.1 14B it saved a third to nearly half of the time with 0.6 GB of extra memory, kept the same clip, and stacked with compilation and 4-bit weights. Code is open.">
+<meta name="author" content="Benny Goldstein">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="citation_abstract_html_url" content="https://bennylabs.org/step-cache/paper/">
+<meta name="citation_pdf_url" content="https://bennylabs.org/step-cache/paper/paper.pdf">
+<meta property="og:url" content="https://bennylabs.org/step-cache/paper/">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:published_time" content="2026-11-26">
+<meta name="twitter:title" content="Skip a Step, Keep the Clip">
+<meta name="twitter:description" content="A fixed-schedule step cache for open video models: a third to nearly half of the time saved on Wan 2.1 14B, same clip, 0.6 GB extra memory. Open code.">
+<meta name="twitter:image" content="https://bennylabs.org/assets/stepcache-paper/sc-hero-share.jpg">
+<link rel="canonical" href="https://bennylabs.org/step-cache/paper/">
+<meta name="keywords" content="video diffusion, diffusion transformers, inference acceleration, feature caching, residual caching, Wan 2.1, training-free acceleration, open-source video generation">
+<meta name="citation_title" content="Skip a Step, Keep the Clip: A Fixed-Schedule Step Cache for Open Video Models">
+<meta name="citation_author" content="Goldstein, Benny">
+<meta name="citation_publication_date" content="2026/11/26">
+<meta name="citation_technical_report_institution" content="Benny Labs Foundation">
+<meta name="citation_language" content="en">
+<meta property="og:title" content="Skip a Step, Keep the Clip">
+<meta property="og:description" content="A fixed-schedule step cache for open video models: a third to nearly half of the time saved on Wan 2.1 14B, same clip, 0.6 GB extra memory. Open code.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://bennylabs.org/assets/stepcache-paper/sc-hero-share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1e5a8a">
+<style>
+  :root{--ink:#17202b;--soft:#4b5866;--line:#dde4ec;--wash:#f5f8fb;--accent:#1e5a8a;--amber:#b7791f}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#fff;color:var(--ink);font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;font-size:18px;line-height:1.62}
+  .top{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.86rem;border-bottom:1px solid var(--line);padding:12px 24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .top a{color:var(--accent);text-decoration:none;font-weight:600}
+  main{max-width:820px;margin:0 auto;padding:44px 24px 80px}
+  .kicker{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  h1{font-size:2.15rem;line-height:1.18;margin:.5rem 0 .4rem;letter-spacing:-.01em}
+  .sub{font-size:1.2rem;color:var(--soft);margin:0 0 1.4rem;font-style:italic}
+  .byline{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.95rem;color:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:28px}
+  .byline strong{color:var(--ink)}
+  .abstract{background:var(--wash);border:1px solid var(--line);border-radius:10px;padding:20px 24px;margin:0 0 30px}
+  .abstract h2{margin:0 0 .4rem;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;border:0;padding:0}
+  .abstract p{margin:.4rem 0;font-size:.98rem}
+  .kw{font-size:.9rem;color:var(--soft)}
+  h2{font-size:1.42rem;margin:2.5rem 0 .6rem;padding-top:.6rem;border-top:1px solid var(--line)}
+  h3{font-size:1.1rem;margin:1.6rem 0 .3rem}
+  p{margin:.7rem 0}
+  a{color:var(--accent)}
+  figure{margin:1.8rem 0;text-align:center}
+  figure img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px}
+  figure.hero{margin:0 0 1.6rem}
+  figure.hero img{border-radius:12px}
+  figcaption{font-size:.9rem;color:var(--soft);margin-top:.55rem;text-align:left;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.45}
+  figcaption b{color:var(--ink)}
+  .eq{display:flex;align-items:center;justify-content:center;gap:18px;margin:1.1rem 0;font-size:1.08rem;font-style:italic;text-align:center}
+  .eq span.n{font-style:normal;color:var(--soft);font-size:.9rem;margin-left:auto}
+  .eq span.b{margin-left:auto}
+  .eq i{font-style:normal}
+  table{border-collapse:collapse;width:100%;margin:1.3rem 0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.86rem;line-height:1.4}
+  th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{border-bottom:2px solid var(--ink);font-weight:700}
+  caption{caption-side:top;text-align:left;font-size:.9rem;color:var(--soft);padding-bottom:6px}
+  caption b{color:var(--ink)}
+  .note{background:#fffaf0;border-left:3px solid var(--amber);padding:12px 16px;font-size:.93rem;margin:1.2rem 0}
+  ol.refs{font-size:.9rem;padding-left:1.4rem}
+  ol.refs li{margin:.45rem 0}
+  .toc{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.9rem;columns:2;column-gap:32px;padding:0;list-style:none;margin:0 0 10px}
+  .toc li{margin:.2rem 0}
+  .toc a{text-decoration:none}
+  footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1rem;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.84rem;color:var(--soft)}
+  @media (max-width:640px){body{font-size:17px}h1{font-size:1.7rem}.toc{columns:1}table{display:block;overflow-x:auto}}
+  @media print{.top{display:none}main{padding:0;max-width:none}body{font-size:11.5pt}figure,table,.eq{break-inside:avoid}h2,h3{break-after:avoid}}
+  pre{background:var(--wash);border:1px solid var(--line);border-radius:8px;padding:14px 16px;font-size:.84rem;line-height:1.5;overflow-x:auto;font-family:ui-monospace,Consolas,monospace}
+  main ul{padding-left:1.3rem}main ul li{margin:.5rem 0}
+</style>
+</head>
+<body>
+<div class="top"><a href="../../">← Benny Labs Foundation</a><span>Working Paper · <a href="step_cache.py">Code</a> · <a href="paper.pdf">Download PDF</a></span></div>
+<main>
+<figure class="hero"><img src="../../assets/stepcache-paper/sc-hero.jpg" alt="Illustration of a strip of film clearing from grainy static into a sailboat at dawn, with soft amber arcs leaping from frame to frame past a tall stack of glass plates." width="1400" height="933"></figure>
+<div class="kicker">Working paper · Generative video and efficient inference</div>
+<h1>Skip a Step, Keep the Clip</h1>
+<p class="sub">A fixed-schedule step cache for open video models: one stored change, no tuning, a third to nearly half of the generation time saved on Wan 2.1 14B</p>
+<div class="byline"><strong>Benny Goldstein</strong> · Benny Labs Foundation, New York · <a href="mailto:b@bennylabs.org">b@bennylabs.org</a><br>Working paper, November 26, 2026 · Open method and open code. Free for anyone to test, use and build on.</div>
+
+<section class="abstract">
+<h2>Abstract</h2>
+<p>A video diffusion model makes a clip by running the same large stack of layers many times, once or twice for every denoising step. Most of that work is repeated: from one step to the next, the change the stack makes to its input moves only a little. This paper describes a very small method that uses that fact. On a fixed schedule, known before generation starts, the model skips its whole layer stack and adds back the one change it stored the last time the stack ran. Nothing is trained, nothing is measured at run time, and nothing is fitted to the model.</p>
+<p>On Wan 2.1 T2V-14B (480×832, 49 frames, 30 steps) the method saved 32.9% of the generation time when it reused every second step in the middle of the run, and 46.0% when it reused two of every three, with 0.6 GB of extra memory. The result stays the same clip: the cached video sits at a perceptual distance (LPIPS) of 0.09 to 0.10 from the full 30-step video, where simply taking fewer steps for the same saving lands at 0.35 to 0.42. Automatic quality scores on 24 prompts stayed at the full-quality level. The saving also stacks: it stayed whole on top of a compiled model and on top of 4-bit weights.</p>
+<p>The tests so far cover one model family and a modest number of clips. The method and code are published openly so that others can test them on more models, and the paper ends with the tests that are still to be done.</p>
+<p class="kw"><b>Keywords:</b> video diffusion, diffusion transformers, inference acceleration, feature caching, residual caching, Wan 2.1, training-free acceleration, open-source video generation</p>
+</section>
+
+<ul class="toc">
+<li><a href="#s1">1. Introduction</a></li>
+<li><a href="#s2">2. The idea</a></li>
+<li><a href="#s3">3. The method</a></li>
+<li><a href="#s4">4. How it was tested</a></li>
+<li><a href="#s5">5. Time, memory and energy</a></li>
+<li><a href="#s6">6. It keeps the same clip</a></li>
+<li><a href="#s7">7. Quality</a></li>
+<li><a href="#s8">8. It stacks with other speed-ups</a></li>
+<li><a href="#s9">9. Related work</a></li>
+<li><a href="#s10">10. What is still to be tested</a></li>
+<li><a href="#s11">11. Conclusion</a></li>
+<li><a href="#refs">References</a></li>
+</ul>
+
+<h2 id="s1">1. Introduction</h2>
+<p>Open-source video models have become very good and very slow. Wan 2.1 T2V-14B, the model used in this paper, needs about four and a half minutes on an 80 GB data-centre card to make one three-second clip at 480p [1]. Almost all of that time is spent in one place: a stack of 40 transformer layers that is run twice at each of 30 denoising steps, 60 passes in total.</p>
+<p>A family of training-free methods speeds this up by caching: when the model's work at one step looks much like its work at the last, reuse it [2–9]. Most of these methods decide <i>when</i> to reuse by watching a signal while the model runs, and they need a threshold, or a set of fitted coefficients, for each model.</p>
+<p>This paper asks how far the plainest possible version goes. There is no signal and no threshold. The schedule is fixed in advance, and the thing stored is a single tensor. The contribution is not a new mechanism; the pieces are known. It is a clean, open measurement of how much this plain version delivers on a large current video model, what it costs in memory, whether the result is still the same clip, and whether the saving survives next to other speed-ups.</p>
+
+<figure><img src="../../assets/stepcache-paper/sc-fig1-denoise.jpg" alt="Illustration of four film frames going from noise to a finished clip of a sailboat, above a tall stack of glass plates labelled as the model's 40 layers that runs once per step." width="1400" height="933"><figcaption><b>Figure 1.</b> A video model starts from noise and clears it step by step. At every step the whole layer stack runs. That repeated stack is where the time goes.</figcaption></figure>
+
+<h2 id="s2">2. The idea</h2>
+<p>Think of the layer stack as a function that takes the current noisy video <i>x</i> and returns a refined version. What matters is the <i>change</i> it makes:</p>
+<div class="eq"><span>r = f(x) − x</span><span class="n">(1)</span></div>
+<p>In the middle of a run, the change at one step is very close to the change at the step before. So on some steps the stack does not need to run at all. The model takes its new input and adds the change it stored last time:</p>
+<div class="eq"><span>x′ ≈ x + r<sub>stored</sub></span><span class="n">(2)</span></div>
+<p>The input <i>x</i> is always the fresh one for this step. Only the change is borrowed. This is why the result stays on the same path as the full run, instead of drifting to a different video.</p>
+
+<figure><img src="../../assets/stepcache-paper/sc-fig3-onechange.jpg" alt="Two-panel illustration. On a fresh step a ribbon of light passes through the stack of plates and the difference between output and input is kept in a jar. On a reused step the stack is skipped and the input picks up the saved change." width="1400" height="933"><figcaption><b>Figure 2.</b> One saved change. On a fresh step the stack runs and the difference between its output and its input is stored. On a reused step the stack is skipped and the stored difference is added to the new input.</figcaption></figure>
+
+<h2 id="s3">3. The method</h2>
+<h3>3.1 A fixed schedule</h3>
+<p>The first steps of a run set the layout of the scene, and the last steps set the fine detail. Both change quickly, so both always run in full. Reuse happens only in the middle. For a 30-step run:</p>
+<table>
+<caption><b>Table 1.</b> The two schedules tested, for a 30-step run.</caption>
+<tr><th>Part of the run</th><th>Every 2nd step</th><th>2 of every 3 steps</th></tr>
+<tr><td>Steps 1 to 5</td><td>all fresh</td><td>all fresh</td></tr>
+<tr><td>Steps 6 to 26</td><td>fresh, reused, fresh, reused …</td><td>fresh, reused, reused, fresh …</td></tr>
+<tr><td>Steps 27 to 30</td><td>all fresh</td><td>all fresh</td></tr>
+<tr><td>Stack runs skipped</td><td>10 of 30</td><td>14 of 30</td></tr>
+</table>
+<p>The schedule depends only on the step number. It is the same for every prompt, and it is known before the run starts, which makes the cost of a clip predictable to the second.</p>
+
+<figure><img src="../../assets/stepcache-paper/sc-fig2-schedule.jpg" alt="Illustration of a path of stepping stones across a stream. The first and last stones are blue for fresh steps, and the middle stretch alternates blue and amber for reused steps." width="1400" height="933"><figcaption><b>Figure 3.</b> The schedule as stepping stones. The start and the end always run in full. In the middle, every second step (or two of every three) is reused.</figcaption></figure>
+
+<h3>3.2 One stored change, not forty</h3>
+<p>The first version of this method stored one change for each of the 40 layers. That works, but on a 14-billion-parameter model it costs 15.5 GB of extra memory. Storing a single change for the whole stack, the last layer's output minus the first layer's input, gives the same result for 0.6 GB (Section 5). One tensor is kept for the pass with the prompt and one for the pass without it, because the two see different inputs.</p>
+
+<h3>3.3 The code</h3>
+<p>The whole method is about forty lines, published with this paper as <a href="step_cache.py">step_cache.py</a>. It wraps the layers of a Diffusers transformer and needs no change to the model or the sampler:</p>
+<pre>cache = StepCache(pipe.transformer, every=2)   # or every=3
+cache.reset()                                   # once before each clip
+video = pipe(prompt, num_inference_steps=30).frames[0]</pre>
+
+<h2 id="s4">4. How it was tested</h2>
+<p>All tests used Wan 2.1 T2V-14B through Diffusers, at 480×832, 49 frames, 30 steps, guidance 5.0, in bfloat16, on single rented NVIDIA A100 80 GB cards. Every comparison used the same prompt and the same starting noise for each method, so the only thing that differs is the method. Prompts were split between calm scenes (a candle, a shop sign, a person reading) and busy ones (a motorcycle at night, a crowd, crashing waves).</p>
+<p>Three things were measured: wall-clock seconds and energy per clip; how far the result is from the full 30-step clip, using LPIPS [10] and PSNR; and quality with no reference at all, using five automatic scores (Section 7). The baseline for a fair comparison is not only the full run. It is also the obvious alternative: simply taking fewer steps for the same saving.</p>
+
+<h2 id="s5">5. Time, memory and energy</h2>
+<table>
+<caption><b>Table 2.</b> Wan 2.1 T2V-14B, 30 steps, mean of 8 clips. The step cache here uses one stored change.</caption>
+<tr><th>Method</th><th>Seconds per clip</th><th>Time saved</th><th>Energy saved</th><th>Peak memory</th></tr>
+<tr><td>Full 30 steps</td><td>274</td><td>–</td><td>–</td><td>35.3 GB</td></tr>
+<tr><td>Step cache, every 2nd step</td><td>184</td><td><b>32.9%</b></td><td>32.7%</td><td>35.9 GB</td></tr>
+<tr><td>Step cache, 2 of 3 steps</td><td>148</td><td><b>46.0%</b></td><td>46.1%</td><td>35.9 GB</td></tr>
+</table>
+<p>The saving follows the schedule almost exactly: skipping 10 of 30 stack runs saves a third of the time, and skipping 14 of 30 saves nearly half. Energy drops by the same share. The memory cost is 0.6 GB, so the cache fits anywhere the plain model fits. The per-layer version reached the same saving but peaked at 50.8 GB.</p>
+
+<h2 id="s6">6. It keeps the same clip</h2>
+<p>There are two ways to save a third of the time. One is this cache. The other is to run 20 steps instead of 30. Both produce a good-looking video, but only one produces the <i>same</i> video.</p>
+<table>
+<caption><b>Table 3.</b> Distance from the full 30-step clip at matched saving (lower LPIPS is closer). Step cache rows: one stored change, 8 clips. Fewer-step rows: 24 clips.</caption>
+<tr><th>Method</th><th>Time saved</th><th>LPIPS to the full clip</th></tr>
+<tr><td>Step cache, every 2nd step</td><td>32.9%</td><td><b>0.094</b></td></tr>
+<tr><td>Plain 20 steps</td><td>32.9%</td><td>0.351</td></tr>
+<tr><td>Step cache, 2 of 3 steps</td><td>46.0%</td><td><b>0.104</b></td></tr>
+<tr><td>Plain 16 steps</td><td>46.1%</td><td>0.424</td></tr>
+</table>
+<p>In a direct eight-clip comparison the cached clip was closer to the full clip than the 20-step clip on eight of eight. This matters in practice. A creator can find a seed they like with the fast setting and trust that the full-quality render will be that clip, not a different one. Figure 4 shows what it looks like.</p>
+
+<figure><img src="../../assets/stepcache-paper/sc-fig5-frames.jpg" alt="A grid of real frames from four generated clips: a motorcycle at night, an OPEN sign on a shop door, a candle, and waves on rocks. Each row shows the full 30-step result, the step cache on every second step and the step cache on two of three steps. The three frames in each row are nearly identical." width="1928" height="1560"><figcaption><b>Figure 4.</b> Real frames from four test clips, same prompt and same starting noise in each row. Left: the full run (274 s). Middle: step cache on every second step (185 s). Right: step cache on two of every three steps (149 s).</figcaption></figure>
+
+<h2 id="s7">7. Quality</h2>
+<p>Staying close to the full clip is one question. Whether the clip is <i>good</i> is another. On 24 prompts, each clip was scored with five automatic measures that need no reference: how well it matches its prompt and how alike its frames are (both CLIP [11]), an aesthetic score, the MUSIQ picture-quality score [12], and how steady the motion is (optical-flow warp error with RAFT [13]).</p>
+<table>
+<caption><b>Table 4.</b> Automatic quality scores, mean of 24 prompts. For warp error lower is better; for the others higher is better. (This test used the per-layer store, which Section 5 shows gives the same result as one stored change.)</caption>
+<tr><th>Method</th><th>Time saved</th><th>Prompt match</th><th>Frame likeness</th><th>Aesthetic</th><th>MUSIQ</th><th>Warp error</th></tr>
+<tr><td>Full 30 steps</td><td>–</td><td>0.2740</td><td>0.9748</td><td>6.00</td><td>58.6</td><td>0.0265</td></tr>
+<tr><td>Step cache, every 2nd step</td><td>32.6%</td><td>0.2748</td><td>0.9768</td><td>6.00</td><td>58.3</td><td>0.0261</td></tr>
+<tr><td>Plain 20 steps</td><td>32.9%</td><td>0.2680</td><td>0.9741</td><td>6.02</td><td>56.8</td><td>0.0292</td></tr>
+<tr><td>Step cache, 2 of 3 steps</td><td>45.7%</td><td>0.2738</td><td>0.9735</td><td>5.98</td><td>57.7</td><td>0.0262</td></tr>
+<tr><td>Plain 16 steps</td><td>46.1%</td><td>0.2729</td><td>0.9734</td><td>5.80</td><td>53.1</td><td>0.0352</td></tr>
+</table>
+<p>With a third of the time saved, the cached clips score the same as the full run on every measure. Against plain 20 steps at the same cost, the cache scored higher on prompt match in 17 of 24 clips and on motion steadiness in 16 of 24. With nearly half the time saved the gap is wider: the cache holds a MUSIQ score of 57.7 and a warp error of 0.026, where plain 16 steps falls to 53.1 and 0.035, and the cache scored higher on both in 16 of 24 clips.</p>
+<p>The author also compared the clips by eye, two at a time. With a third saved, the cached clip looked better than plain 20 steps in 10 pairs and worse in 2, with 12 the same. With about half saved, it looked better than plain 16 steps in 15 pairs and worse in 3, with 6 the same. Set beside the full 30-step clip, the half-time cached clip looked the same in 22 of 24 pairs. This was one viewer who could see which clip was which, so it is an early reading; a blind test with more viewers is planned (Section 10).</p>
+
+<h2 id="s8">8. It stacks with other speed-ups</h2>
+<p>A speed-up is most useful if it adds to the others people already use. The cache was run on top of three of them (eight clips each).</p>
+<table>
+<caption><b>Table 5.</b> The step cache on top of other speed-ups. "Saved on top" is measured against the same setup without the cache.</caption>
+<tr><th>Already in use</th><th>Cache saves on top</th><th>Note</th></tr>
+<tr><td>Compiled model (torch.compile)</td><td>32.4%</td><td>Together 44.5% faster than the plain model; 55.3% with 2 of 3 steps</td></tr>
+<tr><td>4-bit weights</td><td>32.6%</td><td>LPIPS 0.072 to the 4-bit model's own full clip</td></tr>
+<tr><td>A shorter 20-step run</td><td>34.0%</td><td>Together 55.8% less time than the 30-step run</td></tr>
+</table>
+<p>In each case the cache kept its full saving. Compilation makes each layer faster, 4-bit weights make the model smaller, and the cache removes whole runs of the stack. They work on different parts of the cost, so they add up.</p>
+
+<figure><img src="../../assets/stepcache-paper/sc-fig4-stacking.jpg" alt="Illustration of three objects joined by plus signs: a film frame with a skipping arc labelled step cache, a gear mechanism labelled compiled model and a memory chip labelled 4-bit weights, leading to a stopwatch." width="1400" height="623"><figcaption><b>Figure 5.</b> The cache removes whole runs of the layer stack, so its saving adds to speed-ups that work on other parts of the cost.</figcaption></figure>
+
+<h2 id="s9">9. Related work</h2>
+<p>Caching for diffusion models is an active field, and this method stands on it. FORA [2] reuses attention and MLP outputs across steps on a static schedule in image models, and Δ-DiT [3] caches different blocks at different stages. TeaCache [4] skips the block stack and adds a cached residual, the same store used here, and decides when to do so from a fitted function of the timestep embedding. First Block Cache, Pyramid Attention Broadcast, FasterCache, MagCache and TaylorSeer are available in Diffusers [5], and EasyCache [6] and SeaCache [7] are recent adaptive methods. DeepCache [8] introduced the idea for U-Net models.</p>
+<p>What this paper adds is the measurement of the simplest member of the family, a fixed schedule with a single whole-stack residual and a protected start and end, on a large current video model, with its memory cost, its fidelity to the full clip against the fewer-steps alternative, and its behaviour next to compilation and quantization. In our own test on Wan 2.1 14B the fixed schedule performed on par with a TeaCache whose threshold we re-fitted for that model, without needing the fitting step. A fixed schedule has practical appeal: no coefficients to calibrate for a new model, and a clip cost known in advance.</p>
+
+<h2 id="s10">10. What is still to be tested</h2>
+<p>These results are a first set, and the method is published so others can extend them. The open tests, in the order we plan to run them:</p>
+<ul>
+<li><b>More models.</b> The full set of results is for Wan 2.1 14B. HunyuanVideo, LTX and Wan 2.2 are next. Wan 2.2 switches between two expert models during a run, and the cache should refresh at the switch. In earlier small trials on two smaller models, caches designed for those models did as well or better, so how the benefit depends on model size is an open question.</li>
+<li><b>More clips and blind viewers.</b> The quality edge at nearly half the time saved rests on 24 prompts and one viewer. A larger prompt set with several blind viewers will settle it.</li>
+<li><b>Head-to-head with the newest adaptive caches.</b> SeaCache, EasyCache and TaylorSeer have not yet been run beside this method on the same clips.</li>
+<li><b>Other settings.</b> Longer clips, higher resolution, image-to-video, and other samplers and step counts.</li>
+</ul>
+<p>Anyone can run these. The code is one small file, and results of any kind, for or against, are welcome at the address above.</p>
+
+<h2 id="s11">11. Conclusion</h2>
+<p>A large video model repeats most of its work from one step to the next. Skipping the layer stack on a fixed schedule and adding back one stored change is enough to recover a third to nearly half of the generation time on Wan 2.1 14B, for 0.6 GB of memory and about forty lines of code. The result is the same clip as the full run, its measured quality holds, and the saving adds to compilation and 4-bit weights. The method is open. We hope others will test it on the models they use.</p>
+
+<p>The code is published with this paper as <a href="step_cache.py">step_cache.py</a>, and the measured numbers behind every table as <a href="results.json">results.json</a>.</p>
+
+<h2 id="refs">References</h2>
+<ol class="refs">
+<li>Wan Team, "Wan: Open and Advanced Large-Scale Video Generative Models," arXiv:2503.20314, 2025. <a href="https://arxiv.org/abs/2503.20314">arxiv.org/abs/2503.20314</a></li>
+<li>P. Selvaraju, T. Ding, T. Chen, I. Zharkov and L. Liang, "FORA: Fast-Forward Caching in Diffusion Transformer Acceleration," arXiv:2407.01425, 2024. <a href="https://arxiv.org/abs/2407.01425">arxiv.org/abs/2407.01425</a></li>
+<li>P. Chen et al., "Δ-DiT: A Training-Free Acceleration Method Tailored for Diffusion Transformers," arXiv:2406.01125, 2024. <a href="https://arxiv.org/abs/2406.01125">arxiv.org/abs/2406.01125</a></li>
+<li>F. Liu et al., "Timestep Embedding Tells: It's Time to Cache for Video Diffusion Model" (TeaCache), arXiv:2411.19108, 2024. <a href="https://github.com/ali-vilab/TeaCache">github.com/ali-vilab/TeaCache</a></li>
+<li>Hugging Face Diffusers documentation, "Caching" (First Block Cache, Pyramid Attention Broadcast, FasterCache, MagCache, TaylorSeer). <a href="https://huggingface.co/docs/diffusers/main/en/optimization/cache">huggingface.co/docs/diffusers/main/en/optimization/cache</a></li>
+<li>"EasyCache," arXiv:2507.02860, 2025. <a href="https://arxiv.org/abs/2507.02860">arxiv.org/abs/2507.02860</a></li>
+<li>"SeaCache," arXiv:2602.18993, 2026. <a href="https://arxiv.org/abs/2602.18993">arxiv.org/abs/2602.18993</a></li>
+<li>X. Ma, G. Fang and X. Wang, "DeepCache: Accelerating Diffusion Models for Free," arXiv:2312.00858, 2023. <a href="https://arxiv.org/abs/2312.00858">arxiv.org/abs/2312.00858</a></li>
+<li>X. Zhao, X. Jin, K. Wang and Y. You, "Real-Time Video Generation with Pyramid Attention Broadcast," 2024. See [5].</li>
+<li>R. Zhang, P. Isola, A. A. Efros, E. Shechtman and O. Wang, "The Unreasonable Effectiveness of Deep Features as a Perceptual Metric" (LPIPS), CVPR 2018. <a href="https://arxiv.org/abs/1801.03924">arxiv.org/abs/1801.03924</a></li>
+<li>A. Radford et al., "Learning Transferable Visual Models From Natural Language Supervision" (CLIP), ICML 2021. <a href="https://arxiv.org/abs/2103.00020">arxiv.org/abs/2103.00020</a></li>
+<li>J. Ke, Q. Wang, Y. Wang, P. Milanfar and F. Yang, "MUSIQ: Multi-scale Image Quality Transformer," ICCV 2021. <a href="https://arxiv.org/abs/2108.05997">arxiv.org/abs/2108.05997</a></li>
+<li>Z. Teed and J. Deng, "RAFT: Recurrent All-Pairs Field Transforms for Optical Flow," ECCV 2020. <a href="https://arxiv.org/abs/2003.12039">arxiv.org/abs/2003.12039</a></li>
+</ol>
+
+<h2 id="cite">How to cite</h2>
+<p>B. Goldstein, "Skip a Step, Keep the Clip: A Fixed-Schedule Step Cache for Open Video Models," Benny Labs Foundation working paper, November 2026.</p>
+
+<div class="note"><b>Disclosure.</b> This method is released openly. It is not the subject of a patent application, and the author has no financial interest in it. Tests were run on rented cloud hardware paid for by the author.</div>
+
+<footer>© 2026 Benny Goldstein. Published by Benny Labs Foundation Inc., a 501(c)(3) nonprofit public charity. · <a href="../../">bennylabs.org</a></footer>
+</main>
+</body>
+</html>
