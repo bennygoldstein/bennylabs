@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Nail That Carries No Battery: Passive Fingernail Displays Powered and Driven Through Jewelry | Benny Labs Foundation</title>
+<meta name="description" content="A working paper on Living Nails: fingernail displays with no battery and no radio, powered and fed image data over a fine jewelry conductor from a ring or bracelet hub. Design, an open power and data model, battery life, limits and an evaluation plan.">
+<meta name="author" content="Benny Goldstein">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="keywords" content="wearable displays, fingernail display, smart jewelry, micro-LED, OLED, electronic paper, power budget, body-worn hub">
+<meta name="citation_publication_date" content="2026/11/25">
+<meta name="citation_abstract_html_url" content="https://bennylabs.org/living-nails/paper/">
+<meta name="citation_pdf_url" content="https://bennylabs.org/living-nails/paper/paper.pdf">
+<meta property="og:title" content="The Nail That Carries No Battery">
+<meta property="og:description" content="Fingernail displays with no battery and no radio, powered and fed image data through jewelry from a ring or bracelet. An open model of what it takes, and where it falls short.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://bennylabs.org/living-nails/paper/">
+<meta property="og:image" content="https://bennylabs.org/assets/livingnails-paper/ln-hero-share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The back of a hand with five glowing display fingernails, each joined by a fine gold chain to a slim bracelet hub at the wrist">
+<meta property="article:published_time" content="2026-11-25">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Nail That Carries No Battery">
+<meta name="twitter:description" content="Fingernail displays with no battery and no radio, powered and fed image data through jewelry from a ring or bracelet. An open model of what it takes, and where it falls short.">
+<meta name="twitter:image" content="https://bennylabs.org/assets/livingnails-paper/ln-hero-share.jpg">
+<meta name="citation_title" content="The Nail That Carries No Battery: Passive Fingernail Displays Powered and Driven Through Jewelry">
+<meta name="citation_author" content="Goldstein, Benny">
+<meta name="citation_technical_report_institution" content="Benny Labs Foundation">
+<meta name="citation_language" content="en">
+<meta name="theme-color" content="#6b2a6e">
+<link rel="canonical" href="https://bennylabs.org/living-nails/paper/">
+<style>
+  :root{--ink:#21172a;--soft:#5a4d62;--line:#e6dcea;--wash:#faf6fb;--accent:#6b2a6e;--amber:#b7791f}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#fff;color:var(--ink);font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;font-size:18px;line-height:1.62}
+  .top{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.86rem;border-bottom:1px solid var(--line);padding:12px 24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .top a{color:var(--accent);text-decoration:none;font-weight:600}
+  main{max-width:820px;margin:0 auto;padding:44px 24px 80px}
+  .kicker{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  h1{font-size:2.15rem;line-height:1.18;margin:.5rem 0 .4rem;letter-spacing:-.01em}
+  .sub{font-size:1.2rem;color:var(--soft);margin:0 0 1.4rem;font-style:italic}
+  .byline{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.95rem;color:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:28px}
+  .byline strong{color:var(--ink)}
+  .abstract{background:var(--wash);border:1px solid var(--line);border-radius:10px;padding:20px 24px;margin:0 0 30px}
+  .abstract h2{margin:0 0 .4rem;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;border:0;padding:0}
+  .abstract p{margin:.4rem 0;font-size:.98rem}
+  .kw{font-size:.9rem;color:var(--soft)}
+  h2{font-size:1.42rem;margin:2.5rem 0 .6rem;padding-top:.6rem;border-top:1px solid var(--line)}
+  h3{font-size:1.1rem;margin:1.6rem 0 .3rem}
+  p{margin:.7rem 0}
+  a{color:var(--accent)}
+  figure{margin:1.8rem 0;text-align:center}
+  figure img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px}
+  figure.hero{margin:0 0 1.6rem}
+  figure.hero img{border-radius:12px}
+  figcaption{font-size:.9rem;color:var(--soft);margin-top:.55rem;text-align:left;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.45}
+  figcaption b{color:var(--ink)}
+  .eq{display:flex;align-items:center;justify-content:center;gap:18px;margin:1.1rem 0;font-size:1.08rem;font-style:italic;text-align:center}
+  .eq span.n{font-style:normal;color:var(--soft);font-size:.9rem;margin-left:auto}
+  .eq span.b{margin-left:auto}
+  .eq i{font-style:normal}
+  table{border-collapse:collapse;width:100%;margin:1.3rem 0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.86rem;line-height:1.4}
+  th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{border-bottom:2px solid var(--ink);font-weight:700}
+  caption{caption-side:top;text-align:left;font-size:.9rem;color:var(--soft);padding-bottom:6px}
+  caption b{color:var(--ink)}
+  .note{background:#fffaf0;border-left:3px solid var(--amber);padding:12px 16px;font-size:.93rem;margin:1.2rem 0}
+  ol.refs{font-size:.9rem;padding-left:1.4rem}
+  ol.refs li{margin:.45rem 0}
+  .toc{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.9rem;columns:2;column-gap:32px;padding:0;list-style:none;margin:0 0 10px}
+  .toc li{margin:.2rem 0}
+  .toc a{text-decoration:none}
+  footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1rem;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.84rem;color:var(--soft)}
+  @media (max-width:640px){body{font-size:17px}h1{font-size:1.7rem}.toc{columns:1}table{display:block;overflow-x:auto}.eq{font-size:1rem;gap:10px}}
+  @media print{.top{display:none}main{padding:0;max-width:none}body{font-size:11.5pt}figure,table,.eq{break-inside:avoid}h2,h3{break-after:avoid}}
+</style>
+</head>
+<body>
+<div class="top"><a href="../../">← Benny Labs Foundation</a><span>Working Paper · <a href="../">Living Nails project page</a> · <a href="paper.pdf">Download PDF</a></span></div>
+<main>
+<figure class="hero"><img src="../../assets/livingnails-paper/ln-hero.jpg" alt="Illustration of the back of a hand with five glowing display fingernails showing one flowing rose and lavender pattern. A fine gold chain runs from the cuticle end of each nail back across the hand to a slim gold bracelet with a small plum housing. An inset shows a nail unit with only a display layer and two small gold contacts." width="1400" height="788"></figure>
+<div class="kicker">Working paper · Wearable displays</div>
+<h1>The Nail That Carries No Battery</h1>
+<p class="sub">Passive fingernail displays powered and driven through jewelry: design, an open power and data budget, and the limits of a screen worn on a fingernail</p>
+<div class="byline"><strong>Benny Goldstein</strong> · Benny Labs Foundation, New York · <a href="mailto:b@bennylabs.org">b@bennylabs.org</a><br>Working paper, November 25, 2026 · The system described is the subject of a pending U.S. patent application by the author, Application No. 19/724,868, filed June 30, 2026 (patent pending).</div>
+
+<section class="abstract">
+<h2>Abstract</h2>
+<p>A screen on a fingernail has been shown in the laboratory and proposed many times in patents, yet it has not become a product. The usual design puts the whole device on the nail: display, battery, radio and controller. This paper describes a different arrangement, developed under the name Living Nails. Each artificial nail carries only a thin display and a few electrical contacts. It has no battery and no radio. A fine conductor, which can be styled as a gold chain, carries both power and image data to it from a body-worn hub: a finger ring, a wrist band, or several linked rings that hold the battery, the Bluetooth radio, the controller, a motion sensor and a vibration motor. When the fingers curl so the nails line up, the hub can split one line of text or one image across them as a single moving display.</p>
+<p>We give a small, open model of what this asks of the hardware. One hand offers about 5 cm² of display: 76,614 pixels at 300 pixels per inch, or 489 if the nails are tiled with 1 mm addressable LEDs. An emissive thumbnail at an indoor brightness draws about 1.5 to 3.5 mW, and an electronic-paper nail changing its image 30 times an hour draws under 0.05 mW. A battery that fits under a nail holds about 5 mWh and runs an always-on emissive nail for 1.7 hours; a ring holds about 29 times as much and a bracelet about 286 times. A bracelet runs five always-on nails for about 140 hours, but a single ring runs them for only 14 hours, and at showroom brightness for 3. The conductor itself costs almost nothing: under 30 mV of drop and under 1% loss in the worst case. The limits are elsewhere. Live 30-frame video for one hand would need 9 to 37 times what a Bluetooth link carries, so animation must be stored or generated in the hub. Strings of standard addressable LEDs, one of the disclosed wiring schemes, draw far more at idle than they spend on light. Electronic paper is too slow for a smooth scrolling marquee.</p>
+<p>No prototype exists. Every number comes from a published model with stated assumptions, and the paper ends with the tests that would confirm or refute it.</p>
+<p class="kw"><b>Keywords:</b> wearable displays, fingernail display, smart jewelry, micro-LED, OLED, electronic paper, power budget, body-worn hub</p>
+</section>
+
+<ul class="toc">
+<li><a href="#s1">1. Introduction</a></li>
+<li><a href="#s2">2. Related work</a></li>
+<li><a href="#s3">3. The system</a></li>
+<li><a href="#s4">4. How much screen a nail holds</a></li>
+<li><a href="#s5">5. What a nail display draws</a></li>
+<li><a href="#s6">6. The battery budget</a></li>
+<li><a href="#s7">7. Why the battery leaves the nail</a></li>
+<li><a href="#s8">8. The conductor</a></li>
+<li><a href="#s9">9. Data: radio, wire and daisy chain</a></li>
+<li><a href="#s10">10. One display across four nails</a></li>
+<li><a href="#s11">11. Gestures, alerts and heat</a></li>
+<li><a href="#s12">12. Limitations and evaluation plan</a></li>
+<li><a href="#s13">13. Conclusion</a></li>
+<li><a href="#refs">References</a></li>
+</ul>
+
+<h2 id="s1">1. Introduction</h2>
+<p>Nail decoration is static. Polish, gel and press-on nails fix one look until they are removed. A display on the nail would let that look change with clothing or mood, animate, or carry a short message. The idea is old enough to have a research literature. A colour screen was mounted on a fingernail as an always-available display in 2013 [1]. Battery-free electronic-ink nails that update when tapped against a phone followed in 2017 and 2018 [2, 3]. Patents describe nails with electronic paper, a battery and a Bluetooth receiver on board [4], and a granted claim recites a fingernail display with its own wireless controller and power source [5].</p>
+<p>None of these has become an everyday product, and the reason is easy to state. A fingernail is about a square centimetre and a fraction of a millimetre thick. Into that space the self-contained design must fit a display, a battery, a radio, a controller and some way to charge, and do it ten times, once per finger. The battery is the binding part. A cell thin enough to hide under a nail stores very little energy, and ten of them must each be charged.</p>
+<p>The system described here, Living Nails, removes the battery and the radio from the nail altogether. Each nail is a passive display with electrical contacts. Power and image data both arrive over a conductor from a hub worn on the body, where there is room for a real battery and a USB-C port. The conductor can be ordinary wire, but it can also be a piece of jewelry: fine insulated wire inside a hollow gold chain whose metal body is the return path and a shield. A magnetic clasp can be both the fastener and the electrical connector.</p>
+<p>The questions we address are practical. How much display does a nail offer, and at what pixel count? How much power does it draw for each display technology? How long does a ring or a bracelet keep it running, and how does that compare with a battery on the nail? Does the thin conductor waste power or corrupt the signal? Can the radio keep up? Is a line of text across four nails readable? We give a small model for each, publish it, and say where the answers are unfavourable.</p>
+
+<h2 id="s2">2. Related work</h2>
+<p><b>Displays on the nail.</b> NailDisplay mounted a small colour screen on a fingertip to study an always-available display, with the electronics tethered off the finger [1]. AlterNail [2] and AlterWear [3] made electronic-ink nails and other wearables with no battery: an NFC reader, typically a phone, powers the display briefly and writes a new image, which the bistable ink then keeps without power. Patent proposals mostly integrate everything on the nail. Q-Tee describes artificial nails with an electronic-paper display [4]; Magnusson claims a fingernail display with its own wireless controller and power source [5]; Piccionelli describes a finger computer display and controller device whose nail display carries its own processor and signal receiver, powered by a small battery or, in some forms, by a glove or band worn on the hand [6].</p>
+<p><b>Nails driven through contacts.</b> Two proposals feed a passive nail through contacts. Kent Displays describes bistable colour-changing artificial nails re-coloured by plugging the nail tip into a separate device [7]. Nailtron describes an output device built into a smartphone cover, with a groove whose terminals send colour data to an electronic-paper nail [8]. In both, the source is a handheld appliance that the nail visits, not a hub worn on the body that drives the nail continuously.</p>
+<p><b>Power and data on one pair, and power through jewelry.</b> Sending power and data to a remote display over the same wire pair is an old technique in signage [9]. A charm bracelet that distributes battery power along conductive rails to LED charms carries power but not images [10]. A necklace loop that sends power wirelessly to a display in a contact lens shows a body-worn source feeding a passive display, but inductively and to the eye [11].</p>
+<p><b>The nail as a sensor and an input.</b> NailO turned a nail-mounted pad into a touch input surface [12], and nail-deformation sensing has been used to track grip and gesture [13]. The author has separately published, as a defensive disclosure, a way to add touch sensing to the passive nail by measuring capacitance from the hub over the same conductor [19]. Touch is not part of the system analysed here.</p>
+<p><b>Display and battery technology.</b> Micro-LED and OLED displays are reviewed in [14]; electrophoretic ink, the basis of electronic paper, in [15]; flexible lithium batteries in [16]; and the power behaviour of Bluetooth Low Energy in [17].</p>
+
+<table>
+<caption><b>Table 1.</b> Where the passive-nail approach sits among fingernail display proposals.</caption>
+<tr><th>Approach</th><th>Battery on nail</th><th>Radio on nail</th><th>Power source</th><th>Image source</th><th>Updates while worn</th></tr>
+<tr><td>Tethered nail screen [1]</td><td>No</td><td>No</td><td>Off-finger electronics</td><td>Cable</td><td>Yes</td></tr>
+<tr><td>Battery-free ink nail [2, 3]</td><td>No</td><td>NFC tag</td><td>Phone held to nail</td><td>NFC tap</td><td>Only when tapped</td></tr>
+<tr><td>Self-contained display nail [4, 5]</td><td>Yes</td><td>Yes</td><td>On-nail cell</td><td>Radio on nail</td><td>Yes</td></tr>
+<tr><td>Nail electronics, power from nail or glove [6]</td><td>In some forms</td><td>Yes</td><td>Cell, or glove or band</td><td>Radio on nail</td><td>Yes</td></tr>
+<tr><td>Nail plugged into an appliance [7, 8]</td><td>No</td><td>No</td><td>Handheld device or phone cover</td><td>Contacts, while docked</td><td>Only when docked</td></tr>
+<tr><td><b>Passive nail, worn hub (this paper)</b></td><td><b>No</b></td><td><b>No</b></td><td><b>Ring or bracelet</b></td><td><b>Same conductor as power</b></td><td><b>Yes, continuously</b></td></tr>
+</table>
+
+<h2 id="s3">3. The system</h2>
+<p>The system has four parts: the nail unit, the hub, the conductor and the connector (Figure 1).</p>
+<figure><img src="../../assets/livingnails-paper/ln-fig1-architecture.jpg" alt="Two exploded views of an artificial nail. Left, a self-contained nail with display, battery, radio with antenna, controller and charging coil stacked on the nail. Right, a passive nail with only a display layer and two contacts, connected by a fine gold chain to a ring whose raised housing is cut open to show a battery, radio and controller." width="1400" height="933"><figcaption><b>Figure 1.</b> The architecture. Left, the self-contained nail that most proposals describe. Right, the passive nail: only the display and its contacts stay on the nail; the battery, radio and controller move into a worn hub.</figcaption></figure>
+<p><b>Nail unit.</b> The nail unit is an artificial nail that carries a display facing outward and a set of electrical contacts, conveniently at the cuticle end (Figure 2). It may carry a small display driver or decoder that turns the incoming signal into the drive the display needs. It is passive in a strict sense: it holds no battery, capacitor bank or other energy store serving as a power source, and no radio or antenna, and it cannot work when disconnected. The display can be emissive (micro-LED, OLED, or individually addressable light-emitting pixels), bistable reflective electronic paper, or a liquid-crystal display, monochrome or colour, under a glossy protective overcoat. The nail can be any shape, including long or pointed, and may extend beyond the natural nail. It is held by adhesive, or without adhesive by a sleeve or cap over the fingertip, a ring around the fingertip, or a cradle attached to a finger ring. It may also come in two parts: a low base that stays on the nail and carries the contacts, and a display module that clips onto it.</p>
+<figure><img src="../../assets/livingnails-paper/ln-fig2-nailunit.jpg" alt="Exploded stack of one curved artificial nail above a fingertip: a clear protective overcoat, a flexible display with a fine pixel grid, a small display driver chip, the nail body with two gold contact pads at the cuticle edge, and an adhesive layer. A note reads no battery, no radio." width="1400" height="933"><figcaption><b>Figure 2.</b> The passive nail unit, exploded. A display, an optional driver, contacts and the nail body. There is no energy store and no radio.</figcaption></figure>
+<p><b>Hub.</b> The hub holds a rechargeable battery, a wireless transceiver such as Bluetooth Low Energy that receives images from a phone, a controller that turns them into the display signal, a motion sensor, and optionally a vibration motor. It takes three forms (Figure 4). A single finger ring can hold all of it, ideally in a raised housing on top of the band like a signet or a gem setting, and drive the nail of the same finger; the thumb suits this well, because its nail is the largest and the ring sits close to it. A wrist band can fan a conductor to each nail of the hand and carry a larger battery charged through USB-C. Or the parts can be spread over several linked rings, for example the radio in one, the battery in a second and the controller in a third, each ring wired to its own nail.</p>
+<p><b>Conductor.</b> The conductor carries power and the display signal together. It can be a plain wire, strap, band or flexible printed cable. It can also be jewelry: fine insulated wires inside the bore of a hollow snake or rope chain whose metal body serves as the return and as a shield, which makes the pair coaxial; or two enamelled strands twisted together, the enamel both insulation and finish (Figure 3).</p>
+<figure><img src="../../assets/livingnails-paper/ln-fig3-conductor.jpg" alt="Left: a cross-section of a hollow gold chain with one insulated copper wire inside. Right: an exploded bead-shaped magnetic clasp with small magnets and spring-loaded contact pins on each half, one half fixed to the chain and the other to the cuticle end of a display nail." width="1400" height="933"><figcaption><b>Figure 3.</b> Left, the wire-in-chain conductor: an insulated inner wire in a hollow chain whose body is the return and a shield. Right, a magnetic clasp whose halves carry spring contacts, so closing the clasp also completes the circuit.</figcaption></figure>
+<p><b>Connector.</b> The conductor meets the nail through a releasable connector. In the main form it is a magnetic clasp dressed as a bead or charm: magnets pull the two halves together and align them, and gold-plated spring pins on the faces mate in the same motion. Two contacts suffice for a two-wire scheme, four or five for a serial display interface. Snap, slide, spring-clip and bayonet connectors serve the same role. Because the connector releases, a wearer who keeps the nails on for a week or two can take off the jewelry for showering, exercise or sleep and leave the nails in place.</p>
+<figure><img src="../../assets/livingnails-paper/ln-fig4-hubs.jpg" alt="Three panels. A thumb ring with a raised plum housing and a short chain to the thumbnail. A wrist band with a USB-C port and five chains fanning out to all five nails. Three linked rings on adjacent fingers labelled transceiver, battery and controller, each with a short chain to its own nail." width="1400" height="933"><figcaption><b>Figure 4.</b> Three forms of hub: a single ring with a raised housing, a wrist band with a USB-C port, and the functions spread across linked rings.</figcaption></figure>
+<p><b>Signal schemes.</b> The application describes three ways to carry power and image together (Figure 5). With two conductors, data is modulated onto the direct-current supply and recovered at the nail, and the chain body can be the return, so the visible jewelry holds a single inner wire. With three conductors (power, return and one data line), the nails are made of individually addressable pixels with built-in control, connected in a daisy chain so that one nail's data output feeds the next; the wire count does not grow with the number of nails. With five conductors, a standard serial display interface (clock, data, control, power and return) drives a raster display on each nail.</p>
+<figure><img src="../../assets/livingnails-paper/ln-fig5-schemes.jpg" alt="Three schematic strips. Two wires from a hub to one nail with a data wave riding on the power line. Three wires from a hub to three nails, the data line hopping from nail to nail. A ribbon of five wires from a hub to one nail." width="1400" height="933"><figcaption><b>Figure 5.</b> Three power-and-data schemes: data on the power rail over two conductors, a daisy chain of addressable nails over three, and a serial display interface over five.</figcaption></figure>
+<p><b>Operation.</b> A phone app sends still images, patterns, animations, text or notifications to the hub. The controller prepares the display signal and sends it, with power, down the conductors. The motion sensor recognises gestures: raising and turning the hand wakes the displays, a twist advances, a pinch selects, a shake dismisses, and curling the fingers so the nails line up reveals one display that spans them. Content can also be stored in the hub and shown without a phone.</p>
+
+<h2 id="s4">4. How much screen a nail holds</h2>
+<p>The display cannot cover the whole nail. We reserve a strip at the cuticle end for the contacts and driver, a narrow inactive border, and lose a little more to rounded corners. For a nail plate of width <i>W</i> and length <i>L</i>, a border <i>m</i>, a cuticle strip <i>c</i> and a corner factor ρ, the active area and the pixel count at pitch <i>p</i> are</p>
+<div class="eq"><span class="b"></span><span><i>A</i> = (<i>W</i> − 2<i>m</i>)(<i>L</i> − <i>c</i> − <i>m</i>) ρ ,   <i>N</i> = ⌊(<i>W</i> − 2<i>m</i>)/<i>p</i>⌋ · ⌊(<i>L</i> − <i>c</i> − <i>m</i>)/<i>p</i>⌋</span><span class="n">(1)</span></div>
+<p>We assume adult nail plates from 15 × 14&nbsp;mm for the thumb to 9.5 × 10.5&nbsp;mm for the little finger, <i>m</i> = 0.6&nbsp;mm, <i>c</i> = 2.0&nbsp;mm and ρ = 0.90. We compare three pitches: 1&nbsp;mm, the size of the smallest common addressable-LED packages used in the daisy-chain scheme; 150 pixels per inch (ppi), typical of electronic paper; and 300&nbsp;ppi, typical of a small high-resolution OLED or micro-LED panel [14].</p>
+
+<table>
+<caption><b>Table 2.</b> Active display area and pixel count per nail, from Eq. (1).</caption>
+<tr><th>Nail</th><th>Plate (mm)</th><th>Active (mm)</th><th>Area (mm²)</th><th>1 mm pixels</th><th>150 ppi</th><th>300 ppi</th><th>300 ppi, extended nail</th></tr>
+<tr><td>Thumb</td><td>15.0 × 14.0</td><td>13.8 × 11.4</td><td>142</td><td>143</td><td>5,427</td><td>21,708</td><td>29,322</td></tr>
+<tr><td>Index</td><td>12.0 × 12.5</td><td>10.8 × 9.9</td><td>96</td><td>90</td><td>3,654</td><td>14,732</td><td>20,828</td></tr>
+<tr><td>Middle</td><td>12.5 × 13.5</td><td>11.3 × 10.9</td><td>111</td><td>110</td><td>4,224</td><td>17,024</td><td>23,275</td></tr>
+<tr><td>Ring</td><td>11.5 × 12.5</td><td>10.3 × 9.9</td><td>92</td><td>90</td><td>3,480</td><td>14,036</td><td>19,844</td></tr>
+<tr><td>Little</td><td>9.5 × 10.5</td><td>8.3 × 7.9</td><td>59</td><td>56</td><td>2,254</td><td>9,114</td><td>13,720</td></tr>
+<tr><td><b>One hand</b></td><td></td><td></td><td><b>499</b></td><td><b>489</b></td><td><b>19,039</b></td><td><b>76,614</b></td><td></td></tr>
+</table>
+<p>One hand offers about 5&nbsp;cm² of display, a little less than a single postage stamp. The thumb alone has 2.4 times the area of the little finger, which supports the application's choice of the thumb for a single-ring product. At 300&nbsp;ppi a thumbnail holds about 21,700 pixels, about a 162 × 134 image, enough for a detailed picture or a few words. A nail extended 4&nbsp;mm past the fingertip, which the application allows, gains about a third more. At a 1&nbsp;mm pitch the whole hand has fewer than 500 pixels: enough for coloured patterns and blocky letters, not for pictures (Figure 6).</p>
+<figure><img src="../../assets/livingnails-paper/ln-fig6-pixels.jpg" alt="Three thumbnail-shaped displays showing the same flower motif. Left, very coarse square pixels labelled 1 mm pixels: 143. Middle, a fine grid labelled 150 ppi: 5,427. Right, an almost invisible grid labelled 300 ppi: 21,708. A bracket marks the contact strip at the cuticle end." width="1400" height="933"><figcaption><b>Figure 6.</b> The same thumbnail display at three pixel pitches, with the pixel counts from Table 2.</figcaption></figure>
+<p>The model treats the nail as flat. Real nails curve across their width, so a display must bend to a radius of a few millimetres, and the curved surface holds slightly more area than its flat projection. Flexible OLED and electronic-paper films can bend this way; whether they survive the repeated flexing of daily wear is a question for testing, not for this model.</p>
+
+<h2 id="s5">5. What a nail display draws</h2>
+<p><b>Emissive displays.</b> An emissive display of active area <i>A</i> that shows a mean luminance <i>L</i><sub>v</sub> emits, if it radiates evenly in all forward directions, a luminous flux of π <i>L</i><sub>v</sub> <i>A</i>. Most images are not full white; the average picture level (APL) is the share of full white that the image shows on average. With a panel efficacy η, in lumens per watt, and a fixed overhead <i>P</i><sub>0</sub> for scanning and driving, the electrical power is</p>
+<div class="eq"><span class="b"></span><span><i>P</i><sub>e</sub> = π <i>L</i><sub>v</sub> <i>A</i> · APL / η + <i>P</i><sub>0</sub></span><span class="n">(2)</span></div>
+<p>We assume η = 15&nbsp;lm/W and <i>P</i><sub>0</sub> = 0.4&nbsp;mW per nail, and three ways of using the display: <i>glance</i>, 300&nbsp;cd/m² at APL 0.35, switched on 5% of the time by a gesture; <i>ambient</i>, 150&nbsp;cd/m² at APL 0.25, always on; and <i>showcase</i>, 600&nbsp;cd/m² at APL 0.5, always on. While on, a thumbnail draws 3.51&nbsp;mW at glance brightness, 1.51&nbsp;mW in ambient mode and 9.30&nbsp;mW in showcase mode; an index nail draws 2.52, 1.16 and 6.45&nbsp;mW, and a little-finger nail 1.70, 0.86 and 4.11&nbsp;mW. Full white at 1,000&nbsp;cd/m², an extreme case, takes the thumb to 30.1&nbsp;mW.</p>
+<p><b>Electronic paper.</b> A bistable display uses energy only when its image changes. With an update energy <i>E</i><sub>u</sub> per unit area and <i>f</i> updates per hour,</p>
+<div class="eq"><span class="b"></span><span><i>P</i><sub>epd</sub> = <i>E</i><sub>u</sub> <i>A</i> <i>f</i></span><span class="n">(3)</span></div>
+<p>We assume <i>E</i><sub>u</sub> = 4&nbsp;mJ/cm², driver included. One update of the thumbnail then costs 5.7&nbsp;mJ, and at 30 updates an hour the thumbnail draws 47&nbsp;µW, the little finger 20&nbsp;µW. That is 32 to 44 times less than the same nail emitting light in ambient mode. The price is speed and brightness: electronic paper takes a fraction of a second to change, which matters for the marquee in Section 10, and it shows nothing in the dark. Its advantage is that it stays readable in direct sun, where an emissive nail at a few hundred cd/m² washes out.</p>
+
+<h2 id="s6">6. The battery budget</h2>
+<p>The hub pays for the nails and for itself. We assume it draws <i>P</i><sub>s</sub> = 0.3&nbsp;mW in standby, with the radio connected, the motion sensor waiting for a gesture and the regulator running, and <i>P</i><sub>a</sub> = 1.5&nbsp;mW more while the displays are on and the controller is rendering. For a share of time on <i>d</i> and nails drawing <i>P</i><sub>i</sub>, the mean power and the hours from a battery of rated energy <i>E</i><sub>b</sub> are</p>
+<div class="eq"><span class="b"></span><span><i>P</i><sub>hub</sub> = <i>P</i><sub>s</sub> + <i>d</i> (<i>P</i><sub>a</sub> + Σ <i>P</i><sub>i</sub>) ,   <i>t</i> = <i>E</i><sub>b</sub> <i>u</i> κ / <i>P</i><sub>hub</sub></span><span class="n">(4)</span></div>
+<p>where <i>u</i> = 0.85 is the share of the battery used before recharging and κ = 0.85 the regulator efficiency. We assume a ring with a raised housing holds 0.15&nbsp;Wh (about 40&nbsp;mAh at 3.7&nbsp;V) and a wrist band 1.5&nbsp;Wh (about 400&nbsp;mAh). Both figures are assumptions, not the capacities of any product.</p>
+
+<table>
+<caption><b>Table 3.</b> Mean power and hours of use per charge, one hand, from Eqs. (2) to (4). Electronic paper is shown in 24-hour days.</caption>
+<tr><th>Hub and nails</th><th>Glance (5% on)</th><th>Ambient (always on)</th><th>Showcase (always on)</th><th>Electronic paper, 30 updates/h</th></tr>
+<tr><td>Thumb ring, one nail</td><td>0.55 mW · 197 h</td><td>3.31 mW · 33 h</td><td>11.10 mW · 10 h</td><td>0.37 mW · 12 days</td></tr>
+<tr><td>Ring hub, five nails</td><td>1.02 mW · 106 h</td><td>7.72 mW · 14 h</td><td>35.18 mW · 3 h</td><td>0.59 mW · 8 days</td></tr>
+<tr><td>Bracelet, five nails</td><td>1.02 mW · 1,058 h</td><td>7.72 mW · 140 h</td><td>35.18 mW · 31 h</td><td>0.59 mW · 76 days</td></tr>
+</table>
+<p>Three results stand out (Figure 7). First, the wrist band is comfortable in every mode: five always-on nails at ambient brightness run for 140 hours, about 8.8 days of 16 waking hours, and even showcase brightness lasts 31 hours. Second, the single thumb ring works: one always-on thumbnail runs for 33 hours, two worn days. Third, a single ring driving all five nails does not last a day if they stay lit: 14 hours in ambient mode, under the 16-hour day we assume, and 3 hours at showcase brightness. The application states that the hub's battery "supports bright, continuous, all-day operation". The model supports that for a wrist band, and for a ring driving one nail. It does not support it for a ring driving a whole hand at more than ambient brightness. That configuration has to rely on the gesture-driven glance mode, or on electronic paper.</p>
+<figure><img src="../../assets/livingnails-paper/ln-fig7-battery.jpg" alt="Four tiles with battery gauges, all displays always on. A single nail with its own battery: 1.7 h. A thumb ring with one nail: 33 h. A ring hub with five nails: 14 h. A bracelet with five nails: 140 h." width="1400" height="933"><figcaption><b>Figure 7.</b> Hours per charge with the displays always on at ambient brightness (150 cd/m²), from Tables 3 and 4.</figcaption></figure>
+<p>The glance mode is what makes a ring hub practical. Waking the displays only when the hand is raised turns 14 hours into 106. The sensitivity is steep: with five nails at 300&nbsp;cd/m², a ring lasts 184 hours if the nails are lit 2% of the time, 106 hours at 5%, 62 hours at 10%, 28 hours at 25%, 14 hours at 50%, and 7 hours if they never turn off. How often people would actually raise their hands to look is unknown, and it decides the result.</p>
+<p>The very long figures for electronic paper and the glance mode on a bracelet (76 days, 1,058 hours) say only that standby power dominates. The model does not include battery self-discharge, which at those time scales would matter, and a 0.3&nbsp;mW standby is itself an assumption.</p>
+
+<h2 id="s7">7. Why the battery leaves the nail</h2>
+<p>The central design choice is to take the battery off the nail. The model lets us compare the alternative directly. A cell of 1&nbsp;cm² and 0.35&nbsp;mm, which is about the most that hides under a thumbnail, at an assumed 150&nbsp;Wh/L for a thin pouch cell including its packaging [16], holds 5.25&nbsp;mWh. The ring battery holds 29 times as much and the wrist band 286 times. The self-contained nail must also run its own radio and controller, which we take as 0.1&nbsp;mW connected and 0.6&nbsp;mW more while displaying, by analogy with the hub.</p>
+
+<table>
+<caption><b>Table 4.</b> A self-contained thumbnail (battery and radio on the nail) against the passive thumbnail on a thumb ring, from the model.</caption>
+<tr><th>Measure</th><th>Self-contained nail</th><th>Passive nail, thumb ring</th></tr>
+<tr><td>Energy available</td><td>5.25 mWh</td><td>150 mWh (29×)</td></tr>
+<tr><td>Glance (5% on)</td><td>0.31 mW · 12.4 h</td><td>0.55 mW · 197 h</td></tr>
+<tr><td>Ambient, always on</td><td>2.21 mW · 1.7 h</td><td>3.31 mW · 33 h</td></tr>
+<tr><td>Showcase, always on</td><td>10.00 mW · 0.4 h</td><td>11.10 mW · 10 h</td></tr>
+<tr><td>Electronic paper, 30 updates/h</td><td>0.157 mW · 24 h</td><td>0.37 mW · 12 days</td></tr>
+<tr><td>Thickness of the nail stack</td><td>1.25 mm</td><td>0.65 mm (emissive), 0.70 mm (e-paper)</td></tr>
+<tr><td>Mass of a thumb unit</td><td>0.34 g</td><td>0.17 g (emissive), 0.19 g (e-paper)</td></tr>
+<tr><td>Things to charge, ten nails</td><td>Ten</td><td>One or two hubs</td></tr>
+</table>
+<p>For an emissive display the comparison is decisive. A self-contained nail lit continuously at ambient brightness lasts 1.7 hours, and at showcase brightness 24 minutes. Even the glance mode gives it only half a day. The passive nail on a thumb ring runs the same display for 33 hours.</p>
+<p>For electronic paper the comparison is closer, and it should be stated plainly. A self-contained e-paper nail updating 30 times an hour lasts about a day on its own cell, because the display needs almost nothing and the radio dominates. That is short but not absurd, which is presumably why self-contained e-paper nails have been proposed [4]. For electronic paper the case for the passive nail rests less on hours of use and more on what the battery costs in thickness, mass and charging: ten cells to charge every day against one hub, and a nail stack twice as thick.</p>
+<p>The thickness figures come from an assumed stack of layers (Figure 8). A passive emissive nail (adhesive 0.10&nbsp;mm, nail body 0.25&nbsp;mm, flexible OLED with its polarizer 0.20&nbsp;mm, overcoat 0.10&nbsp;mm) comes to 0.65&nbsp;mm, close to an assumed 0.60&nbsp;mm press-on nail and 0.50&nbsp;mm gel overlay. A passive electronic-paper nail comes to 0.70&nbsp;mm. Adding a 0.35&nbsp;mm battery and a 0.25&nbsp;mm layer for the radio, controller and antenna takes the self-contained nail to 1.25&nbsp;mm, roughly double. At about 0.17&nbsp;g, a passive thumb unit weighs about the same as a press-on nail.</p>
+<figure><img src="../../assets/livingnails-paper/ln-fig10-stack.jpg" alt="Four layered cross-sections drawn to scale on a common baseline: a gel overlay at 0.50 mm, a passive emissive nail at 0.65 mm, a passive e-paper nail at 0.70 mm, and a self-contained nail at 1.25 mm with an extra battery layer and a radio and controller layer." width="1400" height="933"><figcaption><b>Figure 8.</b> Assumed nail stacks. The passive nails stay close to the thickness of a gel or press-on nail; the battery and radio double it.</figcaption></figure>
+
+<h2 id="s8">8. The conductor</h2>
+<p>Moving the battery off the nail is only worthwhile if the conductor that replaces it is cheap in power and clean in signal. The application states that at these lengths the limiting factor is voltage drop and that resistive losses are negligible. The model checks both.</p>
+<p><b>Drop and loss.</b> A current <i>I</i> through a run of length ℓ, with an inner copper wire of diameter <i>d</i> and resistivity ρ<sub>Cu</sub> and a return of resistance <i>R</i><sub>r</sub> per metre, loses</p>
+<div class="eq"><span class="b"></span><span>Δ<i>V</i> = <i>I</i> ℓ (4ρ<sub>Cu</sub> / π<i>d</i>² + <i>R</i><sub>r</sub>)</span><span class="n">(5)</span></div>
+<p>We assume a 0.08&nbsp;mm inner wire, about 40 AWG, which has 3.42&nbsp;Ω/m, and a chain-body return of 1.0&nbsp;Ω/m, allowing for the contacts between links. The run is 4&nbsp;cm from a thumb ring to the thumbnail and 20&nbsp;cm from the wrist to the farthest fingertip, at a 3.3&nbsp;V supply. A thumbnail at glance brightness draws 1.1&nbsp;mA and loses 0.2&nbsp;mV; at full white and 1,000&nbsp;cd/m², 9.1&nbsp;mA and 1.6&nbsp;mV. A middle-finger nail at showcase brightness, fed from the wrist, loses 2.0&nbsp;mV. The worst case, all five nails at full white sharing one pair from the wrist as in a daisy chain, draws 32.3&nbsp;mA and loses 28.6&nbsp;mV, under 1% of the power. The application's statement holds with a wide margin. Even a fine decorative wire is far thicker than these currents need; the practical limits on the conductor are mechanical: flex fatigue, snagging and the contact resistance of a clasp that gets wet and dirty.</p>
+<p><b>Signal timing.</b> A wire behaves as a simple connection, with no reflections to worry about, when it is short compared with the distance a signal edge travels while rising. A common rule of thumb puts the limit at one sixth of that distance:</p>
+<div class="eq"><span class="b"></span><span>ℓ<sub>c</sub> = <i>t</i><sub>r</sub> <i>v</i> / 6</span><span class="n">(6)</span></div>
+<p>With a signal speed <i>v</i> of 0.6 times the speed of light in fine insulated wire, a 2&nbsp;ns edge gives ℓ<sub>c</sub> = 6.0&nbsp;cm, a 5&nbsp;ns edge 15.0&nbsp;cm, and a 20&nbsp;ns edge 60.0&nbsp;cm. The 4&nbsp;cm thumb run is short for any ordinary logic. The 20&nbsp;cm wrist run is short only if the edges are slowed to around 7&nbsp;ns or more, which a series resistor at the driver does cheaply. The application says that serial interfaces work with ample signal integrity over these lengths; the model agrees for the ring and adds this condition for the wrist band.</p>
+
+<h2 id="s9">9. Data: radio, wire and daisy chain</h2>
+<p>A display needs a pixel stream. For <i>n</i> pixels at <i>b</i> bits each and <i>F</i> frames per second the raw rate is</p>
+<div class="eq"><span class="b"></span><span><i>R</i> = <i>n</i> <i>b</i> <i>F</i></span><span class="n">(7)</span></div>
+<p>We compare it with an assumed 1&nbsp;Mbit/s of usable Bluetooth Low Energy throughput between phone and hub [17] and a 20&nbsp;Mbit/s serial link on each nail's conductor.</p>
+
+<table>
+<caption><b>Table 5.</b> Data needed for live 16-bit video at 30 frames per second, from Eq. (7), against the links available.</caption>
+<tr><th>Case</th><th>Rate needed</th><th>Share of one nail's 20 Mbit/s conductor link</th><th>Multiple of the radio</th></tr>
+<tr><td>Thumb, 150 ppi</td><td>2.6 Mbit/s</td><td>13%</td><td></td></tr>
+<tr><td>Thumb, 300 ppi</td><td>10.4 Mbit/s</td><td>52%</td><td></td></tr>
+<tr><td>One hand, 150 ppi</td><td>9.1 Mbit/s</td><td>(one link per nail)</td><td>9×</td></tr>
+<tr><td>One hand, 300 ppi</td><td>36.8 Mbit/s</td><td>(one link per nail)</td><td>37×</td></tr>
+<tr><td>Daisy chain, 1 mm pixels, 24-bit</td><td>800 kbit/s carries 1,111 pixels at 30 fps</td><td colspan="2">489 pixels on the hand refresh at 68 fps</td></tr>
+</table>
+<p>Two conclusions follow. The conductor is not the bottleneck: each nail's own link carries even a 300&nbsp;ppi video stream with room to spare. The radio is. Live video for one hand would need 9 to 37 times what Bluetooth Low Energy delivers. A phone cannot stream frames to the nails; it must send still images, which take about 1.2&nbsp;s for a full 300&nbsp;ppi hand (150&nbsp;KiB), and animations must be stored in the hub's memory or generated there from a compact description. The application already allows content to be pre-stored in the hub. The model says that for animation this is not an option but a requirement.</p>
+<p><b>The daisy chain.</b> The three-conductor scheme suits strings of addressable LEDs whose pixels each contain a small controller and pass data to the next. A common single-wire protocol of this kind runs at 800&nbsp;kbit/s with 24 bits per pixel, which refreshes the hand's 489 one-millimetre pixels 68 times a second, comfortably fast. The problem is power. Each such pixel keeps its controller running even when dark. If each draws 1&nbsp;mW at idle (about 0.3&nbsp;mA at 3.3&nbsp;V; an assumption, since parts differ), the hand's pixels spend 489&nbsp;mW doing nothing, 125 times the 3.9&nbsp;mW the light costs in ambient mode, and a 1.5&nbsp;Wh band lasts 2.2 hours; a ring, 0.2 hours. At 0.1&nbsp;mW per pixel the band lasts 19.8 hours; at 0.3&nbsp;mW, 7.1; at 3&nbsp;mW, 0.7. The daisy chain is the simplest wiring and the coarsest display, and with ordinary addressable LEDs it is also the most power-hungry. It suits a bracelet worn for an evening, not all day, unless pixels with very low idle current are used or the chain's supply is switched off between frames of a static pattern.</p>
+
+<h2 id="s10">10. One display across four nails</h2>
+<p>The application's spanning display appears when the wearer turns the palm toward the face and curls the fingers so that the four fingernails line up side by side, within about 15 degrees of a common plane. The controller then splits one image or one line of text into four parts and scrolls it across the nails as a marquee (Figure 9). Because one controller drives all four nails over wires, they are synchronised by construction.</p>
+<figure><img src="../../assets/livingnails-paper/ln-fig8-marquee.jpg" alt="A hand with the fingers curled so four fingernails line up facing the viewer. The words MEET AT 8 run across the four nails, split between them, with dark gaps between nails and an arrow showing the text scrolling from right to left." width="1400" height="933"><figcaption><b>Figure 9.</b> The spanning marquee. One line of text is split across the four aligned nails and scrolls across the gaps between them.</figcaption></figure>
+<p><b>How much text fits.</b> With the nail widths of Table 2, the four lit areas add up to 40.7&nbsp;mm. Between them lie three gaps of skin and inactive border, 11.1&nbsp;mm in all, so the marquee spans 51.8&nbsp;mm of which 21% is dark. The shortest active length, the little finger's, is 7.9&nbsp;mm, which caps the letter height. On a raster display we assume letters 6.0&nbsp;mm tall in a font whose characters advance 6/7 of their height. On 1&nbsp;mm addressable pixels the smallest legible font, 5 × 7 pixels with one column of spacing, makes letters 7.0&nbsp;mm tall that advance 6&nbsp;mm. Seen from 35&nbsp;cm, these letters subtend 0.98 and 1.15 degrees, well above what normal reading needs. About 10.1 characters fit across the span on the raster display and 8.6 on the LED string. Scrolling at 8 characters a second, each character stays in view for 1.3 and 1.1 seconds respectively. That is enough for a short message, a name or a time, not for a sentence.</p>
+<p><b>The gaps.</b> At any moment about a fifth of the line falls on skin. Because the text moves, every character crosses the lit areas, but a reader sees letters vanish and reappear. Whether that is readable or annoying is a perception question the model cannot settle.</p>
+<p><b>Electronic paper.</b> At an assumed 0.3&nbsp;s per partial update, electronic paper manages 3.3 steps a second. To scroll at 8 characters a second it would have to jump 2.4 characters at each step, which no longer reads as motion. A smooth marquee needs an emissive display; on electronic paper the spanning display works for a still image or a slow page-by-page change.</p>
+<p><b>Alignment.</b> A nail tilted 15 degrees away from the common plane looks 3.4% narrower than one facing the eye squarely, too small to matter for the image.</p>
+
+<h2 id="s11">11. Gestures, alerts and heat</h2>
+<p><b>Gestures.</b> The motion sensor sits in the hub, not on the nail, so it can run continuously from the hub's battery and wake the controller only when it recognises a movement (Figure 10). The gesture set in the application is: raise and turn the hand to wake the displays, twist the wrist to step forward or back, pinch or tap to select, shake to dismiss, and curl the fingers to reveal the marquee. Gestures can also answer or decline a call signalled by the phone. The power model includes the sensor in the hub's 0.3&nbsp;mW standby. The model says nothing about recognition accuracy or false wakes, and false wakes matter: every one lights the nails and spends glance-mode energy.</p>
+<figure><img src="../../assets/livingnails-paper/ln-fig9-gestures.jpg" alt="Five tiles of a hand wearing a bracelet: raising to wake with nails lighting up, twisting the wrist to advance, pinching to select, shaking to dismiss, and curling the fingers to reveal the marquee. Below, a bracelet housing cut open to show a motion sensor chip with three axis arrows and a small vibration motor." width="1400" height="933"><figcaption><b>Figure 10.</b> The gesture set, read by a motion sensor in the hub, and the vibration motor that confirms a gesture or signals a notification.</figcaption></figure>
+<p><b>Alerts.</b> A vibration motor in a ring or the band buzzes when a message or call arrives, and confirms that a gesture registered. It may sit in one ring, be spread over several, or sit in the band. The model does not price it, because its energy depends entirely on how many notifications arrive.</p>
+<p><b>Heat.</b> An emissive display turns nearly all of its power into heat at the nail. With a heat flux <i>q</i> = <i>P</i>/<i>A</i>, heat leaves outward to the air with a coefficient <i>h</i><sub>out</sub> and inward through the nail stack (resistance <i>R</i><sub>s</sub>) into the blood-perfused fingertip (coefficient <i>h</i><sub>t</sub>). The rise in surface temperature is</p>
+<div class="eq"><span class="b"></span><span>Δ<i>T</i> = <i>q</i> / [<i>h</i><sub>out</sub> + 1/(<i>R</i><sub>s</sub> + 1/<i>h</i><sub>t</sub>)]</span><span class="n">(8)</span></div>
+<p>With assumed values <i>h</i><sub>out</sub> = 15&nbsp;W/m²K, <i>R</i><sub>s</sub> = 0.0035&nbsp;m²K/W (0.7&nbsp;mm at 0.2&nbsp;W/mK) and <i>h</i><sub>t</sub> = 100&nbsp;W/m²K, a thumbnail at glance brightness (25&nbsp;W/m²) warms by 0.28&nbsp;°C, at showcase brightness (66&nbsp;W/m²) by 0.74&nbsp;°C, and at full white and 1,000&nbsp;cd/m² (212&nbsp;W/m²) by 2.38&nbsp;°C. A nail display is not a heat problem at any realistic brightness, because there is so little power to dissipate. The hub's electronics dissipate a few milliwatts; spreading them over several rings, as the application allows, spreads bulk more than heat.</p>
+
+<h2 id="s12">12. Limitations and evaluation plan</h2>
+<p>This is a design and analysis paper. Its limits should be plain.</p>
+<p><b>No prototype.</b> No nail unit, hub, jewelry conductor or clasp of this kind has been built. Every number above is modelled.</p>
+<p><b>Efficacy and overhead are uncertain.</b> Panel efficacy for tiny flexible emissive displays, and their fixed driving overhead, are assumptions. Table 6 shows how much the bracelet's always-on figure moves with them.</p>
+
+<table>
+<caption><b>Table 6.</b> Hours per charge, bracelet with five nails always on at APL 0.35, by panel efficacy and brightness.</caption>
+<tr><th>Efficacy</th><th>150 cd/m²</th><th>300 cd/m²</th><th>600 cd/m²</th></tr>
+<tr><td>8 lm/W</td><td>77 h</td><td>44 h</td><td>24 h</td></tr>
+<tr><td>15 lm/W (base)</td><td>117 h</td><td>73 h</td><td>42 h</td></tr>
+<tr><td>30 lm/W</td><td>166 h</td><td>117 h</td><td>73 h</td></tr>
+</table>
+<p>Even the pessimistic corner, 8&nbsp;lm/W at 600&nbsp;cd/m², gives a wrist band a full day. The ring's figures scale down by a factor of ten in every cell.</p>
+<p><b>A ring cannot light a whole hand all day.</b> Table 3 shows a ring driving five always-on nails falls short of a 16-hour day. The ring hub depends on the gesture-driven glance mode, on electronic paper, or on driving only the thumb.</p>
+<p><b>The radio cannot stream video.</b> Animations must live in the hub. How large a library of animations the hub must store, and how much controller power generating them costs, is not modelled.</p>
+<p><b>The daisy chain is power-hungry.</b> With ordinary addressable LEDs, idle draw dominates. The scheme needs low-idle parts or a switched supply.</p>
+<p><b>Durability is not modelled.</b> Flexing a display on a curved nail, the life of contacts that get wet, the strength of fine wire under daily wear, and snagging are the likely failure points, and none is covered by an electrical model.</p>
+<p><b>Use is not modelled.</b> How often wearers raise their hands, how they feel about visible chains, and whether the marquee's gaps are acceptable are questions for people, not equations.</p>
+<p>The tests that would settle these questions, in order of cost:</p>
+<table>
+<caption><b>Table 7.</b> Evaluation plan.</caption>
+<tr><th>Stage</th><th>Test</th><th>Question answered</th></tr>
+<tr><td>1. Bench power</td><td>Small flexible OLED and e-paper panels cut to nail size, driven from a bench supply at the brightness and update rates of Section 5</td><td>What are the real efficacy, overhead and update energy?</td></tr>
+<tr><td>2. Conductor and clasp</td><td>Wire-in-chain conductors and magnetic clasps under flex cycling, sweat and water, measuring resistance and signal edges</td><td>Do drop and timing stay as modelled? How long do contacts and wire last?</td></tr>
+<tr><td>3. Thumb ring</td><td>One passive thumbnail on a ring hub worn for a week, logging battery use and display time</td><td>Does the single-ring product reach two worn days? What is the real share of time on?</td></tr>
+<tr><td>4. Full hand</td><td>A wrist band driving five nails over each of the three signal schemes</td><td>Which scheme is practical? What does the daisy chain really draw at idle?</td></tr>
+<tr><td>5. Gestures and marquee</td><td>Gesture recognition with false-wake logging; marquee readability with users at several scroll speeds</td><td>How often do false wakes spend energy? Is text across the gaps readable?</td></tr>
+<tr><td>6. Wear study</td><td>Users wearing the system for two weeks with releasable jewelry</td><td>Comfort, snagging, removal for water and sleep, and appeal</td></tr>
+</table>
+
+<h2 id="s13">13. Conclusion</h2>
+<p>A display on a fingernail has been held back by what has to sit beside it. The system described here keeps only the display and its contacts on the nail and moves the battery, the radio and the controller into a ring or a bracelet, joined to the nail by a conductor that can be worn as jewelry and that carries both power and image.</p>
+<p>The model finds that this is sound where it matters most. A ring holds about 29 times the energy of a cell that fits under a nail, and a bracelet about 286 times; a passive thumbnail on a ring runs always-on for 33 hours where a self-contained one runs for 1.7. The conductor costs almost nothing in power, the nail stays about as thin as a press-on nail, and it does not warm noticeably. The model also finds the limits plainly. A ring cannot keep a whole hand lit all day; the radio cannot stream video, so animation must live in the hub; ordinary addressable-LED strings waste most of their power at idle; and electronic paper, the frugal choice, cannot scroll a smooth marquee.</p>
+<p>The idea therefore looks best as a thumb ring with one emissive nail, or as a bracelet driving a hand of raster displays, with stored animations and a gesture-driven glance mode. What remains is to measure real panels and conductors on the bench, and then to build one and wear it.</p>
+
+<p>The model is short and is published with this paper as <a href="model.py">model.py</a>, so the assumptions can be changed and every table regenerated.</p>
+
+<h2 id="refs">References</h2>
+<ol class="refs">
+<li>C.-H. Su, L. Chan, C.-T. Weng, R.-H. Liang, K.-Y. Cheng and B.-Y. Chen, "NailDisplay: bringing an always available visual display to fingertips," in <i>Proc. CHI 2013</i>, ACM, pp. 1461–1464, 2013. <a href="https://doi.org/10.1145/2470654.2466193">doi:10.1145/2470654.2466193</a></li>
+<li>C. Dierk, T. Vega Gálvez and E. Paulos, "AlterNail," in <i>Proc. CHI 2017</i>, ACM, pp. 6754–6759, 2017. <a href="https://doi.org/10.1145/3025453.3025924">doi:10.1145/3025453.3025924</a></li>
+<li>C. Dierk, M. J. P. Nicholas and E. Paulos, "AlterWear: Battery-Free Wearable Displays for Opportunistic Interactions," in <i>Proc. CHI 2018</i>, ACM, pp. 1–11, 2018. <a href="https://doi.org/10.1145/3173574.3173794">doi:10.1145/3173574.3173794</a></li>
+<li>Q. Hakeem and T. Woods (Q-Tee Product Design LLC), "Artificial nails with displays," WO 2015/106143 A1, 2015. <a href="https://patents.google.com/patent/WO2015106143A1/en">patents.google.com/patent/WO2015106143A1</a></li>
+<li>M. Magnusson and S. Magnusson, "Electronic fingernail display," U.S. Patent 11,452,354 B1, 2022. <a href="https://patents.google.com/patent/US11452354B1/en">patents.google.com/patent/US11452354B1</a></li>
+<li>G. A. Piccionelli, "Finger computer display and controller device," U.S. Patent 9,996,170 B2, 2018. <a href="https://patents.google.com/patent/US9996170B2/en">patents.google.com/patent/US9996170B2</a></li>
+<li>T. Schneider and D. Chaney (Kent Displays), "Color changing artificial fingernails," U.S. Patent 8,176,924 B2, 2012. <a href="https://patents.google.com/patent/US8176924B2/en">patents.google.com/patent/US8176924B2</a></li>
+<li>M. Koibuchi (Nailtron Co., Ltd.), "Output device for attached nail and program," Japanese Patent JP 6740000 B2, 2020. <a href="https://patents.google.com/patent/JP6740000B2/en">patents.google.com/patent/JP6740000B2</a></li>
+<li>R. K. McCullough, "Method for powering remote visual displays and allowing for data exchange over the same wire pair," U.S. Patent 4,992,774 A, 1991. <a href="https://patents.google.com/patent/US4992774A/en">patents.google.com/patent/US4992774A</a></li>
+<li>E. Jacobs and M. Botha, "LED charm bracelet," U.S. Patent 10,278,461 B2, 2019. <a href="https://patents.google.com/patent/US10278461B2/en">patents.google.com/patent/US10278461B2</a></li>
+<li>T. L. Owens and H. Y. Pang (Tectus Corp.), "Power generation necklaces with field shaping systems," U.S. Patent 10,790,700 B2, 2020. <a href="https://patents.google.com/patent/US10790700B2/en">patents.google.com/patent/US10790700B2</a></li>
+<li>H.-L. Kao, A. Dementyev, J. A. Paradiso and C. Schmandt, "NailO: Fingernails as an Input Surface," in <i>Proc. CHI 2015</i>, ACM, 2015. <a href="https://doi.org/10.1145/2702123.2702572">doi:10.1145/2702123.2702572</a></li>
+<li>K. Sakuma, A. Abrami, G. Blumrosen, S. Lukashov, R. Narayanan, J. W. Ligman, V. Caggiano and S. J. Heisig, "Wearable nail deformation sensing for behavioral and biomechanical monitoring and human-computer interaction," <i>Scientific Reports</i>, vol. 8, 18031, 2018. <a href="https://doi.org/10.1038/s41598-018-36834-x">doi:10.1038/s41598-018-36834-x</a></li>
+<li>Y. Huang, E.-L. Hsiang, M.-Y. Deng and S.-T. Wu, "Mini-LED, Micro-LED and OLED displays: present status and future perspectives," <i>Light: Science &amp; Applications</i>, vol. 9, 105, 2020. <a href="https://doi.org/10.1038/s41377-020-0341-9">doi:10.1038/s41377-020-0341-9</a></li>
+<li>B. Comiskey, J. D. Albert, H. Yoshizawa and J. Jacobson, "An electrophoretic ink for all-printed reflective electronic displays," <i>Nature</i>, vol. 394, pp. 253–255, 1998. <a href="https://doi.org/10.1038/28349">doi:10.1038/28349</a></li>
+<li>G. Zhou, F. Li and H.-M. Cheng, "Progress in flexible lithium batteries and future prospects," <i>Energy &amp; Environmental Science</i>, vol. 7, no. 4, pp. 1307–1338, 2014. <a href="https://doi.org/10.1039/c3ee43182g">doi:10.1039/c3ee43182g</a></li>
+<li>C. Gomez, J. Oller and J. Paradells, "Overview and evaluation of Bluetooth Low Energy: an emerging low-power wireless technology," <i>Sensors</i>, vol. 12, no. 9, pp. 11734–11753, 2012. <a href="https://doi.org/10.3390/s120911734">doi:10.3390/s120911734</a></li>
+<li>B. Goldstein, "Touch Input for Passive Fingernail Displays via Hub-Side Capacitive Sensing Over a Shared Power-and-Data Jewelry Conductor," Technical Disclosure Commons, Defensive Publications Series, July 6, 2026. <a href="https://www.tdcommons.org/dpubs_series/10802">tdcommons.org/dpubs_series/10802</a></li>
+</ol>
+
+<h2 id="cite">How to cite</h2>
+<p>B. Goldstein, "The Nail That Carries No Battery: Passive Fingernail Displays Powered and Driven Through Jewelry," Benny Labs Foundation working paper, November 2026. https://bennylabs.org/living-nails/paper/</p>
+
+<div class="note"><b>Disclosure.</b> The author is the inventor named on a pending U.S. patent application covering the system described here (Application No. 19/724,868, filed June 30, 2026), and has a financial interest in it. The model code is open and is published with the paper.</div>
+
+<footer>© 2026 Benny Goldstein. Published by Benny Labs Foundation Inc., a 501(c)(3) nonprofit public charity. · <a href="../../">bennylabs.org</a> · <a href="../">Living Nails</a></footer>
+</main>
+</body>
+</html>

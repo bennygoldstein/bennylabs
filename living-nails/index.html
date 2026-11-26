@@ -73,6 +73,17 @@
   .lede{font-size:clamp(1.08rem,2vw,1.29rem);line-height:1.62;color:rgba(255,255,255,.82);max-width:650px;margin:0 0 34px}.hero-cta{display:flex;flex-wrap:wrap;gap:13px}
   .hero .btn-outline{color:#fff;border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.06)}.hero .btn-outline:hover{background:rgba(255,255,255,.13)}
   .patent-strip{position:relative;z-index:3;margin-top:-62px}.patent-card{display:flex;align-items:center;justify-content:center;border:1px solid var(--line);background:rgba(255,255,255,.97);border-radius:20px;box-shadow:var(--shadow);text-align:center}
+  .papercard{display:flex;align-items:stretch;margin:22px 0 0;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;text-decoration:none;color:var(--ink);box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,border-color .2s}
+  .papercard:hover{transform:translateY(-2px);border-color:var(--magenta);box-shadow:0 28px 70px -30px rgba(75,22,77,.55)}
+  .papercard img{width:340px;max-width:40%;height:auto;object-fit:cover;display:block;flex:0 0 auto;background:var(--plum-deep)}
+  .papercard-body{display:flex;flex-direction:column;justify-content:center;gap:8px;padding:22px 28px;min-width:0;background:linear-gradient(145deg,#fff,var(--wash))}
+  .papercard-tag{display:inline-flex;align-items:center;gap:8px;font-size:.76rem;font-weight:780;letter-spacing:.09em;text-transform:uppercase;color:var(--plum)}
+  .papercard-tag::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--magenta);box-shadow:0 0 0 4px rgba(217,70,239,.14)}
+  .papercard-head{font-size:1.32rem;font-weight:830;letter-spacing:-.02em;line-height:1.22;color:var(--ink)}
+  .papercard-text{color:var(--slate);font-size:.96rem;margin:0}
+  .papercard-go{font-weight:780;color:var(--plum)}
+  .papercard:hover .papercard-go{color:var(--magenta)}
+  @media(max-width:680px){.papercard{flex-direction:column}.papercard img{width:100%;max-width:100%}.papercard-body{padding:20px 22px}}
   .patent-fact{padding:25px 34px}.patent-fact small{display:block;color:var(--muted);font-size:.76rem;text-transform:uppercase;letter-spacing:.09em;font-weight:740;margin-bottom:5px}.patent-fact strong{display:block;font-size:1.04rem}
 
   section{padding:92px 0}.section-head{max-width:790px;margin:0 auto 52px;text-align:center}.kicker{color:var(--plum);font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
@@ -126,7 +137,17 @@
     </div>
   </section>
 
-  <div class="patent-strip"><div class="wrap"><div class="patent-card" aria-label="Patent status"><div class="patent-fact"><small>Status</small><strong>U.S. Patent Pending</strong></div></div></div></div>
+  <div class="patent-strip"><div class="wrap"><div class="patent-card" aria-label="Patent status"><div class="patent-fact"><small>Status</small><strong>U.S. Patent Pending</strong></div></div>
+    <a class="papercard" href="paper/">
+      <img src="../assets/livingnails-paper/ln-paper-thumb.jpg" alt="Cover illustration of the Living Nails research paper: a hand with five glowing display nails joined by fine gold chains to a bracelet" width="720" height="405" loading="lazy">
+      <span class="papercard-body">
+        <span class="papercard-tag">New · Research paper</span>
+        <span class="papercard-head">The Nail That Carries No Battery</span>
+        <span class="papercard-text">The full working paper: how much screen a nail holds, an open model of the power and data a ring or bracelet must supply, and an honest look at where the design falls short.</span>
+        <span class="papercard-go">Read the paper →</span>
+      </span>
+    </a>
+  </div></div>
 
   <section>
     <div class="wrap problem-grid">
