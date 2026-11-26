@@ -112,8 +112,10 @@
   .image-note{position:absolute;bottom:14px;right:14px;background:rgba(5,24,15,.78);color:rgba(255,255,255,.8);font-size:.7rem;padding:6px 10px;border-radius:999px;backdrop-filter:blur(8px)}
 
   .mechanism{background:var(--wash);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:15px}
-  .step{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:20px;min-height:420px;box-shadow:0 18px 42px -32px rgba(5,46,25,.64);overflow:hidden}
+  .steps{display:grid;grid-template-columns:repeat(6,1fr);gap:22px}
+  .step{grid-column:span 2}
+  .step:nth-child(n+4){grid-column:span 3}
+  .step{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 18px 42px -32px rgba(5,46,25,.64);overflow:hidden}
   .step-copy{padding:24px 20px 20px}
   .step-num{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:var(--ink);color:var(--lime);font-weight:830;margin-bottom:18px}
   .step h3{font-size:1.11rem;margin:0 0 9px;letter-spacing:-.01em}
@@ -121,7 +123,15 @@
   .step-scene{margin:auto 0 0;background:var(--ink);border-top:1px solid var(--line);aspect-ratio:4/3;overflow:hidden}
   .step-scene img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
   .step:hover .step-scene img{transform:scale(1.035)}
-  .step:not(:last-child)::after{content:"";position:absolute;z-index:2;right:-12px;top:42px;width:22px;height:2px;background:var(--green)}
+  .papercard{display:flex;align-items:stretch;margin:22px 0 0;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;text-decoration:none;color:var(--ink);box-shadow:0 18px 42px -32px rgba(5,46,25,.64);transition:transform .2s,box-shadow .2s,border-color .2s}
+  .papercard:hover{transform:translateY(-2px);border-color:var(--green);box-shadow:0 24px 50px -30px rgba(5,46,25,.7)}
+  .papercard img{width:340px;max-width:40%;height:auto;object-fit:cover;display:block;flex:0 0 auto}
+  .papercard-body{display:flex;flex-direction:column;justify-content:center;gap:8px;padding:22px 28px;min-width:0}
+  .papercard-tag{font-size:.76rem;font-weight:780;letter-spacing:.09em;text-transform:uppercase;color:var(--green-deep)}
+  .papercard-head{font-size:1.32rem;font-weight:830;letter-spacing:-.015em;line-height:1.22}
+  .papercard-text{color:var(--slate);font-size:.96rem;margin:0}
+  .papercard-go{font-weight:780;color:var(--green-deep)}
+  @media(max-width:680px){.papercard{flex-direction:column}.papercard img{width:100%;max-width:100%}}
 
   .difference{background:var(--ink);color:#fff;overflow:hidden;position:relative}
   .difference::before{content:"";position:absolute;width:540px;height:540px;border-radius:50%;right:-220px;top:-240px;background:radial-gradient(circle,rgba(34,197,94,.18),transparent 68%)}
@@ -186,8 +196,8 @@
 
   @media(max-width:980px){
     .steps{grid-template-columns:repeat(2,1fr)}
+    .step,.step:nth-child(n+4){grid-column:auto}
     .step:last-child{grid-column:span 2}
-    .step:not(:last-child)::after{display:none}
     .pillars{grid-template-columns:repeat(2,1fr)}
     .problem-grid,.patent-panel{grid-template-columns:1fr}
     .compare-row{grid-template-columns:1fr 40px 1fr}
@@ -250,7 +260,15 @@
       <div class="patent-card" aria-label="Patent details">
         <div class="patent-fact"><small>Status</small><strong>U.S. Patent Pending</strong></div>
       </div>
-      <p class="paper-link" style="text-align:center;margin:18px 0 0;font-weight:700"><a href="paper/">Read the research paper →</a></p>
+      <a class="papercard" href="paper/">
+        <img src="../assets/wormcargo-paper/wc-paper-thumb.jpg" alt="Cover illustration of the Worm Cargo research paper: three coupled cargo vehicles passing packages along a highway" width="720" height="378" loading="lazy">
+        <span class="papercard-body">
+          <span class="papercard-tag">New · Research paper</span>
+          <span class="papercard-head">The Sorting Hub That Drives</span>
+          <span class="papercard-text">The full working paper: how coupled cargo vehicles sort packages on the road, an open model of what it saves, and an honest look at where it stops working.</span>
+          <span class="papercard-go">Read the paper →</span>
+        </span>
+      </a>
     </div>
   </div>
 
