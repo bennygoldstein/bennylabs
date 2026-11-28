@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Adam Project · Benny Labs</title>
+<meta name="description" content="Was the Cave of Machpelah a time capsule? A new Torah reading of why Abraham paid 400 silver shekels for the resting place of Adam and Eve, and a call for rabbis and scientists to ask the question together.">
+<meta property="og:title" content="The Adam Project">
+<meta property="og:description" content="Was the Cave of Machpelah a time capsule, kept for a generation that could understand it?">
+<meta property="og:image" content="https://bennylabs.org/the-adam-project/img/share.jpg">
+<meta property="og:url" content="https://bennylabs.org/the-adam-project/">
+<link rel="canonical" href="https://bennylabs.org/the-adam-project/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Frank+Ruhl+Libre:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#14100b;--ink2:#1d1711;--parch:#f3e9d2;--parch2:#e6d7b6;--gold:#c9a24a;--gold2:#e8cf8a;--rust:#8a4b22;--blue:#7fd4ff;--night:#070b14;--night2:#0c1424;--muted:#b9ab8d}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--parch);font-family:'Cormorant Garamond',Georgia,serif;font-size:21px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--gold2)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+.narrow{max-width:760px}
+.kicker{font-family:Inter,system-ui,sans-serif;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+h1,h2,h3{font-weight:600;line-height:1.12;margin:0}
+h2{font-size:clamp(34px,4.6vw,54px);margin:.35em 0 .5em}
+h3{font-size:26px;color:var(--gold2);margin:0 0 .3em}
+p{margin:0 0 1em}
+.he{font-family:'Frank Ruhl Libre','Times New Roman',serif;direction:rtl;unicode-bidi:isolate}
+
+/* nav */
+nav{position:fixed;inset:0 0 auto 0;z-index:20;background:linear-gradient(#0b0805e6,#0b080500);padding:16px 0 30px;pointer-events:none}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;pointer-events:auto}
+.brand{font-family:Inter,sans-serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--parch);text-decoration:none}
+.brand b{color:var(--gold)}
+nav .links a{font-family:Inter,sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--parch);text-decoration:none;margin-left:22px;opacity:.8}
+nav .links a:hover{opacity:1;color:var(--gold2)}
+@media(max-width:760px){nav .links{display:none}}
+
+/* hero */
+.hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;background:#000 url(img/cave.jpg) center/cover no-repeat}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0b080566 0%,#0b080520 35%,#14100bf2 88%,#14100b 100%)}
+.hero .wrap{position:relative;padding-bottom:9vh;padding-top:30vh}
+.hero h1{font-size:clamp(54px,9.5vw,128px);letter-spacing:-.01em;text-shadow:0 2px 40px #000}
+.hero .he{display:block;font-size:clamp(28px,4.4vw,54px);color:var(--gold2);margin:.1em 0 .35em;text-align:left;direction:rtl}
+.hero p.lead{font-size:clamp(22px,2.5vw,30px);max-width:780px;font-style:italic;color:#f6eedb}
+.btn{display:inline-block;margin-top:18px;font-family:Inter,sans-serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:var(--ink);background:var(--gold);padding:15px 26px;border-radius:2px}
+.btn:hover{background:var(--gold2)}
+.btn.ghost{background:transparent;color:var(--gold2);border:1px solid var(--gold);margin-left:10px}
+
+section{padding:110px 0}
+.rule{width:64px;height:1px;background:var(--gold);margin:18px 0 26px}
+
+/* parchment sections */
+.parch{background:radial-gradient(ellipse at 20% 0%,#f8f0dc 0%,var(--parch) 45%,var(--parch2) 100%);color:#2a1f12}
+.parch .kicker{color:var(--rust)}
+.parch h3{color:var(--rust)}
+.parch a{color:var(--rust)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.two.flip>.pic{order:2}
+@media(max-width:860px){.two{grid-template-columns:1fr;gap:30px}.two.flip>.pic{order:0}section{padding:76px 0}}
+.pic img{width:100%;border-radius:3px;box-shadow:0 24px 60px #0008}
+.parch .pic img{box-shadow:0 18px 44px #5a3d1a55;border:8px solid #fbf5e6}
+.cap{font-family:Inter,sans-serif;font-size:12px;letter-spacing:.06em;color:#8a7a5c;margin-top:12px}
+
+/* verse */
+.verse{border-left:2px solid var(--gold);padding:6px 0 6px 22px;margin:26px 0}
+.verse .he{font-size:27px;line-height:1.7;display:block;text-align:right;color:inherit}
+.verse .en{font-style:italic;display:block;margin-top:8px}
+.verse .src{font-family:Inter,sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);display:block;margin-top:10px}
+.parch .verse .src{color:var(--rust)}
+.parch .verse{border-color:var(--rust)}
+
+/* big number */
+.big{font-size:clamp(120px,22vw,300px);line-height:.9;font-weight:700;color:transparent;-webkit-text-stroke:1px var(--gold);letter-spacing:-.02em}
+.center{text-align:center}
+
+/* sources grid */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+.card{background:#1d1711;border:1px solid #3a2e1c;padding:28px;border-radius:3px}
+.card .n{font-family:Inter,sans-serif;font-size:11px;letter-spacing:.24em;color:var(--gold);text-transform:uppercase}
+.card p{font-size:19px;margin:.5em 0 0;color:#e7dcc2}
+
+/* future */
+.future{background:linear-gradient(180deg,var(--ink) 0%,var(--night) 14%,var(--night2) 100%);color:#e6f1fb}
+.future .kicker{color:var(--blue)}
+.future h3{color:var(--blue)}
+.future .rule{background:var(--blue)}
+.future .pic img{box-shadow:0 0 0 1px #7fd4ff33,0 30px 90px #0a3a6a66}
+.future .verse{border-color:var(--blue)}
+.future .verse .src{color:var(--blue)}
+.banner{position:relative;min-height:78vh;display:flex;align-items:center;background:#000 url(img/capsule.jpg) center/cover no-repeat}
+.banner:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#060a13f2 0%,#060a13b0 45%,#060a1320 100%)}
+.banner .wrap{position:relative}
+.banner h2{max-width:640px}
+.banner p{max-width:560px}
+.tag{display:inline-block;font-family:Inter,sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;border:1px solid var(--blue);color:var(--blue);padding:6px 12px;border-radius:40px;margin-bottom:18px}
+
+.aims{display:grid;grid-template-columns:1fr 1fr;gap:18px 40px;margin-top:26px;padding:0;list-style:none}
+@media(max-width:760px){.aims{grid-template-columns:1fr}}
+.aims li{border-top:1px solid #7fd4ff33;padding-top:14px}
+.aims b{display:block;font-family:Inter,sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:4px}
+
+/* honest */
+.honest{background:#0f0c08}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:34px}
+@media(max-width:860px){.cols{grid-template-columns:1fr}}
+.cols ul{margin:0;padding-left:20px}
+.cols li{margin-bottom:.6em}
+.box{border:1px solid #3a2e1c;padding:30px;border-radius:3px;background:#17120c}
+
+footer{background:#0a0806;padding:60px 0 70px;font-family:Inter,sans-serif;font-size:13px;color:var(--muted);line-height:1.7}
+footer .brand{font-size:13px}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="/"><b>Benny Labs</b> &nbsp;/&nbsp; The Adam Project</a>
+  <div class="links"><a href="#purchase">The purchase</a><a href="#sources">The sources</a><a href="#capsule">The idea</a><a href="#project">The project</a><a href="#honest">Honest limits</a></div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="kicker">A Benny Labs project</div>
+    <h1>The Adam Project</h1>
+    <span class="he">פרויקט אדם הראשון</span>
+    <p class="lead">Abraham paid four hundred silver shekels for a cave. Tradition says the first man and the first woman already lay inside. What if he was keeping them for us?</p>
+    <a class="btn" href="#capsule">Read the idea</a><a class="btn ghost" href="#sources">See the sources</a>
+  </div>
+</header>
+
+<section class="parch" id="purchase">
+  <div class="wrap two reveal">
+    <div class="pic"><img src="img/purchase.jpg" alt="An old engraving: Abraham weighs silver before Ephron at the city gate while townspeople look on" loading="lazy"><div class="cap">Abraham weighs the silver at the gate of Hebron. Illustration.</div></div>
+    <div>
+      <div class="kicker">Genesis 23</div>
+      <h2>The most careful purchase in the Torah</h2>
+      <p>Sarah has died. Abraham is offered the burial cave as a gift. He refuses. He insists on paying the full price, in public, in front of the whole town, so that nobody can ever question who owns it.</p>
+      <div class="verse">
+        <span class="he">וַיִּשְׁקֹל אַבְרָהָם לְעֶפְרֹן אֶת־הַכֶּסֶף … אַרְבַּע מֵאוֹת שֶׁקֶל כֶּסֶף עֹבֵר לַסֹּחֵר</span>
+        <span class="en">“Abraham weighed out to Ephron the silver … four hundred shekels of silver, at the going merchants’ rate.”</span>
+        <span class="src">Genesis 23:16</span>
+      </div>
+      <p>The Torah spends a whole chapter on this one deal. Why did this cave, and only this cave, matter so much?</p>
+    </div>
+  </div>
+</section>
+
+<section id="sources">
+  <div class="wrap">
+    <div class="narrow reveal">
+      <div class="kicker">What the sages say</div>
+      <h2>He had seen what was inside</h2>
+      <div class="rule"></div>
+      <p>The Midrash answers the question. Abraham did not pick the cave by chance. He had already been inside it, and he had seen who was resting there.</p>
+    </div>
+    <div class="grid reveal">
+      <div class="card"><div class="n">Pirkei DeRabbi Eliezer · chapter 36</div><h3>The calf and the cave</h3><p>When the three guests came, Abraham ran to fetch a calf. It fled into the Cave of Machpelah. He followed it in and found Adam and Eve lying on their beds, as if asleep, with lamps burning above them and a sweet fragrance. From that day he longed to own the cave.</p></div>
+      <div class="card"><div class="n">Talmud · Eruvin 53a</div><h3>The city of four</h3><p>Hebron is called Kiryat Arba, “the city of four”, for the four couples buried there: Adam and Eve, Abraham and Sarah, Isaac and Rebecca, Jacob and Leah. “Machpelah” means doubled: a cave of two chambers.</p></div>
+      <div class="card"><div class="n">Zohar · Chayei Sarah</div><h3>The keeper of the first couple</h3><p>The Zohar tells of Abraham meeting Adam and Eve in the cave when he came to bury Sarah, and of Abraham himself settling them back in their place. He becomes the guardian of humanity’s first parents.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="parch">
+  <div class="wrap two flip reveal">
+    <div class="pic"><img src="img/map.jpg" alt="An antique-style drawing of a hill with oak trees and a double cave beneath it, lamps glowing inside" loading="lazy"><div class="cap">The doubled cave beneath the oaks of Hebron. Illustration.</div></div>
+    <div>
+      <div class="kicker">Genesis 5</div>
+      <h2>Nine hundred and thirty years</h2>
+      <div class="verse">
+        <span class="he">וַיִּהְיוּ כָּל־יְמֵי אָדָם אֲשֶׁר־חַי תְּשַׁע מֵאוֹת שָׁנָה וּשְׁלֹשִׁים שָׁנָה וַיָּמֹת</span>
+        <span class="en">“All the days that Adam lived came to nine hundred and thirty years; then he died.”</span>
+        <span class="src">Genesis 5:5</span>
+      </div>
+      <p>Read plainly, the Torah describes a human being who lived more than nine centuries. The generations after him lived almost as long, and then lifespans fell.</p>
+      <p>If that is taken as it is written, it is the greatest open question in human biology. What was different about the first man?</p>
+    </div>
+  </div>
+</section>
+
+<section class="future" style="padding:0" id="capsule">
+  <div class="banner">
+    <div class="wrap reveal">
+      <span class="tag">A new reading · חידוש</span>
+      <h2>What if the cave is a time capsule?</h2>
+      <p>Abraham searched for the cave, paid full price for it, and made the sale public and permanent. Perhaps he was doing more than burying his wife.</p>
+      <p>Perhaps he was entrusted with keeping humanity’s first parents safe, in one known place, until a generation would rise that had the knowledge to understand them.</p>
+    </div>
+  </div>
+</section>
+
+<section class="future">
+  <div class="wrap two reveal">
+    <div>
+      <div class="kicker">Daniel 12</div>
+      <h2>“Knowledge shall increase”</h2>
+      <div class="verse">
+        <span class="he">סְתֹם הַדְּבָרִים וַחֲתֹם הַסֵּפֶר עַד־עֵת קֵץ יְשֹׁטְטוּ רַבִּים וְתִרְבֶּה הַדָּעַת</span>
+        <span class="en">“Keep the words secret and seal the book until the time of the end. Many will range far and wide, and knowledge will increase.”</span>
+        <span class="src">Daniel 12:4</span>
+      </div>
+      <p>Daniel speaks of things that are sealed until the right time. In its own setting the verse is about prophecy and redemption. We borrow its picture: some answers wait for the generation that can read them.</p>
+      <p>Ours is the first generation that can read a genome. For the first time, the question “what made Adam different?” could have an answer that is measured and not only imagined.</p>
+    </div>
+    <div class="pic"><img src="img/hourglass.jpg" alt="An hourglass, half antique brass and half glowing glass, with sand turning into strands of DNA" loading="lazy"></div>
+  </div>
+</section>
+
+<section class="future" id="project" style="padding-top:20px">
+  <div class="wrap two flip reveal">
+    <div class="pic"><img src="img/council.jpg" alt="Rabbis and scientists studying together around a table with an open scroll and a glowing display of a genome" loading="lazy"><div class="cap" style="color:#7d93ad">Scroll and genome on one table. Illustration.</div></div>
+    <div>
+      <div class="kicker">The proposal</div>
+      <h2>Rabbis and scientists, at one table</h2>
+      <p>The Adam Project is a call to ask this question openly, with respect, and together. Nothing is to be done without full halachic approval and the agreement of everyone to whom this place is holy.</p>
+      <ul class="aims">
+        <li><b>Learn</b>Gather every Torah, Talmud, Midrash and Zohar source on the cave and on the first generations.</li>
+        <li><b>Ask</b>Bring rabbis, geneticists and archaeologists into one honest conversation.</li>
+        <li><b>Respect</b>Seek guidance on whether any study could ever be allowed, and under what limits.</li>
+        <li><b>Publish</b>Share whatever is found, whether or not it supports the idea.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="honest" id="honest">
+  <div class="wrap reveal">
+    <div class="narrow">
+      <div class="kicker">Honest limits</div>
+      <h2>What we claim, and what we do not</h2>
+      <div class="rule"></div>
+      <p>A movement that asks for trust has to start by telling the truth about itself.</p>
+    </div>
+    <div class="cols">
+      <div class="box">
+        <h3>What is ours</h3>
+        <ul>
+          <li>The “time capsule” reading is a new interpretation. No classical source says Abraham kept the cave for future study.</li>
+          <li>The sources on this page are real. The link we draw between them is our own.</li>
+          <li>We think the question is worth asking out loud.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>What stands against it</h3>
+        <ul>
+          <li>The Talmud (Bava Batra 58a) tells of Rabbi Bana’ah, who marked burial caves. At Adam’s cave a heavenly voice stopped him: “You have gazed at the likeness of My image; at My image itself do not gaze.” That passage argues for leaving the cave closed.</li>
+          <li>Jewish law guards the dignity of the dead and forbids disturbing a grave.</li>
+          <li>No remains of Adam and Eve have ever been identified or examined. The tradition is Midrash, not an excavation report.</li>
+          <li>The site is holy to Jews and to Muslims, and the caves beneath it are closed.</li>
+          <li>A DNA test could not prove or disprove God. It could only tell us about biology.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top"><b>Benny Labs</b> &nbsp;/&nbsp; The Adam Project</a>
+    <p style="margin-top:18px;max-width:720px">The Adam Project is an idea in its first days. It is a Torah thought and an open question, not a plan to dig. The pictures on this page are illustrations made for it, not photographs or historical artworks. Verse translations are our own plain renderings.</p>
+    <p>© 2026 Benny Labs</p>
+  </div>
+</footer>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
