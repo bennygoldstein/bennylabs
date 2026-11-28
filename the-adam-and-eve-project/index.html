@@ -219,6 +219,20 @@ section[id]{scroll-margin-top:60px}
 .wide img{width:100%;aspect-ratio:2/1;object-fit:cover;border-radius:3px;box-shadow:0 24px 60px #0008}
 .parch .wide img,.join .wide img{box-shadow:0 18px 44px #5a3d1a55;border:8px solid #fbf5e6}
 @media(max-width:700px){.wide img{aspect-ratio:3/2}}
+
+/* the film lives in the hero */
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;background:#000}
+.hero:before{z-index:1;pointer-events:none;transition:opacity .5s}
+.hero .wrap{z-index:2;transition:opacity .5s}
+.hero h1{font-size:clamp(38px,5.9vw,90px)}
+.hero .wrap{padding-top:44vh;padding-bottom:6vh}
+#hplay{position:absolute;z-index:3;left:50%;top:27%;transform:translate(-50%,-50%);width:124px;height:124px;border-radius:50%;border:3px solid var(--gold2);background:rgba(11,8,5,.7);backdrop-filter:blur(4px);cursor:pointer;display:grid;place-items:center;transition:opacity .4s,transform .2s,background .2s;box-shadow:0 10px 50px #000a}
+#hplay:hover{background:var(--gold);transform:translate(-50%,-50%) scale(1.07)}
+#hplay svg{width:52px;height:52px;fill:var(--gold2);margin-left:6px}
+#hplay:hover svg{fill:var(--ink)}
+.hero.playing:before,.hero.playing .wrap,.hero.playing #hplay{opacity:0;pointer-events:none}
+.hero.playing video{object-fit:contain}
+@media(max-width:700px){#hplay{width:84px;height:84px;top:24%}#hplay svg{width:40px;height:40px}}
 </style>
 </head>
 <body>
@@ -229,24 +243,16 @@ section[id]{scroll-margin-top:60px}
 </div></nav>
 
 <header class="hero" id="top">
+  <video id="hv" playsinline preload="none" poster="img/cave.jpg"><source src="film.mp4" type="video/mp4"></video>
+  <button id="hplay" type="button" aria-label="Play the film"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
   <div class="wrap">
     <div class="kicker">A Benny Labs project</div>
     <h1>The Adam and Eve Project</h1>
     <span class="he">פרויקט אדם וחוה</span>
     <p class="lead">Abraham paid four hundred silver shekels for a cave where, tradition says, the first man and the first woman already lay. Our purpose is to bring out their remains, with every approval, and learn what they can teach us.</p>
-    <a class="btn" href="#film">▶ Watch the film</a><a class="btn ghost" href="#mission">Our purpose</a>
+    <a class="btn" href="#top" id="hwatch">▶ Watch the film</a><a class="btn ghost" href="#mission">Our purpose</a>
   </div>
 </header>
-
-<section id="film" style="padding:70px 0 40px;background:#0b0805">
-  <div class="wrap" style="max-width:1000px">
-    <div class="kicker" style="text-align:center">Watch · 3 minutes</div>
-    <h2 style="text-align:center;margin-bottom:.6em">The whole idea, in one short film</h2>
-    <video controls playsinline preload="none" poster="film-poster.jpg" style="width:100%;aspect-ratio:16/9;display:block;background:#000;border:1px solid #3a2e1c;border-radius:3px;box-shadow:0 24px 70px #000a">
-      <source src="film.mp4" type="video/mp4">
-    </video>
-  </div>
-</section>
 
 <section class="mission" id="mission">
   <div class="wrap reveal">
@@ -616,6 +622,13 @@ function dSet(){const o=parseFloat(dOther.value);const r=document.querySelector(
 document.querySelectorAll('input[name=amt]').forEach(r=>r.addEventListener('change',()=>{dOther.value='';dSet();}));
 dOther.addEventListener('input',()=>{if(parseFloat(dOther.value)>0){document.querySelectorAll('input[name=amt]').forEach(r=>r.checked=false);}dSet();});
 dSet();
+const hv=document.getElementById('hv'), hero=document.querySelector('.hero');
+function hGo(e){if(e)e.preventDefault();scrollTo({top:0});hv.play();}
+document.getElementById('hplay').addEventListener('click',hGo);
+document.getElementById('hwatch').addEventListener('click',hGo);
+hv.addEventListener('play',()=>{hero.classList.add('playing');hv.controls=true;});
+function hStop(){if(hv.seeking)return;hero.classList.remove('playing');hv.controls=false;}
+hv.addEventListener('pause',hStop);hv.addEventListener('ended',hStop);
 
 const nl=[...document.querySelectorAll('nav .links a')], secs=nl.map(a=>document.querySelector(a.getAttribute('href')));
 function spy(){let i=-1;secs.forEach((s,k)=>{if(s&&s.getBoundingClientRect().top<=150)i=k});if(innerHeight+scrollY>=document.documentElement.scrollHeight-4)i=nl.length-1;nl.forEach((a,k)=>a.classList.toggle('active',k===i));}
