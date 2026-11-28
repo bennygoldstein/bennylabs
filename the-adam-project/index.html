@@ -180,7 +180,7 @@ form.f button:hover{background:var(--gold2)}
 
 <nav><div class="wrap">
   <a class="brand" href="/"><b>Benny Labs</b> &nbsp;/&nbsp; The Adam Project</a>
-  <div class="links"><a href="#mission">Our purpose</a><a href="#purchase">The purchase</a><a href="#sources">The sources</a><a href="#capsule">The idea</a><a href="#project">The project</a><a href="#honest">Honest limits</a><a href="#join">Join</a><a href="#contact">Contact</a></div>
+  <div class="links"><a href="#mission">Our purpose</a><a href="#purchase">The purchase</a><a href="#sources">The sources</a><a href="#capsule">The idea</a><a href="#project">The project</a><a href="#honest">Honest limits</a><a href="#join">Join</a><a href="#donate">Donate</a><a href="#contact">Contact</a></div>
 </div></nav>
 
 <header class="hero" id="top">
@@ -392,8 +392,8 @@ form.f button:hover{background:var(--gold2)}
         <label><input type="radio" name="amt" value="360"><span>$360</span></label>
       </div>
       <div class="other"><label for="amt-other" style="font-family:Inter,sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)">Other amount</label> $ <input id="amt-other" type="number" min="1" step="1" inputmode="numeric" placeholder="0"></div>
-      <button class="soon" type="button" disabled aria-disabled="true">Donate now · opening soon</button>
-      <p class="note">Online giving is not open yet. Nothing is charged from this page today. To be told when it opens, write to us below.</p>
+      <a class="btn" id="donate-btn" href="https://www.paypal.com/donate/?business=BJDAHBAE75AQ6&amp;no_recurring=0&amp;item_name=Support+The+Adam+Project%3A+help+us+publish+the+sources+and+spread+the+word.&amp;currency_code=USD&amp;amount=36" target="_blank" rel="noopener">Donate now with PayPal</a>
+      <p class="note">You finish your gift on PayPal, by PayPal balance or by card. Gifts are received by Benny Goldstein, founder of The Adam Project, and are not tax-deductible.</p>
     </div>
   </div>
 </section>
@@ -444,6 +444,13 @@ form.f button:hover{background:var(--gold2)}
 <script>
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const dBtn=document.getElementById('donate-btn'), dOther=document.getElementById('amt-other');
+const dBase='https://www.paypal.com/donate/?business=BJDAHBAE75AQ6&no_recurring=0&item_name='+encodeURIComponent('Support The Adam Project: help us publish the sources and spread the word.')+'&currency_code=USD';
+function dSet(){const o=parseFloat(dOther.value);const r=document.querySelector('input[name=amt]:checked');const a=o>0?o:(r?r.value:'');dBtn.href=dBase+(a?'&amount='+encodeURIComponent(a):'');}
+document.querySelectorAll('input[name=amt]').forEach(r=>r.addEventListener('change',()=>{dOther.value='';dSet();}));
+dOther.addEventListener('input',()=>{if(parseFloat(dOther.value)>0){document.querySelectorAll('input[name=amt]').forEach(r=>r.checked=false);}dSet();});
+dSet();
+
 </script>
 </body>
 </html>
