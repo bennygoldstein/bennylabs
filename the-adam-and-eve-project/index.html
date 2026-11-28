@@ -196,6 +196,9 @@ nav .links a{margin-left:0;padding:8px 12px;border-radius:999px;letter-spacing:.
 nav .links a.active{color:var(--gold2);background:rgba(201,162,74,.2);opacity:1}
 @media(min-width:761px){nav .links{display:flex;gap:2px;align-items:center}}
 @media(max-width:1240px){nav .brand span{display:none}}
+nav .brand{flex:none;margin-right:14px}
+nav .links{min-width:0;overflow-x:auto;scrollbar-width:none}
+nav .links::-webkit-scrollbar{display:none}
 section[id]{scroll-margin-top:60px}
 .hero h1{font-size:clamp(44px,7.6vw,108px)}
 /* supporters list */
