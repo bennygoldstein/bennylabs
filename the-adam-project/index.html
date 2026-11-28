@@ -125,13 +125,48 @@ footer .brand{font-size:13px}
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s ease}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* join, donate, contact */
+.join{background:radial-gradient(ellipse at 80% 0%,#f8f0dc 0%,var(--parch) 45%,var(--parch2) 100%);color:#2a1f12}
+.join .kicker{color:var(--rust)}.join h3{color:var(--rust)}.join .rule{background:var(--rust)}
+.who{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:30px 0 10px}
+@media(max-width:860px){.who{grid-template-columns:1fr}}
+.who div{border-top:2px solid var(--rust);padding-top:12px}
+.who b{display:block;font-family:Inter,sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust);margin-bottom:4px}
+form.f{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;margin-top:26px}
+form.f .full{grid-column:1/-1}
+@media(max-width:700px){form.f{grid-template-columns:1fr}}
+form.f label{display:block;font-family:Inter,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px;opacity:.8}
+form.f input[type=text],form.f input[type=email],form.f input[type=url],form.f select,form.f textarea{width:100%;font:inherit;font-size:19px;padding:12px 14px;border-radius:2px;border:1px solid #b9a67c;background:#fffaf0;color:#2a1f12}
+form.f textarea{min-height:120px;resize:vertical}
+form.f .check{display:flex;gap:10px;align-items:flex-start;font-size:18px;line-height:1.4}
+form.f .check input{margin-top:6px;width:18px;height:18px;flex:none}
+form.f .hp{position:absolute;left:-9999px}
+form.f button{font-family:Inter,sans-serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;border:0;cursor:pointer;color:var(--ink);background:var(--gold);padding:15px 26px;border-radius:2px}
+form.f button:hover{background:var(--gold2)}
+.dark form.f input[type=text],.dark form.f input[type=email],.dark form.f textarea{background:#1d1711;border-color:#3a2e1c;color:var(--parch)}
+.list{margin-top:34px;border:1px dashed #b9a67c;padding:22px 26px;border-radius:3px;font-style:italic}
+.donate{background:linear-gradient(180deg,#0f0c08,#1a130a)}
+.amts{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 8px}
+.amts label{cursor:pointer}
+.amts input{position:absolute;opacity:0}
+.amts span{display:inline-block;min-width:92px;text-align:center;font-size:26px;font-weight:600;padding:12px 18px;border:1px solid var(--gold);border-radius:2px;color:var(--gold2)}
+.amts input:checked+span{background:var(--gold);color:var(--ink)}
+.amts input:focus-visible+span{outline:2px solid var(--gold2);outline-offset:2px}
+.other{display:flex;align-items:center;gap:8px;font-size:24px;color:var(--gold2)}
+.other input{width:130px;font:inherit;font-size:22px;padding:10px 12px;background:#1d1711;border:1px solid #3a2e1c;color:var(--parch);border-radius:2px}
+.soon{display:inline-block;margin-top:20px;font-family:Inter,sans-serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);background:#8f7a45;padding:15px 26px;border-radius:2px;border:0;cursor:not-allowed}
+.note{font-family:Inter,sans-serif;font-size:13px;color:var(--muted);margin-top:14px;max-width:640px;line-height:1.6}
+.contact2{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+@media(max-width:860px){.contact2{grid-template-columns:1fr;gap:50px}}
+.mail{font-size:26px;color:var(--gold2);text-decoration:none;border-bottom:1px solid var(--gold)}
 </style>
 </head>
 <body>
 
 <nav><div class="wrap">
   <a class="brand" href="/"><b>Benny Labs</b> &nbsp;/&nbsp; The Adam Project</a>
-  <div class="links"><a href="#purchase">The purchase</a><a href="#sources">The sources</a><a href="#capsule">The idea</a><a href="#project">The project</a><a href="#honest">Honest limits</a></div>
+  <div class="links"><a href="#purchase">The purchase</a><a href="#sources">The sources</a><a href="#capsule">The idea</a><a href="#project">The project</a><a href="#honest">Honest limits</a><a href="#join">Add your name</a><a href="#contact">Contact</a></div>
 </div></nav>
 
 <header class="hero" id="top">
@@ -265,6 +300,94 @@ footer .brand{font-size:13px}
           <li>The site is holy to Jews and to Muslims, and the caves beneath it are closed.</li>
           <li>A DNA test could not prove or disprove God. It could only tell us about biology.</li>
         </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="join" id="join">
+  <div class="wrap reveal">
+    <div class="narrow">
+      <div class="kicker">Add your name</div>
+      <h2>Stand with the question</h2>
+      <div class="rule"></div>
+      <p>We are gathering the people who think this question deserves to be asked: openly, respectfully, and with every approval it needs. If that is you, we would be honored to list your name here.</p>
+    </div>
+    <div class="who">
+      <div><b>Science and medicine</b>Geneticists, archaeologists, anthropologists, physicians and researchers who are willing to say the question is worth studying.</div>
+      <div><b>Faith</b>Rabbis, pastors, priests, imams and teachers of any tradition who see value in asking it with reverence.</div>
+      <div><b>Everyone else</b>Anyone who wants to see their name beside the idea and help it be heard.</div>
+    </div>
+    <form class="f" name="adam-supporter" method="POST" action="https://bennylabs-the-adam-project.netlify.app/thanks.html">
+      <input type="hidden" name="form-name" value="adam-supporter">
+      <p class="hp"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+      <div><label for="s-name">Full name</label><input id="s-name" type="text" name="name" required autocomplete="name"></div>
+      <div><label for="s-title">Title and credentials</label><input id="s-title" type="text" name="title" placeholder="Dr., Rabbi, Pastor, Prof., PhD, MD"></div>
+      <div><label for="s-role">I am a</label><select id="s-role" name="role" required>
+        <option value="">Choose one</option><option>Scientist or researcher</option><option>Physician or medical professional</option><option>Archaeologist or historian</option><option>Rabbi</option><option>Pastor, priest or minister</option><option>Imam or other faith leader</option><option>Supporter</option></select></div>
+      <div><label for="s-aff">Institution, congregation or organization</label><input id="s-aff" type="text" name="affiliation"></div>
+      <div><label for="s-loc">City and country</label><input id="s-loc" type="text" name="location"></div>
+      <div><label for="s-email">Email (never shown)</label><input id="s-email" type="email" name="email" required autocomplete="email"></div>
+      <div class="full"><label for="s-link">A page where we can confirm who you are (optional)</label><input id="s-link" type="url" name="link" placeholder="https://"></div>
+      <div class="full"><label for="s-st">Why you support it, in a sentence or two (optional)</label><textarea id="s-st" name="statement"></textarea></div>
+      <label class="check full"><input type="checkbox" name="consent" value="yes" required><span>I agree that my name, title, role and organization may be listed publicly on this page as a supporter of The Adam Project.</span></label>
+      <div class="full"><button type="submit">Add my name</button></div>
+    </form>
+    <div class="list"><b style="font-style:normal">Supporters.</b> The list opens here as names come in. Each name is confirmed before it is shown, and anyone can ask to be removed at any time.</div>
+  </div>
+</section>
+
+<section class="donate dark" id="donate">
+  <div class="wrap reveal">
+    <div class="narrow">
+      <div class="kicker">Help it be heard</div>
+      <h2>Donate to the cause</h2>
+      <div class="rule"></div>
+      <p>A question like this travels only if people carry it. Gifts will go to publishing the sources, translating them, and getting the word out.</p>
+      <div class="amts" role="radiogroup" aria-label="Donation amount">
+        <label><input type="radio" name="amt" value="18"><span>$18</span></label>
+        <label><input type="radio" name="amt" value="36" checked><span>$36</span></label>
+        <label><input type="radio" name="amt" value="72"><span>$72</span></label>
+        <label><input type="radio" name="amt" value="180"><span>$180</span></label>
+        <label><input type="radio" name="amt" value="360"><span>$360</span></label>
+      </div>
+      <div class="other"><label for="amt-other" style="font-family:Inter,sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)">Other amount</label> $ <input id="amt-other" type="number" min="1" step="1" inputmode="numeric" placeholder="0"></div>
+      <button class="soon" type="button" disabled aria-disabled="true">Donate now · opening soon</button>
+      <p class="note">Online giving is not open yet. Nothing is charged from this page today. To be told when it opens, write to us below.</p>
+    </div>
+  </div>
+</section>
+
+<section class="dark" id="contact" style="background:#14100b">
+  <div class="wrap reveal">
+    <div class="contact2">
+      <div>
+        <div class="kicker">Contact us</div>
+        <h2>Write to us</h2>
+        <div class="rule"></div>
+        <p>For anything about the project, write to <a class="mail" href="mailto:b@bennylabs.org?subject=The%20Adam%20Project">b@bennylabs.org</a> or use this form.</p>
+        <form class="f" name="adam-contact" method="POST" action="https://bennylabs-the-adam-project.netlify.app/thanks.html" style="grid-template-columns:1fr">
+          <input type="hidden" name="form-name" value="adam-contact">
+          <p class="hp"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+          <div><label for="c-name">Your name</label><input id="c-name" type="text" name="name" required autocomplete="name"></div>
+          <div><label for="c-email">Your email</label><input id="c-email" type="email" name="email" required autocomplete="email"></div>
+          <div><label for="c-msg">Message</label><textarea id="c-msg" name="message" required></textarea></div>
+          <div><button type="submit">Send message</button></div>
+        </form>
+      </div>
+      <div>
+        <div class="kicker">Ask a question</div>
+        <h2>Challenge the idea</h2>
+        <div class="rule"></div>
+        <p>A source we missed? An objection we have not answered? A question from Torah, science or law? Send it. The hardest questions help the most.</p>
+        <form class="f" name="adam-question" method="POST" action="https://bennylabs-the-adam-project.netlify.app/thanks.html" style="grid-template-columns:1fr">
+          <input type="hidden" name="form-name" value="adam-question">
+          <p class="hp"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+          <div><label for="q-q">Your question</label><textarea id="q-q" name="question" required></textarea></div>
+          <div><label for="q-name">Your name (optional)</label><input id="q-name" type="text" name="name" autocomplete="name"></div>
+          <div><label for="q-email">Email, if you would like a reply (optional)</label><input id="q-email" type="email" name="email" autocomplete="email"></div>
+          <div><button type="submit">Send question</button></div>
+        </form>
       </div>
     </div>
   </div>
