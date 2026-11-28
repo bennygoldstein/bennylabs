@@ -174,13 +174,27 @@ form.f button:hover{background:var(--gold2)}
 @media(max-width:760px){.why{grid-template-columns:1fr}}
 .why div{border-top:1px solid #c9a24a55;padding-top:14px}
 .why b{display:block;font-family:Inter,sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+
+/* AI roundtable additions */
+.parch .card h3{color:var(--gold2)}
+.card .he{display:block;font-size:23px;line-height:1.6;color:var(--gold2);margin-top:.5em;text-align:right}
+.plain{margin-top:34px;border-left:2px solid var(--rust);padding:4px 0 4px 22px;max-width:820px}
+.steps{list-style:none;counter-reset:s;padding:0;margin:36px 0 0;display:grid;gap:16px}
+.steps li{counter-increment:s;position:relative;padding:20px 24px 20px 84px;background:#fbf5e6;border:1px solid #d9c79c;border-radius:3px}
+.steps li:before{content:counter(s);position:absolute;left:24px;top:14px;font-size:44px;font-weight:700;color:var(--rust);line-height:1}
+.steps b{display:block;font-family:Inter,sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--rust);margin-bottom:4px}
+.promise{margin-top:40px;border:1px solid var(--rust);padding:28px 30px;border-radius:3px;background:#fbf5e6}
+.promise ul{margin:.4em 0 0;padding-left:20px}
+.promise li{margin-bottom:.5em}
+.cols+.cols{margin-top:30px}
+.inl{font-size:1.1em}
 </style>
 </head>
 <body>
 
 <nav><div class="wrap">
   <a class="brand" href="/"><b>Benny Labs</b> &nbsp;/&nbsp; The Adam Project</a>
-  <div class="links"><a href="#mission">Our purpose</a><a href="#purchase">The purchase</a><a href="#sources">The sources</a><a href="#capsule">The idea</a><a href="#project">The project</a><a href="#honest">Honest limits</a><a href="#join">Join</a><a href="#donate">Donate</a><a href="#contact">Contact</a></div>
+  <div class="links"><a href="#mission">Our purpose</a><a href="#sources">The sources</a><a href="#capsule">The idea</a><a href="#verse">The verse</a><a href="#road">The road</a><a href="#honest">Honest limits</a><a href="#join">Join</a><a href="#donate">Donate</a><a href="#contact">Contact</a></div>
 </div></nav>
 
 <header class="hero" id="top">
@@ -303,12 +317,87 @@ form.f button:hover{background:var(--gold2)}
     <div>
       <div class="kicker">The proposal</div>
       <h2>Rabbis and scientists, at one table</h2>
-      <p>The Adam Project is a call to do this openly, with respect, and together. Nothing is to be done without full halachic approval and the agreement of everyone to whom this place is holy. The road is long: first the scientists, then the rabbis, then the leaders. We are planting the seed now.</p>
+      <p>The Adam Project is a call to do this openly, with respect, and together. Nothing is to be done without full halachic approval and the agreement of everyone to whom this place is holy. The road is long: first the rabbis, then the scientists, then the keepers of the site. We are planting the seed now.</p>
       <ul class="aims">
         <li><b>Learn</b>Gather every Torah, Talmud, Midrash and Zohar source on the cave and on the first generations.</li>
         <li><b>Ask</b>Bring rabbis, geneticists and archaeologists into one honest conversation.</li>
-        <li><b>Approve</b>Win the written approval of scientists, of rabbis and of those who govern the site, one after another.</li>
+        <li><b>Approve</b>Win the written approval of rabbis, of scientists and of those who keep the site, one after another.</li>
         <li><b>Study and return</b>Examine the remains with care, publish everything, and lay them back to rest with honor.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="parch" id="kept">
+  <div class="wrap reveal">
+    <div class="narrow">
+      <div class="kicker">A perhaps, not a proof</div>
+      <h2>Things kept safe for a later day</h2>
+      <p>Our reading of the cave is new, so we offer it as a question. But the idea behind it is old. Again and again, the Torah and the sages tell of precious things that were put away and kept for a generation still to come.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="n">Genesis 23:20</div><h3>A holding for burial</h3><span class="he">וַיָּקָם הַשָּׂדֶה וְהַמְּעָרָה אֲשֶׁר־בּוֹ לְאַבְרָהָם לַאֲחֻזַּת־קָבֶר</span><p>“The field and the cave within it passed to Abraham as a burial holding.” He made it a known, owned and public place, so that it could never be lost.</p></div>
+      <div class="card"><div class="n">Talmud · Yoma 52b · Rambam, Laws of the Temple 4:1</div><h3>The hidden Ark</h3><p>Before the Temple fell, King Josiah had the Ark of the Covenant hidden away, so that it would be kept safe for a later day.</p></div>
+      <div class="card"><div class="n">Talmud · Chagigah 12a</div><h3>The hidden light</h3><p>The light of the first day of creation was put away by God, and is kept for the righteous in the time to come.</p></div>
+      <div class="card"><div class="n">Exodus 13:19</div><h3>The bones of Joseph</h3><span class="he">וַיִּקַּח מֹשֶׁה אֶת־עַצְמוֹת יוֹסֵף עִמּוֹ</span><p>“Moses took the bones of Joseph with him.” Joseph’s remains waited in Egypt for generations, and were carried out when the time came.</p></div>
+      <div class="card"><div class="n">Psalm 111:2 · Rambam, Foundations of the Torah 2:2</div><h3>Study His works</h3><span class="he">גְּדֹלִים מַעֲשֵׂי ה׳ דְּרוּשִׁים לְכָל־חֶפְצֵיהֶם</span><p>“Great are the works of the Lord, studied by all who delight in them.” Rambam teaches that looking closely at creation is a path to the love and awe of God.</p></div>
+      <div class="card"><div class="n">Jewish law in our time</div><h3>DNA and the dead</h3><p>Rabbis of our generation have allowed DNA from the dead to be read, so that fallen soldiers could be named and returned to their families. The law on moving a grave (Shulchan Aruch, Yoreh De’ah 363) has its stated exceptions.</p></div>
+    </div>
+    <p class="plain">We say this plainly. The Ark and the hidden light are holy objects, not graves. Joseph’s bones were moved at his own request. The soldiers were named for the sake of living families. None of these is a permission. They show a pattern, and from that pattern we ask: perhaps Abraham secured the first parents in one known place, for a generation that could learn from them.</p>
+  </div>
+</section>
+
+<section id="verse">
+  <div class="wrap reveal">
+    <div class="narrow">
+      <div class="kicker">The hardest verse</div>
+      <h2>The voice at Adam’s cave</h2>
+      <div class="rule"></div>
+      <p>The Talmud tells of Rabbi Bana’ah, who measured and marked burial caves so that nobody would walk over a grave by mistake. He entered the cave of Abraham. When he came to the cave of Adam, a voice from Heaven stopped him.</p>
+      <div class="verse">
+        <span class="he">נסתכלת בדמות דיוקני, בדיוקני עצמה אל תסתכל</span>
+        <span class="en">“You have looked upon the likeness of My image. Upon My image itself, do not look.”</span>
+        <span class="src">Talmud · Bava Batra 58a</span>
+      </div>
+      <p>He answered that he needed to mark the cave. The voice replied:</p>
+      <div class="verse">
+        <span class="he">כמדת החיצונה כך מדת הפנימית</span>
+        <span class="en">“As the measure of the outer cave, so is the measure of the inner.”</span>
+        <span class="src">Talmud · Bava Batra 58a</span>
+      </div>
+      <h3>The answer inside the verse</h3>
+      <p>Heaven refused the sage the sight of Adam, and in the same breath gave him the knowledge he had come for. His need was honored. The looking was refused. The knowledge was given another way. Rashbam adds that Rabbi Bana’ah was let in at all because he was a great man: entry was by permission, for a fitting person and a fitting purpose.</p>
+      <p>So we begin where the verse itself points: with what can be learned without looking and without touching.</p>
+      <h3>What it does not answer</h3>
+      <p>This is an answer for knowing. It is not yet an answer for bones. Maharsha reads the voice as guarding the honor of God’s image even in death. Our hope is still to study the remains themselves. Whether that can ever be allowed, and on what terms, is the question we will bring to the rabbis. We do not claim the sources already say yes.</p>
+    </div>
+  </div>
+</section>
+
+<section class="parch" id="road">
+  <div class="wrap reveal">
+    <div class="narrow">
+      <div class="kicker">The road</div>
+      <h2>Rabbis first, then science, then the keepers of the site</h2>
+      <p>Those who can say no come first. Science should be shaped to fit the ruling, and not the other way round. The road may take many years. These are the steps, in order.</p>
+    </div>
+    <ol class="steps">
+      <li><b>Check every source</b>A Torah scholar reads each text on this page in the original, with a second reader. Anything that does not hold comes off the page.</li>
+      <li><b>Date what is already above ground</b>In 1981, pottery was brought up from the caves beneath the building. Find it, and carbon-date what remains inside it. This needs no entry into the cave.</li>
+      <li><b>Prove the method somewhere ordinary</b>Try to read ancient DNA from the soil of an ordinary Iron Age burial cave in the same hills, where licensed work is accepted. Nobody yet knows if DNA lasts in a warm cave. We will publish what comes out, even if it is nothing.</li>
+      <li><b>Ask the rabbis in writing</b>One clear written question to a rabbi of standing, with the exact plan attached. First about study that touches nothing: a camera, a scan, the air, the soil. Then about the remains themselves.</li>
+      <li><b>Scientists put their names to the plan</b>Geneticists, archaeologists and physicians sign what a study could show, and what it could not.</li>
+      <li><b>The keepers of the site</b>The Islamic Waqf, the Israeli authorities and the heritage bodies all have a say. Adam is honored as a prophet in Islam too. This is a question for all of his children, and not one people’s claim on the cave.</li>
+      <li><b>Study, and return</b>Only with every approval: examine the remains with care, publish everything, and lay them back to rest with honor.</li>
+    </ol>
+    <div class="promise">
+      <h3>Our promises</h3>
+      <ul>
+        <li>We will publish every answer we receive, including a no.</li>
+        <li>Nothing is opened, taken or touched without religious, legal and custodial approval.</li>
+        <li>If a ruling of standing forbids a step, we will not take it.</li>
+        <li>Nothing will ever be displayed, kept as a relic or venerated. Tradition says Adam feared exactly that.</li>
+        <li>Whatever is found is shown to the world, whether or not it is what anyone hoped.</li>
       </ul>
     </div>
   </div>
@@ -334,11 +423,35 @@ form.f button:hover{background:var(--gold2)}
       <div class="box">
         <h3>What stands against it</h3>
         <ul>
-          <li>The Talmud (Bava Batra 58a) tells of Rabbi Bana’ah, who marked burial caves. At Adam’s cave a heavenly voice stopped him: “You have gazed at the likeness of My image; at My image itself do not gaze.” That passage argues for leaving the cave closed.</li>
-          <li>Jewish law guards the dignity of the dead and forbids disturbing a grave.</li>
+          <li>No source we know permits opening Adam’s grave. We say so openly.</li>
+          <li>The heavenly voice at Adam’s cave (Bava Batra 58a): “Upon My image itself, do not look.” <a href="#verse">See the verse above.</a></li>
+          <li>A Midrash, reported from Pirkei DeRabbi Eliezer and not yet checked by us in the original, says Adam hid his own coffin deep in the cave so that his body would never be made into an idol.</li>
+          <li>The Torah itself hides the grave of Moses: <span class="he inl">וְלֹא־יָדַע אִישׁ אֶת־קְבֻרָתוֹ עַד הַיּוֹם הַזֶּה</span>, “no one knows his burial place to this day” (Deuteronomy 34:6).</li>
+          <li>Jewish law guards the dignity of the dead and forbids opening a closed grave to examine a body (Shulchan Aruch, Yoreh De’ah 363).</li>
           <li>No remains of Adam and Eve have ever been identified or examined. The tradition is Midrash, not an excavation report.</li>
           <li>The site is holy to Jews and to Muslims, and the caves beneath it are closed.</li>
           <li>A DNA test could not prove or disprove God. It could only tell us about biology.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cols">
+      <div class="box">
+        <h3>What science can show</h3>
+        <ul>
+          <li>When a person died, by carbon dating.</li>
+          <li>Ancestry, and whether those buried together are one family.</li>
+          <li>Where a person grew up, from the chemistry of the teeth.</li>
+          <li>Height, build, and the marks that health and illness leave on bone.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>What science cannot show</h3>
+        <ul>
+          <li>A life of 930 years. No test reads centuries, and age read from bone fades past about sixty.</li>
+          <li>That a skeleton is Adam. There is no relative to compare with.</li>
+          <li>What Abraham intended, or anything about God.</li>
+          <li>And one thing nobody knows yet: whether DNA has lasted in a warm cave at all.</li>
         </ul>
       </div>
     </div>
@@ -436,7 +549,7 @@ form.f button:hover{background:var(--gold2)}
 <footer>
   <div class="wrap">
     <a class="brand" href="#top"><b>Benny Labs</b> &nbsp;/&nbsp; The Adam Project</a>
-    <p style="margin-top:18px;max-width:720px">The Adam Project is an idea in its first days. Its aim is to study the remains in the Cave of Machpelah, and nothing will be done without every religious, scientific and legal approval. The pictures on this page are illustrations made for it, not photographs or historical artworks. Verse translations are our own plain renderings.</p>
+    <p style="margin-top:18px;max-width:720px">The Adam Project is an idea in its first days. Its aim is to study the remains in the Cave of Machpelah, and nothing will be done without every religious, scientific and legal approval. The pictures on this page are illustrations made for it, not photographs or historical artworks. Verse translations are our own plain renderings. Every source here is quoted in good faith and is still to be checked in the original by a Torah scholar. Corrections are welcome.</p>
     <p>© 2026 Benny Labs</p>
   </div>
 </footer>
